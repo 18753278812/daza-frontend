@@ -2,6 +2,10 @@
 
 > A Vue.js project
 
+## Documentation
+- [vue.js](http://cn.vuejs.org/guide/)
+- [vue-router](http://vuejs.github.io/vue-router/zh-cn/index.html)
+
 ## Build Setup
 
 ``` bash
