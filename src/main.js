@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 
 import App from './App';
 
+import HomeHello from './components/home/Hello';
+
 import AccountRegister from './components/account/Register';
 import AccountLogin from './components/account/Login';
 import AccountPasswordReset from './components/account/PasswordReset';
@@ -34,9 +36,9 @@ const router = new VueRouter({
 
 // 定义路由规则
 router.map({
-  // '/': {
-  //   component: HomeHello,
-  // },
+  '/': {
+    component: HomeHello,
+  },
   '/account/register': {
     component: AccountRegister,
   },
