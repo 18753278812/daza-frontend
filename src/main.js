@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
 
 import App from './App';
 
@@ -25,6 +26,9 @@ import ArticleDetail from './components/articles/ArticleDetail';
 import NotificationList from './components/notifications/NotificationList';
 
 Vue.use(VueRouter);
+Vue.use(VueResource);
+
+Vue.http.options.root = 'http://localhost:8000';
 
 // 创建一个路由器实例
 const router = new VueRouter({
