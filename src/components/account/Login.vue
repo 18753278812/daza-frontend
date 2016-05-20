@@ -1,19 +1,37 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-  </div>
+  <form class="ui form">
+    <div class="field">
+      <label>邮箱</label>
+      <input v-model="email" type="text" name="email" placeholder="">
+    </div>
+    <div class="field">
+      <label>密码</label>
+      <input v-model="password" type="password" name="password" placeholder="">
+    </div>
+    <button class="ui button" type="submit">Submit</button>
+  </form>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
-      msg: 'Login!',
+      email: 'lijy91@foxmail.com',
+      password: '123456',
     };
+  },
+  ready() {
+    const params = {
+      email: this.email,
+      password: this.password,
+    };
+    this.$http.post('v1/account/login', params).then((response) => {
+      this.results = response.data.data;
+      console.log(response.data.data);
+    }, (response) => {
+      // error callback
+      console.log(response);
+    });
   },
 };
 </script>

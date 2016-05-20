@@ -2,7 +2,7 @@
   <div class="ui items">
     <div class="item" v-for="data in results">
       <div class="ui tiny image">
-        
+
       </div>
       <div class="middle aligned content">
         <a class="header" v-link="{ name: 'post_detail', params: { id: data.id } }">{{ data.title }}</a>
@@ -20,7 +20,7 @@ export default {
     };
   },
   ready() {
-    this.$http({ url: 'v1/posts', method: 'GET' }).then((response) => {
+    this.$http.get('v1/posts').then((response) => {
       this.results = response.data.data;
       console.log(response.data.data);
     }, (response) => {
