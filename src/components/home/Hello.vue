@@ -1,6 +1,10 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <a v-link="'account/login'">Login</a>
+    <a v-link="'account/register'">Register</a>
+    <a v-link="'posts'">Posts</a>
+    <a v-link="'groups'">Groups</a>
   </div>
 </template>
 

@@ -1,6 +1,14 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
+  <div class="ui items">
+    <div class="item" v-for="data in results">
+      <div class="ui tiny image">
+        
+      </div>
+      <div class="middle aligned content">
+        <a class="header" v-link="{ name: 'post_detail', params: { id: data.id } }">{{ data.title }}</a>
+      </div>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -8,19 +16,20 @@
 export default {
   data() {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
-      msg: 'Hello PostList!',
+      results: [],
     };
+  },
+  ready() {
+    this.$http({ url: 'v1/posts', method: 'GET' }).then((response) => {
+      this.results = response.data.data;
+      console.log(response.data.data);
+    }, (response) => {
+      // error callback
+      console.log(response);
+    });
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1 {
-  color: #42b983;
-}
 </style>

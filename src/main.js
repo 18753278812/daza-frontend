@@ -62,6 +62,7 @@ router.map({
     component: GroupList,
   },
   '/groups/:id': {
+    name: 'group_detail',
     component: GroupDetail,
   },
   '/groups/:id/members': {
@@ -71,12 +72,14 @@ router.map({
     component: PostList,
   },
   '/posts/:id': {
+    name: 'post_detail',
     component: PostDetail,
   },
   '/articles': {
     component: ArticleList,
   },
   '/articles/:id': {
+    name: 'article_detail',
     component: ArticleDetail,
   },
   '/notifications': {
