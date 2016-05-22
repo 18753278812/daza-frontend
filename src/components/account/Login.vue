@@ -1,14 +1,22 @@
 <template>
-  <form class="ui form">
-    <div class="field">
-      <label>邮箱</label>
-      <input v-model="email" type="text" name="email" placeholder="">
+  <form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
     </div>
-    <div class="field">
-      <label>密码</label>
-      <input v-model="password" type="password" name="password" placeholder="">
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
     </div>
-    <button class="ui button" type="submit">Submit</button>
+    <div class="form-group">
+      <a v-link="'/account/password_reset'">忘记密码</a>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"> Check me out
+      </label>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </template>
 
