@@ -1,4 +1,5 @@
 <template>
+  <a v-link="'/posts/create'">New</a>
   <div class="row" v-for="data in results">
     <div class="col-md-10">
       <div class="vote-actions">

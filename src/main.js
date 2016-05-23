@@ -17,6 +17,7 @@ import GroupList from './components/groups/GroupList';
 import GroupDetail from './components/groups/GroupDetail';
 import GroupMembers from './components/groups/GroupMembers';
 
+import PostCreate from './components/posts/PostCreate';
 import PostList from './components/posts/PostList';
 import PostDetail from './components/posts/PostDetail';
 
@@ -70,6 +71,9 @@ router.map({
   },
   '/posts': {
     component: PostList,
+  },
+  '/posts/create': {
+    component: PostCreate,
   },
   '/posts/:id': {
     name: 'post_detail',
