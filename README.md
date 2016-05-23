@@ -2,6 +2,11 @@
 
 > A Vue.js project
 
+[![Build Status](https://api.travis-ci.org/lijy91/phoenix-frontend.svg?branch=master)](https://travis-ci.org/lijy91/phoenix-frontend)
+
+## 演示
+[Live Demo](http://phoenix-frontend.daoapp.io)
+
 ## Documentation
 - [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 - [vue.js](http://cn.vuejs.org/guide/)
