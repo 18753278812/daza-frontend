@@ -1,29 +1,15 @@
 <template>
   <a v-link="'/posts/create'">New</a>
-  <div class="row" v-for="data in results">
-    <div class="col-md-10">
-      <div class="vote-actions">
-        <a href="#">
-          <i class="fa fa-chevron-up"> </i>
-        </a>
-        <div>34</div>
-        <a href="#">
-          <i class="fa fa-chevron-down"> </i>
-        </a>
-      </div>
-      <a class="vote-title" v-link="{ name: 'post_detail', params: { id: data.id } }">
-        {{ data.title }}
+
+  <div class="media" v-for="data in results">
+    <div class="media-left">
+      <a href="#">
+        <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTRlMzVmNjU2NCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1NGUzNWY2NTY0Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMy40Njg3NSIgeT0iMzYuNSI+NjR4NjQ8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true" style="width: 64px; height: 64px;">
       </a>
-      <div class="vote-info">
-        <i class="fa fa-comments-o"></i> <a href="#">Comments (21)</a>
-        <i class="fa fa-clock-o"></i> <a href="#">11 Hours ago</a>
-        <i class="fa fa-user"></i> <a href="#">Johnathan Morgan</a>
-      </div>
     </div>
-    <div class="col-md-2 ">
-      <div class="vote-icon">
-        <i class="fa fa-tumblr"> </i>
-      </div>
+    <div class="media-body">
+      <h4 class="media-heading">{{ data.title }}</h4>
+      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
     </div>
   </div>
 </template>
