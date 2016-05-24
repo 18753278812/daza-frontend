@@ -1,19 +1,24 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-  </div>
+
+  <h1 class="ui header">{{ data.title }}</h1>
+  <p>{{ data.content }}</p>
+
 </template>
 
 <script>
 export default {
   data() {
     return {
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
-      msg: 'Hello ArticleDetail!',
+      data: {},
     };
+  },
+  ready() {
+    const articleId = this.$route.params.id;
+
+    this.$http.get(`v1/articles/${articleId}?`).then((response) => {
+      this.data = response.data.data;
+      console.log(this.data);
+    }, () => { });
   },
 };
 </script>

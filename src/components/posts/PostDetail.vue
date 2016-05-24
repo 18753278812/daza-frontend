@@ -1,8 +1,8 @@
 <template>
-  <div class="hello">
-    <h1>{{ data.content }} {{$route.params.id}}</h1>
 
-  </div>
+  <h1 class="ui header">{{ data.title }}</h1>
+  <p>{{ data.content }}</p>
+
 </template>
 
 <script>

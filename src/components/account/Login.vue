@@ -1,24 +1,42 @@
 <template>
-  <form>
-    <h2>登录</h2>
-    <div class="form-group">
-      <input type="email" class="form-control" placeholder="请输入邮箱">
-    </div>
-    <div class="form-group">
-      <input type="password" class="form-control" placeholder="请输入密码">
-    </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-block">登录</button>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-6">
-        <a class="btn btn-link" v-link="'/account/password_reset'">忘记密码</a>
+  <div class="ui grid">
+    <div class="five wide column"></div>
+    <div class="six wide column">
+      <h2 class="ui header">
+        <div class="content">
+          登录
+        </div>
+      </h2>
+      <form class="ui large form">
+        <div class="ui stacked">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="email" name="email" placeholder="请输入邮箱">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="password" placeholder="请输入密码">
+            </div>
+          </div>
+          <button  type="submit" class="fluid ui primary button">登录</button>
+        </div>
+
+        <div class="ui error message"></div>
+
+      </form>
+      <div class="ui two column grid">
+        <div class="column">
+          <a v-link="'/account/password_reset'">忘记密码</a>
+        </div>
+        <div class="column right aligned">
+          <a v-link="'/account/register'">注册账户</a>
+        </div>
       </div>
-      <div class="col-sm-6">
-        <a class="btn btn-link pull-right" v-link="'/account/register'">注册账户</a>
-      </div>
-    </div>
-  </form>
+    <div class="five wide column"></div>
+  </div>
 </template>
 
 <script>

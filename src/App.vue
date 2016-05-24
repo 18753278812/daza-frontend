@@ -1,7 +1,9 @@
 <template>
   <navbar-view></navbar-view>
 
-  <router-view></router-view>
+  <div class="ui main container">
+    <router-view></router-view>
+  </div>
 
   <footer-view></footer-view>
 </template>
@@ -22,4 +24,7 @@ export default {
 </script>
 
 <style>
+.main.container {
+  margin-top: 7em;
+}
 </style>
