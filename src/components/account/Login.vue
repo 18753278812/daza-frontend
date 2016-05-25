@@ -1,32 +1,38 @@
 <template>
-  <div class="ui grid">
-    <div class="five wide column"></div>
-    <div class="six wide column">
+  <div class="ui login grid">
+    <div class="column">
       <h2 class="ui header">
         <div class="content">
           登录
         </div>
       </h2>
-      <form class="ui large form">
-        <div class="ui stacked">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="email" name="email" placeholder="请输入邮箱">
+      <validator name="validation">
+        <form class="ui large form" novalidate>
+          <div class="ui stacked">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="email" name="email" placeholder="请输入邮箱"
+                  v-validate:email="{ required: true, email: true }">
+              </div>
             </div>
-          </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input type="password" name="password" placeholder="请输入密码">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" name="password" placeholder="请输入密码"
+                  v-validate:password="{ required: true, minlength: 6, maxlength: 32 }">
+              </div>
             </div>
+            <button  type="submit" class="fluid ui primary button {{ $validation.valid ? '' : 'disabled'}}">登录</button>
           </div>
-          <button  type="submit" class="fluid ui primary button">登录</button>
-        </div>
 
-        <div class="ui error message"></div>
+          <div class="ui error message">
+            <div class="header">Action Forbidden</div>
+            <p>You can only sign up for an account once with a given e-mail address.</p>
+          </div>
 
-      </form>
+        </form>
+      </validator>
       <div class="ui two column grid">
         <div class="column">
           <a v-link="'/account/password_reset'">忘记密码</a>
@@ -35,7 +41,6 @@
           <a v-link="'/account/register'">注册账户</a>
         </div>
       </div>
-    <div class="five wide column"></div>
   </div>
 </template>
 
@@ -43,8 +48,6 @@
 export default {
   data() {
     return {
-      email: 'lijy91@foxmail.com',
-      password: '123456',
     };
   },
   ready() {
@@ -64,9 +67,8 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1 {
-  color: #42b983;
+.login.grid {
+  max-width: 350px;
 }
 </style>

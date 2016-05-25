@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
+import VueValidator from 'vue-validator';
 
 import App from './App';
 
@@ -28,6 +29,8 @@ import NotificationList from './components/notifications/NotificationList';
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
+Vue.use(VueValidator);
+
 
 Vue.http.options.root = 'http://localhost:8000';
 

@@ -12,6 +12,7 @@
 - [vue.js](http://cn.vuejs.org/guide/)
 - [vue-router](http://vuejs.github.io/vue-router/zh-cn/index.html)
 - [vue-resource](https://github.com/vuejs/vue-resource)
+- [vue-validator](http://vuejs.github.io/vue-validator/zh-cn/index.html)
 
 ## Build Setup
 

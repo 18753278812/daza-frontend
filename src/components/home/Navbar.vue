@@ -15,7 +15,6 @@
           <a class="ui primary button" v-link="'/account/register'">注册</a>
         </div>
         <a href="#" class="item">通知</a>
-        <a href="#" class="item">私信</a>
         <div class="ui simple dropdown item">
           <a href="#"> 痕迹 <i class="dropdown icon"></i></a>
           <div class="menu">

@@ -1,7 +1,6 @@
 <template>
   <div class="ui grid">
-    <div class="five wide column"></div>
-    <div class="six wide column">
+    <div class="column">
       <h2 class="ui header">
         <div class="content">
           注册
@@ -33,7 +32,7 @@
         <div class="ui error message"></div>
 
       </form>
-    <div class="five wide column"></div>
+    </div>
   </div>
 </template>
 
