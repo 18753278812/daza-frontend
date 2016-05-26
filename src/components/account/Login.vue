@@ -1,5 +1,5 @@
 <template>
-  <div class="ui login grid">
+  <div class="ui grid">
     <div class="column">
       <h2 class="ui header">
         <div class="content">
@@ -12,15 +12,13 @@
             <div class="field">
               <div class="ui left icon input">
                 <i class="user icon"></i>
-                <input type="email" name="email" placeholder="请输入邮箱"
-                  v-validate:email="{ required: true, email: true }">
+                <input type="email" name="email" placeholder="请输入邮箱" v-validate:email="rules.email">
               </div>
             </div>
             <div class="field">
               <div class="ui left icon input">
                 <i class="lock icon"></i>
-                <input type="password" name="password" placeholder="请输入密码"
-                  v-validate:password="{ required: true, minlength: 6, maxlength: 32 }">
+                <input type="password" name="password" placeholder="请输入密码" v-validate:password="rules.password">
               </div>
             </div>
             <button  type="submit" class="fluid ui primary button {{ $validation.valid ? '' : 'disabled'}}">登录</button>
@@ -48,6 +46,10 @@
 export default {
   data() {
     return {
+      rules: {
+        email: { required: true },
+        password: { required: true, minlength: 6, maxlength: 32 },
+      },
     };
   },
   ready() {
