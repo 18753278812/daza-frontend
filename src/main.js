@@ -31,8 +31,7 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(VueValidator);
 
-
-Vue.http.options.root = 'http://localhost:8000';
+Vue.http.options.root = process.env.API_URL;
 
 // 创建一个路由器实例
 const router = new VueRouter({

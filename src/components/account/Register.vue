@@ -1,39 +1,27 @@
 <template>
-  <div class="ui grid">
-    <div class="column">
-      <h2 class="ui header">
-        <div class="content">
-          注册
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+        <div class="text-center">
+          <h3>注册</h3>
         </div>
-      </h2>
-      <validator name="validation">
-        <form class="ui large form" novalidate>
-          <div class="ui stacked">
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="user icon"></i>
-                <input type="email" name="email" placeholder="请输入邮箱" v-validate:email="rules.email">
-              </div>
+        <validator name="validation">
+          <form novalidate>
+            <div class="form-group">
+              <input class="form-control" type="email" name="email" placeholder="请输入邮箱" v-validate:email="rules.email">
             </div>
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="lock icon"></i>
-                <input type="password" name="password" placeholder="请输入密码" v-validate:password="rules.password">
-              </div>
+            <div class="form-group">
+              <input class="form-control" type="password" name="password" placeholder="请输入密码" v-validate:password="rules.password">
             </div>
-            <div class="field">
-              <div class="ui checkbox">
-                <input type="checkbox" name="example">
-                <label>我已阅读并同意《服务协议》和《隐私权协议》</label>
-              </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> 我已阅读并同意《<a href="#">用户隐私条款</a>》
+              </label>
             </div>
-            <button  type="submit" class="fluid ui primary button {{ $validation.valid ? '' : 'disabled'}}">注册</button>
-          </div>
-
-          <div class="ui error message"></div>
-
-        </form>
-      </validator>
+            <button type="submit" class="btn btn-primary btn-block" :disabled="!$validation.valid">注册</button>
+          </form>
+        </validator>
+      </div>
     </div>
   </div>
 </template>

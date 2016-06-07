@@ -1,44 +1,31 @@
 <template>
-  <div class="ui grid">
-    <div class="column">
-      <h2 class="ui header">
-        <div class="content">
-          登录
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+        <div class="text-center">
+          <h3>登录</h3>
         </div>
-      </h2>
-      <validator name="validation">
-        <form class="ui large form" novalidate>
-          <div class="ui stacked">
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="user icon"></i>
-                <input type="email" name="email" placeholder="请输入邮箱" v-validate:email="rules.email">
-              </div>
+        <validator name="validation">
+          <form novalidate>
+            <div class="form-group">
+              <input class="form-control" type="email" name="email" placeholder="请输入邮箱" v-validate:email="rules.email">
             </div>
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="lock icon"></i>
-                <input type="password" name="password" placeholder="请输入密码" v-validate:password="rules.password">
-              </div>
+            <div class="form-group">
+              <input class="form-control" type="password" name="password" placeholder="请输入密码" v-validate:password="rules.password">
             </div>
-            <button  type="submit" class="fluid ui primary button {{ $validation.valid ? '' : 'disabled'}}">登录</button>
+            <button type="submit" class="btn btn-primary btn-block" :disabled="!$validation.valid">登录</button>
+          </form>
+          <div class="row">
+            <div class="col-xs-6 col-sm-6">
+              <a v-link="'/account/password_reset'">忘记密码</a>
+            </div>
+            <div class="col-xs-6 col-sm-6 text-right">
+              <a v-link="'/account/register'">注册账户</a>
+            </div>
           </div>
-
-          <div class="ui error message">
-            <div class="header">Action Forbidden</div>
-            <p>You can only sign up for an account once with a given e-mail address.</p>
-          </div>
-
-        </form>
-      </validator>
-      <div class="ui two column grid">
-        <div class="column">
-          <a v-link="'/account/password_reset'">忘记密码</a>
-        </div>
-        <div class="column right aligned">
-          <a v-link="'/account/register'">注册账户</a>
-        </div>
+        </validator>
       </div>
+    </div>
   </div>
 </template>
 
