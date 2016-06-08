@@ -1,9 +1,16 @@
 import Vue from 'vue';
+import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import VueValidator from 'vue-validator';
 
 import App from './App';
+
+import Error404 from './components/_error/Error404';
+
+import HomeWrapper from './components/_wrapper/HomeWrapper';
+import MainWrapper from './components/_wrapper/MainWrapper';
+import SimpleWrapper from './components/_wrapper/SimpleWrapper';
 
 import HomeHello from './components/home/Hello';
 
@@ -31,6 +38,7 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(VueValidator);
 
+Vue.config.devtools = true;
 Vue.http.options.root = process.env.API_URL;
 
 // 创建一个路由器实例
@@ -94,5 +102,5 @@ router.map({
 });
 
 // 现在我们可以启动应用了！
-// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
+// 路由器会创建一个 App 实例，并且挂载到选择符 app 匹配的元素上。
 router.start(App, 'app');

@@ -1,7 +1,6 @@
 <template>
   <div class="ui inverted vertical footer segment">
     <div class="ui center aligned container">
-      <img src="../../assets/logo.png" class="ui centered mini image">
       <div class="ui horizontal inverted small divided link list">
         <a class="item" href="#">Site Map</a>
         <a class="item" href="#">Contact Us</a>
@@ -21,8 +20,4 @@ export default {
 </script>
 
 <style scoped>
-.ui.footer.segment {
-  margin: 5em 0em 0em;
-  padding: 5em 0em;
-}
 </style>

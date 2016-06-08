@@ -1,25 +1,20 @@
 <template>
-  <navbar-view></navbar-view>
-
   <router-view></router-view>
-
-  <footer-view></footer-view>
 </template>
 
 <script>
-import Navbar from './components/home/Navbar';
-import Footer from './components/home/Footer';
-
 export default {
-  components: {
-    'navbar-view': Navbar,
-    'footer-view': Footer,
-  },
   data() {
-    return {};
+    return {
+    };
+  },
+  ready() {
   },
 };
 </script>
 
 <style>
+body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 {
+  font-family: "Open sans","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft YaHei",Arial,sans-serif;
+}
 </style>

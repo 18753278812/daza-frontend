@@ -21,6 +21,9 @@
             <button type="submit" class="btn btn-primary btn-block" :disabled="!$validation.valid">注册</button>
           </form>
         </validator>
+        <div class="text-center">
+          已有账号？<a v-link="'/account/login'">点此登录</a>
+        </div>
       </div>
     </div>
   </div>

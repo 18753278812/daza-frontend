@@ -40,7 +40,7 @@ export default {
     };
   },
   ready() {
-    this.$http.post('v1/account/logout').then(() => { });
+    // this.$http.post('v1/account/logout').then(() => { });
     // const params = {
     //   email: this.email,
     //   password: this.password,
