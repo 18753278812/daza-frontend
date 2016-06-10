@@ -8,10 +8,12 @@
         <validator name="validation">
           <form novalidate>
             <div class="form-group">
-              <label>将发送一封密码重置邮件到你的邮箱<br>点击按钮即可重置密码</label>
+              <label>我们将发送一封密码重置邮件到你的邮箱<br>点击按钮即可重置密码</label>
               <input class="form-control" type="email" name="email" placeholder="请输入邮箱" v-validate:email="rules.email">
             </div>
-            <button type="submit" class="btn btn-primary btn-block" :disabled="!$validation.valid">发送验证邮件</button>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block" :disabled="!$validation.valid">发送验证邮件</button>
+            </div>
           </form>
         </validator>
       </div>
@@ -24,7 +26,7 @@ export default {
   data() {
     return {
       rules: {
-        email: { required: true },
+        email: { required: true, email: true },
       },
     };
   },

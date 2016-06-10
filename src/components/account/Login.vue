@@ -6,21 +6,35 @@
           <h3>登录</h3>
         </div>
         <validator name="validation">
-          <form novalidate>
+          <form novalidate @submit.prevent="submit()">
             <div class="form-group">
-              <input class="form-control" type="email" name="email" placeholder="请输入邮箱" v-validate:email="rules.email">
+              <input
+                class="form-control"
+                type="email"
+                name="email"
+                placeholder="请输入邮箱"
+                v-model="email"
+                v-validate:email="rules.email">
             </div>
             <div class="form-group">
-              <input class="form-control" type="password" name="password" placeholder="请输入密码" v-validate:password="rules.password">
+              <input
+                class="form-control"
+                type="password"
+                name="password"
+                placeholder="请输入密码"
+                v-model="password"
+                v-validate:password="rules.password">
             </div>
-            <button type="submit" class="btn btn-primary btn-block" :disabled="!$validation.valid">登录</button>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block" :disabled="!$validation.valid">登录</button>
+            </div>
           </form>
           <div class="row">
             <div class="col-xs-6 col-sm-6">
               <a v-link="'/account/password_reset'">忘记密码</a>
             </div>
             <div class="col-xs-6 col-sm-6 text-right">
-              <a v-link="'/account/register'">注册账户</a>
+              <a v-link="'/account/register'">创建账号</a>
             </div>
           </div>
         </validator>
@@ -30,34 +44,45 @@
 </template>
 
 <script>
+import toastr from 'toastr';
+import NProgress from 'nprogress';
+import { login, logout } from '../../vuex/actions';
+
 export default {
+  vuex: {
+    actions: {
+      login,
+      logout,
+    },
+  },
   data() {
     return {
       rules: {
-        email: { required: true },
+        email: { required: true, email: true },
         password: { required: true, minlength: 6, maxlength: 32 },
       },
+      email: 'lijy91@foxmail.com',
+      password: '123456',
     };
   },
   ready() {
-    // this.$http.post('v1/account/logout').then(() => { });
-    // const params = {
-    //   email: this.email,
-    //   password: this.password,
-    // };
-    // this.$http.post('v1/account/login', params).then((response) => {
-    //   this.results = response.data.data;
-    //   console.log(response.data.data);
-    // }, (response) => {
-    //   // error callback
-    //   console.log(response);
-    // });
+    this.logout();
+  },
+  methods: {
+    submit() {
+      NProgress.start();
+      this.login(this.email, this.password).then(() => {
+        toastr.success('登录成功！');
+        NProgress.done();
+        this.$route.router.go('/projects');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
-.login.grid {
-  max-width: 350px;
-}
 </style>

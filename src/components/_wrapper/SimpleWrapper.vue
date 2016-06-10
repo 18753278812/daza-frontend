@@ -18,7 +18,6 @@ export default {
     };
   },
   ready() {
-    console.log('simpleWrapper');
   },
 };
 </script>

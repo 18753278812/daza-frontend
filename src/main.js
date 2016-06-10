@@ -1,45 +1,58 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VueI18n from 'vue-i18n';
 import VueRouter from 'vue-router';
-import VueResource from 'vue-resource';
 import VueValidator from 'vue-validator';
+import VueResource from 'vue-resource';
+import toastr from 'toastr';
+
+import routes from './routes';
+import locales from './lang';
+
+import store from './vuex/store';
+import { unauthorized } from './vuex/actions';
 
 import App from './App';
 
-import Error404 from './components/_error/Error404';
-
-import HomeWrapper from './components/_wrapper/HomeWrapper';
-import MainWrapper from './components/_wrapper/MainWrapper';
-import SimpleWrapper from './components/_wrapper/SimpleWrapper';
-
-import HomeHello from './components/home/Hello';
-
-import AccountRegister from './components/account/Register';
-import AccountLogin from './components/account/Login';
-import AccountPasswordReset from './components/account/PasswordReset';
-
-import UserList from './components/users/UserList';
-import UserDetail from './components/users/UserDetail';
-
-import GroupList from './components/groups/GroupList';
-import GroupDetail from './components/groups/GroupDetail';
-import GroupMembers from './components/groups/GroupMembers';
-
-import PostCreate from './components/posts/PostCreate';
-import PostList from './components/posts/PostList';
-import PostDetail from './components/posts/PostDetail';
-
-import ArticleList from './components/articles/ArticleList';
-import ArticleDetail from './components/articles/ArticleDetail';
-
-import NotificationList from './components/notifications/NotificationList';
-
+Vue.use(Vuex);
+Vue.use(VueI18n);
 Vue.use(VueRouter);
-Vue.use(VueResource);
 Vue.use(VueValidator);
+Vue.use(VueResource);
+
+toastr.options.positionClass = 'toast-bottom-center';
+toastr.options.timeOut = 1000;
 
 Vue.config.devtools = true;
-Vue.http.options.root = process.env.API_URL;
+
+Vue.config.lang = 'zh-CN';
+Object.keys(locales).forEach((lang) => {
+  Vue.locale(lang, locales[lang]);
+});
+
+// VueResource 配置
+Vue.http.options.root = process.env.API_BASE_URL;
+Vue.http.options.xhr = { withCredentials: true };
+Vue.http.interceptors.push({
+  request(request) {
+    return request;
+  },
+  response(response) {
+    if (response.status === 401) {
+      console.log(store);
+      unauthorized(store);
+    }
+    return response;
+  },
+});
+
+// Register email validator function.
+Vue.validator('email', (val) => {
+  if (!val) {
+    return false;
+  }
+  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(val);
+});
 
 // 创建一个路由器实例
 const router = new VueRouter({
@@ -50,56 +63,7 @@ const router = new VueRouter({
 });
 
 // 定义路由规则
-router.map({
-  '/': {
-    component: HomeHello,
-  },
-  '/account/register': {
-    component: AccountRegister,
-  },
-  '/account/login': {
-    component: AccountLogin,
-  },
-  '/account/password_reset': {
-    component: AccountPasswordReset,
-  },
-  '/users': {
-    component: UserList,
-  },
-  '/users/:id': {
-    component: UserDetail,
-  },
-  '/groups': {
-    component: GroupList,
-  },
-  '/groups/:id': {
-    name: 'group_detail',
-    component: GroupDetail,
-  },
-  '/groups/:id/members': {
-    component: GroupMembers,
-  },
-  '/posts': {
-    component: PostList,
-  },
-  '/posts/create': {
-    component: PostCreate,
-  },
-  '/posts/:id': {
-    name: 'post_detail',
-    component: PostDetail,
-  },
-  '/articles': {
-    component: ArticleList,
-  },
-  '/articles/:id': {
-    name: 'article_detail',
-    component: ArticleDetail,
-  },
-  '/notifications': {
-    component: NotificationList,
-  },
-});
+router.map(routes);
 
 // 现在我们可以启动应用了！
 // 路由器会创建一个 App 实例，并且挂载到选择符 app 匹配的元素上。
