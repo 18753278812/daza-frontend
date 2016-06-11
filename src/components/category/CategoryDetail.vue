@@ -1,12 +1,9 @@
 <template>
-  <router-view></router-view>
+  <p>category list</p>
 </template>
 
 <script>
-import store from './vuex/store';
-
 export default {
-  store,
   data() {
     return {
     };
@@ -16,5 +13,5 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 </style>

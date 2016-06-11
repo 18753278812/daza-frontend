@@ -19,14 +19,9 @@
           <li><a v-link="'/tools'">工具</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" v-if="auth.check()">
-          <li>
-            <div class="navbar-form">
-              <button class="btn btn-success" v-link="'/projects'">我的项目</button>
-            </div>
-          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <img src="http://placehold.it/25x25" class="img-circle">
+              {{ auth.user.name }}
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
@@ -43,6 +38,7 @@
       </div><!--/.navbar-collapse -->
     </div>
   </nav>
+  <div style="height: 50px;"></div>
 </template>
 
 <script>
