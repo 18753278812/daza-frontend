@@ -3,7 +3,7 @@
     <hr>
     <div class="row">
       <div class="col-md-4">
-        <span class="copyright">Copyright © BlankApp 2016</span>
+        <span class="copyright">Copyright © DAZA.IO 2016</span>
       </div>
       <div class="col-md-4">
         <ul class="list-inline">

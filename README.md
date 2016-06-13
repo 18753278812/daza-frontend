@@ -1,8 +1,8 @@
-# phoenix-frontend
+# Data.io Front-End
 
 > A Vue.js project
 
-[![Build Status](https://api.travis-ci.org/lijy91/phoenix-frontend.svg?branch=master)](https://travis-ci.org/lijy91/phoenix-frontend)
+[![Build Status](https://api.travis-ci.org/lijy91/daza-frontend.svg?branch=master)](https://travis-ci.org/lijy91/daza-frontend)
 
 ## 演示
 [Live Demo](http://phoenix-frontend.daoapp.io)

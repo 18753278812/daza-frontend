@@ -6,7 +6,7 @@
           <li><a href="#">关于我们</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">&copy; BlankApp</a></li>
+          <li><a href="#">&copy; DAZA.IO</a></li>
         </ul>
       </div>
     </div>
