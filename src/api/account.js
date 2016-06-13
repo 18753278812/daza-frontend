@@ -1,8 +1,10 @@
 import Vue from 'vue';
 
+const VER = process.env.API_VERSION;
+
 export default {
   register(username, email, password) {
-    return Vue.http.post('v1/account/register', { username, email, password })
+    return Vue.http.post(`${VER}/account/register`, { username, email, password })
       .then(response => {
         if (response.ok) {
           return Promise.resolve(response.data.data);
@@ -11,7 +13,7 @@ export default {
       });
   },
   login(email, password) {
-    return Vue.http.post('v1/account/login', { email, password })
+    return Vue.http.post(`${VER}/account/login`, { email, password })
       .then((response) => {
         if (response.ok) {
           return Promise.resolve(response.data.data);
@@ -20,7 +22,8 @@ export default {
       });
   },
   logout() {
-    return Vue.http.post('v1/account/logout')
+    console.log(`${VER}/account/logout`);
+    return Vue.http.post(`${VER}/account/logout`)
       .then(response => {
         if (response.ok) {
           return Promise.resolve();
