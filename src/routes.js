@@ -4,6 +4,7 @@ import MainWrapper from './components/_wrapper/MainWrapper';
 import SimpleWrapper from './components/_wrapper/SimpleWrapper';
 
 import HomeIndex from './components/home/Index';
+import HomeStatus from './components/home/Status';
 
 import AccountRegister from './components/account/Register';
 import AccountLogin from './components/account/Login';
@@ -39,12 +40,17 @@ import EventCreate from './components/event/EventCreate';
 import EventList from './components/event/EventList';
 import EventDetail from './components/event/EventDetail';
 
+import NotificationList from './components/notification/NotificationList';
+
 export default {
   '/': {
     component: MainWrapper,
     subRoutes: {
       '/': {
         component: HomeIndex,
+      },
+      '/status': {
+        component: HomeStatus,
       },
       '/users': {
         component: UserList,
@@ -112,6 +118,9 @@ export default {
       '/events/:id': {
         name: 'event_detail',
         component: EventDetail,
+      },
+      '/notifications': {
+        component: NotificationList,
       },
       '*': {
         component: Error404,

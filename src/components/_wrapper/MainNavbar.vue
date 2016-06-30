@@ -8,17 +8,16 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" v-link="'/'">
-          <img alt="Brand" width="20" height="20" src="../../assets/logo.png">
-        </a>
+        <a class="navbar-brand" v-link="'/'">DAZA.IO</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li><a v-link="'/products'">功能</a></li>
-          <li><a v-link="'/docs'">文档</a></li>
-          <li><a v-link="'/tools'">工具</a></li>
+          <li><a v-link="'/posts'">帖子</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" v-if="auth.check()">
+          <li>
+            <a v-link="'/notifications'">通知</a>
+          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               {{ auth.user.name }}

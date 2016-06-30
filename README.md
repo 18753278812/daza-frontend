@@ -13,6 +13,7 @@
 - [vue-router](http://vuejs.github.io/vue-router/zh-cn/index.html)
 - [vue-resource](https://github.com/vuejs/vue-resource)
 - [vue-validator](http://vuejs.github.io/vue-validator/zh-cn/index.html)
+- [vue-markdown](https://github.com/miaolz123/vue-markdown)
 
 ## Build Setup
 
