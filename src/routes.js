@@ -12,17 +12,11 @@ import AccountLogout from './components/account/Logout';
 import AccountPasswordReset from './components/account/PasswordReset';
 import AccountProfile from './components/account/Profile';
 
-import CategoryList from './components/category/CategoryList';
-import CategoryDetail from './components/category/CategoryDetail';
-
 import UserList from './components/user/UserList';
 import UserDetail from './components/user/UserDetail';
 
 import TagList from './components/tag/TagList';
 import TagDetail from './components/tag/TagDetail';
-
-import GroupList from './components/group/GroupList';
-import GroupDetail from './components/group/GroupDetail';
 
 import TweetCreate from './components/tweet/TweetCreate';
 import TweetList from './components/tweet/TweetList';
@@ -59,25 +53,12 @@ export default {
         name: 'user_detail',
         component: UserDetail,
       },
-      '/categories': {
-        component: CategoryList,
-      },
-      '/categories/:id': {
-        component: CategoryDetail,
-      },
       '/tags': {
         component: TagList,
       },
       '/tags/:name': {
         name: 'tag_detail',
         component: TagDetail,
-      },
-      '/groups': {
-        component: GroupList,
-      },
-      '/groups/:id': {
-        name: 'group_detail',
-        component: GroupDetail,
       },
       '/tweets/create': {
         component: TweetCreate,
