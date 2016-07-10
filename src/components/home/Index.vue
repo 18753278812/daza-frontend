@@ -5,13 +5,11 @@
       <a v-link="'account/login'">Login</a>
       <a v-link="'account/register'">Register</a>
       <a v-link="'users'">users</a>
-      <a v-link="'categories'">categories</a>
-      <a v-link="'tags'">tags</a>
-      <a v-link="'groups'">groups</a>
-      <a v-link="'tweets'">tweets</a>
-      <a v-link="'posts'">posts</a>
+      <a v-link="'topics'">topics</a>
       <a v-link="'articles'">articles</a>
+      <a v-link="'tweets'">tweets</a>
       <a v-link="'events'">events</a>
+      <a v-link="'tags'">tags</a>
     </div>
   </div>
 </template>

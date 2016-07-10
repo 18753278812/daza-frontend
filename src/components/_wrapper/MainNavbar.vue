@@ -11,9 +11,9 @@
         <a class="navbar-brand" v-link="'/'">DAZA.IO</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
+        <!-- <ul class="nav navbar-nav">
           <li><a v-link="'/posts'">帖子</a></li>
-        </ul>
+        </ul> -->
         <ul class="nav navbar-nav navbar-right" v-if="auth.check()">
           <li>
             <a v-link="'/notifications'">通知</a>
