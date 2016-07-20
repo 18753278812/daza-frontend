@@ -15,24 +15,24 @@ import AccountProfile from './components/account/Profile';
 import UserList from './components/user/UserList';
 import UserDetail from './components/user/UserDetail';
 
-import TagList from './components/tag/TagList';
-import TagDetail from './components/tag/TagDetail';
-
-import TweetCreate from './components/tweet/TweetCreate';
-import TweetList from './components/tweet/TweetList';
-import TweetDetail from './components/tweet/TweetDetail';
-
-import PostCreate from './components/post/PostCreate';
-import PostList from './components/post/PostList';
-import PostDetail from './components/post/PostDetail';
+import TopicCreate from './components/topic/TopicCreate';
+import TopicList from './components/topic/TopicList';
+import TopicDetail from './components/topic/TopicDetail';
 
 import ArticleCreate from './components/article/ArticleCreate';
 import ArticleList from './components/article/ArticleList';
 import ArticleDetail from './components/article/ArticleDetail';
 
+import TweetCreate from './components/tweet/TweetCreate';
+import TweetList from './components/tweet/TweetList';
+import TweetDetail from './components/tweet/TweetDetail';
+
 import EventCreate from './components/event/EventCreate';
 import EventList from './components/event/EventList';
 import EventDetail from './components/event/EventDetail';
+
+import TagList from './components/tag/TagList';
+import TagDetail from './components/tag/TagDetail';
 
 import NotificationList from './components/notification/NotificationList';
 
@@ -53,32 +53,15 @@ export default {
         name: 'user_detail',
         component: UserDetail,
       },
-      '/tags': {
-        component: TagList,
+      '/topics/create': {
+        component: TopicCreate,
       },
-      '/tags/:name': {
-        name: 'tag_detail',
-        component: TagDetail,
+      '/topics': {
+        component: TopicList,
       },
-      '/tweets/create': {
-        component: TweetCreate,
-      },
-      '/tweets': {
-        component: TweetList,
-      },
-      '/tweets/:id': {
-        name: 'tweet_detail',
-        component: TweetDetail,
-      },
-      '/posts/create': {
-        component: PostCreate,
-      },
-      '/posts': {
-        component: PostList,
-      },
-      '/posts/:id': {
-        name: 'post_detail',
-        component: PostDetail,
+      '/topics/:id': {
+        name: 'topic_detail',
+        component: TopicDetail,
       },
       '/articles/create': {
         component: ArticleCreate,
@@ -90,6 +73,16 @@ export default {
         name: 'article_detail',
         component: ArticleDetail,
       },
+      '/tweets/create': {
+        component: TweetCreate,
+      },
+      '/tweets': {
+        component: TweetList,
+      },
+      '/tweets/:id': {
+        name: 'tweet_detail',
+        component: TweetDetail,
+      },
       '/events/create': {
         component: EventCreate,
       },
@@ -99,6 +92,13 @@ export default {
       '/events/:id': {
         name: 'event_detail',
         component: EventDetail,
+      },
+      '/tags': {
+        component: TagList,
+      },
+      '/tags/:name': {
+        name: 'tag_detail',
+        component: TagDetail,
       },
       '/notifications': {
         component: NotificationList,
