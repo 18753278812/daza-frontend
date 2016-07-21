@@ -15,6 +15,9 @@ import AccountProfile from './components/account/Profile';
 import UserList from './components/user/UserList';
 import UserDetail from './components/user/UserDetail';
 
+import CategoryList from './components/category/CategoryList';
+import CategoryDetail from './components/category/CategoryDetail';
+
 import TopicCreate from './components/topic/TopicCreate';
 import TopicList from './components/topic/TopicList';
 import TopicDetail from './components/topic/TopicDetail';
@@ -52,6 +55,12 @@ export default {
       '/users/:id': {
         name: 'user_detail',
         component: UserDetail,
+      },
+      '/categories': {
+        component: CategoryList,
+      },
+      '/categories/:id': {
+        component: CategoryDetail,
       },
       '/topics/create': {
         component: TopicCreate,
