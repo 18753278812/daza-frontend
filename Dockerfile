@@ -20,6 +20,8 @@ RUN npm install
 
 COPY . /app/
 
+ENV NODE_ENV=development
+
 RUN npm run build
 
 RUN cp -R /app/dist/*  /usr/share/nginx/html
