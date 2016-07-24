@@ -11,7 +11,7 @@
 - [daza-android](https://github.com/lijy91/daza-android)
 
 ## 演示
-[Live Demo](http://daza-frontend.daoapp.io)
+[Live Demo](http://mock-web.daza.io)
 
 ## Documentation
 - [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
