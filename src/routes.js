@@ -39,6 +39,11 @@ import TagDetail from './components/tag/TagDetail';
 
 import NotificationList from './components/notification/NotificationList';
 
+// In-app
+import InAppMainWrapper from './in-app-components/_wrapper/MainWrapper';
+import InAppArticleDetail from './in-app-components/article/ArticleDetail';
+import InAppError404 from './in-app-components/_error/Error404';
+
 export default {
   '/': {
     component: MainWrapper,
@@ -139,6 +144,18 @@ export default {
     subRoutes: {
       '/': {
         component: AccountProfile,
+      },
+    },
+  },
+  '/in-app': {
+    component: InAppMainWrapper,
+    subRoutes: {
+      '/articles/:id': {
+        name: 'article_detail',
+        component: InAppArticleDetail,
+      },
+      '*': {
+        component: InAppError404,
       },
     },
   },
