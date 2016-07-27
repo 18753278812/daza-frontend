@@ -74,7 +74,7 @@ export default {
       this.login(this.email, this.password).then(() => {
         toastr.success('登录成功！');
         NProgress.done();
-        this.$route.router.go('/projects');
+        this.$route.router.go('/');
       })
       .catch(error => {
         console.log(error);

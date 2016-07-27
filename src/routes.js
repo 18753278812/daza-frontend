@@ -42,6 +42,7 @@ import NotificationList from './components/notification/NotificationList';
 // In-app
 import InAppMainWrapper from './in-app-components/_wrapper/MainWrapper';
 import InAppArticleDetail from './in-app-components/article/ArticleDetail';
+import InAppEventDetail from './in-app-components/event/EventDetail';
 import InAppError404 from './in-app-components/_error/Error404';
 
 export default {
@@ -153,6 +154,10 @@ export default {
       '/articles/:id': {
         name: 'in_app_article_detail',
         component: InAppArticleDetail,
+      },
+      '/events/:id': {
+        name: 'in_app_event_detail',
+        component: InAppEventDetail,
       },
       '*': {
         component: InAppError404,
