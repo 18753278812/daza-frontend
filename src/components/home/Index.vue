@@ -1,15 +1,17 @@
 <template>
   <div class="container">
-    <div class="hello">
-      <h1>{{ msg }}</h1>
-      <a v-link="'account/login'">Login</a>
-      <a v-link="'account/register'">Register</a>
-      <a v-link="'users'">users</a>
-      <a v-link="'topics'">topics</a>
-      <a v-link="'articles'">articles</a>
-      <a v-link="'tweets'">tweets</a>
-      <a v-link="'events'">events</a>
-      <a v-link="'tags'">tags</a>
+    <div class="media" v-for="data in results">
+      <div class="media-left">
+        <a href="#">
+          <img class="media-object" src="{{ data.image_url }}" alt="...">
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <a v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a>
+        </h4>
+        {{ data.summary }}
+      </div>
     </div>
   </div>
 </template>
@@ -18,14 +20,24 @@
 export default {
   data() {
     return {
-      msg: 'Hello World!',
+      results: [],
     };
+  },
+  ready() {
+    this.$http.get('v1/articles').then((response) => {
+      this.results = response.data.data;
+      console.log(response.data.data);
+    }, (response) => {
+      // error callback
+      console.log(response);
+    });
   },
 };
 </script>
 
 <style scoped>
-h1 {
-  color: #42b983;
+.media img {
+  width: 160px;
+  height: 90px;
 }
 </style>

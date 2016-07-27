@@ -151,7 +151,7 @@ export default {
     component: InAppMainWrapper,
     subRoutes: {
       '/articles/:id': {
-        name: 'article_detail',
+        name: 'in_app_article_detail',
         component: InAppArticleDetail,
       },
       '*': {

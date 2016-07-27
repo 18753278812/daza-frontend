@@ -1,8 +1,9 @@
 <template>
-
-  <h1 class="ui header">{{ data.title }}</h1>
-  <p>{{ data.content }}</p>
-
+  <div class="container">
+    <h4>{{ data.title }}</h4>
+    <hr>
+    <p>{{{ data.content }}}</p>
+  </div>
 </template>
 
 <script>
@@ -25,7 +26,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1 {
-  color: #42b983;
-}
 </style>
