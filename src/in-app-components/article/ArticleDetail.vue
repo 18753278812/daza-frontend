@@ -1,5 +1,4 @@
 <template>
-  </style>
   <div class="container">
     <h4>{{ data.title }}</h4>
     <hr>

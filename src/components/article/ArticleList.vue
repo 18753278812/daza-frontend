@@ -1,22 +1,16 @@
 <template>
-  <a v-link="'/posts/create'">New</a>
-  <div class="ui divided items">
-    <div class="item" v-for="data in results">
-      <div class="image">
-
+  <div class="container">
+    <div class="media" v-for="data in results">
+      <div class="media-left">
+        <a href="#">
+          <img class="media-object" src="{{ data.image_url }}" alt="...">
+        </a>
       </div>
-      <div class="content">
-        <a class="header" v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a>
-        <div class="meta">
-          <span class="cinema">Union Square 14</span>
-        </div>
-        <div class="description">
-          <p></p>
-        </div>
-        <div class="extra">
-          <div class="ui label">IMAX</div>
-          <div class="ui label"><i class="globe icon"></i> Additional Languages</div>
-        </div>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <a v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a>
+        </h4>
+        {{ data.summary }}
       </div>
     </div>
   </div>
@@ -42,4 +36,11 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  padding-top: 50px;
+}
+.media img {
+  width: 160px;
+  height: 90px;
+}
 </style>

@@ -9,7 +9,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" v-link="'/'">
-          <img alt="Brand" src="/static/images/logo.png">
+          <img alt="Brand" src="../../assets/ic_logo_light.png">
         </a>
 
       </div>
