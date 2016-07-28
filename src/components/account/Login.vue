@@ -1,10 +1,9 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-        <div class="text-center">
-          <h3>登录</h3>
-        </div>
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <h3 class="text-sm-center">登录</h3>
         <validator name="validation">
           <form novalidate @submit.prevent="submit()">
             <div class="form-group">
@@ -29,15 +28,15 @@
               <button type="submit" class="btn btn-primary btn-block" :disabled="!$validation.valid">登录</button>
             </div>
           </form>
-          <div class="row">
-            <div class="col-xs-6 col-sm-6">
-              <a v-link="'/account/password_reset'">忘记密码？</a>
-            </div>
-            <div class="col-xs-6 col-sm-6 text-right">
-              <a v-link="'/account/register'">创建账号</a>
-            </div>
-          </div>
         </validator>
+        <div class="row">
+          <div class="col-xs-6">
+            <a v-link="'/account/password_reset'">忘记密码？</a>
+          </div>
+          <div class="col-xs-6 text-xs-right">
+            <a v-link="'/account/register'">创建账号</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>

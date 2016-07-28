@@ -1,16 +1,13 @@
 <template>
-  <nav class="navbar navbar-default navbar-fixed-bottom">
+  <footer class="footer">
     <div class="container">
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="#">关于我们</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">&copy; DAZA.IO</a></li>
-        </ul>
+      <div class="row">
+        <div class="col-xs-12 text-xs-center">
+          <span class="text-muted">Copyright © daza.io 2016 | <a href="http://www.miitbeian.gov.cn/">粤ICP备15047595号-2</a></span>
+        </div>
       </div>
     </div>
-  </nav>
+  </footer>
 </template>
 
 <script>
@@ -23,7 +20,11 @@ export default {
 </script>
 
 <style scoped>
-.navbar {
+.footer {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background-color: #f5f5f5;
   display: none;
 }
 </style>

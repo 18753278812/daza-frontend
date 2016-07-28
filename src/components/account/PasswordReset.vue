@@ -1,10 +1,9 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-        <div class="text-center">
-          <h3>重置密码</h3>
-        </div>
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <h3 class="text-sm-center">重置密码</h3>
         <validator name="validation">
           <form novalidate>
             <div class="form-group">

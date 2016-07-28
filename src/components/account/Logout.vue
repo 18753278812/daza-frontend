@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <h5>注销中...</h5>
+    <div class="row">
+      <div class="col-sm-12">
+        <h3 class="text-sm-center">注销中...</h3>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -21,7 +25,7 @@ export default {
     setTimeout(() => {
       this.logout();
       this.$route.router.go('/');
-    }, 500);
+    }, 2500);
   },
 };
 </script>

@@ -1,11 +1,9 @@
 <template>
-    <nav class="navbar navbar-default">
-      <div class="navbar-header">
-        <a class="navbar-brand" v-link="'/'">
-          <img alt="Brand" src="../../assets/ic_logo_dark.png">
-        </a>
-      </div>
-    </nav>
+  <nav class="navbar navbar-fixed-top navbar-light bg-faded">
+    <a class="navbar-brand" v-link="'/'">
+      <img alt="Brand" src="../../assets/ic_logo_dark.png">
+    </a>
+  </nav>
 </template>
 
 <script>
@@ -21,6 +19,7 @@ export default {
 .navbar-brand img {
   height: 14px;
   width: auto;
-  margin-top: 3px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 </style>

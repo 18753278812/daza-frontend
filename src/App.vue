@@ -20,4 +20,8 @@ export default {
 body {
   font-family: "Hiragino Sans GB","Microsoft YaHei","黑体",Helvetica,Arial,Tahoma,sans-serif;
 }
+body > .container {
+  padding-top: 70px;
+  padding-bottom: 20px;
+}
 </style>

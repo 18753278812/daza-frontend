@@ -1,10 +1,9 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-        <div class="text-center">
-          <h3>注册</h3>
-        </div>
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <h3 class="text-sm-center">注册</h3>
         <validator name="validation">
           <form novalidate @submit.prevent="submit()">
             <div class="form-group">
@@ -47,7 +46,7 @@
             </div>
           </form>
         </validator>
-        <div class="text-center">
+        <div>
           已有账号？<a v-link="'/account/login'">点此登录</a>
         </div>
       </div>
