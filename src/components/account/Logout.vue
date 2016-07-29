@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
-        <h3 class="text-sm-center">注销中...</h3>
+      <div class="col-xs-12">
+        <h3 class="text-xs-center">注销中...</h3>
       </div>
     </div>
   </div>

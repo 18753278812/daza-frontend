@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-4"></div>
-      <div class="col-sm-4">
-        <h3 class="text-sm-center">重置密码</h3>
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6">
+        <h3 class="text-xs-center">重置密码</h3>
         <validator name="validation">
           <form novalidate>
             <div class="form-group">
@@ -16,6 +16,7 @@
           </form>
         </validator>
       </div>
+      <div class="col-sm-3"></div>
     </div>
   </div>
 </template>

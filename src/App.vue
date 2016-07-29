@@ -18,7 +18,7 @@ export default {
 
 <style>
 body {
-  font-family: "Hiragino Sans GB","Microsoft YaHei","黑体",Helvetica,Arial,Tahoma,sans-serif;
+  font-family: "HanHei SC","PingHei","PingFang SC","STHeitiSC-Light","Helvetica Neue","Helvetica","Arial",sans-serif;
 }
 body > .container {
   padding-top: 70px;
