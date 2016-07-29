@@ -32,7 +32,7 @@ Object.keys(locales).forEach((lang) => {
 
 // VueResource 配置
 Vue.http.options.root = process.env.API_BASE_URL;
-Vue.http.options.xhr = { withCredentials: false };
+Vue.http.options.xhr = { withCredentials: true };
 Vue.http.interceptors.push({
   request(request) {
     return request;
