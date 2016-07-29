@@ -6,8 +6,16 @@
       </a>
       <ul class="nav navbar-nav pull-xs-right" v-if="auth.check()">
         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">通知</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">&nbsp;</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">查看全部</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ auth.user.name }}</a>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" v-link="'/account/profile'">我的资料</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" v-link="'/account/logout'">退出登录</a>

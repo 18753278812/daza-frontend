@@ -20,10 +20,7 @@ export default {
 body {
   font-family: "HanHei SC","PingHei","PingFang SC","STHeitiSC-Light","Helvetica Neue","Helvetica","Arial",sans-serif;
 }
-body > .container {
-  padding-top: 70px;
-  padding-bottom: 20px;
-}
+
 .navbar-brand img {
   height: 14px;
   width: auto;

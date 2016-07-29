@@ -1,7 +1,9 @@
 <template>
-  <navbar-view></navbar-view>
-  <router-view></router-view>
-  <footer-view></footer-view>
+  <div class="wrapper">
+    <navbar-view></navbar-view>
+    <router-view></router-view>
+    <footer-view></footer-view>
+  </div>
 </template>
 
 <script>
@@ -24,8 +26,12 @@ export default {
 
 <style>
 @media (min-width: 1200px) {
-  .container {
+  .wrapper .container {
     width: 970px;
   }
+}
+.wrapper > .container {
+  padding-top: 70px;
+  padding-bottom: 20px;
 }
 </style>

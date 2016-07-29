@@ -1,5 +1,7 @@
 <template>
-  <p>topic detail</p>
+  <div class="container">
+    <p>topic detail</p>
+  </div>
 </template>
 
 <script>

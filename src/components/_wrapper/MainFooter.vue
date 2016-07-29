@@ -24,7 +24,4 @@ export default {
   min-height: 60px;
   line-height: 60px;
 }
-span {
-  font-size: 14px;
-}
 </style>
