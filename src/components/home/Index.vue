@@ -5,7 +5,7 @@
         <div class="media" v-for="data in results">
           <div class="media-left" v-if="data.image_url">
             <a v-link="{ name: 'article_detail', params: { id: data.id } }">
-              <img class="media-object" src="{{ data.image_url }}">
+              <img class="media-object" v-bind:src="data.image_url">
             </a>
           </div>
           <div class="media-body">

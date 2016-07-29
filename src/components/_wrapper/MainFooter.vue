@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer bg-faded">
     <div class="container">
       <div class="row">
         <div class="col-xs-12 text-xs-center">
@@ -21,8 +21,10 @@ export default {
 <style scoped>
 .footer {
   width: 100%;
-  height: 60px;
+  min-height: 60px;
   line-height: 60px;
-  background-color: #f5f5f5;
+}
+span {
+  font-size: 14px;
 }
 </style>

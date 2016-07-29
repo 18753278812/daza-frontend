@@ -25,7 +25,7 @@ export default {
     setTimeout(() => {
       this.logout();
       this.$route.router.go('/');
-    }, 2500);
+    }, 500);
   },
 };
 </script>

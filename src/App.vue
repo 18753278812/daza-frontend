@@ -24,4 +24,10 @@ body > .container {
   padding-top: 70px;
   padding-bottom: 20px;
 }
+.navbar-brand img {
+  height: 14px;
+  width: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
 </style>

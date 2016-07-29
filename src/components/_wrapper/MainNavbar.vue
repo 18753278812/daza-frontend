@@ -45,10 +45,8 @@ export default {
 </script>
 
 <style scoped>
-.navbar-brand img {
-  height: 14px;
-  width: auto;
-  margin-top: 8px;
-  margin-bottom: 8px;
+.navbar {
+  padding-left: 1px;
+  padding-right: 1px;
 }
 </style>
