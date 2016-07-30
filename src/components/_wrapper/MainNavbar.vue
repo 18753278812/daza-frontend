@@ -5,13 +5,8 @@
         <img alt="Brand" src="../../assets/ic_logo_dark.png">
       </a>
       <ul class="nav navbar-nav pull-xs-right" v-if="auth.check()">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">通知</a>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">&nbsp;</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">查看全部</a>
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" v-link="'/notifications'">通知</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ auth.user.name }}</a>
