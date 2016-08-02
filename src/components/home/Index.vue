@@ -2,21 +2,29 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-9">
-        <ul class="articles">
-          <li class="article-item" v-for="data in results">
-            <a v-link="{ name: 'in_app_article_detail', params: { id: data.id } }">
-              <img v-if="data.image_url" v-bind:src="data.image_url">
-              {{ data.title }}
+        <div class="articles">
+          <div class="media entry" v-for="data in results">
+            <div class="media-left image" v-if="data.image_url">
+              <a href="#">
+                <img class="media-object" v-bind:src="data.image_url">
+              </a>
+            </div>
+            <div class="media-body">
+              <h5 class="media-heading">
+                <a v-link="{ name: 'in_app_article_detail', params: { id: data.id } }">{{ data.title }}</a>
+              </h5>
               <p>{{ data.summary }}</p>
-            </a>
-            <a v-link="{ name: 'topic_detail', params: { id: data.topic.id } }">
-              {{ data.topic.name }}
-            </a>
-            <label>{{ data.view_count }}阅读</label>
-            <label>{{ data.comment_count }}评论</label>
+              <div class="extra">
+                <a v-link="{ name: 'topic_detail', params: { id: data.topic.id } }">
+                  {{ data.topic.name }}
+                </a>
+                <label>{{ data.view_count }}阅读</label>
+                <label>{{ data.comment_count }}评论</label>
+              </div>
+            </div>
             <hr>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
       <div class="col-sm-3">
         <button type="button" class="btn btn-primary" v-link="'/topics/create'">创建主题</button>
@@ -46,15 +54,10 @@ export default {
 </script>
 
 <style scoped>
-.articles {
-  list-style: none;
-  padding-left: 0;
+.articles > .entry {
 }
-.articles > .article-item {
-
-}
-.articles img {
-  width: 140px;
-  height: 100px;
+.articles > .entry > .image img {
+  width: 150px;
+  height: 110px;
 }
 </style>
