@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-sm-9">
+      <div class="col-xs-12 col-sm-2">
+      </div>
+      <div class="col-xs-12 col-sm-7">
         <div class="articles">
           <div class="media entry" v-for="data in results">
             <div class="media-left image" v-if="data.image_url">

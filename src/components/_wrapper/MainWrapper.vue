@@ -25,11 +25,6 @@ export default {
 </script>
 
 <style>
-@media (min-width: 1200px) {
-  .wrapper .container {
-    width: 970px;
-  }
-}
 .wrapper > .container {
   padding-top: 70px;
   padding-bottom: 20px;
