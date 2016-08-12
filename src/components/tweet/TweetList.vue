@@ -1,5 +1,7 @@
 <template>
-  <p>tweet list</p>
+  <div class="container">
+    <p>tweet list</p>
+  </div>
 </template>
 
 <script>

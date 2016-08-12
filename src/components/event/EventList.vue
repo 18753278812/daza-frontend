@@ -1,5 +1,7 @@
 <template>
-  <p>event list</p>
+  <div class="container">
+    <p>event list</p>
+  </div>
 </template>
 
 <script>

@@ -4,6 +4,14 @@
       <a class="navbar-brand" v-link="'/'">
         <img alt="Brand" src="../../assets/ic_logo_dark.png">
       </a>
+      <ul class="nav navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" v-link="'/topics'">探索</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" v-link="'/events'">活动</a>
+        </li>
+      </ul>
       <ul class="nav navbar-nav pull-xs-right" v-if="auth.check()">
         <li class="nav-item">
           <a class="nav-link" v-link="'/notifications'">通知</a>

@@ -5,6 +5,7 @@ import SimpleWrapper from './components/_wrapper/SimpleWrapper';
 
 import HomeIndex from './components/home/Index';
 import HomeStatus from './components/home/Status';
+import HomeDownloadApp from './components/home/DownloadApp';
 
 import AccountRegister from './components/account/Register';
 import AccountLogin from './components/account/Login';
@@ -23,6 +24,7 @@ import TopicList from './components/topic/TopicList';
 import TopicDetail from './components/topic/TopicDetail';
 
 import ArticleCreate from './components/article/ArticleCreate';
+import ArticleShare from './components/article/ArticleShare';
 import ArticleList from './components/article/ArticleList';
 import ArticleDetail from './components/article/ArticleDetail';
 
@@ -55,6 +57,9 @@ export default {
       '/status': {
         component: HomeStatus,
       },
+      '/download': {
+        component: HomeDownloadApp,
+      },
       '/users': {
         component: UserList,
       },
@@ -80,6 +85,9 @@ export default {
       },
       '/articles/create': {
         component: ArticleCreate,
+      },
+      '/articles/share': {
+        component: ArticleShare,
       },
       '/articles': {
         component: ArticleList,

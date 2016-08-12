@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <p>topic list</p>
+    <p>Download app</p>
   </div>
 </template>
 
@@ -9,8 +9,6 @@ export default {
   data() {
     return {
     };
-  },
-  ready() {
   },
 };
 </script>
