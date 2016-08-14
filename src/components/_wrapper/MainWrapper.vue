@@ -20,7 +20,6 @@ export default {
     };
   },
   ready() {
-    console.log(this.$route);
   },
 };
 </script>

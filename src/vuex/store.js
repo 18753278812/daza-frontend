@@ -1,18 +1,18 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import mutations from './mutations';
+import account from './modules/account';
+import categories from './modules/categories';
+import topics from './modules/topics';
+import articles from './modules/articles';
 
 Vue.use(Vuex);
 
-const state = {
-  auth: {
-    id: localStorage.getItem('auth.id'),
-    user: JSON.parse(localStorage.getItem('auth.user')),
-  },
-};
-
 export default new Vuex.Store({
-  state,
-  mutations,
+  modules: {
+    account,
+    categories,
+    topics,
+    articles,
+  },
   strict: true,
 });

@@ -39,7 +39,6 @@ Vue.http.interceptors.push({
   },
   response(response) {
     if (response.status === 401) {
-      console.log(store);
       unauthorized(store);
     }
     return response;

@@ -44,12 +44,14 @@
 </template>
 
 <script>
-import toastr from 'toastr';
-import NProgress from 'nprogress';
+import { auth } from '../../vuex/getters';
 import { login, logout } from '../../vuex/actions';
 
 export default {
   vuex: {
+    getters: {
+      auth,
+    },
     actions: {
       login,
       logout,
@@ -70,14 +72,9 @@ export default {
   },
   methods: {
     submit() {
-      NProgress.start();
+      // 用户登录
       this.login(this.email, this.password).then(() => {
-        toastr.success('登录成功！');
-        NProgress.done();
         this.$route.router.go('/');
-      })
-      .catch(error => {
-        console.log(error);
       });
     },
   },
