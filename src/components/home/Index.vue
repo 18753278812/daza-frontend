@@ -4,13 +4,13 @@
       <div class="col-xs-12 col-sm-2">
         <ul class="nav nav-pills nav-stacked">
           <li class="nav-item">
-            <a class="nav-link active" href="#">最新</a>
+            <a class="nav-link" v-link="'/latest'">最新</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">推荐</a>
+            <a class="nav-link" v-link="'/popular'">推荐</a>
           </li>
           <li class="nav-item" v-for="category in categories">
-            <a class="nav-link" href="#">{{ category.name }}</a>
+            <a class="nav-link" v-link="'/categories'">{{ category.name }}</a>
           </li>
         </ul>
       </div>
@@ -48,23 +48,28 @@
 </template>
 
 <script>
+import { getCategoryList } from '../../vuex/actions';
+
 export default {
+  vuex: {
+    getters: {
+      categories: state => state.categories.all,
+    },
+    actions: {
+      getCategoryList,
+    },
+  },
   data() {
     return {
-      categories: [],
       results: [],
     };
   },
   ready() {
+    // 加载分类
+    this.getCategoryList();
+    // 加载文章
     this.$http.get('v1/articles').then((response) => {
       this.results = response.data.data;
-      console.log(response.data.data);
-    }, (response) => {
-      // error callback
-      console.log(response);
-    });
-    this.$http.get('v1/categories').then((response) => {
-      this.categories = response.data.data;
       console.log(response.data.data);
     }, (response) => {
       // error callback
