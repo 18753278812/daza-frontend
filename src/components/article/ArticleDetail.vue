@@ -3,6 +3,10 @@
     <div class="row">
       <div class="col-sm-9">
         <h4>{{ data.title }}</h4>
+        <p>
+          <small class="text-muted">{{ data.view_count }}阅读</small>
+          <small class="text-muted">{{ data.comment_count }}评论</small>
+        </p>
         <hr>
         <p class="article-content">{{{ data.content }}}</p>
         <hr>
@@ -28,6 +32,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -36,7 +41,6 @@ export default {
   },
   ready() {
     const articleId = this.$route.params.id;
-
     this.$http.get(`v1/articles/${articleId}?`).then((response) => {
       this.data = response.data.data;
       console.log(this.data);

@@ -4,13 +4,13 @@
       <a class="navbar-brand" v-link="'/'">
         <img alt="Brand" src="../../assets/ic_logo_light.png">
       </a>
-      <!-- <form class="form-inline pull-xs-left">
+      <form class="form-inline pull-xs-left search-form">
         <input
           class="form-control"
           type="text"
           name="keyword"
           placeholder="搜索你感兴趣的内容">
-      </form> -->
+      </form>
       <ul class="nav navbar-nav pull-xs-right" v-if="auth.check()">
         <li class="nav-item">
           <a class="nav-link" v-link="'/notifications'">通知 <span class="tag tag-pill tag-danger">0</span></a>

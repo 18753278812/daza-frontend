@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-sm-2">
+      <div class="col-sm-2">
+        <!-- <ul class="nav nav-tabs">
+          <li class="nav-item" v-for="category in categories" >
+            <a class="nav-link" v-link="'/categories'"> {{ category.name }}</a>
+          </li>
+        </ul> -->
         <ul class="nav nav-pills nav-stacked">
           <li class="nav-item">
             <a class="nav-link" v-link="'/latest'">最新</a>
@@ -14,7 +19,7 @@
           </li>
         </ul>
       </div>
-      <div class="col-xs-12 col-sm-7">
+      <div class="col-sm-7">
         <div class="articles">
           <div class="media entry" v-for="data in results">
             <div class="media-body">
