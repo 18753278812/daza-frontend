@@ -1,17 +1,19 @@
 <template>
-  <nav class="navbar navbar-fixed-top navbar-light bg-faded">
+  <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
     <div class="container">
       <a class="navbar-brand" v-link="'/'">
-        <img alt="Brand" src="../../assets/ic_logo_dark.png">
+        <img alt="Brand" src="../../assets/ic_logo_light.png">
       </a>
-      <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" v-link="'/topics'">探索</a>
-        </li>
-      </ul>
+      <form class="form-inline pull-xs-left">
+        <input
+          class="form-control"
+          type="text"
+          name="keyword"
+          placeholder="搜索你感兴趣的内容">
+      </form>
       <ul class="nav navbar-nav pull-xs-right" v-if="auth.check()">
         <li class="nav-item">
-          <a class="nav-link" v-link="'/notifications'">通知</a>
+          <a class="nav-link" v-link="'/notifications'">通知 <span class="tag tag-pill tag-danger">0</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ auth.user.name }}</a>

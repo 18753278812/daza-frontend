@@ -1,9 +1,13 @@
 <template>
-  <footer class="footer bg-faded">
+  <footer class="footer">
     <div class="container">
+      <hr>
       <div class="row">
-        <div class="col-xs-12 text-xs-center">
-          <span class="text-muted">Copyright © daza.io 2016 | <a href="http://www.miitbeian.gov.cn/">粤ICP备15047595号-2</a></span>
+        <div class="col-xs-6 text-xs-left">
+          <span class="text-muted">© daza.io 2016</span>
+        </div>
+        <div class="col-xs-6 text-xs-right">
+          <a href="http://www.miitbeian.gov.cn/"><span class="text-muted">粤ICP备15047595号-2</span></a>
         </div>
       </div>
     </div>
@@ -20,8 +24,10 @@ export default {
 
 <style scoped>
 .footer {
-  width: 100%;
   min-height: 60px;
   line-height: 60px;
+}
+.footer > .container > hr {
+  margin-bottom: 0px;
 }
 </style>

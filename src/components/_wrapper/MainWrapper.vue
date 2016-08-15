@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div id="wrapper">
     <navbar-view></navbar-view>
     <router-view></router-view>
     <footer-view></footer-view>
@@ -24,9 +24,5 @@ export default {
 };
 </script>
 
-<style>
-.wrapper > .container {
-  padding-top: 70px;
-  padding-bottom: 20px;
-}
+<style scoped>
 </style>

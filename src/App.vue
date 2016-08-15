@@ -16,15 +16,28 @@ export default {
 };
 </script>
 
-<style>
-body {
+<style lang="scss">
+html, body {
   font-family: "HanHei SC","PingHei","PingFang SC","STHeitiSC-Light","Helvetica Neue","Helvetica","Arial",sans-serif;
+  font-size: 14px;
 }
 
-.navbar-brand img {
-  height: 14px;
-  width: auto;
-  margin-top: 8px;
-  margin-bottom: 8px;
+#wrapper {
+  .bg-inverse {
+    background-color: #37474F;
+  }
+  .navbar-brand img {
+    height: 1.2rem;
+    width: auto;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+}
+#wrapper > {
+  .container {
+    padding-top: 70px;
+    padding-bottom: 20px;
+
+  }
 }
 </style>

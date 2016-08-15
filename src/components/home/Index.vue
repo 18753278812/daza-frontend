@@ -41,6 +41,8 @@
       </div>
       <div class="col-sm-3">
         <button type="button" class="btn btn-primary btn-block" v-link="'/articles/create'">写文章</button>
+        <hr>
+        <button type="button" class="btn btn-primary btn-block" v-link="'/articles/share'">分享文章</button>
       </div>
     </div>
   </div>
