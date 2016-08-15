@@ -11,7 +11,7 @@ import AccountRegister from './components/account/Register';
 import AccountLogin from './components/account/Login';
 import AccountLogout from './components/account/Logout';
 import AccountPasswordReset from './components/account/PasswordReset';
-import AccountProfile from './components/account/Profile';
+import AccountSettings from './components/account/Settings';
 
 import UserList from './components/user/UserList';
 import UserDetail from './components/user/UserDetail';
@@ -148,11 +148,11 @@ export default {
       },
     },
   },
-  '/account/profile': {
+  '/account/settings': {
     component: MainWrapper,
     subRoutes: {
       '/': {
-        component: AccountProfile,
+        component: AccountSettings,
       },
     },
   },

@@ -11,7 +11,7 @@
             <a class="nav-link" data-toggle="tab" href="#account" role="tab">账号和安全</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#settings" role="tab">推送消息设置</a>
+            <a class="nav-link" data-toggle="tab" href="#notification" role="tab">推送消息设置</a>
           </li>
         </ul>
         <!-- Tab panes -->
@@ -104,8 +104,8 @@
               </div>
             </p>
           </div>
-          <div class="tab-pane" id="settings" role="tabpanel">
-            ...
+          <div class="tab-pane" id="notification" role="tabpanel">
+            <p>...</p>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ const VER = process.env.API_VERSION;
 
 export default {
   lists(page) {
-    const req = Vue.http.get(`${VER}/topics/`, { page });
+    const req = Vue.http.get(`${VER}/topics`, { page });
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);

@@ -40,8 +40,7 @@
         </div>
       </div>
       <div class="col-sm-3">
-        <button type="button" class="btn btn-primary" v-link="'/topics/create'">创建主题</button>
-        <button type="button" class="btn btn-primary" v-link="'/articles/create'">创建文章</button>
+        <button type="button" class="btn btn-primary btn-block" v-link="'/articles/create'">写文章</button>
       </div>
     </div>
   </div>
