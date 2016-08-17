@@ -3,22 +3,51 @@
     <div class="row">
       <div class="col-sm-9">
         <h4>{{ data.title }}</h4>
-        <p>
-          <small class="text-muted">{{ data.view_count }}阅读</small>
-          <small class="text-muted">{{ data.comment_count }}评论</small>
-        </p>
+        <div class="row">
+          <div class="col-xs-9">
+            <small class="text-muted">{{ data.author }}</small>
+            <small class="text-muted">发表于 </small>
+            <small class="text-muted">{{ data.published_at }}</small>
+            <small class="text-muted"> · </small>
+            <small class="text-muted">{{ data.view_count }}阅读</small>
+          </div>
+          <div class="col-xs-3 text-xs-right">
+            <a v-bind:href="data.link" target="_blank"><small class="text-muted">原文链接</small></a>
+          </div>
+        </div>
         <hr>
         <p class="article-content">{{{ data.content }}}</p>
+        <div class="row">
+          <div class="col-xs-9">
+            <span class="tag tag-default">Default</span>
+            <span class="tag tag-default">Default</span>
+            <span class="tag tag-default">Default</span>
+            <span class="tag tag-default">Default</span>
+            <span class="tag tag-default">Default</span>
+          </div>
+          <div class="col-xs-3 text-xs-right">
+            <a href="#"><small class="text-muted">举报</small></a>
+          </div>
+        </div>
         <hr>
         <div>
           {{0}}条精彩回复
+          <p>
+            暂无评论
+          </p>
         </div>
-        <form>
-          <div class="form-group">
-            <textarea class="form-control" rows="3"></textarea>
+        <div class="row">
+          <div class="col-sm-12">
+            <form>
+              <div class="form-group">
+                <textarea
+                  class="form-control"
+                  rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">确认</button>
+            </form>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </div>
       </div>
       <div class="col-sm-3">
         <a v-link="{ name: 'topic_detail', params: { id: data.topic.id } }">
