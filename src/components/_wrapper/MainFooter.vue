@@ -24,8 +24,8 @@ export default {
 
 <style scoped>
 .footer {
-  min-height: 60px;
-  line-height: 60px;
+  min-height: 50px;
+  line-height: 50px;
 }
 .footer > .container > hr {
   margin-bottom: 0px;

@@ -61,6 +61,50 @@ html, body {
     padding-bottom: 20px;
   }
 }
+// 文章样式
+#wrapper {
+  .article-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .article-list > .article {
+    .title {
+      width: 10000px;
+      display: table-cell;
+      vertical-align: top;
+    }
+    .image {
+      display: table-cell;
+      vertical-align: top;
+    }
+    .image img {
+      width: 160px;
+      height: 90px;
+    }
+  }
+
+  // Extra small devices (portrait phones, less than 544px)
+  @media (max-width: 543px) {
+    .article-list > .article {
+      .image img {
+        width: 100px;
+        height: 56px;
+      }
+    }
+  }
+
+  // Small devices (landscape phones, less than 768px)
+  @media (max-width: 767px) {
+  }
+
+  // Medium devices (tablets, less than 992px)
+  @media (max-width: 991px) {
+  }
+
+  // Large devices (desktops, less than 1200px)
+  @media (max-width: 1199px) {
+  }
+}
 #wrapper {
   // Extra small devices (portrait phones, less than 544px)
   @media (max-width: 543px) {

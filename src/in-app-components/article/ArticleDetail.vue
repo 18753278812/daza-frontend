@@ -1,13 +1,45 @@
 <template>
   <div class="container">
-    <h4>{{ data.title }}</h4>
-    <hr>
-    <p class="article-content">{{{ data.content }}}</p>
-    <hr>
-    <div>
-      由 [daza.io] 转码以便移动设备阅读
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>{{ data.title }}</h4>
+        <div class="row">
+          <div class="col-xs-12">
+            <small class="text-muted">{{ data.author }}</small>
+            <small class="text-muted">发表于 </small>
+            <small class="text-muted">{{ data.published_at }}</small>
+            <small class="text-muted"> · </small>
+            <small class="text-muted">{{ data.view_count }}阅读</small>
+          </div>
+        </div>
+        <hr>
+        <p class="article-content">{{{ data.content }}}</p>
+        <p>
+          <div class="row">
+            <div class="col-xs-9">
+              <span v-for="tag in data.tags">
+                <span class="tag tag-default">{{ tag.name }}</span>
+              </span>
+            </div>
+            <div class="col-xs-3 text-xs-right">
+              <a href="#"><small class="text-muted">举报</small></a>
+            </div>
+          </div>
+        </p>
+        <div class="row">
+          <div class="col-xs-12">
+            <a :href="data.link" target="_blank">[ 访问原文链接 ]</a>
+          </div>
+        </div>
+        <hr>
+        <div>
+          {{0}}条精彩回复
+          <p>
+            暂无评论
+          </p>
+        </div>
+      </div>
     </div>
-    <a href="{{ data.link }}">查看原文</a>
   </div>
 </template>
 

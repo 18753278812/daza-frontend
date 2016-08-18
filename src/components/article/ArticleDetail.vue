@@ -19,11 +19,9 @@
         <p class="article-content">{{{ data.content }}}</p>
         <div class="row">
           <div class="col-xs-9">
-            <span class="tag tag-default">Default</span>
-            <span class="tag tag-default">Default</span>
-            <span class="tag tag-default">Default</span>
-            <span class="tag tag-default">Default</span>
-            <span class="tag tag-default">Default</span>
+            <span v-for="tag in data.tags">
+              <span class="tag tag-default" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</span>
+            </span>
           </div>
           <div class="col-xs-3 text-xs-right">
             <a href="#"><small class="text-muted">举报</small></a>
@@ -50,11 +48,29 @@
         </div>
       </div>
       <div class="col-sm-3">
-        <a v-link="{ name: 'topic_detail', params: { id: data.topic.id } }">
-          {{ data.topic.name }}
-        </a>
-        {{ data.topic.description }}
-        <button class="btn btn-secondary">订阅</a>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <img class="card-img-top" :src="data.topic.image_url" alt="Card image cap" style="display: none;">
+              <div class="card-block">
+                <a v-link="{ name: 'topic_detail', params: { id: data.topic.id } }">
+                  <h4 class="card-title">{{ data.topic.name }}</h4>
+                </a>
+                <div class="row">
+                  <div class="col-xs-8">
+                    <small class="text-muted">主题由 <a v-link="{ name: 'user_detail', params: { id: data.topic.user.id } }">{{ data.topic.user.name }}</a> 维护</small>
+                  </div>
+                  <div class="col-xs-4 text-xs-right">
+                    <small class="text-muted">{{ data.topic.subscriber_count }}订阅</small>
+                  </div>
+                </div>
+                <hr>
+                <p class="card-text">{{ data.topic.description }}</p>
+                <a href="#" class="btn btn-primary">订阅</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
