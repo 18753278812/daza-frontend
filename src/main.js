@@ -9,8 +9,8 @@ import toastr from 'toastr';
 import routes from './routes';
 import locales from './lang';
 
-import store from './vuex/store';
-import { unauthorized } from './vuex/actions';
+// import store from './vuex/store';
+// import { unauthorized } from './vuex/actions';
 
 import App from './App';
 
@@ -34,12 +34,15 @@ Object.keys(locales).forEach((lang) => {
 Vue.http.options.root = process.env.API_BASE_URL;
 Vue.http.interceptors.push({
   request(request) {
+    const jwtToken = JSON.parse(localStorage.getItem('auth.jwt_token'));
+    if (jwtToken) {
+      Vue.http.headers.common.Authorization = `Bearer ${jwtToken.access_token}`;
+    } else {
+      delete Vue.http.headers.common.Authorization;
+    }
     return request;
   },
   response(response) {
-    if (response.status === 401) {
-      unauthorized(store);
-    }
     return response;
   },
 });

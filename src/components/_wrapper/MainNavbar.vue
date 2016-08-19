@@ -16,7 +16,9 @@
           <a class="nav-link" v-link="'/notifications'">通知 <span class="tag tag-pill tag-danger">0</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ auth.user.name }}</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <img :src="auth.user.avatar_url" alt="..." class="img-circle" style="width: 1.3rem; height: 1.3rem"> {{ auth.user.name }}
+          </a>
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" v-link="{ name: 'user_detail', params: { id: auth.id } }">查看个人资料</a>
             <div class="dropdown-divider"></div>
