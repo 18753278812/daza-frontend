@@ -20,14 +20,15 @@
             <p>
               <div class="form-group row">
                 <label for="avatar-input" class="col-xs-3 col-sm-2">头像</label>
-                <div class="col-xs-4 col-sm-2">
-                  <img v-bind:src="user.avatar_url" class="img-thumbnail" style="width: 80px; height: 80px;">
-                </div>
-                <div class="col-xs-5 col-sm-8">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" name="use_gravatar"> 使用 <a href="https://cn.gravatar.com/">Gravatar</a>
-                    </label>
+                <div class="col-xs-9 col-sm-10">
+                  <img v-bind:src="user.avatar_url" class="img-thumbnail" style="width: 80px; height: 80px; float: left">
+                  <div style="margin-top: 10px; margin-left: 10px; float: left">
+                    <button type="submit" class="btn btn-sm btn-secondary">选择头像</button>
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" name="use_gravatar"> 使用 <a href="https://cn.gravatar.com/">Gravatar</a>
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>

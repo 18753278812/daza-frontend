@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-9">
         <h4>{{ data.title }}</h4>
         <div class="row">
           <div class="col-xs-9">
@@ -18,19 +18,26 @@
         <hr>
         <p class="article-content">{{{ data.content }}}</p>
         <div class="row">
-          <div class="col-xs-9">
+          <div class="col-xs-12">
             <span v-for="tag in data.tags">
               <span class="tag tag-default" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</span>
             </span>
           </div>
-          <div class="col-xs-3 text-xs-right">
+        </div>
+        <p>&nbsp;</p>
+        <div class="row">
+          <div class="col-xs-8">
+            <button type="button" class="btn btn-sm btn-outline-primary">&nbsp;&nbsp;&nbsp;赞 ({{ data.vote_up_count }})&nbsp;&nbsp;&nbsp;</button>
+          </div>
+          <div class="col-xs-4 text-xs-right">
+            <a href="#"><small class="text-muted">分享</small></a>
             <a href="#"><small class="text-muted">举报</small></a>
           </div>
         </div>
         <hr>
         <div>
-          {{0}}条精彩回复
-          <p>
+          <small class="text-muted" v-if="data.comment_count > 0">{{ data.comment_count }}条精彩回复</small>
+          <p class="text-xs-center" v-if="data.comment_count == 0">
             暂无评论
           </p>
         </div>
@@ -47,7 +54,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="row">
           <div class="col-sm-12">
             <div class="card">

@@ -68,6 +68,9 @@ html, body {
     padding: 0;
   }
   .article-list > .article {
+    a {
+      color: #424242;
+    }
     .title {
       width: 10000px;
       display: table-cell;
