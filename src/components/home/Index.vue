@@ -1,25 +1,21 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-2">
-        <!-- <ul class="nav nav-tabs">
-          <li class="nav-item" v-for="category in categories" >
-            <a class="nav-link" v-link="'/categories'"> {{ category.name }}</a>
-          </li>
-        </ul> -->
-        <ul class="nav nav-pills nav-stacked">
+      <div class="col-sm-9">
+        <!-- 分类导航 -->
+        <ul class="nav nav-inline">
           <li class="nav-item">
             <a class="nav-link" v-link="'/latest'">最新</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" v-link="'/popular'">推荐</a>
           </li>
-          <li class="nav-item" v-for="category in categories">
-            <a class="nav-link" v-link="'/categories'">{{ category.name }}</a>
+          <li class="nav-item" v-for="category in categories" >
+            <a class="nav-link" v-link="'/categories'"> {{ category.name }}</a>
           </li>
         </ul>
-      </div>
-      <div class="col-sm-7 ">
+        <hr>
+        <!-- 文章列表 -->
         <ul class="article-list">
           <li class="article" v-for="data in results">
             <div class="row">
@@ -48,6 +44,30 @@
             <hr>
           </li>
         </ul>
+        <!-- 分页导航 -->
+        <nav aria-label="...">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="page-item"><a class="page-link" href="/?page=2">2</a></li>
+            <li class="page-item"><a class="page-link" href="/?page=3">3</a></li>
+            <li class="page-item"><a class="page-link" href="/?page=4">4</a></li>
+            <li class="page-item"><a class="page-link" href="/?page=3">5</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
       <div class="col-sm-3">
         <button type="button" class="btn btn-primary btn-block" v-link="'/articles/create'">写文章</button>
@@ -79,7 +99,8 @@ export default {
     // 加载分类
     this.getCategoryList();
     // 加载文章
-    this.$http.get('v1/articles').then((response) => {
+    const page = this.$route.query.page;
+    this.$http.get(`v1/articles?page=${page}`).then((response) => {
       this.results = response.data.data;
       console.log(response.data.data);
     }, (response) => {
