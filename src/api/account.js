@@ -43,4 +43,14 @@ export default {
       return Promise.reject(new Error('error'));
     });
   },
+  // 更新当前登录用户资料
+  updateProfile(params) {
+    const req = Vue.http.put(`${VER}/account/profile`, params);
+    return req.then((response) => {
+      if (response.ok) {
+        return Promise.resolve(response.data.data);
+      }
+      return Promise.reject(new Error('error'));
+    });
+  },
 };

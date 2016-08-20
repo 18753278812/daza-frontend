@@ -1,6 +1,7 @@
 import {
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
+  UPDATE_PROFILE_SUCCESS,
 } from '../mutation-types';
 
 export default {
@@ -23,6 +24,12 @@ export default {
       localStorage.removeItem('auth.id');
       localStorage.removeItem('auth.user');
       localStorage.removeItem('auth.jwt_token');
+    },
+    [UPDATE_PROFILE_SUCCESS](state, user) {
+      const auth = { id: user.id, user };
+      Object.assign(state, { auth });
+      localStorage.setItem('auth.id', user.id);
+      localStorage.setItem('auth.user', JSON.stringify(user));
     },
   },
 };

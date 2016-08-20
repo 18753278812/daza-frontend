@@ -10,6 +10,7 @@ import {
   REGISTER_SUCCESS,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
+  UPDATE_PROFILE_SUCCESS,
   RECEIVE_CATEGORIES,
 } from './mutation-types';
 
@@ -35,6 +36,15 @@ export const logout = ({ dispatch }) => {
   const req = account.logout().then(() => {
     dispatch(LOGOUT_SUCCESS);
     return Promise.resolve();
+  })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const updateProfile = ({ dispatch }, params) => {
+  const req = account.updateProfile(params).then((data) => {
+    dispatch(UPDATE_PROFILE_SUCCESS, data);
+    return Promise.resolve(data);
   })
   .catch((error) => Promise.reject(error));
   return req;

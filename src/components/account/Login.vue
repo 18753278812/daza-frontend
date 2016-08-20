@@ -25,7 +25,10 @@
                 v-validate:password="rules.password">
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block" :disabled="!$validation.valid">登录</button>
+              <button
+                class="btn btn-primary btn-block"
+                type="submit"
+                :disabled="!$validation.valid">登录</button>
             </div>
           </form>
         </validator>
