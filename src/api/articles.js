@@ -42,4 +42,22 @@ export default {
       return Promise.reject(new Error('error'));
     });
   },
+  articleVote(id, type) {
+    const req = Vue.http.post(`${VER}/articles/${id}/votes`, { type });
+    return req.then((response) => {
+      if (response.ok) {
+        return Promise.resolve(response.data.data);
+      }
+      return Promise.reject(new Error('error'));
+    });
+  },
+  articleComment(id, params) {
+    const req = Vue.http.post(`${VER}/articles/${id}/comments`, params);
+    return req.then((response) => {
+      if (response.ok) {
+        return Promise.resolve(response.data.data);
+      }
+      return Promise.reject(new Error('error'));
+    });
+  },
 };

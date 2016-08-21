@@ -4,6 +4,12 @@
       <div class="form-group row">
         <label for="avatar-input" class="col-xs-3 col-sm-2">头像</label>
         <div class="col-xs-9 col-sm-10">
+          <input
+            id="avatar_url-input"
+            class="form-control"
+            name="avatar_url"
+            type="hidden"
+            v-model="params.avatar_url" />
           <img
             class="img-thumbnail"
             style="width: 80px; height: 80px; float: left"

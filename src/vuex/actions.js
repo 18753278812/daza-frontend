@@ -2,7 +2,7 @@ import account from '../api/account';
 // import users from '../api/users';
 import categories from '../api/categories';
 // import topics from '../api/topics';
-// import articles from '../api/articles';
+import articles from '../api/articles';
 // import tweets from '../api/tweets';
 // import tags from '../api/tags';
 
@@ -12,6 +12,8 @@ import {
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_SUCCESS,
   RECEIVE_CATEGORIES,
+  ARTICLE_VOTE_SUCCESS,
+  ARTICLE_COMMENT_SUCCESS,
 } from './mutation-types';
 
 export const register = ({ dispatch }, username, email, password) => {
@@ -53,6 +55,24 @@ export const updateProfile = ({ dispatch }, params) => {
 export const getCategoryList = ({ dispatch }, page) => {
   const req = categories.lists(page).then((data) => {
     dispatch(RECEIVE_CATEGORIES, data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const articleVote = ({ dispatch }, id, type) => {
+  const req = articles.articleVote(id, type).then((data) => {
+    dispatch(ARTICLE_VOTE_SUCCESS, data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const articleComment = ({ dispatch }, id, params) => {
+  const req = articles.articleComment(id, params).then((data) => {
+    dispatch(ARTICLE_COMMENT_SUCCESS, data);
     return Promise.resolve(data);
   })
   .catch((error) => Promise.reject(error));

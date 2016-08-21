@@ -27,7 +27,11 @@
         <p>&nbsp;</p>
         <div class="row">
           <div class="col-xs-8">
-            <button type="button" class="btn btn-sm btn-outline-primary">&nbsp;&nbsp;&nbsp;赞 ({{ data.vote_up_count }})&nbsp;&nbsp;&nbsp;</button>
+            <form @submit.prevent="vote()">
+              <button
+                class="btn btn-sm btn-outline-primary"
+                type="submit">&nbsp;&nbsp;&nbsp;赞 ({{ data.vote_up_count }})&nbsp;&nbsp;&nbsp;</button>
+            </form>
           </div>
           <div class="col-xs-4 text-xs-right">
             <a href="#"><small class="text-muted">分享</small></a>
@@ -43,14 +47,23 @@
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <form>
-              <div class="form-group">
-                <textarea
-                  class="form-control"
-                  rows="3"></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">确认</button>
-            </form>
+            <validator name="validation">
+              <form novalidate @submit.prevent="submit()">
+                <div class="form-group">
+                  <textarea
+                    id="bio-input"
+                    class="form-control"
+                    rows="3"
+                    name="content"
+                    v-model="params.content"
+                    v-validate:content="rules.content"></textarea>
+                </div>
+                <button
+                  class="btn btn-primary"
+                  type="submit"
+                  :disabled="!$validation.valid">发表</button>
+              </form>
+            </validator>
           </div>
         </div>
       </div>
@@ -84,11 +97,28 @@
 </template>
 
 <script>
+import { auth } from '../../vuex/getters';
+import { articleVote, articleComment } from '../../vuex/actions';
 
 export default {
+  vuex: {
+    getters: {
+      auth,
+    },
+    actions: {
+      articleVote,
+      articleComment,
+    },
+  },
   data() {
     return {
       data: {},
+      rules: {
+        content: { required: true },
+      },
+      params: {
+        content: '',
+      },
     };
   },
   ready() {
@@ -97,6 +127,18 @@ export default {
       this.data = response.data.data;
       console.log(this.data);
     }, () => { });
+  },
+  methods: {
+    submit() {
+      this.articleComment(this.data.id, this.params).then(() => {
+      });
+    },
+    vote() {
+      console.log('vote');
+      this.articleVote(this.data.id, 'up').then(() => {
+        this.data.vote_up_count += 1;
+      });
+    },
   },
 };
 </script>
