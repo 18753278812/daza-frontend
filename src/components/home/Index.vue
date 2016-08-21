@@ -17,19 +17,18 @@
         <hr>
         <!-- 文章列表 -->
         <ul class="article-list">
-          <li class="article" v-for="data in results">
+          <li class="entry" v-for="data in results">
             <div class="row">
               <div class="col-sm-12">
-                <div class="title">
-                  <h5><a v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a></h5>
-                  <p class="summary">{{ data.summary }}</p>
+                <div class="content">
+                  <a class="title" v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a>
                 </div>
                 <div class="image" v-if="data.image_url">
-                  <img  :src="data.image_url">
+                  <img :src="data.image_url">
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row extra">
               <div class="col-xs-8">
                 <a v-link="{ name: 'topic_detail', params: { id: data.topic.id } }">{{ data.topic.name }}</a>
                 <small class="text-muted"> · </small>

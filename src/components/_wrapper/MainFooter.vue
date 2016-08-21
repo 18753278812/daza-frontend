@@ -22,12 +22,12 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .footer {
   min-height: 50px;
   line-height: 50px;
-}
-.footer > .container > hr {
-  margin-bottom: 0px;
+  > .container > hr {
+    margin-bottom: 0px;
+  }
 }
 </style>

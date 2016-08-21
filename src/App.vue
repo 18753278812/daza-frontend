@@ -29,7 +29,92 @@ export default {
 <style lang="scss">
 html, body {
   font-family: "HanHei SC","PingHei","PingFang SC","STHeitiSC-Light","Helvetica Neue","Helvetica","Arial",sans-serif;
-  font-size: 14px;
+  font-size: 13px;
+}
+
+#wrapper {
+  > .container {
+    padding-top: 70px;
+  }
+  // 导航栏
+  .bg-inverse {
+    background-color: #37474F;
+  }
+  .navbar-brand img {
+    height: 1.2rem;
+    width: auto;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+  // 文章列表
+  .article-list {
+    list-style-type: none;
+    padding: 0;
+    > .entry {
+      a {
+        color: #424242;
+      }
+      .content {
+        width: 10000px;
+        display: table-cell;
+        vertical-align: top;
+        .title {
+          font-size: 16px;
+          font-weight: 500;
+        }
+      }
+      .image {
+        display: table-cell;
+        vertical-align: top;
+        padding-left: 5px;
+        img {
+          width: 120px;
+          height: 68px;
+        }
+      }
+      .extra {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  // Extra small devices (portrait phones, less than 544px)
+  @media (max-width: 543px) {
+    // 导航栏
+    .search-form {
+      display: none;
+    }
+    // 文章列表
+    .article-list {
+      > .entry {
+        .image {
+          img {
+            width: 100px;
+            height: 56px;
+          }
+        }
+      }
+    }
+  }
+
+  // Small devices (landscape phones, 544px and up)
+  @media (min-width: 544px) and (max-width: 767px) {
+  }
+
+  // Medium devices (tablets, 768px and up)
+  @media (min-width: 768px) and (max-width: 991px) {
+  }
+
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) and (max-width: 1199px) {
+  }
+
+  // Extra large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) {
+    .container {
+      width: 980px;
+    }
+  }
 }
 
 #alert {
@@ -42,90 +127,5 @@ html, body {
      -moz-box-shadow: 0 0 12px #999999;
   -webkit-box-shadow: 0 0 12px #999999;
           box-shadow: 0 0 12px #999999;
-}
-
-#wrapper {
-  .bg-inverse {
-    background-color: #37474F;
-  }
-  .navbar-brand img {
-    height: 1.2rem;
-    width: auto;
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
-  }
-}
-#wrapper > {
-  .container {
-    padding-top: 70px;
-    padding-bottom: 20px;
-  }
-}
-// 文章样式
-#wrapper {
-  .article-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  .article-list > .article {
-    a {
-      color: #424242;
-    }
-    .title {
-      width: 10000px;
-      display: table-cell;
-      vertical-align: top;
-    }
-    .image {
-      display: table-cell;
-      vertical-align: top;
-    }
-    .image img {
-      width: 160px;
-      height: 90px;
-    }
-  }
-
-  // Extra small devices (portrait phones, less than 544px)
-  @media (max-width: 543px) {
-    .article-list > .article {
-      .image img {
-        width: 100px;
-        height: 56px;
-      }
-    }
-  }
-
-  // Small devices (landscape phones, less than 768px)
-  @media (max-width: 767px) {
-  }
-
-  // Medium devices (tablets, less than 992px)
-  @media (max-width: 991px) {
-  }
-
-  // Large devices (desktops, less than 1200px)
-  @media (max-width: 1199px) {
-  }
-}
-#wrapper {
-  // Extra small devices (portrait phones, less than 544px)
-  @media (max-width: 543px) {
-    .search-form {
-      display: none;
-    }
-  }
-
-  // Small devices (landscape phones, less than 768px)
-  @media (max-width: 767px) {
-  }
-
-  // Medium devices (tablets, less than 992px)
-  @media (max-width: 991px) {
-  }
-
-  // Large devices (desktops, less than 1200px)
-  @media (max-width: 1199px) {
-  }
 }
 </style>

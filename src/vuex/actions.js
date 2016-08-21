@@ -12,8 +12,6 @@ import {
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_SUCCESS,
   RECEIVE_CATEGORIES,
-  ARTICLE_VOTE_SUCCESS,
-  ARTICLE_COMMENT_SUCCESS,
 } from './mutation-types';
 
 export const register = ({ dispatch }, username, email, password) => {
@@ -62,19 +60,19 @@ export const getCategoryList = ({ dispatch }, page) => {
 };
 
 export const articleVote = ({ dispatch }, id, type) => {
-  const req = articles.articleVote(id, type).then((data) => {
-    dispatch(ARTICLE_VOTE_SUCCESS, data);
-    return Promise.resolve(data);
-  })
+  const req = articles.articleVote(id, type).then((data) => Promise.resolve(data))
   .catch((error) => Promise.reject(error));
   return req;
 };
 
 export const articleComment = ({ dispatch }, id, params) => {
-  const req = articles.articleComment(id, params).then((data) => {
-    dispatch(ARTICLE_COMMENT_SUCCESS, data);
-    return Promise.resolve(data);
-  })
+  const req = articles.articleComment(id, params).then((data) => Promise.resolve(data))
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const articleCommentList = ({ dispatch }, id) => {
+  const req = articles.articleCommentList(id).then((data) => Promise.resolve(data))
   .catch((error) => Promise.reject(error));
   return req;
 };

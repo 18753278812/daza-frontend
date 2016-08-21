@@ -60,4 +60,13 @@ export default {
       return Promise.reject(new Error('error'));
     });
   },
+  articleCommentList(id, page) {
+    const req = Vue.http.get(`${VER}/articles/${id}/comments`, { page });
+    return req.then((response) => {
+      if (response.ok) {
+        return Promise.resolve(response.data.data);
+      }
+      return Promise.reject(new Error('error'));
+    });
+  },
 };

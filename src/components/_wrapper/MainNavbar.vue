@@ -13,7 +13,9 @@
       </form>
       <ul class="nav navbar-nav pull-xs-right" v-if="auth.check()">
         <li class="nav-item">
-          <a class="nav-link" v-link="'/notifications'">通知 <span class="tag tag-pill tag-danger">0</span></a>
+          <a class="nav-link" v-link="'/notifications'">
+            通知 <span class="tag tag-pill tag-danger">{{ unread_notification_count }}</span>
+          </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -23,7 +25,7 @@
             <a class="dropdown-item" v-link="{ name: 'user_detail', params: { id: auth.id } }">查看个人资料</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">帮助</a>
-            <a class="dropdown-item" href="#">键盘快捷键</a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shortcut-cheat-sheet">键盘快捷键</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" v-link="'/account/settings'">设置</a>
             <a class="dropdown-item" v-link="'/account/logout'">退出登录</a>
@@ -53,6 +55,7 @@ export default {
   },
   data() {
     return {
+      unread_notification_count: 100,
     };
   },
   ready() {
