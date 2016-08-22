@@ -69,6 +69,57 @@
         </nav>
       </div>
       <div class="col-sm-3">
+        <ul class="nav nav-pills nav-stacked">
+          <li class="nav-item">
+            <a class="nav-link" href="#">我订阅的主题 <span class="tag tag-default">0</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">我收藏的文章 <span class="tag tag-default">0</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">我赞过的文章 <span class="tag tag-default">0</span></a>
+          </li>
+        </ul>
+        <hr>
+        <ul class="nav nav-pills nav-stacked">
+          <li class="nav-item">
+            <a class="nav-link" href="#">主题广场</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">我收藏的文章</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">我赞过的文章</a>
+          </li>
+        </ul>
+        <hr>
+        <h5>最新主题</h5>
+        <ul class="nav nav-pills nav-stacked">
+          <li class="nav-item">
+            <a class="nav-link" href="#">主题广场</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">我收藏的文章</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">我赞过的文章</a>
+          </li>
+        </ul>
+        <h5>最热主题</h5>
+        <ul class="nav nav-pills nav-stacked">
+          <li class="nav-item">
+            <a class="nav-link" href="#">主题广场</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">我收藏的文章</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">我赞过的文章</a>
+          </li>
+        </ul>
+        <hr>
+        <button type="button" class="btn btn-default">下载 App</button>
+        <hr>
         <button type="button" class="btn btn-primary btn-block" v-link="'/articles/create'">写文章</button>
         <hr>
         <button type="button" class="btn btn-primary btn-block" v-link="'/articles/share'">分享文章</button>

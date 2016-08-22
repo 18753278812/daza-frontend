@@ -22,7 +22,7 @@
             <img :src="auth.user.avatar_url" alt="..." class="img-circle" style="width: 1.3rem; height: 1.3rem"> {{ auth.user.name }}
           </a>
           <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" v-link="{ name: 'user_detail', params: { id: auth.id } }">查看个人资料</a>
+            <a class="dropdown-item" v-link="{ name: 'user_detail', params: { id: auth.id } }">查看个人主页</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">帮助</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shortcut-cheat-sheet">键盘快捷键</a>

@@ -40,6 +40,9 @@ html, body {
   .bg-inverse {
     background-color: #37474F;
   }
+  .search-form input[name='keyword'] {
+    width: 250px;
+  }
   .navbar-brand img {
     height: 1.2rem;
     width: auto;
@@ -112,7 +115,7 @@ html, body {
   // Extra large devices (large desktops, 1200px and up)
   @media (min-width: 1200px) {
     .container {
-      width: 980px;
+      width: 920px;
     }
   }
 }
