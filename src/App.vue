@@ -115,7 +115,7 @@ html, body {
   // Extra large devices (large desktops, 1200px and up)
   @media (min-width: 1200px) {
     .container {
-      width: 920px;
+      width: 980px;
     }
   }
 }

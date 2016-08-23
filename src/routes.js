@@ -52,6 +52,7 @@ export default {
     component: MainWrapper,
     subRoutes: {
       '/': {
+        name: 'home.index',
         component: HomeIndex,
       },
       '/status': {

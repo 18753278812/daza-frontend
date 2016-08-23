@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-9">
+      <div class="col-sm-8">
         <!-- 分类导航 -->
         <ul class="nav nav-inline">
           <li class="nav-item">
-            <a class="nav-link" v-link="'/latest'">最新</a>
+            <a class="nav-link" v-link="{ name: 'home.index', query: { category_slug: 'latest' } }"v-link="'/latest'">最新</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" v-link="'/popular'">推荐</a>
+            <a class="nav-link" v-link="{ name: 'home.index', query: { category_slug: 'popular' } }"v-link="'/popular'">推荐</a>
           </li>
           <li class="nav-item" v-for="category in categories" >
-            <a class="nav-link" v-link="'/categories'"> {{ category.name }}</a>
+            <a class="nav-link" v-link="{ name: 'home.index', query: { category_id: category.id } }"> {{ category.name }}</a>
           </li>
         </ul>
         <hr>
@@ -55,7 +55,7 @@
             <li class="page-item active">
               <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
             </li>
-            <li class="page-item"><a class="page-link" href="/?page=2">2</a></li>
+            <li class="page-item"><a class="page-link"  v-link="{ name: 'home.index', query: { category_slug: 'popular', page: 2 } }"">2</a></li>
             <li class="page-item"><a class="page-link" href="/?page=3">3</a></li>
             <li class="page-item"><a class="page-link" href="/?page=4">4</a></li>
             <li class="page-item"><a class="page-link" href="/?page=5">5</a></li>
@@ -68,72 +68,49 @@
           </ul>
         </nav>
       </div>
-      <div class="col-sm-3">
-        <ul class="nav nav-pills nav-stacked">
-          <li class="nav-item">
-            <a class="nav-link" href="#">我订阅的主题 <span class="tag tag-default">0</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">我收藏的文章 <span class="tag tag-default">0</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">我赞过的文章 <span class="tag tag-default">0</span></a>
-          </li>
-        </ul>
+      <div class="col-sm-4">
+        <div class="list-group" v-if="auth.check()">
+          <a href="#" class="list-group-item disabled">
+            Cras justo odio
+          </a>
+          <a href="#" class="list-group-item">我订阅的主题 <span class="tag tag-default">0</span></a>
+          <a href="#" class="list-group-item">我收藏的文章 <span class="tag tag-default">0</span></a>
+          <a href="#" class="list-group-item">我赞过的文章 <span class="tag tag-default">0</span></a>
+        </div>
         <hr>
-        <ul class="nav nav-pills nav-stacked">
-          <li class="nav-item">
-            <a class="nav-link" href="#">主题广场</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">我收藏的文章</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">我赞过的文章</a>
-          </li>
-        </ul>
+        <div class="list-group">
+          <a href="#" class="list-group-item disabled">
+            最新主题
+          </a>
+          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+          <a href="#" class="list-group-item">Morbi leo risus</a>
+          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+          <a href="#" class="list-group-item">Vestibulum at eros</a>
+        </div>
         <hr>
-        <h5>最新主题</h5>
-        <ul class="nav nav-pills nav-stacked">
-          <li class="nav-item">
-            <a class="nav-link" href="#">主题广场</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">我收藏的文章</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">我赞过的文章</a>
-          </li>
-        </ul>
-        <h5>最热主题</h5>
-        <ul class="nav nav-pills nav-stacked">
-          <li class="nav-item">
-            <a class="nav-link" href="#">主题广场</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">我收藏的文章</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">我赞过的文章</a>
-          </li>
-        </ul>
-        <hr>
-        <button type="button" class="btn btn-default">下载 App</button>
-        <hr>
-        <button type="button" class="btn btn-primary btn-block" v-link="'/articles/create'">写文章</button>
-        <hr>
-        <button type="button" class="btn btn-primary btn-block" v-link="'/articles/share'">分享文章</button>
+        <div class="list-group">
+          <a href="#" class="list-group-item disabled">
+            最热主题
+          </a>
+          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+          <a href="#" class="list-group-item">Morbi leo risus</a>
+          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+          <a href="#" class="list-group-item">Vestibulum at eros</a>
+        </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { auth } from '../../vuex/getters';
 import { getCategoryList } from '../../vuex/actions';
 
 export default {
   vuex: {
     getters: {
+      auth,
       categories: state => state.categories.all,
     },
     actions: {
@@ -146,17 +123,17 @@ export default {
     };
   },
   ready() {
+    console.log('reload');
     // 加载分类
     this.getCategoryList();
     // 加载文章
     const page = this.$route.query.page;
     this.$http.get(`v1/articles?page=${page}`).then((response) => {
       this.results = response.data.data;
-      console.log(response.data.data);
-    }, (response) => {
-      // error callback
-      console.log(response);
     });
+  },
+  route: {
+    canReuse: false,
   },
 };
 </script>

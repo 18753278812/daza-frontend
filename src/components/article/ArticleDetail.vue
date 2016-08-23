@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-9">
+      <div class="col-sm-8">
         <h4>{{ data.title }}</h4>
         <div class="row">
           <div class="col-xs-9">
@@ -75,7 +75,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <div class="row">
           <div class="col-sm-12">
             <div class="card">
