@@ -69,6 +69,13 @@ export const getArticleList = ({ dispatch }, page, categoryId, categorySlug) => 
   return req;
 };
 
+
+export const articleShow = ({ dispatch }, id) => {
+  const req = articles.show(id).then((data) => Promise.resolve(data))
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
 export const articleVote = ({ dispatch }, id, type) => {
   const req = articles.articleVote(id, type).then((data) => Promise.resolve(data))
   .catch((error) => Promise.reject(error));

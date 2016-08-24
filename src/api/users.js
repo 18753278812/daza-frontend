@@ -1,10 +1,8 @@
 import Vue from 'vue';
 
-const VER = process.env.API_VERSION;
-
 export default {
   lists(page) {
-    const req = Vue.http.get(`${VER}/users`, { page });
+    const req = Vue.http.get('users', { page });
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -16,7 +14,7 @@ export default {
 
   },
   show(id) {
-    const req = Vue.http.get(`${VER}/users/${id}`);
+    const req = Vue.http.get(`users/${id}`);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -25,7 +23,7 @@ export default {
     });
   },
   update(id) {
-    const req = Vue.http.put(`${VER}/users/${id}`);
+    const req = Vue.http.put(`users/${id}`);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -34,7 +32,7 @@ export default {
     });
   },
   destroy(id) {
-    const req = Vue.http.delete(`${VER}/users/${id}`);
+    const req = Vue.http.delete(`users/${id}`);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);

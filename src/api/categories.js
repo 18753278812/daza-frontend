@@ -1,10 +1,8 @@
 import Vue from 'vue';
 
-const VER = process.env.API_VERSION;
-
 export default {
   lists(page) {
-    const req = Vue.http.get(`${VER}/categories`, { page });
+    const req = Vue.http.get('categories', { page });
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -16,7 +14,7 @@ export default {
 
   },
   show(id) {
-    const req = Vue.http.get(`${VER}/categories/${id}`);
+    const req = Vue.http.get(`categories/${id}`);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -25,7 +23,7 @@ export default {
     });
   },
   update(id) {
-    const req = Vue.http.put(`${VER}/categories/${id}`);
+    const req = Vue.http.put(`categories/${id}`);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -34,7 +32,7 @@ export default {
     });
   },
   destroy(id) {
-    const req = Vue.http.delete(`${VER}/categories/${id}`);
+    const req = Vue.http.delete(`categories/${id}`);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);

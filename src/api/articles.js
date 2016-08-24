@@ -1,7 +1,5 @@
 import Vue from 'vue';
 
-const VER = process.env.API_VERSION;
-
 export default {
   lists(page, categoryId, categorySlug) {
     const params = {
@@ -9,7 +7,7 @@ export default {
       category_id: categoryId,
       category_slug: categorySlug,
     };
-    const req = Vue.http.get(`${VER}/articles`, params);
+    const req = Vue.http.get('articles', params);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -21,7 +19,7 @@ export default {
 
   },
   show(id) {
-    const req = Vue.http.get(`${VER}/articles/${id}`);
+    const req = Vue.http.get(`articles/${id}`);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -30,7 +28,7 @@ export default {
     });
   },
   update(id) {
-    const req = Vue.http.put(`${VER}/articles/${id}`);
+    const req = Vue.http.put(`articles/${id}`);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -39,7 +37,7 @@ export default {
     });
   },
   destroy(id) {
-    const req = Vue.http.delete(`${VER}/articles/${id}`);
+    const req = Vue.http.delete(`articles/${id}`);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -48,7 +46,7 @@ export default {
     });
   },
   articleVote(id, type) {
-    const req = Vue.http.post(`${VER}/articles/${id}/votes`, { type });
+    const req = Vue.http.post(`articles/${id}/votes`, { type });
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -57,7 +55,7 @@ export default {
     });
   },
   articleComment(id, params) {
-    const req = Vue.http.post(`${VER}/articles/${id}/comments`, params);
+    const req = Vue.http.post(`articles/${id}/comments`, params);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -66,7 +64,7 @@ export default {
     });
   },
   articleCommentList(id, page) {
-    const req = Vue.http.get(`${VER}/articles/${id}/comments`, { page });
+    const req = Vue.http.get(`articles/${id}/comments`, { page });
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);

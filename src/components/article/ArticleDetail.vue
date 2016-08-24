@@ -106,7 +106,7 @@
 
 <script>
 import { auth } from '../../vuex/getters';
-import { articleVote, articleComment, articleCommentList } from '../../vuex/actions';
+import { articleShow, articleVote, articleComment, articleCommentList } from '../../vuex/actions';
 
 export default {
   vuex: {
@@ -114,6 +114,7 @@ export default {
       auth,
     },
     actions: {
+      articleShow,
       articleVote,
       articleComment,
       articleCommentList,
@@ -134,11 +135,10 @@ export default {
   },
   ready() {
     const articleId = this.$route.params.id;
-    this.$http.get(`v1/articles/${articleId}?`).then((response) => {
-      this.data = response.data.data;
-      this.topic = this.data.topic;
-      console.log(this.data);
-    }, () => { });
+    this.articleShow(articleId).then(data => {
+      this.data = data;
+      this.topic = data.topic;
+    });
     this.articleCommentList(articleId).then(data => {
       this.comments = data;
     });

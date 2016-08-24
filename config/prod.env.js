@@ -1,5 +1,4 @@
 module.exports = {
   NODE_ENV: '"production"',
-  API_BASE_URL: '"http://mock-api.daza.io"',
-  API_VERSION: '"v1"'
+  API_BASE_URL: '"http://mock-api.daza.io"'
 }
