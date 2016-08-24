@@ -17,7 +17,7 @@
         <hr>
         <!-- 文章列表 -->
         <ul class="article-list">
-          <li class="entry" v-for="data in results">
+          <li class="entry" v-for="data in articles">
             <div class="row">
               <div class="col-sm-12">
                 <div class="content">
@@ -55,7 +55,7 @@
             <li class="page-item active">
               <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
             </li>
-            <li class="page-item"><a class="page-link"  v-link="{ name: 'home.index', query: { category_slug: 'popular', page: 2 } }"">2</a></li>
+            <li class="page-item"><a class="page-link"  v-link="{ name: 'home.index', query: { category_id: categoryId, category_slug: categorySlug, page: page } }">2</a></li>
             <li class="page-item"><a class="page-link" href="/?page=3">3</a></li>
             <li class="page-item"><a class="page-link" href="/?page=4">4</a></li>
             <li class="page-item"><a class="page-link" href="/?page=5">5</a></li>
@@ -105,32 +105,35 @@
 
 <script>
 import { auth } from '../../vuex/getters';
-import { getCategoryList } from '../../vuex/actions';
+import { getCategoryList, getArticleList } from '../../vuex/actions';
 
 export default {
   vuex: {
     getters: {
       auth,
       categories: state => state.categories.all,
+      articles: state => state.articles.all,
     },
     actions: {
       getCategoryList,
+      getArticleList,
     },
   },
   data() {
     return {
-      results: [],
+      page: 1,
+      categoryId: null,
+      categorySlug: null,
     };
   },
   ready() {
-    console.log('reload');
     // 加载分类
     this.getCategoryList();
     // 加载文章
-    const page = this.$route.query.page;
-    this.$http.get(`v1/articles?page=${page}`).then((response) => {
-      this.results = response.data.data;
-    });
+    this.page = this.$route.query.page;
+    this.categoryId = this.$route.query.category_id;
+    this.categorySlug = this.$route.query.category_slug;
+    this.getArticleList(this.page, this.categoryId, this.categorySlug);
   },
   route: {
     canReuse: false,

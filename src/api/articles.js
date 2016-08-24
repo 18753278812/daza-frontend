@@ -3,8 +3,13 @@ import Vue from 'vue';
 const VER = process.env.API_VERSION;
 
 export default {
-  lists(page) {
-    const req = Vue.http.get(`${VER}/articles`, { page });
+  lists(page, categoryId, categorySlug) {
+    const params = {
+      page,
+      category_id: categoryId,
+      category_slug: categorySlug,
+    };
+    const req = Vue.http.get(`${VER}/articles`, params);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);

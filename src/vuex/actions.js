@@ -12,6 +12,7 @@ import {
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_SUCCESS,
   RECEIVE_CATEGORIES,
+  RECEIVE_ARTICLES,
 } from './mutation-types';
 
 export const register = ({ dispatch }, username, email, password) => {
@@ -53,6 +54,15 @@ export const updateProfile = ({ dispatch }, params) => {
 export const getCategoryList = ({ dispatch }, page) => {
   const req = categories.lists(page).then((data) => {
     dispatch(RECEIVE_CATEGORIES, data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const getArticleList = ({ dispatch }, page, categoryId, categorySlug) => {
+  const req = articles.lists(page, categoryId, categorySlug).then((data) => {
+    dispatch(RECEIVE_ARTICLES, data);
     return Promise.resolve(data);
   })
   .catch((error) => Promise.reject(error));
