@@ -15,7 +15,8 @@ COPY ./nginx /etc/nginx
 
 RUN wget https://dl.eff.org/certbot-auto \
  && chmod a+x ./certbot-auto \
- && ./certbot-auto --help
+ && ./certbot-auto --help \
+ && ./certbot-auto certonly --email app@daza.io --agree-tos --webroot -w /usr/share/nginx/html -d mock-web.daza.io
 
 WORKDIR /app
 
