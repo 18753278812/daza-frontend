@@ -12,7 +12,7 @@
             <small class="text-muted">{{ data.view_count }}阅读</small>
           </div>
           <div class="col-xs-3 text-xs-right">
-            <a v-bind:href="data.link" target="_blank"><small class="text-muted">原文链接</small></a>
+            <a v-bind:href="data.link" target="_blank"><small class="text-muted">阅读原文</small></a>
           </div>
         </div>
         <hr>
@@ -27,7 +27,6 @@
         <p>&nbsp;</p>
         <div class="row">
           <div class="col-xs-4">
-            <a href="#"><small class="text-muted">分享</small></a>
             <a href="#"><small class="text-muted">举报</small></a>
           </div>
           <div class="col-xs-8 text-xs-right">

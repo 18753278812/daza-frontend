@@ -28,7 +28,7 @@
         </p>
         <div class="row">
           <div class="col-xs-12">
-            <a :href="data.link" target="_blank">[ 访问原文链接 ]</a>
+            <a :href="data.link" target="_blank">[ 阅读原文 ]</a>
           </div>
         </div>
         <hr>
@@ -53,7 +53,7 @@ export default {
   ready() {
     const articleId = this.$route.params.id;
 
-    this.$http.get(`v1/articles/${articleId}?`).then((response) => {
+    this.$http.get(`articles/${articleId}?`).then((response) => {
       this.data = response.data.data;
       console.log(this.data);
     }, () => { });
