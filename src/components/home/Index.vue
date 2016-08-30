@@ -44,29 +44,7 @@
           </li>
         </ul>
         <!-- 分页导航 -->
-        <nav aria-label="...">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="page-item"><a class="page-link"  v-link="{ name: 'home.index', query: { category_id: categoryId, category_slug: categorySlug, page: page } }">2</a></li>
-            <li class="page-item"><a class="page-link" href="/?page=3">3</a></li>
-            <li class="page-item"><a class="page-link" href="/?page=4">4</a></li>
-            <li class="page-item"><a class="page-link" href="/?page=5">5</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <vue-pagination :pagination="pagination"></vue-pagination>
       </div>
       <div class="col-sm-4">
         <div class="list-group" v-if="auth.check()">
@@ -106,6 +84,7 @@
 <script>
 import { auth } from '../../vuex/getters';
 import { getCategoryList, getArticleList } from '../../vuex/actions';
+import VuePagination from '../_common/VuePagination';
 
 export default {
   vuex: {
@@ -124,6 +103,14 @@ export default {
       page: 1,
       categoryId: null,
       categorySlug: null,
+      pagination: {
+        total: 0,
+        per_page: 15,
+        current_page: 1,
+        last_page: 0,
+        from: null,
+        to: null,
+      },
     };
   },
   ready() {
@@ -133,10 +120,15 @@ export default {
     this.page = this.$route.query.page;
     this.categoryId = this.$route.query.category_id;
     this.categorySlug = this.$route.query.category_slug;
-    this.getArticleList(this.page, this.categoryId, this.categorySlug);
+    this.getArticleList(this.page, this.categoryId, this.categorySlug).then(data => {
+      this.pagination = data.pagination;
+    });
   },
   route: {
     canReuse: false,
+  },
+  components: {
+    VuePagination,
   },
 };
 </script>

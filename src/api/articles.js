@@ -10,7 +10,7 @@ export default {
     const req = Vue.http.get('articles', params);
     return req.then((response) => {
       if (response.ok) {
-        return Promise.resolve(response.data.data);
+        return Promise.resolve(response.data);
       }
       return Promise.reject(new Error('error'));
     });
