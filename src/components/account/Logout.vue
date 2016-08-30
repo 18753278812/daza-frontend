@@ -22,10 +22,11 @@ export default {
     };
   },
   ready() {
-    setTimeout(() => {
-      this.logout();
-      this.$route.router.go('/');
-    }, 500);
+    this.logout().then(() => {
+      setTimeout(() => {
+        this.$route.router.go('/');
+      }, 600);
+    });
   },
 };
 </script>

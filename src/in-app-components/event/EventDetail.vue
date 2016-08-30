@@ -18,7 +18,6 @@ export default {
 
     this.$http.get(`v1/events/${eventId}?`).then((response) => {
       this.data = response.data.data;
-      console.log(this.data);
     }, () => { });
   },
 };

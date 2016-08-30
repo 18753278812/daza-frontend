@@ -26,8 +26,8 @@ module.exports = {
   },
   externals: {
     'nprogress': 'NProgress',
-    'toastr': 'toastr',
     'jquery': 'jQuery',
+    'daovoice': 'daovoice',
   },
   module: {
     preLoaders: [

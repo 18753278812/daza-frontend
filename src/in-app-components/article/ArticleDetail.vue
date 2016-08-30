@@ -44,19 +44,64 @@
 </template>
 
 <script>
+import { auth } from '../../vuex/getters';
+import { articleShow, articleVote, articleComment, articleCommentList } from '../../vuex/actions';
+
 export default {
+  vuex: {
+    getters: {
+      auth,
+    },
+    actions: {
+      articleShow,
+      articleVote,
+      articleComment,
+      articleCommentList,
+    },
+  },
   data() {
     return {
+      topic: {},
       data: {},
+      comments: [],
+      rules: {
+        content: { required: true },
+      },
+      params: {
+        content: '',
+      },
     };
   },
   ready() {
     const articleId = this.$route.params.id;
-
-    this.$http.get(`articles/${articleId}?`).then((response) => {
-      this.data = response.data.data;
-      console.log(this.data);
-    }, () => { });
+    this.articleShow(articleId).then(data => {
+      this.data = data;
+      this.topic = data.topic;
+    });
+    this.articleCommentList(articleId).then(data => {
+      this.comments = data;
+    });
+  },
+  methods: {
+    submit(e) {
+      // 判断是否为按了Ctrl+Enter组合键
+      if (e != null && !((e.metaKey || e.ctrlKey) && e.keyCode === 13)) {
+        return;
+      }
+      this.articleComment(this.data.id, this.params).then((data) => {
+        this.params.content = '';
+        this.comments.push(data);
+      });
+    },
+    vote() {
+      if (this.data.voted) {
+        return;
+      }
+      this.articleVote(this.data.id, 'up').then(() => {
+        this.data.upvote_count += 1;
+        this.data.voted = true;
+      });
+    },
   },
 };
 </script>

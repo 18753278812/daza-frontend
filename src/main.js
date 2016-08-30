@@ -4,7 +4,6 @@ import VueI18n from 'vue-i18n';
 import VueRouter from 'vue-router';
 import VueValidator from 'vue-validator';
 import VueResource from 'vue-resource';
-import toastr from 'toastr';
 
 import routes from './routes';
 import locales from './lang';
@@ -20,9 +19,6 @@ Vue.use(VueRouter);
 Vue.use(VueValidator);
 Vue.use(VueResource);
 
-toastr.options.positionClass = 'toast-bottom-center';
-toastr.options.timeOut = 1000;
-
 Vue.config.devtools = true;
 
 Vue.config.lang = 'zh-CN';
@@ -31,7 +27,7 @@ Object.keys(locales).forEach((lang) => {
 });
 
 // VueResource 配置
-Vue.http.options.root = process.env.API_BASE_URL;
+Vue.http.options.root = process.env.API_URL;
 Vue.http.interceptors.push({
   request(request) {
     const jwtToken = JSON.parse(localStorage.getItem('auth.jwt_token'));

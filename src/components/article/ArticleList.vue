@@ -31,10 +31,6 @@ export default {
   ready() {
     this.$http.get('v1/articles').then((response) => {
       this.results = response.data.data;
-      console.log(response.data.data);
-    }, (response) => {
-      // error callback
-      console.log(response);
     });
   },
 };
