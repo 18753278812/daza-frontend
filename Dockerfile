@@ -2,6 +2,17 @@ FROM nginx
 MAINTAINER JianyingLi <lijy91@foxmail.com>
 
 RUN apt-get update && apt-get install -y sudo curl bzip2 wget
+RUN apt-get install -y \
+   python \
+   python-dev \
+   $virtualenv \
+   gcc \
+   dialog \
+   $augeas_pkg \
+   libssl-dev \
+   libffi-dev \
+   ca-certificates
+
 RUN curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 RUN apt-get install -y nodejs && apt-get clean
 
@@ -14,8 +25,7 @@ RUN npm install -g vue-cli
 COPY ./nginx /etc/nginx
 
 RUN wget https://dl.eff.org/certbot-auto \
- && chmod a+x ./certbot-auto \
- && echo y | ./certbot-auto
+ && chmod a+x ./certbot-auto
 
 WORKDIR /app
 
