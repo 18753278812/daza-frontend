@@ -7,7 +7,7 @@
           href="#"
           aria-label="Previous"
           v-on:click.prevent="changePage(prevPage)">
-          <span aria-hidden="true">&laquo;</span>
+          <span aria-hidden="true">{{{ $t("pagination.previous") }}}</span>
           <span class="sr-only">Previous</span>
         </a>
       </li>
@@ -23,7 +23,7 @@
           href="#"
           aria-label="Next"
           v-on:click.prevent="changePage(nextPage)">
-          <span aria-hidden="true">&raquo;</span>
+          <span aria-hidden="true">{{{ $t("pagination.next") }}}</span>
           <span class="sr-only">Next</span>
         </a>
       </li>
@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     elements() {
-      const offset = 4;
+      const offset = 3;
       let from = this.pagination.current_page - offset;
       if (from < 1) {
         from = 1;
@@ -81,6 +81,9 @@ export default {
       return (this.pagination.current_page === 1);
     },
     hasMorePages() {
+      if (this.pagination.last_page === 0) {
+        return false;
+      }
       return (this.pagination.current_page !== this.pagination.last_page);
     },
   },

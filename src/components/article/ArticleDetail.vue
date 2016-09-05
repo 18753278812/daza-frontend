@@ -27,7 +27,7 @@
         <p>&nbsp;</p>
         <div class="row">
           <div class="col-xs-4">
-            <a href="#"><small class="text-muted">举报</small></a>
+            <a :href="mailToReport"><small class="text-muted">举报</small></a>
           </div>
           <div class="col-xs-8 text-xs-right">
             <form @submit.prevent="vote()">
@@ -142,10 +142,20 @@ export default {
       this.comments = data;
     });
   },
+  computed: {
+    mailToReport() {
+      const reportEmail = process.env.EMAIL_REPORT;
+      return `mailto:${reportEmail}?subject=[举报文章] ${this.data.title}`;
+    },
+  },
   methods: {
     submit(e) {
       // 判断是否为按了Ctrl+Enter组合键
       if (e != null && !((e.metaKey || e.ctrlKey) && e.keyCode === 13)) {
+        return;
+      }
+      // 评论表单验证，避免提交空评论请求
+      if (!this.$validation.valid) {
         return;
       }
       this.articleComment(this.data.id, this.params).then((data) => {

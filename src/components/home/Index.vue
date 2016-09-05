@@ -5,13 +5,13 @@
         <!-- 分类导航 -->
         <ul class="nav nav-inline">
           <li class="nav-item">
-            <a class="nav-link" v-link="{ name: 'home.index', query: { category_slug: 'latest' } }"v-link="'/latest'">最新</a>
+            <a class="nav-link" href="#" v-link="{ name: 'home.index', query: { category_slug: 'latest' } }">最新</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" v-link="{ name: 'home.index', query: { category_slug: 'popular' } }"v-link="'/popular'">推荐</a>
+            <a class="nav-link" href="#" v-link="{ name: 'home.index', query: { category_slug: 'popular' } }">推荐</a>
           </li>
           <li class="nav-item" v-for="category in categories" >
-            <a class="nav-link" v-link="{ name: 'home.index', query: { category_id: category.id } }"> {{ category.name }}</a>
+            <a class="nav-link" data-toggle="t" v-link="{ name: 'home.index', query: { category_id: category.id } }"> {{ category.name }}</a>
           </li>
         </ul>
         <hr>
@@ -138,7 +138,12 @@ export default {
   methods: {
     loadData(page) {
       window.scrollTo(0, 0);
-      this.$route.router.go({ name: 'home.index', query: { page } });
+      const query = {
+        page,
+        category_id: this.categoryId,
+        category_slug: this.categorySlug,
+      };
+      this.$route.router.go({ name: 'home.index', query });
     },
   },
 };
