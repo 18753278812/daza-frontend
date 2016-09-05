@@ -4,6 +4,7 @@ import MainWrapper from './components/_wrapper/MainWrapper';
 import SimpleWrapper from './components/_wrapper/SimpleWrapper';
 
 import HomeIndex from './components/home/Index';
+import HomeSearch from './components/home/Search';
 import HomeStatus from './components/home/Status';
 import HomeDownloadApp from './components/home/DownloadApp';
 
@@ -54,6 +55,9 @@ export default {
       '/': {
         name: 'home.index',
         component: HomeIndex,
+      },
+      '/search': {
+        component: HomeSearch,
       },
       '/status': {
         component: HomeStatus,

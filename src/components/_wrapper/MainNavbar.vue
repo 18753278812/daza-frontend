@@ -4,7 +4,7 @@
       <a class="navbar-brand" v-link="'/'">
         <img alt="Brand" src="../../assets/ic_logo_light.png">
       </a>
-      <form class="form-inline pull-xs-left search-form">
+      <form class="form-inline pull-xs-left search-form" method="get" action="/search">
         <input
           class="form-control"
           type="text"
