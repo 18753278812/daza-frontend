@@ -44,7 +44,7 @@
           </li>
         </ul>
         <!-- 分页导航 -->
-        <vue-pagination :pagination="pagination"></vue-pagination>
+        <vue-pagination :pagination="pagination" :callback="loadData"></vue-pagination>
       </div>
       <div class="col-sm-4">
         <div class="list-group" v-if="auth.check()">
@@ -85,6 +85,7 @@
 import { auth } from '../../vuex/getters';
 import { getCategoryList, getArticleList } from '../../vuex/actions';
 import VuePagination from '../_common/VuePagination';
+import NProgress from 'nprogress';
 
 export default {
   vuex: {
@@ -115,13 +116,17 @@ export default {
   },
   ready() {
     // 加载分类
-    this.getCategoryList();
+    if (this.categories.length === 0) {
+      this.getCategoryList();
+    }
     // 加载文章
     this.page = this.$route.query.page;
     this.categoryId = this.$route.query.category_id;
     this.categorySlug = this.$route.query.category_slug;
+    NProgress.start();
     this.getArticleList(this.page, this.categoryId, this.categorySlug).then(data => {
       this.pagination = data.pagination;
+      NProgress.done();
     });
   },
   route: {
@@ -129,6 +134,12 @@ export default {
   },
   components: {
     VuePagination,
+  },
+  methods: {
+    loadData(page) {
+      window.scrollTo(0, 0);
+      this.$route.router.go({ name: 'home.index', query: { page } });
+    },
   },
 };
 </script>
