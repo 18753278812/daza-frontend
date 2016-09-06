@@ -89,6 +89,9 @@ html, body {
 
   // Extra small devices (portrait phones, less than 544px)
   @media (max-width: 543px) {
+    > .container {
+      padding-top: 55px;
+    }
     // 导航栏
     .search-form {
       display: none;

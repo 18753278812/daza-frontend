@@ -56,6 +56,10 @@ export default {
         name: 'home.index',
         component: HomeIndex,
       },
+      '/home/:slug': {
+        name: 'home.index.slug',
+        component: HomeIndex,
+      },
       '/search': {
         component: HomeSearch,
       },

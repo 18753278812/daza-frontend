@@ -3,15 +3,15 @@
     <div class="row">
       <div class="col-sm-8">
         <!-- 分类导航 -->
-        <ul class="nav nav-inline">
+        <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link" href="#" v-link="{ name: 'home.index', query: { category_slug: 'latest' } }">最新</a>
+            <a class="nav-link" href="#" v-link="{ name: 'home.index.slug', params: { slug: 'latest' } }">最新</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" v-link="{ name: 'home.index', query: { category_slug: 'popular' } }">推荐</a>
+            <a class="nav-link" href="#" v-link="{ name: 'home.index.slug', params: { slug: 'popular' } }">推荐</a>
           </li>
           <li class="nav-item" v-for="category in categories" >
-            <a class="nav-link" data-toggle="t" v-link="{ name: 'home.index', query: { category_id: category.id } }"> {{ category.name }}</a>
+            <a class="nav-link" v-link="{ name: 'home.index.slug', params: { slug: category.slug ? category.slug : category.id } }"> {{ category.name }}</a>
           </li>
         </ul>
         <hr>
@@ -121,8 +121,8 @@ export default {
     }
     // 加载文章
     this.page = this.$route.query.page;
-    this.categoryId = this.$route.query.category_id;
-    this.categorySlug = this.$route.query.category_slug;
+    this.categorySlug = this.$route.params.slug;
+    this.categoryId = this.categorySlug;
     NProgress.start();
     this.getArticleList(this.page, this.categoryId, this.categorySlug).then(data => {
       this.pagination = data.pagination;
@@ -140,14 +140,25 @@ export default {
       window.scrollTo(0, 0);
       const query = {
         page,
-        category_id: this.categoryId,
-        category_slug: this.categorySlug,
       };
-      this.$route.router.go({ name: 'home.index', query });
+      const params = {
+        categorySlug: this.categorySlug,
+      };
+      this.$route.router.go({ name: 'home.index.slug', query, params });
     },
   },
 };
 </script>
 
 <style scoped>
+.nav-item+.nav-item {
+  margin-left: 0px;
+}
+.nav-link {
+  font-size: 10px;
+  padding: 2px 8px 2px 8px;
+}
+.nav-link.active {
+  border-radius: 20px;
+}
 </style>
