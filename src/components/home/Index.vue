@@ -142,7 +142,7 @@ export default {
         page,
       };
       const params = {
-        categorySlug: this.categorySlug,
+        slug: this.categorySlug,
       };
       this.$route.router.go({ name: 'home.index.slug', query, params });
     },
