@@ -43,11 +43,15 @@
             <hr>
           </li>
         </ul>
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="text-xs-center" v-if="articles.length == 0">空空如也</p>
+          </div>
+        </div>
         <!-- 分页导航 -->
-        <vue-pagination :pagination="pagination" :callback="loadData"></vue-pagination>
+        <vue-pagination :pagination="pagination" :callback="loadArticles"></vue-pagination>
       </div>
       <div class="col-sm-4">
-        <hr>
         <div class="list-group">
           <a href="#" class="list-group-item disabled">
             最新主题
@@ -62,10 +66,7 @@
           <a href="#" class="list-group-item disabled">
             最热主题
           </a>
-          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-          <a href="#" class="list-group-item">Morbi leo risus</a>
-          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-          <a href="#" class="list-group-item">Vestibulum at eros</a>
+          <a v-link="{ name: 'topic_detail', params: { id: topic.id } }" class="list-group-item" v-for="topic in topics ">{{ topic.name }}</a>
         </div>
 
       </div>
@@ -75,7 +76,7 @@
 
 <script>
 import { auth } from '../../vuex/getters';
-import { getCategoryList, getArticleList } from '../../vuex/actions';
+import { getCategoryList, getArticleList, getTopicList } from '../../vuex/actions';
 import VuePagination from '../_common/VuePagination';
 import NProgress from 'nprogress';
 
@@ -84,10 +85,12 @@ export default {
     getters: {
       auth,
       categories: state => state.categories.all,
+      topics: state => state.topics.all,
       articles: state => state.articles.all,
     },
     actions: {
       getCategoryList,
+      getTopicList,
       getArticleList,
     },
   },
@@ -120,6 +123,10 @@ export default {
       this.pagination = data.pagination;
       NProgress.done();
     });
+    // 加载最新主题
+    this.getTopicList(1);
+    // // 加载最热主题
+    // this.getTopicList(1);
   },
   route: {
     canReuse: false,
@@ -128,7 +135,7 @@ export default {
     VuePagination,
   },
   methods: {
-    loadData(page) {
+    loadArticles(page) {
       window.scrollTo(0, 0);
       const query = {
         page,

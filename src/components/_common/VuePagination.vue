@@ -1,5 +1,5 @@
 <template>
-  <nav aria-label="...">
+  <nav aria-label="..." v-bind:style="{ display: pagination.last_page > 1 ? '' : 'none' }">
     <ul class="pagination">
       <li class="page-item" v-bind:class="{ disabled: onFirstPage }">
         <a

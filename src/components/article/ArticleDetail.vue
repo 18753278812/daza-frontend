@@ -39,9 +39,11 @@
           </div>
         </div>
         <hr>
-        <div>
-          <p class="text-xs-left" v-if="comments.length > 0">{{ data.comment_count }}条精彩回复</p>
-          <p class="text-xs-center" v-if="comments.length == 0">暂无评论</p>
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="text-xs-left" v-if="comments.length > 0">{{ data.comment_count }}条精彩回复</p>
+            <p class="text-xs-center" v-if="comments.length == 0">空空如也</p>
+          </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
@@ -53,7 +55,7 @@
                   </a>
                 </div>
                 <div class="content">
-                  <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">{{ auth.user.name }}</a>
+                  <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">{{ comment.user.name }}</a>
                   <p>{{ comment.content }}</p>
                   <div>
                     <small class="text-muted">{{ comment.created_at }}</small>
@@ -71,7 +73,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-sm-12" v-bind:style="{ display: pagination.last_page > 1 ? '' : 'none' }">
+          <div class="col-sm-12">
             <!-- 分页导航 -->
             <vue-pagination :pagination="pagination" :callback="loadComments"></vue-pagination>
           </div>
@@ -188,8 +190,6 @@ export default {
     loadComments(page) {
       const articleId = this.$route.params.id;
       NProgress.start();
-      console.log(page);
-      console.log(this.page);
       this.articleCommentList(articleId, page).then(data => {
         this.comments = data.data;
         this.pagination = data.pagination;

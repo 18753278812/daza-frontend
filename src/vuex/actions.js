@@ -1,7 +1,7 @@
 import account from '../api/account';
 // import users from '../api/users';
 import categories from '../api/categories';
-// import topics from '../api/topics';
+import topics from '../api/topics';
 import articles from '../api/articles';
 // import tweets from '../api/tweets';
 // import tags from '../api/tags';
@@ -12,6 +12,7 @@ import {
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_SUCCESS,
   RECEIVE_CATEGORIES,
+  RECEIVE_TOPICS,
   RECEIVE_ARTICLES,
 } from './mutation-types';
 
@@ -60,6 +61,15 @@ export const getCategoryList = ({ dispatch }, page) => {
   return req;
 };
 
+export const getTopicList = ({ dispatch }, page) => {
+  const req = topics.lists(page).then((data) => {
+    dispatch(RECEIVE_TOPICS, data.data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
 export const getArticleList = ({ dispatch }, page, categoryId, categorySlug) => {
   const req = articles.lists(page, categoryId, categorySlug).then((data) => {
     dispatch(RECEIVE_ARTICLES, data);
@@ -68,7 +78,6 @@ export const getArticleList = ({ dispatch }, page, categoryId, categorySlug) => 
   .catch((error) => Promise.reject(error));
   return req;
 };
-
 
 export const articleShow = ({ dispatch }, id) => {
   const req = articles.show(id).then((data) => Promise.resolve(data))

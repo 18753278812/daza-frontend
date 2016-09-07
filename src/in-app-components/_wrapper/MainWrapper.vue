@@ -1,9 +1,9 @@
 <template>
-  <navbar-view></navbar-view>
-
-  <router-view></router-view>
-
-  <footer-view></footer-view>
+  <div id="wrapper">
+    <navbar-view></navbar-view>
+    <router-view></router-view>
+    <footer-view></footer-view>
+  </div>
 </template>
 
 <script>
@@ -24,5 +24,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+#wrapper {
+  > .container {
+    padding-top: 15px;
+  }
+}
 </style>

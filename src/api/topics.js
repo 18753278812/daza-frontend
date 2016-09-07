@@ -5,7 +5,7 @@ export default {
     const req = Vue.http.get('topics', { page });
     return req.then((response) => {
       if (response.ok) {
-        return Promise.resolve(response.data.data);
+        return Promise.resolve(response.data);
       }
       return Promise.reject(new Error('error'));
     });
