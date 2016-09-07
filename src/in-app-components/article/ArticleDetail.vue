@@ -67,7 +67,7 @@
             </ul>
           </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="comments.length > 0">
           <div class="col-sm-12">
             <p class="text-xs-center"><a href="#">查看全部评论</a></p>
           </div>

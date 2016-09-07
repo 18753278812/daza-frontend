@@ -1,5 +1,5 @@
 import account from '../api/account';
-// import users from '../api/users';
+import users from '../api/users';
 import categories from '../api/categories';
 import topics from '../api/topics';
 import articles from '../api/articles';
@@ -48,6 +48,12 @@ export const updateProfile = ({ dispatch }, params) => {
     dispatch(UPDATE_PROFILE_SUCCESS, data);
     return Promise.resolve(data);
   })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const userShow = ({ dispatch }, id) => {
+  const req = users.show(id).then((data) => Promise.resolve(data))
   .catch((error) => Promise.reject(error));
   return req;
 };

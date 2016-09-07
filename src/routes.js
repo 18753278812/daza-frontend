@@ -14,7 +14,6 @@ import AccountLogout from './components/account/Logout';
 import AccountPasswordReset from './components/account/PasswordReset';
 import AccountSettings from './components/account/Settings';
 
-import UserList from './components/user/UserList';
 import UserDetail from './components/user/UserDetail';
 
 import CategoryList from './components/category/CategoryList';
@@ -68,9 +67,6 @@ export default {
       },
       '/download': {
         component: HomeDownloadApp,
-      },
-      '/users': {
-        component: UserList,
       },
       '/users/:id': {
         name: 'user_detail',
