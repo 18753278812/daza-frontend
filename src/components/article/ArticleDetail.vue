@@ -40,15 +40,37 @@
         </div>
         <hr>
         <div>
-          <small class="text-muted" v-if="comments.count > 0">{{ data.comment_count }}条精彩回复</small>
-          <p class="text-xs-center" v-if="comments.count == 0">
-            暂无评论
-          </p>
-          <p v-for="comment in comments">
-            {{ comment.user_id }}
-            {{ comment.content }}
-            {{ comment.created_at }}
-          </p>
+          <p class="text-xs-left" v-if="comments.length > 0">{{ data.comment_count }}条精彩回复</p>
+          <p class="text-xs-center" v-if="comments.length == 0">暂无评论</p>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <ul class="comment-list">
+              <li class="entry" v-for="comment in comments">
+                <div class="avatar">
+                  <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">
+                    <img class="img-circle" :src="comment.user.avatar_url">
+                  </a>
+                </div>
+                <div class="content">
+                  <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">{{ auth.user.name }}</a>
+                  <p>{{ comment.content }}</p>
+                  <div>
+                    <small class="text-muted">{{ comment.created_at }}</small>
+                    <small class="text-muted"> &nbsp; </small>
+                    <a href="#"><small class="text-muted">回复</small></a>
+                    <small class="text-muted"> · </small>
+                    <a href="#"><small class="text-muted">举报</small></a>
+                    <span v-if="auth.check && auth.user.id === comment.user_id">
+                      <small class="text-muted"> · </small>
+                      <a href="#"><small class="text-muted red">删除</small></a>
+                    </span>
+                  </div>
+                </div>
+                <hr>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
@@ -68,7 +90,7 @@
                   class="btn btn-primary"
                   type="submit"
                   :disabled="!$validation.valid">回复</button>
-                  <small class="text-muted">Ctrl+Enter</small>
+                  <small class="text-muted">&nbsp;Ctrl+Enter</small>
               </form>
             </validator>
           </div>
@@ -161,6 +183,7 @@ export default {
       this.articleComment(this.data.id, this.params).then((data) => {
         this.params.content = '';
         this.comments.push(data);
+        this.data.comment_count = this.data.comment_count + 1;
       });
     },
     vote() {

@@ -47,14 +47,6 @@
         <vue-pagination :pagination="pagination" :callback="loadData"></vue-pagination>
       </div>
       <div class="col-sm-4">
-        <div class="list-group" v-if="auth.check()">
-          <a href="#" class="list-group-item disabled">
-            Cras justo odio
-          </a>
-          <a href="#" class="list-group-item">我订阅的主题 <span class="tag tag-default">0</span></a>
-          <a href="#" class="list-group-item">我收藏的文章 <span class="tag tag-default">0</span></a>
-          <a href="#" class="list-group-item">我赞过的文章 <span class="tag tag-default">0</span></a>
-        </div>
         <hr>
         <div class="list-group">
           <a href="#" class="list-group-item disabled">
@@ -155,7 +147,6 @@ export default {
   margin-left: 0px;
 }
 .nav-link {
-  font-size: 10px;
   padding: 2px 8px 2px 8px;
 }
 .nav-link.active {

@@ -87,6 +87,33 @@ html, body {
     }
   }
 
+  // 评论列表
+  .comment-list {
+    list-style-type: none;
+    padding: 0;
+    > .entry {
+      .avatar {
+        width: 36px;
+        display: table-cell;
+        vertical-align: top;
+        img {
+          width: 32px;
+          height: 32px;
+        }
+      }
+      .content {
+        display: table-cell;
+        vertical-align: top;
+        padding-left: 5px;
+        p {
+          font-size: 14px;
+          margin-top: 2px;
+          margin-bottom: 2px;
+        }
+      }
+    }
+  }
+
   // Extra small devices (portrait phones, less than 544px)
   @media (max-width: 543px) {
     > .container {

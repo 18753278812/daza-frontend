@@ -61,6 +61,7 @@ const router = new VueRouter({
 
 // 定义路由规则
 router.map(routes);
+// 定义重定向规则
 router.redirect({
   '/': '/home/latest',
 });
