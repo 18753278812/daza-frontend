@@ -71,6 +71,10 @@
               </li>
             </ul>
           </div>
+          <div class="col-sm-12" v-bind:style="{ display: pagination.last_page > 1 ? '' : 'none' }">
+            <!-- 分页导航 -->
+            <vue-pagination :pagination="pagination" :callback="loadComments"></vue-pagination>
+          </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
@@ -128,6 +132,8 @@
 <script>
 import { auth } from '../../vuex/getters';
 import { articleShow, articleVote, articleComment, articleCommentList } from '../../vuex/actions';
+import VuePagination from '../_common/VuePagination';
+import NProgress from 'nprogress';
 
 export default {
   vuex: {
@@ -152,16 +158,24 @@ export default {
       params: {
         content: '',
       },
+      page: 1,
+      pagination: {
+        total: 0,
+        per_page: 15,
+        current_page: 1,
+        last_page: 0,
+        from: null,
+        to: null,
+      },
     };
   },
   ready() {
     const articleId = this.$route.params.id;
+    NProgress.start();
     this.articleShow(articleId).then(data => {
       this.data = data;
       this.topic = data.topic;
-    });
-    this.articleCommentList(articleId).then(data => {
-      this.comments = data;
+      this.loadComments(this.page);
     });
   },
   computed: {
@@ -171,6 +185,18 @@ export default {
     },
   },
   methods: {
+    loadComments(page) {
+      const articleId = this.$route.params.id;
+      NProgress.start();
+      console.log(page);
+      console.log(this.page);
+      this.articleCommentList(articleId, page).then(data => {
+        this.comments = data.data;
+        this.pagination = data.pagination;
+        this.page = data.pagination.current_page;
+        NProgress.done();
+      });
+    },
     submit(e) {
       // 判断是否为按了Ctrl+Enter组合键
       if (e != null && !((e.metaKey || e.ctrlKey) && e.keyCode === 13)) {
@@ -182,7 +208,9 @@ export default {
       }
       this.articleComment(this.data.id, this.params).then((data) => {
         this.params.content = '';
-        this.comments.push(data);
+        const comment = data;
+        comment.user = this.auth.user;
+        this.comments.push(comment);
         this.data.comment_count = this.data.comment_count + 1;
       });
     },
@@ -195,6 +223,9 @@ export default {
         this.data.voted = true;
       });
     },
+  },
+  components: {
+    VuePagination,
   },
 };
 </script>

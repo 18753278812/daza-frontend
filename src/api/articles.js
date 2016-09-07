@@ -64,10 +64,13 @@ export default {
     });
   },
   articleCommentList(id, page) {
-    const req = Vue.http.get(`articles/${id}/comments`, { page });
+    const params = {
+      page,
+    };
+    const req = Vue.http.get(`articles/${id}/comments`, params);
     return req.then((response) => {
       if (response.ok) {
-        return Promise.resolve(response.data.data);
+        return Promise.resolve(response.data);
       }
       return Promise.reject(new Error('error'));
     });

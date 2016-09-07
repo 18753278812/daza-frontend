@@ -88,8 +88,8 @@ export const articleComment = ({ dispatch }, id, params) => {
   return req;
 };
 
-export const articleCommentList = ({ dispatch }, id) => {
-  const req = articles.articleCommentList(id).then((data) => Promise.resolve(data))
+export const articleCommentList = ({ dispatch }, id, page) => {
+  const req = articles.articleCommentList(id, page).then((data) => Promise.resolve(data))
   .catch((error) => Promise.reject(error));
   return req;
 };
