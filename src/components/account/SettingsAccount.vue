@@ -27,7 +27,7 @@
           </p>
         </div>
       </div>
-      <div class="form-group row">
+      <div class="form-group row" style="display: none;">
         <label for="bio-input" class="col-xs-3 col-sm-2 col-form-label">社交帐号</label>
         <div class="col-xs-9 col-sm-10">
           <p class="form-control-static">

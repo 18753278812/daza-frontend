@@ -12,6 +12,20 @@
             <small class="text-muted">{{ data.view_count }}阅读</small>
           </div>
         </div>
+        <div class="row" style="margin-top: 15px; ">
+          <div class="col-xs-8">
+            <a href="#">
+              <img :src="topic.image_url" class="img-circle" style="width: 1.8rem; height: 1.8rem"> {{ topic.name }}
+            </a>
+          </div>
+          <div class="col-xs-4 text-xs-right">
+            <form @submit.prevent="subscribe()">
+              <button
+                class="btn btn-sm btn-outline-primary"
+                type="submit">&nbsp;&nbsp;&nbsp;订阅 ({{ topic.subscriber_count }})&nbsp;&nbsp;&nbsp;</button>
+            </form>
+          </div>
+        </div>
         <hr>
         <p class="article-content">{{{ data.content }}}</p>
         <p>
@@ -25,10 +39,10 @@
         </p>
         <div class="row">
           <div class="col-xs-6">
-            <a href="#"><small class="text-muted">举报</small></a>
+            <a :href="mailToReport"><small class="text-muted">举报</small></a>
           </div>
           <div class="col-xs-6 text-xs-right">
-            <a v-bind:href="data.link" target="_blank"><small class="text-muted">阅读原文</small></a>
+            <a :href="data.link" target="_blank"><small class="text-muted">阅读原文</small></a>
           </div>
         </div>
         <hr>
@@ -114,6 +128,12 @@ export default {
     });
     this.loadComments(1);
   },
+  computed: {
+    mailToReport() {
+      const reportEmail = process.env.EMAIL_REPORT;
+      return `mailto:${reportEmail}?subject=[举报文章] ${this.data.title}`;
+    },
+  },
   methods: {
     loadComments(page) {
       const articleId = this.$route.params.id;
@@ -130,6 +150,9 @@ export default {
         this.params.content = '';
         this.comments.push(data);
       });
+    },
+    subscribe() {
+
     },
     vote() {
       if (this.data.voted) {
