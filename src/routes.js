@@ -28,14 +28,6 @@ import ArticleShare from './components/article/ArticleShare';
 import ArticleList from './components/article/ArticleList';
 import ArticleDetail from './components/article/ArticleDetail';
 
-import TweetCreate from './components/tweet/TweetCreate';
-import TweetList from './components/tweet/TweetList';
-import TweetDetail from './components/tweet/TweetDetail';
-
-import EventCreate from './components/event/EventCreate';
-import EventList from './components/event/EventList';
-import EventDetail from './components/event/EventDetail';
-
 import TagList from './components/tag/TagList';
 import TagDetail from './components/tag/TagDetail';
 
@@ -44,7 +36,6 @@ import NotificationList from './components/notification/NotificationList';
 // In-app
 import InAppMainWrapper from './in-app-components/_wrapper/MainWrapper';
 import InAppArticleDetail from './in-app-components/article/ArticleDetail';
-import InAppEventDetail from './in-app-components/event/EventDetail';
 import InAppError404 from './in-app-components/_error/Error404';
 
 export default {
@@ -101,26 +92,6 @@ export default {
         name: 'article_detail',
         component: ArticleDetail,
       },
-      '/tweets/create': {
-        component: TweetCreate,
-      },
-      '/tweets': {
-        component: TweetList,
-      },
-      '/tweets/:id': {
-        name: 'tweet_detail',
-        component: TweetDetail,
-      },
-      '/events/create': {
-        component: EventCreate,
-      },
-      '/events': {
-        component: EventList,
-      },
-      '/events/:id': {
-        name: 'event_detail',
-        component: EventDetail,
-      },
       '/tags': {
         component: TagList,
       },
@@ -167,10 +138,6 @@ export default {
       '/articles/:id': {
         name: 'in_app_article_detail',
         component: InAppArticleDetail,
-      },
-      '/events/:id': {
-        name: 'in_app_event_detail',
-        component: InAppEventDetail,
       },
       '*': {
         component: InAppError404,
