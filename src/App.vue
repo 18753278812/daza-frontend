@@ -35,7 +35,7 @@ export default {
 <style lang="scss">
 html, body {
   font-family: "HanHei SC","PingHei","PingFang SC","STHeitiSC-Light","Helvetica Neue","Helvetica","Arial",sans-serif;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .material-icons {

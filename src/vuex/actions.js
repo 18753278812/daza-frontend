@@ -17,7 +17,7 @@ import {
 } from './mutation-types';
 
 export const register = ({ dispatch }, username, email, password) => {
-  const req = account.login(username, email, password).then((data) => {
+  const req = account.register(username, email, password).then((data) => {
     dispatch(REGISTER_SUCCESS, data);
     return Promise.resolve(data);
   })

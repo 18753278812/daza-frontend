@@ -24,7 +24,7 @@
                   <a class="title" v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a>
                 </div>
                 <div class="image" v-if="data.image_url">
-                  <img :src="data.image_url">
+                  <img v-lazy="data.image_url">
                 </div>
               </div>
             </div>

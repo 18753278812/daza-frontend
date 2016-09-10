@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-3">
-        <img class="img-rounded" style="width: 100%; height: auto; margin-bottom: 12px;" :src="data.avatar_url">
+        <img class="img-rounded" style="width: 100%; height: auto; margin-bottom: 12px;" v-lazy="data.avatar_url">
         <ul class="list-unstyled">
           <li><h3>{{data.name}}</h3></li>
           <li><small class="text-muted">{{data.username}}</small></li>
@@ -17,15 +17,15 @@
         </ul>
         <hr>
         <div class="row">
-          <div class="col-sm-4">
-            <h2 class="text-xs-center">55</h2>
+          <div class="col-xs-4">
+            <h2 class="text-xs-center">0</h2>
             <div class="text-muted text-xs-center">文章</div>
           </div>
-          <div class="col-sm-4">
+          <div class="col-xs-4">
             <h2 class="text-xs-center">0</h2>
             <div class="text-muted text-xs-center">粉丝</div>
           </div>
-          <div class="col-sm-4">
+          <div class="col-xs-4">
             <h2 class="text-xs-center">0</h2>
             <div class="text-muted text-xs-center">关注</div>
           </div>
@@ -85,10 +85,6 @@ export default {
       this.data = data;
       NProgress.done();
     });
-  },
-  computed: {
-  },
-  methods: {
   },
 };
 </script>

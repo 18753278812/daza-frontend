@@ -13,7 +13,7 @@
           <img
             class="img-thumbnail"
             style="width: 80px; height: 80px; float: left"
-            :src="params.avatar_url">
+            v-lazy="params.avatar_url">
           <div style="margin-top: 10px; margin-left: 10px; float: left">
             <button type="submit" class="btn btn-sm btn-secondary">选择头像</button>
             <div class="form-check">

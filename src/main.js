@@ -4,6 +4,7 @@ import VueI18n from 'vue-i18n';
 import VueRouter from 'vue-router';
 import VueValidator from 'vue-validator';
 import VueResource from 'vue-resource';
+import VueLazyload from 'vue-lazyload';
 
 import routes from './routes';
 import locales from './lang';
@@ -18,6 +19,12 @@ Vue.use(VueI18n);
 Vue.use(VueRouter);
 Vue.use(VueValidator);
 Vue.use(VueResource);
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: '/static/images/placeholder_image.png',
+  loading: '/static/images/placeholder_image.png',
+  try: 3,
+});
 
 Vue.config.devtools = true;
 

@@ -51,7 +51,7 @@
               <li class="entry" v-for="comment in comments">
                 <div class="avatar">
                   <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">
-                    <img class="img-circle" :src="comment.user.avatar_url">
+                    <img class="img-circle" v-lazy="comment.user.avatar_url">
                   </a>
                 </div>
                 <div class="content">
@@ -106,7 +106,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="card">
-              <img class="card-img-top" :src="topic.image_url" alt="Card image cap" style="display: none;">
+              <img class="card-img-top" v-lazy="topic.image_url" alt="Card image cap" style="display: none;">
               <div class="card-block">
                 <a v-link="{ name: 'topic_detail', params: { id: topic.id } }">
                   <h4 class="card-title">{{ topic.name }}</h4>

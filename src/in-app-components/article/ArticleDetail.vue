@@ -15,7 +15,7 @@
         <div class="row" style="margin-top: 15px; ">
           <div class="col-xs-8">
             <a href="#">
-              <img :src="topic.image_url" class="img-circle" style="width: 1.8rem; height: 1.8rem"> {{ topic.name }}
+              <img class="img-circle lazy" style="width: 1.8rem; height: 1.8rem" v-lazy="topic.image_url"> {{ topic.name }}
             </a>
           </div>
           <div class="col-xs-4 text-xs-right">
@@ -58,7 +58,7 @@
               <li class="entry" v-for="comment in comments">
                 <div class="avatar">
                   <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">
-                    <img class="img-circle" :src="comment.user.avatar_url">
+                    <img class="img-circle" v-lazy="comment.user.avatar_url">
                   </a>
                 </div>
                 <div class="content">
@@ -167,8 +167,7 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 .article-content img {
   max-width: 100%;
 }
