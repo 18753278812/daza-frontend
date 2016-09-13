@@ -2,12 +2,18 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-3">
-        <img class="img-rounded" style="width: 100%; height: auto; margin-bottom: 12px;" v-lazy="data.avatar_url">
-        <ul class="list-unstyled">
-          <li><h3>{{data.name}}</h3></li>
-          <li><small class="text-muted">{{data.username}}</small></li>
-          <li>{{data.bio}}</li>
-        </ul>
+        <div class="row">
+          <div class="col-sm-12 col-xs-4">
+            <img class="img-rounded" style="width: 100%; height: auto; margin-bottom: 12px;" v-lazy="data.avatar_url">
+          </div>
+          <div class="col-sm-12 col-xs-8">
+            <ul class="list-unstyled">
+              <li><h3>{{data.name}}</h3></li>
+              <li><small class="text-muted">{{data.username}}</small></li>
+              <li>{{data.bio}}</li>
+            </ul>
+          </div>
+        </div>
         <hr>
         <ul class="list-unstyled">
           <li>{{data.city}}</li>
@@ -30,6 +36,7 @@
             <div class="text-muted text-xs-center">关注</div>
           </div>
         </div>
+        <hr>
       </div>
       <div class="col-sm-9">
         <!-- Nav tabs -->

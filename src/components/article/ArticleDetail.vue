@@ -92,11 +92,13 @@
                     v-on:keyup="submit($event)"
                     v-validate:content="rules.content"></textarea>
                 </div>
-                <button
-                  class="btn btn-primary"
-                  type="submit"
-                  :disabled="!$validation.valid">回复</button>
-                  <small class="text-muted">&nbsp;Ctrl+Enter</small>
+                <div class="form-group">
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    :disabled="!$validation.valid">回复</button>
+                    <small class="text-muted">&nbsp;Ctrl+Enter</small>
+                  </div>
               </form>
             </validator>
           </div>
@@ -104,28 +106,23 @@
       </div>
       <div class="col-sm-4">
         <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <img class="card-img-top" v-lazy="topic.image_url" alt="Card image cap" style="display: none;">
-              <div class="card-block">
-                <a v-link="{ name: 'topic_detail', params: { id: topic.id } }">
-                  <h4 class="card-title">{{ topic.name }}</h4>
-                </a>
-                <div class="row">
-                  <div class="col-xs-8">
-                    <small class="text-muted">主题由 <a v-link="{ name: 'user_detail', params: { id: topic.user.id } }">{{ topic.user.name }}</a> 维护</small>
-                  </div>
-                  <div class="col-xs-4 text-xs-right">
-                    <small class="text-muted">{{ topic.subscriber_count }}订阅</small>
-                  </div>
-                </div>
-                <hr>
-                <p class="card-text">{{ topic.description }}</p>
-                <a href="#" class="btn btn-primary">订阅</a>
+          <div class="col-xs-12">
+            <div class="row">
+              <div class="col-xs-4">
+                <p>
+                  <img v-lazy="topic.image_url" style="width: 100%; height: auto;">
+                </p>
+              </div>
+              <div class="col-xs-8" style="padding-left: 0px;">
+                <ul class="list-unstyled">
+                  <li><a v-link="{ name: 'topic_detail', params: { id: topic.id }}"><h4>{{topic.name}}</h4></a></li>
+                  <li><small class="text-muted">{{topic.subscriber_count}} 人订阅，由 <a v-link="{ name: 'user_detail', params: { id: topic.user.id } }">{{ topic.user.name }}</a> 维护</small></li>
+                  <li><p>{{ topic.description }}</p></li>
               </div>
             </div>
           </div>
         </div>
+        <hr style="margin-top: 0;">
       </div>
     </div>
   </div>
@@ -230,15 +227,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-.article-content img {
-  max-width: 100%;
-}
-.article-content img.twemoji {
-   height: 1em;
-   width: 1em;
-   margin: 0 .05em 0 .1em;
-   vertical-align: -0.1em;
-}
+<style lang="scss" scoped>
+
 </style>

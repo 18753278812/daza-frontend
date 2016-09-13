@@ -43,11 +43,11 @@ export default {
     component: MainWrapper,
     subRoutes: {
       '/': {
-        name: 'home.index',
+        name: 'home_index',
         component: HomeIndex,
       },
       '/home/:slug': {
-        name: 'home.index.slug',
+        name: 'home_index_slug',
         component: HomeIndex,
       },
       '/search': {
@@ -73,7 +73,7 @@ export default {
         component: TopicCreate,
       },
       '/topics': {
-        name: 'topic.list',
+        name: 'topic_list',
         component: TopicList,
       },
       '/topics/:id': {
@@ -81,10 +81,11 @@ export default {
         component: TopicDetail,
       },
       '/articles/create': {
-        name: 'article.create',
+        name: 'article_create',
         component: ArticleCreate,
       },
       '/articles/share': {
+        name: 'article_share',
         component: ArticleShare,
       },
       '/articles': {
@@ -95,6 +96,7 @@ export default {
         component: ArticleDetail,
       },
       '/tags': {
+        name: 'tag_list',
         component: TagList,
       },
       '/tags/:name': {
@@ -138,7 +140,7 @@ export default {
     component: InAppMainWrapper,
     subRoutes: {
       '/articles/:id': {
-        name: 'in_app_article_detail',
+        name: 'inapp_article_detail',
         component: InAppArticleDetail,
       },
       '*': {

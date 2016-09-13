@@ -2,12 +2,26 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-8">
-        <h5>主题广场</h5>
+        <div class="row">
+          <div class="col-sm-8">
+            <h3>主题广场</h3>
+          </div>
+          <div class="col-sm-4 text-sm-right">
+            <a v-link="{ name: 'user_detail', params: { id: 0 }}">已订阅0个主题</a>
+          </div>
+        </div>
         <hr>
         <div>
-          <ul>
-            <li v-for="topic in topics">
-              <a v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
+          <ul class="topic-list">
+            <li v-for="topic in topics ">
+              <div class="image">
+                <img v-lazy="topic.image_url">
+              </div>
+              <div class="content">
+                <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
+                <p class="description">{{ topic.description }}</p>
+                <small class="text-muted">{{ topic.subscriber_count }}订阅</small>
+              </div>
             </li>
           </ul>
         </div>
@@ -74,5 +88,38 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.topic-list {
+  list-style-type: none;
+  padding: 0;
+  li {
+    margin: 10px 0 10px 0;
+    .image {
+      display: table-cell;
+      vertical-align: top;
+      img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+    .content {
+      width: 10000px;
+      display: table-cell;
+      vertical-align: top;
+      padding-left: 8px;
+      .name {
+        font-size: 15px;
+      }
+      .description {
+        font-size: 12px;
+        color: #bbb;
+        margin-bottom: 2px;
+      }
+    }
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+}
 </style>

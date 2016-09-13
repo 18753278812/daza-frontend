@@ -5,13 +5,13 @@
         <!-- 分类导航 -->
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link" href="#" v-link="{ name: 'home.index.slug', params: { slug: 'latest' } }">最新</a>
+            <a class="nav-link" href="#" v-link="{ name: 'home_index_slug', params: { slug: 'latest' } }">最新</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" v-link="{ name: 'home.index.slug', params: { slug: 'popular' } }">推荐</a>
+            <a class="nav-link" href="#" v-link="{ name: 'home_index_slug', params: { slug: 'popular' } }">推荐</a>
           </li>
           <li class="nav-item" v-for="category in categories" >
-            <a class="nav-link" v-link="{ name: 'home.index.slug', params: { slug: category.slug ? category.slug : category.id } }"> {{ category.name }}</a>
+            <a class="nav-link" v-link="{ name: 'home_index_slug', params: { slug: category.slug ? category.slug : category.id } }"> {{ category.name }}</a>
           </li>
         </ul>
         <hr>
@@ -61,14 +61,14 @@
                   class="form-control"
                   rows="3"
                   name="source_link"
-                  placeholder="将粘贴文章链接到这里！"
+                  placeholder="将主题/文章链接粘贴到这里！"
                   v-model="source_link"
                   v-validate:email="rules.source_link"></textarea>
               </div>
             </div>
             <div class="form-group row">
               <div class="col-xs-12 text-xs-right">
-                <a v-link="{ name: 'article.create' }"><small class="text-muted">发表原创文章</small></a>
+                <a v-link="{ name: 'article_create' }"><small class="text-muted">发表原创文章</small></a>
                 <button type="submit" class="btn btn-primary btn-sm" :disabled="!$validation.valid">&nbsp;&nbsp;分享&nbsp;&nbsp;</button>
               </div>
             </div>
@@ -80,10 +80,10 @@
             <h5>最新主题</h5>
           </div>
           <div class="col-xs-6 text-xs-right">
-            <a v-link="{ name: 'topic.list' }"><small class="text-muted">主题广场</small></a>
+            <a v-link="{ name: 'topic_list' }"><small class="text-muted">主题广场</small></a>
           </div>
           <div class="col-xs-12">
-            <ul class="topic-list">
+            <ul class="side-topic-list">
               <li v-for="topic in topics ">
                 <div class="image">
                   <img v-lazy="topic.image_url">
@@ -95,6 +95,20 @@
                 </div>
               </li>
             </ul>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-xs-6">
+            <h5>热门标签</h5>
+          </div>
+          <div class="col-xs-6 text-xs-right">
+            <a v-link="{ name: 'tag_list' }"><small class="text-muted">全部标签</small></a>
+          </div>
+          <div class="col-xs-12">
+            <span v-for="tag in tags">
+              <span class="tag tag-default" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</span>
+            </span>
           </div>
         </div>
       </div>
@@ -139,6 +153,11 @@ export default {
         source_link: { required: true, url: true },
       },
       source_link: '',
+      tags: [
+        { name: 'Android' },
+        { name: 'iOS' },
+        { name: 'macOS' },
+      ],
     };
   },
   ready() {
@@ -175,7 +194,7 @@ export default {
       const params = {
         slug: this.categorySlug,
       };
-      this.$route.router.go({ name: 'home.index.slug', query, params });
+      this.$route.router.go({ name: 'home_index_slug', query, params });
     },
   },
 };
@@ -191,7 +210,8 @@ export default {
 .nav-link.active {
   border-radius: 20px;
 }
-.topic-list {
+// 侧边样主题列表样式
+.side-topic-list {
   list-style-type: none;
   padding: 0;
   li {
@@ -218,10 +238,10 @@ export default {
         margin-bottom: 2px;
       }
     }
-    img {
-      width: 50px;
-      height: 50px;
-    }
   }
+}
+// 侧边栏文章列表样式
+.side-article-list {
+
 }
 </style>

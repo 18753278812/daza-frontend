@@ -124,6 +124,18 @@ html, body {
       }
     }
   }
+  // 文章详情
+  .article-content {
+    img {
+      max-width: 100%;
+    }
+    img.twemoji {
+      height: 1em;
+      width: 1em;
+      margin: 0 .05em 0 .1em;
+      vertical-align: -0.1em;
+    }
+  }
 
   // 评论列表
   .comment-list {

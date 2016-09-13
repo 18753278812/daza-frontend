@@ -168,13 +168,4 @@ export default {
 </script>
 
 <style scoped>
-.article-content img {
-  max-width: 100%;
-}
-.article-content img.twemoji {
-   height: 1em;
-   width: 1em;
-   margin: 0 .05em 0 .1em;
-   vertical-align: -0.1em;
-}
 </style>
