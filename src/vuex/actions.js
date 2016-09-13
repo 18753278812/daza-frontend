@@ -3,7 +3,7 @@ import users from '../api/users';
 import categories from '../api/categories';
 import topics from '../api/topics';
 import articles from '../api/articles';
-// import tags from '../api/tags';
+import tags from '../api/tags';
 
 import {
   REGISTER_SUCCESS,
@@ -13,6 +13,7 @@ import {
   RECEIVE_CATEGORIES,
   RECEIVE_TOPICS,
   RECEIVE_ARTICLES,
+  RECEIVE_TAGS,
 } from './mutation-types';
 
 export const register = ({ dispatch }, username, email, password) => {
@@ -110,6 +111,21 @@ export const articleComment = ({ dispatch }, id, params) => {
 
 export const articleCommentList = ({ dispatch }, id, page) => {
   const req = articles.articleCommentList(id, page).then((data) => Promise.resolve(data))
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const getTagList = ({ dispatch }, page) => {
+  const req = tags.lists(page).then((data) => {
+    dispatch(RECEIVE_TAGS, data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const tagShow = ({ dispatch }, name) => {
+  const req = tags.show(name).then((data) => Promise.resolve(data))
   .catch((error) => Promise.reject(error));
   return req;
 };

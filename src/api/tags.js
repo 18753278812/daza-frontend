@@ -13,8 +13,8 @@ export default {
   store() {
 
   },
-  show(id) {
-    const req = Vue.http.get(`tags/${id}`);
+  show(name) {
+    const req = Vue.http.get(`tags/${name}`);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);

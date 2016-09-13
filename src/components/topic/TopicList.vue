@@ -8,22 +8,36 @@
           </div>
         </div>
         <hr>
-        <div>
-          <ul class="topic-list">
-            <li v-for="topic in topics ">
-              <div class="image">
-                <img v-lazy="topic.image_url">
-              </div>
-              <div class="content">
+        <div class="row topic-list">
+          <div class="col-sm-6" v-for="topic in topics">
+            <div class="image">
+              <img class="img-rounded" v-lazy="topic.image_url">
+            </div>
+            <div class="content">
+              <div style="margin: 0;">
                 <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
-                <p class="description">{{ topic.description }}</p>
-                <small class="text-muted">{{ topic.subscriber_count }}订阅</small>
+                <div class="subscribe">
+                  <form @submit.prevent="subscribe(topic.id)">
+                    <button
+                      class="btn btn-sm btn-outline-primary"
+                      type="submit"
+                      :class="{ 'active': topic.subscribed }">&nbsp;订阅 ({{ topic.subscriber_count }})&nbsp;</button>
+                  </form>
+                </div>
               </div>
-            </li>
-          </ul>
+              <p class="description">{{ topic.description }}</p>
+            </div>
+            <hr>
+            <!-- <hr v-bind:style="$index % 2 == 0 ? 'margin-right: -15px;' : 'margin-left: -15px;'"> -->
+          </div>
         </div>
       </div>
       <div class="col-sm-4">
+        <div class="row">
+          <div class="col-xs-12">
+            <a v-link="{ name: 'topic_create' }">创建主题</a>
+          </div>
+        </div>
         <div class="row">
           <div class="col-xs-6">
             <h5>TITLE</h5>
@@ -82,6 +96,9 @@ export default {
     VuePagination,
   },
   methods: {
+    subscribe(id) {
+      alert(`主题：${id}`);
+    },
   },
 };
 </script>
@@ -90,8 +107,7 @@ export default {
 .topic-list {
   list-style-type: none;
   padding: 0;
-  li {
-    margin: 10px 0 10px 0;
+  div {
     .image {
       display: table-cell;
       vertical-align: top;
@@ -104,19 +120,29 @@ export default {
       width: 10000px;
       display: table-cell;
       vertical-align: top;
-      padding-left: 8px;
+      padding-left: 12px;
       .name {
-        font-size: 15px;
+        font-size: 14px;
+        width: 10000px;
+        display: table-cell;
+        vertical-align: top;
+      }
+      .subscribe {
+        display: table-cell;
+        vertical-align: top;
       }
       .description {
         font-size: 12px;
         color: #bbb;
         margin-bottom: 2px;
+        height: 32px;
+        line-height: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
-    }
-    img {
-      width: 60px;
-      height: 60px;
     }
   }
 }

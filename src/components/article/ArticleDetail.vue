@@ -19,9 +19,9 @@
         <p class="article-content">{{{ data.content }}}</p>
         <div class="row">
           <div class="col-xs-12">
-            <span v-for="tag in data.tags">
+            <h5 v-for="tag in data.tags" style="display: inline;">
               <span class="tag tag-default" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</span>
-            </span>
+            </h5>
           </div>
         </div>
         <p>&nbsp;</p>
@@ -60,13 +60,15 @@
                   <div>
                     <small class="text-muted">{{ comment.created_at }}</small>
                     <small class="text-muted"> &nbsp; </small>
-                    <a href="#"><small class="text-muted">回复</small></a>
-                    <small class="text-muted"> · </small>
-                    <a href="#"><small class="text-muted">举报</small></a>
-                    <span v-if="auth.check && auth.user.id === comment.user_id">
+                    <div class="extra">
+                      <a href="#"><small class="text-muted">回复</small></a>
                       <small class="text-muted"> · </small>
-                      <a href="#"><small class="text-muted red">删除</small></a>
-                    </span>
+                      <a href="#"><small class="text-muted">举报</small></a>
+                      <span v-if="auth.check && auth.user.id === comment.user_id">
+                        <small class="text-muted"> · </small>
+                        <a href="#"><small class="text-muted red">删除</small></a>
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <hr>
@@ -110,7 +112,7 @@
             <div class="row">
               <div class="col-xs-4">
                 <p>
-                  <img v-lazy="topic.image_url" style="width: 100%; height: auto;">
+                  <img class="img-rounded" style="width: 100%; height: auto;" v-lazy="topic.image_url" >
                 </p>
               </div>
               <div class="col-xs-8" style="padding-left: 0px;">
@@ -228,5 +230,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.extra {
+  display: inline-block;
+}
 </style>

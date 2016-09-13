@@ -70,6 +70,7 @@ export default {
         component: CategoryDetail,
       },
       '/topics/create': {
+        name: 'topic_create',
         component: TopicCreate,
       },
       '/topics': {

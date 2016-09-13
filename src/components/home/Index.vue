@@ -24,7 +24,7 @@
                   <a class="title" v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a>
                 </div>
                 <div class="image" v-if="data.image_url">
-                  <img v-lazy="data.image_url">
+                  <img class="img-rounded" v-lazy="data.image_url">
                 </div>
               </div>
             </div>
@@ -76,22 +76,28 @@
         </validator>
         <hr>
         <div class="row">
-          <div class="col-xs-6">
+          <div class="col-xs-7">
             <h5>最新主题</h5>
           </div>
-          <div class="col-xs-6 text-xs-right">
+          <div class="col-xs-5 text-xs-right">
             <a v-link="{ name: 'topic_list' }"><small class="text-muted">主题广场</small></a>
           </div>
           <div class="col-xs-12">
             <ul class="side-topic-list">
               <li v-for="topic in topics ">
                 <div class="image">
-                  <img v-lazy="topic.image_url">
+                  <img class="img-rounded" v-lazy="topic.image_url">
                 </div>
                 <div class="content">
-                  <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
+                    </div>
+                    <div class="col-sm-4 text-sm-right">
+                      <small class="text-muted">{{ topic.subscriber_count }} 人订阅</small>
+                    </div>
+                  </div>
                   <p class="description">{{ topic.description }}</p>
-                  <small class="text-muted">{{ topic.subscriber_count }}订阅</small>
                 </div>
               </li>
             </ul>
@@ -99,16 +105,16 @@
         </div>
         <hr>
         <div class="row">
-          <div class="col-xs-6">
+          <div class="col-xs-7">
             <h5>热门标签</h5>
           </div>
-          <div class="col-xs-6 text-xs-right">
+          <div class="col-xs-5 text-xs-right">
             <a v-link="{ name: 'tag_list' }"><small class="text-muted">全部标签</small></a>
           </div>
           <div class="col-xs-12">
-            <span v-for="tag in tags">
+            <h6 v-for="tag in tags" style="display: inline;">
               <span class="tag tag-default" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</span>
-            </span>
+            </h6>
           </div>
         </div>
       </div>
@@ -118,7 +124,7 @@
 
 <script>
 import { auth } from '../../vuex/getters';
-import { getCategoryList, getArticleList, getTopicList } from '../../vuex/actions';
+import { getCategoryList, getTopicList, getArticleList, getTagList } from '../../vuex/actions';
 import VuePagination from '../_common/VuePagination';
 import NProgress from 'nprogress';
 
@@ -129,11 +135,13 @@ export default {
       categories: state => state.categories.all,
       topics: state => state.topics.all,
       articles: state => state.articles.all,
+      tags: state => state.tags.all,
     },
     actions: {
       getCategoryList,
       getTopicList,
       getArticleList,
+      getTagList,
     },
   },
   data() {
@@ -153,11 +161,6 @@ export default {
         source_link: { required: true, url: true },
       },
       source_link: '',
-      tags: [
-        { name: 'Android' },
-        { name: 'iOS' },
-        { name: 'macOS' },
-      ],
     };
   },
   ready() {
@@ -178,6 +181,8 @@ export default {
     this.getTopicList(1);
     // // 加载最热主题
     // this.getTopicList(1);
+    // 加载热门标签
+    this.getTagList(1);
   },
   route: {
     canReuse: false,
@@ -205,7 +210,7 @@ export default {
   margin-left: 0px;
 }
 .nav-link {
-  padding: 2px 8px 2px 8px;
+  padding: 2px 12px 2px 12px;
 }
 .nav-link.active {
   border-radius: 20px;
@@ -236,6 +241,13 @@ export default {
         font-size: 10px;
         color: #bbb;
         margin-bottom: 2px;
+        height: 32px;
+        line-height: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
     }
   }

@@ -8,9 +8,21 @@
           </div>
         </div>
         <hr>
-        <p>
-          ...
-        </p>
+        <div class="row tag-list">
+          <div class="col-sm-6" v-for="tag in tags">
+            <div class="image">
+              <img class="img-rounded" v-lazy="tag.image_url">
+            </div>
+            <div class="content">
+              <div style="margin: 0;">
+                <a class="name" v-link="{ name: 'tag_detail', params: { id: tag.name } }">{{ tag.name }}</a>
+              </div>
+              <p class="description">{{ tag.description }}</p>
+            </div>
+            <hr>
+            <!-- <hr v-bind:style="$index % 2 == 0 ? 'margin-right: -15px;' : 'margin-left: -15px;'"> -->
+          </div>
+        </div>
       </div>
       <div class="col-sm-4">
         <div class="row">
@@ -33,24 +45,85 @@
 
 <script>
 import { auth } from '../../vuex/getters';
+import { getTagList } from '../../vuex/actions';
+import VuePagination from '../_common/VuePagination';
+import NProgress from 'nprogress';
 
 export default {
   vuex: {
     getters: {
       auth,
+      tags: state => state.tags.all,
     },
     actions: {
+      getTagList,
     },
   },
   data() {
     return {
+      pagination: {
+        total: 0,
+        per_page: 15,
+        current_page: 1,
+        last_page: 0,
+        from: null,
+        to: null,
+      },
     };
   },
   ready() {
+    // 加载最新主题
+    NProgress.start();
+    this.getTagList(1).then(data => {
+      this.pagination = data.pagination;
+      NProgress.done();
+    });
+  },
+  components: {
+    VuePagination,
+  },
+  methods: {
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
+.tag-list {
+  list-style-type: none;
+  padding: 0;
+  div {
+    .image {
+      display: table-cell;
+      vertical-align: top;
+      img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+    .content {
+      width: 10000px;
+      display: table-cell;
+      vertical-align: top;
+      padding-left: 12px;
+      .name {
+        font-size: 14px;
+      }
+      .description {
+        font-size: 12px;
+        color: #bbb;
+        margin-bottom: 2px;
+        height: 32px;
+        line-height: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+  hr {
+    margin: 10px 0;
+  }
+}
 </style>
