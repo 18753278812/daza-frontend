@@ -111,7 +111,7 @@ export default {
       rules: {
         name: { required: true },
         city: { required: true },
-        website: { required: true },
+        website: { required: true, url: true },
         bio: { required: true },
       },
       params: {

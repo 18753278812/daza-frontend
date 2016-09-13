@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-9">
+      <div class="col-sm-8">
         <h5>主题广场</h5>
         <hr>
         <div>
@@ -12,7 +12,7 @@
           </ul>
         </div>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <h5>热门主题</h5>
         <ul class="nav nav-pills nav-stacked">
           <li class="nav-item">

@@ -52,23 +52,51 @@
         <vue-pagination :pagination="pagination" :callback="loadArticles"></vue-pagination>
       </div>
       <div class="col-sm-4">
-        <div class="list-group">
-          <a href="#" class="list-group-item disabled">
-            最新主题
-          </a>
-          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-          <a href="#" class="list-group-item">Morbi leo risus</a>
-          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-          <a href="#" class="list-group-item">Vestibulum at eros</a>
-        </div>
+        <validator name="validation">
+          <form novalidate method="get" target="_blank" action="/articles/share">
+            <div class="form-group row">
+              <div class="col-xs-12">
+                <textarea
+                  id="summary-input"
+                  class="form-control"
+                  rows="3"
+                  name="source_link"
+                  placeholder="将粘贴文章链接到这里！"
+                  v-model="source_link"
+                  v-validate:email="rules.source_link"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-xs-12 text-xs-right">
+                <a v-link="{ name: 'article.create' }"><small class="text-muted">发表原创文章</small></a>
+                <button type="submit" class="btn btn-primary btn-sm" :disabled="!$validation.valid">&nbsp;&nbsp;分享&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </form>
+        </validator>
         <hr>
-        <div class="list-group">
-          <a href="#" class="list-group-item disabled">
-            最热主题
-          </a>
-          <a v-link="{ name: 'topic_detail', params: { id: topic.id } }" class="list-group-item" v-for="topic in topics ">{{ topic.name }}</a>
+        <div class="row">
+          <div class="col-xs-6">
+            <h5>最新主题</h5>
+          </div>
+          <div class="col-xs-6 text-xs-right">
+            <a v-link="{ name: 'topic.list' }"><small class="text-muted">主题广场</small></a>
+          </div>
+          <div class="col-xs-12">
+            <ul class="topic-list">
+              <li v-for="topic in topics ">
+                <div class="image">
+                  <img v-lazy="topic.image_url">
+                </div>
+                <div class="content">
+                  <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
+                  <p class="description">{{ topic.description }}</p>
+                  <small class="text-muted">{{ topic.subscriber_count }}订阅</small>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -107,6 +135,10 @@ export default {
         from: null,
         to: null,
       },
+      rules: {
+        source_link: { required: true, url: true },
+      },
+      source_link: '',
     };
   },
   ready() {
@@ -149,7 +181,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .nav-item+.nav-item {
   margin-left: 0px;
 }
@@ -158,5 +190,38 @@ export default {
 }
 .nav-link.active {
   border-radius: 20px;
+}
+.topic-list {
+  list-style-type: none;
+  padding: 0;
+  li {
+    margin: 10px 0 10px 0;
+    .image {
+      display: table-cell;
+      vertical-align: top;
+      img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+    .content {
+      width: 10000px;
+      display: table-cell;
+      vertical-align: top;
+      padding-left: 8px;
+      .name {
+        font-size: 13px;
+      }
+      .description {
+        font-size: 10px;
+        color: #bbb;
+        margin-bottom: 2px;
+      }
+    }
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
 }
 </style>

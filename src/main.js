@@ -51,12 +51,9 @@ Vue.http.interceptors.push({
 });
 
 // Register email validator function.
-Vue.validator('email', (val) => {
-  if (!val) {
-    return false;
-  }
-  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(val);
-});
+Vue.validator('email', (val) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(val));
+// Register url validator function.
+Vue.validator('url', (val) => /^(http\u003a\/\/|https\u003a\/\/)(.{4,})$/.test(val));
 
 // 创建一个路由器实例
 const router = new VueRouter({

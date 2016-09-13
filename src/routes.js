@@ -73,6 +73,7 @@ export default {
         component: TopicCreate,
       },
       '/topics': {
+        name: 'topic.list',
         component: TopicList,
       },
       '/topics/:id': {
@@ -80,6 +81,7 @@ export default {
         component: TopicDetail,
       },
       '/articles/create': {
+        name: 'article.create',
         component: ArticleCreate,
       },
       '/articles/share': {
