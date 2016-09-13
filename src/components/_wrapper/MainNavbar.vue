@@ -24,7 +24,7 @@
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" v-link="{ name: 'user_detail', params: { id: auth.id } }">查看个人主页</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">帮助</a>
+            <a class="dropdown-item" v-link="{ name: 'topic_detail', params: { id: 'help' }}">帮助</a>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shortcut-cheat-sheet">键盘快捷键</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" v-link="'/account/settings'">设置</a>

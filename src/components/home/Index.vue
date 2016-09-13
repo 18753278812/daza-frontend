@@ -35,9 +35,9 @@
                 <small class="text-muted">{{ data.published_at }}</small>
               </div>
               <div class="col-xs-4 text-xs-right">
-                <small class="text-muted">{{ data.view_count }}阅读</small>
-                <small class="text-muted"> · </small>
                 <small class="text-muted">{{ data.comment_count }}评论</small>
+                <small class="text-muted"> · </small>
+                <small class="text-muted">{{ data.view_count }}阅读</small>
               </div>
             </div>
             <hr>

@@ -3,7 +3,6 @@ import users from '../api/users';
 import categories from '../api/categories';
 import topics from '../api/topics';
 import articles from '../api/articles';
-// import tweets from '../api/tweets';
 // import tags from '../api/tags';
 
 import {
@@ -72,6 +71,12 @@ export const getTopicList = ({ dispatch }, page) => {
     dispatch(RECEIVE_TOPICS, data.data);
     return Promise.resolve(data);
   })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const topicShow = ({ dispatch }, id) => {
+  const req = topics.show(id).then((data) => Promise.resolve(data))
   .catch((error) => Promise.reject(error));
   return req;
 };

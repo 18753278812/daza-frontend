@@ -3,11 +3,8 @@
     <div class="row">
       <div class="col-sm-8">
         <div class="row">
-          <div class="col-sm-8">
+          <div class="col-sm-12">
             <h3>主题广场</h3>
-          </div>
-          <div class="col-sm-4 text-sm-right">
-            <a v-link="{ name: 'user_detail', params: { id: 0 }}">已订阅0个主题</a>
           </div>
         </div>
         <hr>
@@ -27,18 +24,19 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <h5>热门主题</h5>
-        <ul class="nav nav-pills nav-stacked">
-          <li class="nav-item">
-            <a class="nav-link" href="#">主题广场</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">我收藏的文章</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">我赞过的文章</a>
-          </li>
-        </ul>
+        <div class="row">
+          <div class="col-xs-6">
+            <h5>TITLE</h5>
+          </div>
+          <div class="col-xs-6 text-xs-right">
+
+          </div>
+          <div class="col-xs-12">
+            <p>
+              ...
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
