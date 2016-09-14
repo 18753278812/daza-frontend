@@ -50,9 +50,6 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#profile" role="tab">赞过的文章</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#messages" role="tab">收藏的文章</a>
-          </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">

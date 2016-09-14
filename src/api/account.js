@@ -16,8 +16,10 @@ export default {
     const req = Vue.http.post('account/login', { email, password });
     return req.then((response) => {
       if (response.ok) {
+        console.log('ok');
         return Promise.resolve(response.data.data);
       }
+      console.log('not ok');
       return Promise.reject(new Error('error'));
     });
   },

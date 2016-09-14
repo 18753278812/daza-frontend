@@ -10,6 +10,7 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_SUCCESS,
+  RECEIVE_ERRORS,
   RECEIVE_CATEGORIES,
   RECEIVE_TOPICS,
   RECEIVE_ARTICLES,
@@ -18,7 +19,11 @@ import {
 
 export const register = ({ dispatch }, username, email, password) => {
   const req = account.register(username, email, password).then((data) => {
-    dispatch(REGISTER_SUCCESS, data);
+    if (data.code === 0) {
+      dispatch(REGISTER_SUCCESS, data.data);
+      return Promise.resolve(data.data);
+    }
+    dispatch(RECEIVE_ERRORS, data.errors);
     return Promise.resolve(data);
   })
   .catch((error) => Promise.reject(error));
@@ -30,7 +35,12 @@ export const login = ({ dispatch }, email, password) => {
     dispatch(LOGIN_SUCCESS, data);
     return Promise.resolve(data);
   })
-  .catch((error) => Promise.reject(error));
+  .catch((error) => {
+    console.log('not ok');
+    console.log(error);
+    dispatch(RECEIVE_ERRORS, error.data.errors);
+    return Promise.reject(error);
+  });
   return req;
 };
 

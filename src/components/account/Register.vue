@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-3"></div>
-      <div class="col-sm-6">
+      <div class="col-md-4 col-sm-3"></div>
+      <div class="col-md-4 col-sm-6">
         <h3 class="text-xs-center">注册</h3>
         <validator name="validation">
           <form novalidate @submit.prevent="submit()">
@@ -38,7 +38,7 @@
                 <input
                   type="checkbox"
                   v-validate:accepted="rules.accepted">
-                  我已阅读并同意《<a href="#">用户隐私条款</a>》</input>
+                  我已阅读并同意<a v-link="{ name: 'article_detail', params: { 'id': 'tos' } }">服务条款</a>与<a v-link="{ name: 'article_detail', params: { 'id': 'privacy' } }">隐私政策</a>。</input>
               </label>
             </div>
             <div class="form-group">
@@ -50,7 +50,7 @@
           已有账号？<a v-link="'/account/login'">点此登录</a>
         </div>
       </div>
-      <div class="col-sm-3"></div>
+      <div class="col-md-4 col-sm-3"></div>
     </div>
   </div>
 </template>

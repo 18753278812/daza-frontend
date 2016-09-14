@@ -90,10 +90,10 @@
                 </div>
                 <div class="content">
                   <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-md-8 col-sm-12">
                       <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
                     </div>
-                    <div class="col-sm-4 text-sm-right">
+                    <div class="col-md-4 text-md-right col-sm-12 text-sm-left">
                       <small class="text-muted">{{ topic.subscriber_count }} 人订阅</small>
                     </div>
                   </div>

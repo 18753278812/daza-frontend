@@ -15,7 +15,7 @@
             </div>
             <div class="content">
               <div style="margin: 0;">
-                <a class="name" v-link="{ name: 'tag_detail', params: { id: tag.name } }">{{ tag.name }}</a>
+                <a class="name" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</a>
               </div>
               <p class="description">{{ tag.description }}</p>
             </div>

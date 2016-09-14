@@ -73,7 +73,7 @@
           </div>
         </div>
       </fieldset>
-      <fieldset class="form-group row">
+      <fieldset class="form-group row" style="display: none;">
         <label class="col-xs-5 col-sm-3">收藏了我的文章</label>
         <div class="col-xs-7 col-sm-9">
           <div class="form-check-inline">

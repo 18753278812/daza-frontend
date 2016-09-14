@@ -17,17 +17,8 @@
               <img class="img-rounded" v-lazy="topic.image_url">
             </div>
             <div class="content">
-              <div style="margin: 0;">
-                <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
-                <div class="subscribe">
-                  <form @submit.prevent="subscribe(topic.id)">
-                    <button
-                      class="btn btn-sm btn-outline-primary"
-                      type="submit"
-                      :class="{ 'active': topic.subscribed }">&nbsp;订阅 ({{ topic.subscriber_count }})&nbsp;</button>
-                  </form>
-                </div>
-              </div>
+              <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
+              <small class="text-muted">{{ topic.subscriber_count }} 人订阅</small>
               <p class="description">{{ topic.description }}</p>
             </div>
             <hr>
@@ -92,11 +83,6 @@ export default {
   components: {
     VuePagination,
   },
-  methods: {
-    subscribe(id) {
-      alert(`主题：${id}`);
-    },
-  },
 };
 </script>
 
@@ -120,13 +106,7 @@ export default {
       padding-left: 12px;
       .name {
         font-size: 14px;
-        width: 10000px;
         display: table-cell;
-        vertical-align: top;
-      }
-      .subscribe {
-        display: table-cell;
-        vertical-align: top;
       }
       .description {
         font-size: 12px;

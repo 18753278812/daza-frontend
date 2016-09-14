@@ -1,15 +1,16 @@
 <template>
   <router-view></router-view>
-  <!-- <div class="container">
+  <div class="container" v-for="error in errors">
     <div id="alert" class="alert alert-success alert-dismissible fade in" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
       <h4 class="alert-heading">Well done!</h4>
+      <p>{{ error.message }}</p>
       <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
       <p class="m-b-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <script>
@@ -17,6 +18,13 @@ import store from './vuex/store';
 
 export default {
   store,
+  vuex: {
+    getters: {
+      errors: state => state.errors.all,
+    },
+    actions: {
+    },
+  },
   data() {
     return {
     };
@@ -128,6 +136,9 @@ html, body {
       width: 1em;
       margin: 0 .05em 0 .1em;
       vertical-align: -0.1em;
+    }
+    a {
+      word-wrap: break-word;
     }
   }
 

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import errors from './modules/errors';
 import account from './modules/account';
 import users from './modules/users';
 import categories from './modules/categories';
@@ -11,6 +12,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
+    errors,
     account,
     users,
     categories,
