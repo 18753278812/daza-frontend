@@ -22,7 +22,7 @@
                   type="text"
                   name="name"
                   placeholder=""
-                  v-model="name"
+                  v-model="params.name"
                   v-validate:email="rules.name">
               </div>
             </div>
@@ -35,7 +35,7 @@
                   rows="3"
                   name="description"
                   placeholder=""
-                  v-model="description"
+                  v-model="params.description"
                   v-validate:email="rules.description"></textarea>
               </div>
             </div>
@@ -50,16 +50,40 @@
 </template>
 
 <script>
+import { auth } from '../../vuex/getters';
+import { topicCreate } from '../../vuex/actions';
+// import NProgress from 'nprogress';
+
 export default {
+  vuex: {
+    getters: {
+      auth,
+    },
+    actions: {
+      topicCreate,
+    },
+  },
   data() {
     return {
       rules: {
         name: { required: true },
         description: { required: true, minlength: 15 },
       },
+      params: {
+        type: 'test',
+        name: '',
+        description: '',
+      },
     };
   },
   ready() {
+  },
+  methods: {
+    submit() {
+      this.topicCreate(this.params).then(() => {
+        this.$route.router.go('/');
+      });
+    },
   },
 };
 </script>

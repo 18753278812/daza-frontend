@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-12">
             <h3>标签广场</h3>
@@ -9,7 +9,7 @@
         </div>
         <hr>
         <div class="row tag-list">
-          <div class="col-sm-6" v-for="tag in tags">
+          <div class="col-sm-4" v-for="tag in tags">
             <div class="image">
               <img class="img-rounded" v-lazy="tag.image_url">
             </div>
@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4" style="display: none;">
         <div class="row">
           <div class="col-xs-6">
             <h5>TITLE</h5>

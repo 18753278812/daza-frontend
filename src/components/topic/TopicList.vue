@@ -1,15 +1,18 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-12">
         <div class="row">
-          <div class="col-sm-12">
+          <div class="col-sm-10">
             <h3>主题广场</h3>
+          </div>
+          <div class="col-sm-2 text-xs-right">
+            <a class="btn btn-secondary btn-sm" v-link="{ name: 'topic_create' }">创建主题</a>
           </div>
         </div>
         <hr>
         <div class="row topic-list">
-          <div class="col-sm-6" v-for="topic in topics">
+          <div class="col-sm-4" v-for="topic in topics">
             <div class="image">
               <img class="img-rounded" v-lazy="topic.image_url">
             </div>
@@ -28,16 +31,10 @@
               <p class="description">{{ topic.description }}</p>
             </div>
             <hr>
-            <!-- <hr v-bind:style="$index % 2 == 0 ? 'margin-right: -15px;' : 'margin-left: -15px;'"> -->
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
-        <div class="row">
-          <div class="col-xs-12">
-            <a v-link="{ name: 'topic_create' }">创建主题</a>
-          </div>
-        </div>
+      <div class="col-sm-4" style="display: none;">
         <div class="row">
           <div class="col-xs-6">
             <h5>TITLE</h5>

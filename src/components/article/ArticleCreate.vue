@@ -17,7 +17,7 @@
                 type="text"
                 name="title"
                 placeholder="标题"
-                v-model="title"
+                v-model="params.title"
                 v-validate:email="rules.title">
             </div>
             <div class="form-group">
@@ -27,7 +27,7 @@
                 rows="15"
                 name="summary"
                 placeholder="正文"
-                v-model="summary"
+                v-model="params.summary"
                 v-validate:email="rules.summary"></textarea>
             </div>
             <div class="form-group">
@@ -41,16 +41,43 @@
 </template>
 
 <script>
+import { auth } from '../../vuex/getters';
+import { articleCreate } from '../../vuex/actions';
+// import NProgress from 'nprogress';
+
 export default {
+  vuex: {
+    getters: {
+      auth,
+    },
+    actions: {
+      articleCreate,
+    },
+  },
   data() {
     return {
       rules: {
         title: { required: true },
         summary: { required: true, minlength: 15 },
       },
+      params: {
+        topic_id: 1,
+        title: '',
+        summary: '',
+        content: 'hi',
+      },
     };
   },
   ready() {
+  },
+  methods: {
+    submit() {
+      this.articleCreate(this.params).then((data) => {
+        if (data) {
+          this.$route.router.go('/');
+        }
+      });
+    },
   },
 };
 </script>

@@ -30,7 +30,7 @@
             <a :href="mailToReport"><small class="text-muted">举报</small></a>
           </div>
           <div class="col-xs-8 text-xs-right">
-            <form @submit.prevent="vote()">
+            <form @submit.prevent="upvote()">
               <button
                 class="btn btn-sm btn-outline-primary"
                 type="submit"
@@ -213,7 +213,7 @@ export default {
         this.data.comment_count = this.data.comment_count + 1;
       });
     },
-    vote() {
+    upvote() {
       if (this.data.voted) {
         return;
       }

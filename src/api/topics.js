@@ -10,8 +10,14 @@ export default {
       return Promise.reject(new Error('error'));
     });
   },
-  store() {
-
+  store(params) {
+    const req = Vue.http.post('topics', params);
+    return req.then((response) => {
+      if (response.ok) {
+        return Promise.resolve(response.data.data);
+      }
+      return Promise.reject(new Error('error'));
+    });
   },
   show(id) {
     const req = Vue.http.get(`topics/${id}`);
@@ -36,6 +42,15 @@ export default {
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
+      }
+      return Promise.reject(new Error('error'));
+    });
+  },
+  subscribe(id) {
+    const req = Vue.http.post(`topics/${id}/subscribe`);
+    return req.then((response) => {
+      if (response.ok) {
+        return Promise.resolve(response.data);
       }
       return Promise.reject(new Error('error'));
     });

@@ -82,6 +82,18 @@ export const topicShow = ({ dispatch }, id) => {
   return req;
 };
 
+export const topicCreate = ({ dispatch }, params) => {
+  const req = topics.store(params).then((data) => Promise.resolve(data))
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const topicSubscribe = ({ dispatch }, id) => {
+  const req = topics.subscribe(id).then((data) => Promise.resolve(data))
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
 export const getArticleList = ({ dispatch }, page, categoryId, categorySlug) => {
   const req = articles.lists(page, categoryId, categorySlug).then((data) => {
     dispatch(RECEIVE_ARTICLES, data);
@@ -93,6 +105,12 @@ export const getArticleList = ({ dispatch }, page, categoryId, categorySlug) => 
 
 export const articleShow = ({ dispatch }, id) => {
   const req = articles.show(id).then((data) => Promise.resolve(data))
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const articleCreate = ({ dispatch }, params) => {
+  const req = articles.store(params).then((data) => Promise.resolve(data))
   .catch((error) => Promise.reject(error));
   return req;
 };

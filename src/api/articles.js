@@ -15,8 +15,14 @@ export default {
       return Promise.reject(new Error('error'));
     });
   },
-  store() {
-
+  store(params) {
+    const req = Vue.http.post('articles', params);
+    return req.then((response) => {
+      if (response.ok) {
+        return Promise.resolve(response.data.data);
+      }
+      return Promise.reject(new Error('error'));
+    });
   },
   show(id) {
     const req = Vue.http.get(`articles/${id}`);
