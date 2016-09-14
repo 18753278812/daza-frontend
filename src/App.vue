@@ -14,7 +14,6 @@
 
 <script>
 import store from './vuex/store';
-import daovoice from 'daovoice';
 
 export default {
   store,
@@ -23,11 +22,6 @@ export default {
     };
   },
   ready() {
-    daovoice('init', {
-      app_id: process.env.DAOVOICE_APPID,
-    });
-
-    daovoice('update');
   },
 };
 </script>

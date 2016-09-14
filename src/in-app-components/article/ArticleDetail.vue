@@ -19,10 +19,11 @@
             </a>
           </div>
           <div class="col-xs-4 text-xs-right">
-            <form @submit.prevent="subscribe()">
+            <form @submit.prevent="subscribe(topic.id)">
               <button
                 class="btn btn-sm btn-outline-primary"
-                type="submit">&nbsp;&nbsp;&nbsp;订阅 ({{ topic.subscriber_count }})&nbsp;&nbsp;&nbsp;</button>
+                type="submit"
+                :class="{ 'active': topic.subscribed }">&nbsp;&nbsp;&nbsp;订阅 ({{ topic.subscriber_count }})&nbsp;&nbsp;&nbsp;</button>
             </form>
           </div>
         </div>
@@ -93,7 +94,13 @@
 
 <script>
 import { auth } from '../../vuex/getters';
-import { articleShow, articleVote, articleComment, articleCommentList } from '../../vuex/actions';
+import {
+  topicSubscribe,
+  articleShow,
+  articleVote,
+  articleComment,
+  articleCommentList,
+} from '../../vuex/actions';
 
 export default {
   vuex: {
@@ -101,6 +108,7 @@ export default {
       auth,
     },
     actions: {
+      topicSubscribe,
       articleShow,
       articleVote,
       articleComment,
@@ -151,8 +159,14 @@ export default {
         this.comments.push(data);
       });
     },
-    subscribe() {
-
+    subscribe(id) {
+      if (this.topic.subscribed) {
+        return;
+      }
+      this.topicSubscribe(id).then(() => {
+        this.topic.subscriber_count += 1;
+        this.topic.subscribed = true;
+      });
     },
     vote() {
       if (this.data.voted) {

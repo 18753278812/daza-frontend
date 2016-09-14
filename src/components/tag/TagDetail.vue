@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-12">
             <h3>{{ data.name }}</h3>
@@ -12,7 +12,7 @@
           ...
         </p>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4" style="display: none;">
         <div class="row">
           <div class="col-xs-6">
             <h5>TITLE</h5>

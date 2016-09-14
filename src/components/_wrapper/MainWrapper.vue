@@ -28,6 +28,7 @@
 <script>
 import MainNavbar from '../../components/_wrapper/MainNavbar';
 import MainFooter from '../../components/_wrapper/MainFooter';
+import daovoice from 'daovoice';
 
 export default {
   components: {
@@ -39,6 +40,11 @@ export default {
     };
   },
   ready() {
+    daovoice('init', {
+      app_id: process.env.DAOVOICE_APPID,
+    });
+
+    daovoice('update');
   },
 };
 </script>
