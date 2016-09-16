@@ -24,7 +24,6 @@ import TopicList from './components/topic/TopicList';
 import TopicDetail from './components/topic/TopicDetail';
 
 import ArticleCreate from './components/article/ArticleCreate';
-import ArticleShare from './components/article/ArticleShare';
 import ArticleList from './components/article/ArticleList';
 import ArticleDetail from './components/article/ArticleDetail';
 
@@ -84,10 +83,6 @@ export default {
       '/articles/create': {
         name: 'article_create',
         component: ArticleCreate,
-      },
-      '/articles/share': {
-        name: 'article_share',
-        component: ArticleShare,
       },
       '/articles': {
         component: ArticleList,

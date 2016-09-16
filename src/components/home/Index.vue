@@ -53,11 +53,11 @@
       </div>
       <div class="col-sm-4">
         <validator name="validation">
-          <form novalidate method="get" target="_blank" action="/articles/share">
+          <form novalidate onsubmit="return false;">
             <div class="form-group row">
               <div class="col-xs-12">
                 <textarea
-                  id="summary-input"
+                  id="source_link-input"
                   class="form-control"
                   rows="3"
                   name="source_link"
@@ -69,13 +69,18 @@
             <div class="form-group row">
               <div class="col-xs-12 text-xs-right">
                 <a v-link="{ name: 'article_create' }"><small class="text-muted">发表原创文章</small></a>
-                <button type="submit" class="btn btn-primary btn-sm" :disabled="!$validation.valid">&nbsp;&nbsp;分享&nbsp;&nbsp;</button>
+                <button
+                  class="btn btn-primary btn-sm"
+                  data-toggle="modal"
+                  data-target="#article-share-dialog"
+                  data-whatever="@mdo"
+                  :disabled="!$validation.valid">&nbsp;&nbsp;分享&nbsp;&nbsp;</button>
               </div>
             </div>
           </form>
         </validator>
         <hr>
-        <div class="row">
+        <div class="row side-topics">
           <div class="col-xs-7">
             <h5>最新主题</h5>
           </div>
@@ -83,7 +88,7 @@
             <a v-link="{ name: 'topic_list' }"><small class="text-muted">主题广场</small></a>
           </div>
           <div class="col-xs-12">
-            <ul class="side-topic-list">
+            <ul>
               <li v-for="topic in topics ">
                 <div class="image">
                   <img class="img-rounded" v-lazy="topic.image_url">
@@ -104,7 +109,7 @@
           </div>
         </div>
         <hr>
-        <div class="row">
+        <div class="row side-tags">
           <div class="col-xs-7">
             <h5>热门标签</h5>
           </div>
@@ -112,19 +117,27 @@
             <a v-link="{ name: 'tag_list' }"><small class="text-muted">全部标签</small></a>
           </div>
           <div class="col-xs-12">
-            <h6 v-for="tag in tags" style="display: inline;">
-              <span class="tag tag-default" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</span>
-            </h6>
+            <ul>
+              <li v-for="tag in tags">
+                <a v-link="{ name: 'tag_detail', params: { name: tag.name } }">
+                  <span class="tag tag-default">{{ tag.name }}</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- Article share dialog -->
+  <article-share-dialog></article-share-dialog>
+
 </template>
 
 <script>
 import { auth } from '../../vuex/getters';
 import { getCategoryList, getTopicList, getArticleList, getTagList } from '../../vuex/actions';
+import ArticleShareDialog from '../article/ArticleShareDialog';
 import VuePagination from '../_common/VuePagination';
 import NProgress from 'nprogress';
 
@@ -188,6 +201,7 @@ export default {
     canReuse: false,
   },
   components: {
+    ArticleShareDialog,
     VuePagination,
   },
   methods: {
@@ -216,38 +230,40 @@ export default {
   border-radius: 20px;
 }
 // 侧边样主题列表样式
-.side-topic-list {
-  list-style-type: none;
-  padding: 0;
-  li {
-    margin: 10px 0 10px 0;
-    .image {
-      display: table-cell;
-      vertical-align: top;
-      img {
-        width: 60px;
-        height: 60px;
+.side-topics {
+  ul {
+    list-style-type: none;
+    padding: 0;
+    li {
+      margin: 10px 0 10px 0;
+      .image {
+        display: table-cell;
+        vertical-align: top;
+        img {
+          width: 60px;
+          height: 60px;
+        }
       }
-    }
-    .content {
-      width: 10000px;
-      display: table-cell;
-      vertical-align: top;
-      padding-left: 8px;
-      .name {
-        font-size: 13px;
-      }
-      .description {
-        font-size: 10px;
-        color: #bbb;
-        margin-bottom: 2px;
-        height: 32px;
-        line-height: 16px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
+      .content {
+        width: 10000px;
+        display: table-cell;
+        vertical-align: top;
+        padding-left: 8px;
+        .name {
+          font-size: 13px;
+        }
+        .description {
+          font-size: 10px;
+          color: #bbb;
+          margin-bottom: 2px;
+          height: 32px;
+          line-height: 16px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
       }
     }
   }
@@ -255,5 +271,15 @@ export default {
 // 侧边栏文章列表样式
 .side-article-list {
 
+}
+.side-tags {
+  ul {
+    list-style-type: none;
+    padding: 0;
+    li {
+      display: inline-table;
+      padding: 2px;
+    }
+  }
 }
 </style>
