@@ -19,8 +19,26 @@ export default {
       return Promise.reject(new Error('error'));
     });
   },
-  destroy(id) {
-    const req = Vue.http.delete(`users/${id}`);
+  followers(id) {
+    const req = Vue.http.get(`users/${id}/followers`);
+    return req.then((response) => {
+      if (response.ok) {
+        return Promise.resolve(response.data.data);
+      }
+      return Promise.reject(new Error('error'));
+    });
+  },
+  following(id) {
+    const req = Vue.http.get(`users/${id}/following`);
+    return req.then((response) => {
+      if (response.ok) {
+        return Promise.resolve(response.data.data);
+      }
+      return Promise.reject(new Error('error'));
+    });
+  },
+  topics(id) {
+    const req = Vue.http.get(`users/${id}/topics`);
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);

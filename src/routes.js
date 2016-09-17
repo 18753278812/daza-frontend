@@ -15,6 +15,8 @@ import AccountPasswordReset from './components/account/PasswordReset';
 import AccountSettings from './components/account/Settings';
 
 import UserDetail from './components/user/UserDetail';
+import UserFollowers from './components/user/UserFollowers';
+import UserFollowing from './components/user/UserFollowing';
 
 import CategoryList from './components/category/CategoryList';
 import CategoryDetail from './components/category/CategoryDetail';
@@ -61,6 +63,14 @@ export default {
       '/users/:id': {
         name: 'user_detail',
         component: UserDetail,
+      },
+      '/users/:id/followers': {
+        name: 'user_followers',
+        component: UserFollowers,
+      },
+      '/users/:id/following': {
+        name: 'user_following',
+        component: UserFollowing,
       },
       '/categories': {
         component: CategoryList,

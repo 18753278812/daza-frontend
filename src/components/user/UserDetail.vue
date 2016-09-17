@@ -3,15 +3,19 @@
     <div class="row">
       <div class="col-sm-3">
         <div class="row">
-          <div class="col-sm-12 col-xs-4">
+          <div class="col-md-5 col-sm-12 col-xs-4">
             <img class="img-rounded" style="width: 100%; height: auto; margin-bottom: 12px;" v-lazy="data.avatar_url">
           </div>
-          <div class="col-sm-12 col-xs-8">
+          <div class="col-md-7 col-sm-12 col-xs-8">
             <ul class="list-unstyled">
-              <li><h3>{{data.name}}</h3></li>
+              <li><h4>{{data.name}}</h4></li>
               <li><small class="text-muted">{{data.username}}</small></li>
-              <li>{{data.bio}}</li>
             </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <p>{{data.bio}}</p>
           </div>
         </div>
         <hr>
@@ -32,7 +36,7 @@
             <div class="text-muted text-xs-center">粉丝</div>
           </div>
           <div class="col-xs-4">
-            <h2 class="text-xs-center">0</h2>
+            <h2 class="text-xs-center"><a v-link="{ name: 'user_followers', params: $route.params }">0</a></h2>
             <div class="text-muted text-xs-center">关注</div>
           </div>
         </div>

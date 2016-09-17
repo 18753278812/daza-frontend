@@ -11,6 +11,8 @@ import {
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_SUCCESS,
   RECEIVE_ERRORS,
+  RECEIVE_FOLLOWERS,
+  RECEIVE_FOLLOWING,
   RECEIVE_CATEGORIES,
   RECEIVE_TOPICS,
   RECEIVE_ARTICLES,
@@ -64,6 +66,33 @@ export const updateProfile = ({ dispatch }, params) => {
 
 export const userShow = ({ dispatch }, id) => {
   const req = users.show(id).then((data) => Promise.resolve(data))
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const getUserFollowers = ({ dispatch }, id, page) => {
+  const req = users.followers(id, page).then((data) => {
+    dispatch(RECEIVE_FOLLOWERS, data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const getUserFollowing = ({ dispatch }, id, page) => {
+  const req = users.following(id, page).then((data) => {
+    dispatch(RECEIVE_FOLLOWING, data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const getUserTopics = ({ dispatch }, id, page) => {
+  const req = users.topics(id, page).then((data) => {
+    dispatch(RECEIVE_FOLLOWERS, data);
+    return Promise.resolve(data);
+  })
   .catch((error) => Promise.reject(error));
   return req;
 };

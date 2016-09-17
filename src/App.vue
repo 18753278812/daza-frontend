@@ -104,17 +104,19 @@ html, body {
         color: #424242;
       }
       .content {
-        width: 10000px;
-        display: table-cell;
-        vertical-align: top;
+        float: left;
+        width: calc(100%);
         .title {
+          word-wrap: break-word;
           font-size: 16px;
           font-weight: 500;
         }
       }
+      .content.haveimage {
+        width: calc(100% - 125px);
+      }
       .image {
-        display: table-cell;
-        vertical-align: top;
+        float: right;
         padding-left: 5px;
         img {
           width: 120px;
@@ -181,6 +183,9 @@ html, body {
     // 文章列表
     .article-list {
       > .entry {
+        .content.haveimage {
+          width: calc(100% - 105px);
+        }
         .image {
           img {
             width: 100px;

@@ -13,10 +13,6 @@ RUN npm install -g vue-cli
 
 COPY ./nginx /etc/nginx
 
-RUN wget https://dl.eff.org/certbot-auto \
- && chmod a+x ./certbot-auto \
- && echo y | ./certbot-auto -n --os-packages-only
-
 WORKDIR /app
 
 COPY ./package.json /app/

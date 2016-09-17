@@ -14,7 +14,8 @@
               <div class="form-group">
                 <label class="form-control-label">主题：</label>
                 <select class="form-control">
-                  <option>Default select</option>
+                  <option v-link="{ name: 'topic_create' }">创建新主题</option>
+                  <option v-for="topic in topics">{{ topic.name }}</option>
                 </select>
               </div>
               <div class="form-group">
@@ -23,8 +24,8 @@
                   class="form-control"
                   type="text"
                   name="link"
-                  placeholder=""
-                  v-model="params.link"
+                  placeholder="e.g. http://daza.io/articles/example"
+                  v-model="link"
                   v-validate:email="rules.link">
               </div>
               <div class="form-group">
@@ -33,7 +34,7 @@
                   class="form-control"
                   type="text"
                   name="title"
-                  placeholder=""
+                  placeholder="请填写不小于6个字符的标题。"
                   v-model="params.title"
                   v-validate:email="rules.title">
               </div>
@@ -44,7 +45,7 @@
                   class="form-control"
                   rows="3"
                   name="summary"
-                  placeholder=""
+                  placeholder="请填写不小于10个字符的摘要。"
                   v-model="params.summary"
                   v-validate:email="rules.summary"></textarea>
               </div>
@@ -62,7 +63,7 @@
 
 <script>
 import { auth } from '../../vuex/getters';
-import { articleCreate } from '../../vuex/actions';
+import { articleCreate, getUserTopics } from '../../vuex/actions';
 import $ from 'jquery';
 
 export default {
@@ -72,15 +73,23 @@ export default {
     },
     actions: {
       articleCreate,
+      getUserTopics,
+    },
+  },
+  props: {
+    link: {
+      type: String,
+      required: true,
     },
   },
   data() {
     return {
       rules: {
-        title: { required: true },
-        link: { required: true },
-        summary: { required: true, minlength: 15 },
+        title: { required: true, minlength: 6 },
+        link: { required: true, url: true },
+        summary: { required: true, minlength: 10 },
       },
+      topics: [],
       params: {
         topic_id: 1,
         title: '',
@@ -90,6 +99,11 @@ export default {
     };
   },
   ready() {
+    this.getUserTopics(this.auth.id).then((data) => {
+      if (data) {
+        this.topics = data;
+      }
+    });
   },
   methods: {
     submit() {
