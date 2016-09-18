@@ -20,7 +20,7 @@
           <li class="entry" v-for="data in articles">
             <div class="row">
               <div class="col-sm-12">
-                <div class="content">
+                <div class="content" v-bind:class="{ haveimage: data.image_url !== '' }">
                   <a class="title" v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a>
                 </div>
                 <div class="image" v-if="data.image_url">
@@ -73,7 +73,6 @@
                   class="btn btn-primary btn-sm"
                   data-toggle="modal"
                   data-target="#article-share-dialog"
-                  data-whatever="@mdo"
                   :disabled="!$validation.valid">&nbsp;&nbsp;分享&nbsp;&nbsp;</button>
               </div>
             </div>
@@ -130,7 +129,7 @@
     </div>
   </div>
   <!-- Article share dialog -->
-  <article-share-dialog></article-share-dialog>
+  <article-share-dialog :link="source_link"></article-share-dialog>
 
 </template>
 
