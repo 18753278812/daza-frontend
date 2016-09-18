@@ -112,7 +112,7 @@ export default {
         name: { required: true },
         city: { required: true },
         website: { required: true, url: true },
-        bio: { required: true },
+        bio: { },
       },
       params: {
         avatar_url: this.auth.user.avatar_url,

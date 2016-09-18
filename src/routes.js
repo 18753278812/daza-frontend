@@ -26,7 +26,6 @@ import TopicList from './components/topic/TopicList';
 import TopicDetail from './components/topic/TopicDetail';
 
 import ArticleCreate from './components/article/ArticleCreate';
-import ArticleList from './components/article/ArticleList';
 import ArticleDetail from './components/article/ArticleDetail';
 
 import TagList from './components/tag/TagList';
@@ -93,9 +92,6 @@ export default {
       '/articles/create': {
         name: 'article_create',
         component: ArticleCreate,
-      },
-      '/articles': {
-        component: ArticleList,
       },
       '/articles/:id': {
         name: 'article_detail',

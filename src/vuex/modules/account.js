@@ -1,4 +1,5 @@
 import {
+  REGISTER_SUCCESS,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_SUCCESS,
@@ -12,6 +13,13 @@ export default {
     },
   },
   mutations: {
+    [REGISTER_SUCCESS](state, user) {
+      const auth = { id: user.id, user };
+      Object.assign(state, { auth });
+      localStorage.setItem('auth.id', user.id);
+      localStorage.setItem('auth.user', JSON.stringify(user));
+      localStorage.setItem('auth.jwt_token', JSON.stringify(user.jwt_token));
+    },
     [LOGIN_SUCCESS](state, user) {
       const auth = { id: user.id, user };
       Object.assign(state, { auth });

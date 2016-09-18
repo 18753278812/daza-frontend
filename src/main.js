@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import VueValidator from 'vue-validator';
 import VueResource from 'vue-resource';
 import VueLazyload from 'vue-lazyload';
+import $ from 'jquery';
 
 import routes from './routes';
 import locales from './lang';
@@ -54,6 +55,29 @@ Vue.http.interceptors.push({
 Vue.validator('email', (val) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(val));
 // Register url validator function.
 Vue.validator('url', (val) => /^(http\u003a\/\/|https\u003a\/\/)(.{4,})$/.test(val));
+
+$.fn.select2.defaults.set('theme', 'bootstrap');
+$.fn.select2.defaults.set('language', 'zh-CN');
+Vue.directive('select2', {
+  twoWay: true,
+  priority: 1000,
+  params: ['options'],
+  bind() {
+    const self = this;
+    const options = this.params.options;
+    $(this.el)
+      .select2(options)
+      .on('change', () => {
+        self.set($(self.el).val());
+      });
+  },
+  update(value) {
+    $(this.el).val(value).trigger('change');
+  },
+  unbind() {
+    $(this.el).off().select2('destroy');
+  },
+});
 
 // 创建一个路由器实例
 const router = new VueRouter({

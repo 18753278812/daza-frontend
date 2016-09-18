@@ -2,24 +2,24 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-8">
-        <h4>{{ data.title }}</h4>
+        <h4>{{ data.article.title }}</h4>
         <div class="row">
           <div class="col-xs-9">
-            <small class="text-muted">{{ data.author }}</small>
+            <small class="text-muted">{{ data.article.author }}</small>
             <small class="text-muted">发表于 </small>
-            <small class="text-muted">{{ data.published_at }}</small>
+            <small class="text-muted">{{ data.article.published_at }}</small>
             <small class="text-muted"> · </small>
-            <small class="text-muted">{{ data.view_count }}阅读</small>
+            <small class="text-muted">{{ data.article.view_count }}阅读</small>
           </div>
           <div class="col-xs-3 text-xs-right">
-            <a v-bind:href="data.link" target="_blank"><small class="text-muted">阅读原文</small></a>
+            <a v-bind:href="data.article.link" target="_blank"><small class="text-muted">阅读原文</small></a>
           </div>
         </div>
         <hr>
-        <p class="article-content">{{{ data.content }}}</p>
+        <p class="article-content">{{{ data.article.content }}}</p>
         <div class="row">
           <div class="col-xs-12">
-            <h5 v-for="tag in data.tags" style="display: inline;">
+            <h5 v-for="tag in data.article.tags" style="display: inline;">
               <span class="tag tag-default" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</span>
             </h5>
           </div>
@@ -34,21 +34,21 @@
               <button
                 class="btn btn-sm btn-outline-primary"
                 type="submit"
-                :class="{ 'active': data.voted }">&nbsp;&nbsp;&nbsp;赞 ({{ data.upvote_count }})&nbsp;&nbsp;&nbsp;</button>
+                :class="{ 'active': data.article.voted }">&nbsp;&nbsp;&nbsp;赞 ({{ data.article.upvote_count }})&nbsp;&nbsp;&nbsp;</button>
             </form>
           </div>
         </div>
         <hr>
-        <div class="row">
+        <div id="comments" class="row">
           <div class="col-sm-12">
-            <p class="text-xs-left" v-if="comments.length > 0">{{ data.comment_count }}条精彩回复</p>
-            <p class="text-xs-center" v-if="comments.length == 0">空空如也</p>
+            <p class="text-xs-left" v-if="data.comments.length > 0">{{ data.article.comment_count }}条精彩回复</p>
+            <p class="text-xs-center" v-if="data.comments.length == 0">空空如也</p>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
             <ul class="comment-list">
-              <li class="entry" v-for="comment in comments">
+              <li class="entry" v-for="comment in data.comments">
                 <div class="avatar">
                   <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">
                     <img class="img-circle" v-lazy="comment.user.avatar_url">
@@ -60,7 +60,7 @@
                   <div>
                     <small class="text-muted">{{ comment.created_at }}</small>
                     <small class="text-muted"> &nbsp; </small>
-                    <div class="extra">
+                    <div class="extra" style="display: none;">
                       <a href="#"><small class="text-muted">回复</small></a>
                       <small class="text-muted"> · </small>
                       <a href="#"><small class="text-muted">举报</small></a>
@@ -117,9 +117,15 @@
               </div>
               <div class="col-xs-8" style="padding-left: 0px;">
                 <ul class="list-unstyled">
-                  <li><a v-link="{ name: 'topic_detail', params: { id: topic.id }}"><h4>{{topic.name}}</h4></a></li>
-                  <li><small class="text-muted">{{topic.subscriber_count}} 人订阅，由 <a v-link="{ name: 'user_detail', params: { id: topic.user.id } }">{{ topic.user.name }}</a> 维护</small></li>
-                  <li><p>{{ topic.description }}</p></li>
+                  <li><a v-link="{ name: 'topic_detail', params: { id: data.topic.id }}"><h4>{{ data.topic.name }}</h4></a></li>
+                  <li v-if="data.topic.website"><small class="text-muted">网站：<a :href="data.topic.website">{{ data.topic.website }}</a></small></li>
+                  <li><small class="text-muted">{{ data.topic.subscriber_count }} 人订阅，由 <a v-link="{ name: 'user_detail', params: { id: data.topic.user.id } }">{{ data.topic.user.name }}</a> 维护</small></li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <p>{{ data.topic.description }}</p>
               </div>
             </div>
           </div>
@@ -150,23 +156,18 @@ export default {
   },
   data() {
     return {
-      topic: {},
-      data: {},
-      comments: [],
+      page: 1,
+      pagination: {},
+      data: {
+        topic: {},
+        article: {},
+        comments: [],
+      },
       rules: {
         content: { required: true },
       },
       params: {
         content: '',
-      },
-      page: 1,
-      pagination: {
-        total: 0,
-        per_page: 15,
-        current_page: 1,
-        last_page: 0,
-        from: null,
-        to: null,
       },
     };
   },
@@ -174,15 +175,15 @@ export default {
     const articleId = this.$route.params.id;
     NProgress.start();
     this.articleShow(articleId).then(data => {
-      this.data = data;
-      this.topic = data.topic;
+      this.data.topic = data.topic;
+      this.data.article = data;
       this.loadComments(this.page);
     });
   },
   computed: {
     mailToReport() {
       const reportEmail = process.env.EMAIL_REPORT;
-      return `mailto:${reportEmail}?subject=[举报文章] ${this.data.title}`;
+      return `mailto:${reportEmail}?subject=[举报文章] ${this.data.article.title}`;
     },
   },
   methods: {
@@ -190,7 +191,7 @@ export default {
       const articleId = this.$route.params.id;
       NProgress.start();
       this.articleCommentList(articleId, page).then(data => {
-        this.comments = data.data;
+        this.data.comments = data.data;
         this.pagination = data.pagination;
         this.page = data.pagination.current_page;
         NProgress.done();
@@ -205,21 +206,25 @@ export default {
       if (!this.$validation.valid) {
         return;
       }
-      this.articleComment(this.data.id, this.params).then((data) => {
+      const article = this.data.article;
+      const comments = this.data.comments;
+      this.articleComment(article.id, this.params).then((data) => {
         this.params.content = '';
+        // 将新评论插入到当前页最后一条，并且评论数+1
         const comment = data;
         comment.user = this.auth.user;
-        this.comments.push(comment);
-        this.data.comment_count = this.data.comment_count + 1;
+        comments.push(comment);
+        article.comment_count = article.comment_count + 1;
       });
     },
     upvote() {
-      if (this.data.voted) {
+      const article = this.data.article;
+      if (article.voted) {
         return;
       }
-      this.articleVote(this.data.id, 'up').then(() => {
-        this.data.upvote_count += 1;
-        this.data.voted = true;
+      this.articleVote(article.id, 'up').then(() => {
+        article.upvote_count += 1;
+        article.voted = true;
       });
     },
   },

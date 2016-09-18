@@ -20,7 +20,7 @@
     "vue-markdown": "^1.2.0",
     "vue-resource": "^0.7.2",
     "vue-router": "^0.7.13",
-    "vue-validator": "^2.1.3",
+    "vue-validator": "^2.1.7",
     "vuex": "^0.6.3"
   },
   "devDependencies": {

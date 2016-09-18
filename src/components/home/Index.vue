@@ -63,7 +63,7 @@
                   name="source_link"
                   placeholder="将主题/文章链接粘贴到这里！"
                   v-model="source_link"
-                  v-validate:email="rules.source_link"></textarea>
+                  v-validate:source_link="rules.source_link"></textarea>
               </div>
             </div>
             <div class="form-group row">
@@ -73,7 +73,7 @@
                   class="btn btn-primary btn-sm"
                   data-toggle="modal"
                   data-target="#article-share-dialog"
-                  :disabled="!$validation.valid">&nbsp;&nbsp;分享&nbsp;&nbsp;</button>
+                  >&nbsp;&nbsp;分享&nbsp;&nbsp;</button>
               </div>
             </div>
           </form>

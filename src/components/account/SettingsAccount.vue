@@ -37,8 +37,8 @@
           </p>
         </div>
       </div>
-      <hr>
-      <div class="form-group">
+      <hr style="display: none;">
+      <div class="form-group" style="display: none;">
         <button type="submit" class="btn btn-primary">保存</button>
       </div>
     </form>
