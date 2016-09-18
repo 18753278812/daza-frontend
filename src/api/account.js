@@ -2,8 +2,8 @@ import Vue from 'vue';
 
 export default {
   // 用户注册
-  register(username, email, password) {
-    const req = Vue.http.post('account/register', { username, email, password });
+  register(params) {
+    const req = Vue.http.post('account/register', params);
     return req.then(response => {
       if (response.ok) {
         return Promise.resolve(response.data.data);
@@ -12,8 +12,8 @@ export default {
     });
   },
   // 用户登录
-  login(email, password) {
-    const req = Vue.http.post('account/login', { email, password });
+  login(params) {
+    const req = Vue.http.post('account/login', params);
     return req.then((response) => {
       if (response.ok) {
         console.log('ok');

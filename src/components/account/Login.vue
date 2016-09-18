@@ -12,7 +12,7 @@
                 type="email"
                 name="email"
                 placeholder="请输入邮箱"
-                v-model="email"
+                v-model="params.email"
                 v-validate:email="rules.email">
             </div>
             <div class="form-group">
@@ -21,7 +21,7 @@
                 type="password"
                 name="password"
                 placeholder="请输入密码"
-                v-model="password"
+                v-model="params.password"
                 v-validate:password="rules.password">
             </div>
             <div class="form-group">
@@ -66,8 +66,10 @@ export default {
         email: { required: true, email: true },
         password: { required: true, minlength: 6, maxlength: 32 },
       },
-      email: 'lijy91@foxmail.com',
-      password: '123456',
+      params: {
+        email: '',
+        password: '',
+      },
     };
   },
   ready() {
@@ -76,7 +78,7 @@ export default {
   methods: {
     submit() {
       // 用户登录
-      this.login(this.email, this.password).then(() => {
+      this.login(this.params).then(() => {
         this.$route.router.go('/');
       });
     },

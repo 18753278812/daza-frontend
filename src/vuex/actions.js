@@ -19,21 +19,17 @@ import {
   RECEIVE_TAGS,
 } from './mutation-types';
 
-export const register = ({ dispatch }, username, email, password) => {
-  const req = account.register(username, email, password).then((data) => {
-    if (data.code === 0) {
-      dispatch(REGISTER_SUCCESS, data.data);
-      return Promise.resolve(data.data);
-    }
-    dispatch(RECEIVE_ERRORS, data.errors);
+export const register = ({ dispatch }, params) => {
+  const req = account.register(params).then((data) => {
+    dispatch(REGISTER_SUCCESS, data);
     return Promise.resolve(data);
   })
   .catch((error) => Promise.reject(error));
   return req;
 };
 
-export const login = ({ dispatch }, email, password) => {
-  const req = account.login(email, password).then((data) => {
+export const login = ({ dispatch }, params) => {
+  const req = account.login(params).then((data) => {
     dispatch(LOGIN_SUCCESS, data);
     return Promise.resolve(data);
   })

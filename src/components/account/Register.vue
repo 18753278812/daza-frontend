@@ -12,8 +12,8 @@
                 type="text"
                 name="username"
                 placeholder="请输入用户名"
-                v-model="username"
-                v-validate:email="rules.username">
+                v-model="params.username"
+                v-validate:username="rules.username">
             </div>
             <div class="form-group">
               <input
@@ -21,7 +21,7 @@
                 type="email"
                 name="email"
                 placeholder="请输入邮箱"
-                v-model="email"
+                v-model="params.email"
                 v-validate:email="rules.email">
             </div>
             <div class="form-group">
@@ -30,7 +30,7 @@
                 type="password"
                 name="password"
                 placeholder="请输入密码"
-                v-model="password"
+                v-model="params.password"
                 v-validate:password="rules.password">
             </div>
             <div class="checkbox">
@@ -72,14 +72,20 @@ export default {
         password: { required: true, minlength: 6, maxlength: 32 },
         accepted: { required: true },
       },
-      username: '',
-      email: '',
-      password: '',
+      params: {
+        username: '',
+        email: '',
+        password: '',
+      },
     };
   },
   methods: {
     submit() {
-      this.register(this.username, this.email, this.password);
+      this.register(this.params).then(data => {
+        if (data) {
+          this.$route.router.go('/');
+        }
+      });
     },
   },
 };

@@ -5,7 +5,7 @@
       <div class="col-md-4 col-sm-6">
         <h3 class="text-xs-center">重置密码</h3>
         <validator name="validation">
-          <form novalidate>
+          <form novalidate @submit.prevent="submit()">
             <div class="form-group">
               <label>我们将发送一封密码重置邮件到你的邮箱<br>点击按钮即可重置密码</label>
               <input class="form-control" type="email" name="email" placeholder="请输入邮箱" v-validate:email="rules.email">
@@ -22,13 +22,33 @@
 </template>
 
 <script>
+import { auth } from '../../vuex/getters';
+// import {  } from '../../vuex/actions';
+
 export default {
+  vuex: {
+    getters: {
+      auth,
+    },
+    actions: {
+    },
+  },
   data() {
     return {
       rules: {
         email: { required: true, email: true },
       },
+      params: {
+        email: '',
+      },
     };
+  },
+  ready() {
+  },
+  methods: {
+    submit() {
+      alert('开发中，敬请期待！');
+    },
   },
 };
 </script>
