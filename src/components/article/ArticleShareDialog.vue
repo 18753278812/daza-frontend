@@ -92,8 +92,8 @@ export default {
       auth,
     },
     actions: {
-      articleCreate,
       getUserTopics,
+      articleCreate,
     },
   },
   props: {
