@@ -73,7 +73,6 @@
                   class="btn btn-primary btn-sm"
                   data-toggle="modal"
                   data-target="#article-share-dialog"
-                  data-whatever="@mdo"
                   :disabled="!$validation.valid">&nbsp;&nbsp;分享&nbsp;&nbsp;</button>
               </div>
             </div>
