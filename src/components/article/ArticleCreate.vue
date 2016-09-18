@@ -7,6 +7,7 @@
         <validator name="validation">
           <form novalidate @submit.prevent="submit()">
             <div class="form-group">
+              <label class="form-control-label">主题：</label>
               <select
                 id="select2-topic"
                 class="form-control"
@@ -21,6 +22,7 @@
               </select>
             </div>
             <div class="form-group">
+              <label class="form-control-label">标题：</label>
               <input
                 class="form-control"
                 type="text"
@@ -30,6 +32,7 @@
                 v-validate:email="rules.title">
             </div>
             <div class="form-group">
+              <label class="form-control-label">正文：</label>
               <textarea
                 id="content-input"
                 class="form-control"
@@ -40,6 +43,7 @@
                 v-validate:email="rules.content"></textarea>
             </div>
             <div class="form-group">
+              <label class="form-control-label">标签：</label>
               <select
                 id="select2-tags"
                 class="form-control"

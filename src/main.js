@@ -57,6 +57,7 @@ Vue.validator('email', (val) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.
 Vue.validator('url', (val) => /^(http\u003a\/\/|https\u003a\/\/)(.{4,})$/.test(val));
 
 $.fn.select2.defaults.set('theme', 'bootstrap');
+$.fn.select2.defaults.set('language', 'zh-CN');
 Vue.directive('select2', {
   twoWay: true,
   priority: 1000,
