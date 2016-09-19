@@ -1,7 +1,7 @@
 FROM nginx
 MAINTAINER JianyingLi <lijy91@foxmail.com>
 
-RUN apt-get update && apt-get install -y sudo curl bzip2 wget
+RUN apt-get update && apt-get install -y sudo curl bzip2 wget git
 RUN curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 RUN apt-get install -y nodejs && apt-get clean
 
@@ -15,12 +15,9 @@ COPY ./nginx /etc/nginx
 
 WORKDIR /app
 
-COPY ./package.json /app/
-RUN npm install
-COPY ./bower.json /app/
-RUN bower install --allow-root --force
-
 COPY . /app/
+RUN npm install
+RUN bower install --allow-root --force
 
 RUN npm run build
 
