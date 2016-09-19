@@ -1,4 +1,3 @@
 {
-  "directory": "static/vendor/",
-  "allow_root": true
+  "directory": "static/vendor/"
 }

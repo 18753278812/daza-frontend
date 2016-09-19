@@ -18,7 +18,7 @@ WORKDIR /app
 COPY ./package.json /app/
 RUN npm install
 COPY ./bower.json /app/
-RUN bower install -F
+RUN bower install --allow-root --force
 
 COPY . /app/
 
