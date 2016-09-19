@@ -163,7 +163,12 @@ export default {
       page: 1,
       pagination: {},
       data: {
-        topic: {},
+        topic: {
+          user: {
+            id: 0,
+            name: '',
+          },
+        },
         article: {},
         comments: [],
       },

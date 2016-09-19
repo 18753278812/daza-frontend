@@ -66,7 +66,12 @@ export default {
   data() {
     return {
       data: {
-        topic: {},
+        topic: {
+          user: {
+            id: 0,
+            name: '',
+          },
+        },
       },
     };
   },
@@ -80,12 +85,13 @@ export default {
   },
   methods: {
     subscribe(id) {
-      if (this.data.subscribed) {
+      const topic = this.data.topic;
+      if (topic.subscribed) {
         return;
       }
       this.topicSubscribe(id).then(() => {
-        this.data.subscriber_count += 1;
-        this.data.subscribed = true;
+        topic.subscriber_count += 1;
+        topic.subscribed = true;
       });
     },
   },
