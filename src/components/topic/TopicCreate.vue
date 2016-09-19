@@ -7,7 +7,7 @@
         <validator name="validation">
           <form novalidate @submit.prevent="submit()">
             <div class="form-group">
-              <label class="form-control-label">分类：{{params.category_id}}</label>
+              <label class="form-control-label">分类：</label>
               <select
                 id="select2-category"
                 class="form-control"
@@ -19,6 +19,50 @@
                 <option></option>
                 <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
               </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">类型：</label>
+              <select
+                id="select2-type"
+                class="form-control"
+                name="type"
+                v-model="params.type"
+                v-select2="params.type"
+                :options="{ placeholder: '选择主题的类型' }"
+                v-validate:type="rules.type">
+                <option></option>
+                <option value="original">original</option>
+                <option value="feed">feed</option>
+              </select>
+            </div>
+            <div class="form-group" v-if="params.type === 'feed'">
+              <label for="name-input" class="form-control-label">订阅文章来源：</label>
+              <div class="row">
+                <div class="col-md-3 col-xs-4">
+                  <select
+                    id="select2-type"
+                    class="form-control"
+                    name="source_format"
+                    v-model="params.source_format"
+                    v-select2="params.source_format"
+                    :options="{ placeholder: '来源格式' }"
+                    v-validate:source_format="rules.source_format">
+                    <option></option>
+                    <option value="rss+xml">rss+xml</option>
+                    <option value="atom+xml">atom+xml</option>
+                    <option value="daza+json">daza+json</option>
+                  </select>
+                </div>
+                <div class="col-md-9 col-xs-8" style="padding-left: 0;">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="source_link"
+                    placeholder="来源链接"
+                    v-model="params.source_link"
+                    v-validate:name="rules.source_link">
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <label for="name-input" class="form-control-label">名称：</label>
@@ -40,6 +84,16 @@
                 placeholder="请填写不小于10个字符的描述。"
                 v-model="params.description"
                 v-validate:description="rules.description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="name-input" class="form-control-label">主页：</label>
+              <input
+                class="form-control"
+                type="text"
+                name="website"
+                placeholder=""
+                v-model="params.website"
+                v-validate:website="rules.website">
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-primary" :disabled="!$validation.valid">确认</button>
@@ -71,12 +125,18 @@ export default {
     return {
       rules: {
         category_id: { required: true },
+        type: { required: true },
+        source_format: { },
+        source_link: { },
         name: { required: true, minlength: 2 },
         description: { required: true, minlength: 10 },
+        website: { },
       },
       params: {
         category_id: '',
-        type: 'test',
+        type: '',
+        source_format: '',
+        source_link: '',
         name: '',
         description: '',
       },

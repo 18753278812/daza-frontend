@@ -4,27 +4,25 @@
       <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-12">
-            <h3>{{ data.name }}</h3>
+            <h3>{{ data.tag.name }}</h3>
+            <p>{{ data.tag.description }}
           </div>
         </div>
-        <hr>
-        <p>
-          ...
-        </p>
       </div>
-      <div class="col-sm-4" style="display: none;">
-        <div class="row">
-          <div class="col-xs-6">
-            <h5>TITLE</h5>
-          </div>
-          <div class="col-xs-6 text-xs-right">
-
-          </div>
-          <div class="col-xs-12">
-            <p>
-              ...
-            </p>
-          </div>
+      <div class="col-sm-12" style="padding-top: 15px;">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#home" role="tab">最新文章</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#messages" role="tab">最热文章</a>
+          </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="home" role="tabpanel">...</div>
+          <div class="tab-pane" id="profile" role="tabpanel">...</div>
         </div>
       </div>
     </div>
@@ -47,14 +45,16 @@ export default {
   },
   data() {
     return {
-      data: {},
+      data: {
+        tag: {},
+      },
     };
   },
   ready() {
     const tagName = this.$route.params.name;
     NProgress.start();
     this.tagShow(tagName).then(data => {
-      this.data = data;
+      this.data.tag = data;
       NProgress.done();
     });
   },

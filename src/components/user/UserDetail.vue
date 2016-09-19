@@ -1,48 +1,30 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-12">
         <div class="row">
-          <div class="col-md-5 col-sm-12 col-xs-4">
-            <img class="img-rounded" style="width: 100%; height: auto; margin-bottom: 12px;" v-lazy="data.avatar_url">
+          <div class="col-sm-2 col-xs-4">
+            <img class="img-rounded" v-lazy="data.user.image_url" style="width: 100%; height: auto;">
           </div>
-          <div class="col-md-7 col-sm-12 col-xs-8">
+          <div class="col-sm-8 col-xs-4" style="padding-left: 0;">
             <ul class="list-unstyled">
-              <li><h4>{{data.name}}</h4></li>
-              <li><small class="text-muted">{{data.username}}</small></li>
+              <li><h3 style="display: inline-block">{{ data.user.name }}</h3>&nbsp;<span class="tag tag-default">{{data.user.username}}</span></li>
+              <li><small class="text-muted">来自 {{data.user.city}}，加入于  {{data.user.created_at}}</small></li>
+              <li><small class="text-muted" v-if="data.user.website">主页：<a :href="data.user.website">{{ data.user.website }}</a></small></li>
+              <li><p>{{ data.user.bio }}</p></li>
             </ul>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <p>{{data.bio}}</p>
+          <div class="col-sm-2 col-xs-4 text-sm-right">
+            <form @submit.prevent="subscribe(data.topic.id)">
+              <button
+                class="btn btn-sm btn-outline-primary"
+                type="submit"
+                :class="{ 'active': data.user.followed }">&nbsp;关注 ({{ data.user.subscriber_count }})&nbsp;</button>
+            </form>
           </div>
         </div>
-        <hr>
-        <ul class="list-unstyled">
-          <li>{{data.city}}</li>
-          <li><a href="mailto:{{data.email}}">{{data.email}}<a></li>
-          <li><a :href="data.website">{{data.website}}</a></li>
-          <li>加入于 {{data.created_at}}</li>
-        </ul>
-        <hr>
-        <div class="row">
-          <div class="col-xs-4">
-            <h2 class="text-xs-center">0</h2>
-            <div class="text-muted text-xs-center">文章</div>
-          </div>
-          <div class="col-xs-4">
-            <h2 class="text-xs-center">0</h2>
-            <div class="text-muted text-xs-center">粉丝</div>
-          </div>
-          <div class="col-xs-4">
-            <h2 class="text-xs-center"><a v-link="{ name: 'user_followers', params: $route.params }">0</a></h2>
-            <div class="text-muted text-xs-center">关注</div>
-          </div>
-        </div>
-        <hr>
       </div>
-      <div class="col-sm-9">
+      <div class="col-sm-12" style="padding-top: 15px;">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item">
@@ -83,14 +65,16 @@ export default {
   },
   data() {
     return {
-      data: {},
+      data: {
+        user: {},
+      },
     };
   },
   ready() {
     const userId = this.$route.params.id;
     NProgress.start();
     this.userShow(userId).then(data => {
-      this.data = data;
+      this.data.user = data;
       NProgress.done();
     });
   },

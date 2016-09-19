@@ -2,37 +2,41 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h4>{{ data.title }}</h4>
+        <h4>{{ data.article.title }}</h4>
         <div class="row">
           <div class="col-xs-12">
-            <small class="text-muted">{{ data.author }}</small>
+            <small class="text-muted">{{ data.article.author }}</small>
             <small class="text-muted">发表于 </small>
-            <small class="text-muted">{{ data.published_at }}</small>
+            <small class="text-muted">{{ data.article.published_at }}</small>
             <small class="text-muted"> · </small>
-            <small class="text-muted">{{ data.view_count }}阅读</small>
+            <small class="text-muted">{{ data.article.view_count }}阅读</small>
           </div>
         </div>
         <div class="row" style="margin-top: 15px; ">
           <div class="col-xs-8">
             <a href="#">
-              <img class="img-circle lazy" style="width: 1.8rem; height: 1.8rem" v-lazy="topic.image_url"> {{ topic.name }}
+              <img class="img-circle lazy" style="width: 1.8rem; height: 1.8rem; margin-right: 5px;" v-lazy="data.topic.image_url">{{ data.topic.name }}
             </a>
           </div>
           <div class="col-xs-4 text-xs-right">
-            <form @submit.prevent="subscribe(topic.id)">
+            <form @submit.prevent="subscribe(data.topic.id)">
               <button
                 class="btn btn-sm btn-outline-primary"
                 type="submit"
-                :class="{ 'active': topic.subscribed }">&nbsp;&nbsp;&nbsp;订阅 ({{ topic.subscriber_count }})&nbsp;&nbsp;&nbsp;</button>
+                :class="{ 'active': data.topic.subscribed }">&nbsp;&nbsp;&nbsp;订阅 ({{ data.topic.subscriber_count }})&nbsp;&nbsp;&nbsp;</button>
             </form>
           </div>
         </div>
         <hr>
-        <p class="article-content">{{{ data.content }}}</p>
+        <blockquote class="blockquote" v-if="data.article.type === 'share'">
+          <p>{{ data.article.summary }}</p>
+          <a :href="data.article.link" target="_blank">立即跳转到文章</a>
+        </blockquote>
+        <p class="article-content">{{{ data.article.content }}}</p>
         <p>
           <div class="row">
             <div class="col-xs-12">
-              <span v-for="tag in data.tags">
+              <span v-for="tag in data.article.tags">
                 <span class="tag tag-default">{{ tag.name }}</span>
               </span>
             </div>
@@ -43,20 +47,20 @@
             <a :href="mailToReport"><small class="text-muted">举报</small></a>
           </div>
           <div class="col-xs-6 text-xs-right">
-            <a :href="data.link" target="_blank"><small class="text-muted">阅读原文</small></a>
+            <a v-if="data.article.type === 'feed'" :href="data.article.link" target="_blank"><small class="text-muted">阅读原文</small></a>
           </div>
         </div>
         <hr>
         <div class="row">
           <div class="col-sm-12">
-            <p class="text-xs-left" v-if="comments.length > 0">{{ data.comment_count }}条精彩回复</p>
-            <p class="text-xs-center" v-if="comments.length == 0">空空如也</p>
+            <p class="text-xs-left" v-if="data.comments.length > 0">{{ data.article.comment_count }}条精彩回复</p>
+            <p class="text-xs-center" v-if="data.comments.length == 0">空空如也</p>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
             <ul class="comment-list">
-              <li class="entry" v-for="comment in comments">
+              <li class="entry" v-for="comment in data.comments">
                 <div class="avatar">
                   <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">
                     <img class="img-circle" v-lazy="comment.user.avatar_url">
@@ -82,7 +86,7 @@
             </ul>
           </div>
         </div>
-        <div class="row" v-if="comments.length > 0">
+        <div class="row" v-if="data.comments.length > 0">
           <div class="col-sm-12">
             <p class="text-xs-center"><a href="#">查看全部评论</a></p>
           </div>
@@ -117,9 +121,11 @@ export default {
   },
   data() {
     return {
-      topic: {},
-      data: {},
-      comments: [],
+      data: {
+        topic: {},
+        article: {},
+        comments: [],
+      },
       rules: {
         content: { required: true },
       },
@@ -131,22 +137,23 @@ export default {
   ready() {
     const articleId = this.$route.params.id;
     this.articleShow(articleId).then(data => {
-      this.data = data;
-      this.topic = data.topic;
+      this.data.article = data;
+      this.data.topic = data.topic;
     });
     this.loadComments(1);
   },
   computed: {
     mailToReport() {
+      const article = this.data.article;
       const reportEmail = process.env.EMAIL_REPORT;
-      return `mailto:${reportEmail}?subject=[举报文章] ${this.data.title}`;
+      return `mailto:${reportEmail}?subject=[举报文章] ${article.title}`;
     },
   },
   methods: {
     loadComments(page) {
       const articleId = this.$route.params.id;
       this.articleCommentList(articleId, page).then(data => {
-        this.comments = data.data;
+        this.data.comments = data.data;
       });
     },
     submit(e) {
@@ -156,25 +163,27 @@ export default {
       }
       this.articleComment(this.data.id, this.params).then((data) => {
         this.params.content = '';
-        this.comments.push(data);
+        this.data.comments.push(data);
       });
     },
     subscribe(id) {
-      if (this.topic.subscribed) {
+      const topic = this.data.topic;
+      if (topic.subscribed) {
         return;
       }
       this.topicSubscribe(id).then(() => {
-        this.topic.subscriber_count += 1;
-        this.topic.subscribed = true;
+        topic.subscriber_count += 1;
+        topic.subscribed = true;
       });
     },
     vote() {
-      if (this.data.voted) {
+      const article = this.data.article;
+      if (article.voted) {
         return;
       }
-      this.articleVote(this.data.id, 'up').then(() => {
-        this.data.upvote_count += 1;
-        this.data.voted = true;
+      this.articleVote(article.id, 'up').then(() => {
+        article.upvote_count += 1;
+        article.voted = true;
       });
     },
   },

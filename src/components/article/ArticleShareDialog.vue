@@ -53,7 +53,7 @@
                   class="form-control"
                   rows="3"
                   name="summary"
-                  placeholder="请填写不小于10个字符的摘要。"
+                  placeholder="请填写不小于16个字符的摘要。"
                   v-model="params.summary"
                   v-validate:summary="rules.summary"></textarea>
               </div>
@@ -111,10 +111,11 @@ export default {
         topic_id: { required: true },
         title: { required: true, minlength: 6 },
         link: { required: true, url: true },
-        summary: { required: true, minlength: 10 },
+        summary: { required: true, minlength: 16 },
       },
       params: {
         topic_id: '',
+        type: 'share',
         link: '',
         title: '',
         summary: '',

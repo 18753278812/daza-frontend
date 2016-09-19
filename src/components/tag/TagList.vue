@@ -9,7 +9,7 @@
         </div>
         <hr>
         <div class="row tag-list">
-          <div class="col-sm-4" v-for="tag in tags">
+          <div class="col-sm-3" v-for="tag in tags">
             <div class="image">
               <img class="img-rounded" v-lazy="tag.image_url">
             </div>
@@ -20,22 +20,6 @@
               <p class="description">{{ tag.description }}</p>
             </div>
             <hr>
-            <!-- <hr v-bind:style="$index % 2 == 0 ? 'margin-right: -15px;' : 'margin-left: -15px;'"> -->
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4" style="display: none;">
-        <div class="row">
-          <div class="col-xs-6">
-            <h5>TITLE</h5>
-          </div>
-          <div class="col-xs-6 text-xs-right">
-
-          </div>
-          <div class="col-xs-12">
-            <p>
-              ...
-            </p>
           </div>
         </div>
       </div>
@@ -109,6 +93,7 @@ export default {
         font-size: 14px;
       }
       .description {
+        word-wrap: break-word;
         font-size: 12px;
         color: #bbb;
         margin-bottom: 2px;

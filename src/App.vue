@@ -130,6 +130,7 @@ html, body {
   }
   // 文章详情
   .article-content {
+    word-wrap: break-word;
     img {
       max-width: 100%;
     }
