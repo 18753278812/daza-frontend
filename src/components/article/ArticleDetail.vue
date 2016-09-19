@@ -12,10 +12,14 @@
             <small class="text-muted">{{ data.article.view_count }}阅读</small>
           </div>
           <div class="col-xs-3 text-xs-right">
-            <a v-bind:href="data.article.link" target="_blank"><small class="text-muted">阅读原文</small></a>
+            <a v-if="data.article.type === 'feed'" v-bind:href="data.article.link" target="_blank"><small class="text-muted">阅读原文</small></a>
           </div>
         </div>
         <hr>
+        <blockquote class="blockquote" v-if="data.article.type === 'share'">
+          <p>{{ data.article.summary }}</p>
+          <a :href="data.article.link" target="_blank">立即跳转到文章</a>
+        </blockquote>
         <p class="article-content">{{{ data.article.content }}}</p>
         <div class="row">
           <div class="col-xs-12">
@@ -118,7 +122,7 @@
               <div class="col-xs-8" style="padding-left: 0px;">
                 <ul class="list-unstyled">
                   <li><a v-link="{ name: 'topic_detail', params: { id: data.topic.id }}"><h4>{{ data.topic.name }}</h4></a></li>
-                  <li v-if="data.topic.website"><small class="text-muted">网站：<a :href="data.topic.website">{{ data.topic.website }}</a></small></li>
+                  <li v-if="data.topic.website"><small class="text-muted">主页：<a :href="data.topic.website">{{ data.topic.website }}</a></small></li>
                   <li><small class="text-muted">{{ data.topic.subscriber_count }} 人订阅，由 <a v-link="{ name: 'user_detail', params: { id: data.topic.user.id } }">{{ data.topic.user.name }}</a> 维护</small></li>
                 </ul>
               </div>
@@ -159,7 +163,12 @@ export default {
       page: 1,
       pagination: {},
       data: {
-        topic: {},
+        topic: {
+          user: {
+            id: 0,
+            name: '',
+          },
+        },
         article: {},
         comments: [],
       },

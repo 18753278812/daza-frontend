@@ -10,6 +10,7 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_SUCCESS,
+  PASSWORD_MODIFY_SUCCESS,
   RECEIVE_ERRORS,
   RECEIVE_FOLLOWERS,
   RECEIVE_FOLLOWING,
@@ -59,6 +60,16 @@ export const updateProfile = ({ dispatch }, params) => {
   .catch((error) => Promise.reject(error));
   return req;
 };
+
+export const passwordModify = ({ dispatch }, params) => {
+  const req = account.passwordModify(params).then((data) => {
+    dispatch(PASSWORD_MODIFY_SUCCESS, data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
 
 export const userShow = ({ dispatch }, id) => {
   const req = users.show(id).then((data) => Promise.resolve(data))

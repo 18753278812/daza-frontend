@@ -2,7 +2,14 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h3>发表文章</h3>
+        <div class="row">
+          <div class="col-sm-8">
+            <h3>发表文章</h3>
+          </div>
+          <div class="col-sm-4 text-sm-right">
+            <button type="button" class="btn btn-secondary btn-sm" v-on:click="toggleExtraInputs()">显示更多填写内容</button>
+          </div>
+        </div>
         <hr>
         <validator name="validation">
           <form novalidate @submit.prevent="submit()">
@@ -37,8 +44,8 @@
                 id="content-input"
                 class="form-control"
                 rows="15"
-                name="summary"
-                placeholder="正文"
+                name="content"
+                placeholder="请写入 Markdown（本站使用了 CommonMark 规范） 格式的正文，并且不能小于32个字符。"
                 v-model="params.content"
                 v-validate:email="rules.content"></textarea>
             </div>
@@ -53,6 +60,38 @@
                 v-select2="params.tags"
                 :options="{ tags: true }">
               </select>
+            </div>
+            <div class="form-group" v-if="data.extra_showed">
+              <label for="name-input" class="form-control-label">位置信息：</label>
+              <div class="row">
+                <div class="col-md-8 col-xs-8">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="location"
+                    placeholder="e.g. 深圳 . 南山图书馆"
+                    v-model="params.location"
+                    v-validate:location="rules.location">
+                </div>
+                <div class="col-md-2 col-xs-2" style="padding-left: 0;">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="longitude"
+                    placeholder="经度"
+                    v-model="params.longitude"
+                    v-validate:longitude="rules.longitude">
+                </div>
+                <div class="col-md-2 col-xs-2" style="padding-left: 0;">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="latitude"
+                    placeholder="纬度"
+                    v-model="params.latitude"
+                    v-validate:latitude="rules.latitude">
+                </div>
+              </div>
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-primary" :disabled="!$validation.valid">确认</button>
@@ -83,17 +122,26 @@ export default {
     return {
       data: {
         topics: [],
+        extra_showed: false,
       },
       rules: {
-        title: { required: true },
-        content: { required: true, minlength: 150 },
+        topic_id: { required: true },
+        title: { required: true, minlength: 6 },
+        content: { required: true, minlength: 32 },
+        location: {},
+        longitude: {},
+        latitude: {},
       },
       params: {
-        topic_id: 1,
+        topic_id: '',
+        type: 'original',
         title: '',
         summary: '',
         content: '',
         tags: '',
+        location: '',
+        longitude: '',
+        latitude: '',
       },
     };
   },
@@ -111,6 +159,9 @@ export default {
           this.$route.router.go('/');
         }
       });
+    },
+    toggleExtraInputs() {
+      this.data.extra_showed = !this.data.extra_showed;
     },
   },
 };

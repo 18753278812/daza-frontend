@@ -12,7 +12,7 @@
         </div>
         <hr>
         <div class="row topic-list">
-          <div class="col-sm-4" v-for="topic in topics">
+          <div class="col-md-4 col-sm-6" v-for="topic in topics">
             <div class="image">
               <img class="img-rounded" v-lazy="topic.image_url">
             </div>
@@ -22,21 +22,6 @@
               <p class="description">{{ topic.description }}</p>
             </div>
             <hr>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4" style="display: none;">
-        <div class="row">
-          <div class="col-xs-6">
-            <h5>TITLE</h5>
-          </div>
-          <div class="col-xs-6 text-xs-right">
-
-          </div>
-          <div class="col-xs-12">
-            <p>
-              ...
-            </p>
           </div>
         </div>
       </div>

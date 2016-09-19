@@ -8,7 +8,7 @@
             <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">基本资料</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#account" role="tab">账号和安全</a>
+            <a class="nav-link" data-toggle="tab" href="#password" role="tab">密码</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#notification" role="tab">推送消息设置</a>
@@ -19,8 +19,8 @@
           <div class="tab-pane fade active in" id="profile" role="tabpanel">
             <settings-profile></settings-profile>
           </div>
-          <div class="tab-pane" id="account" role="tabpanel">
-            <settings-account></settings-account>
+          <div class="tab-pane" id="password" role="tabpanel">
+            <settings-password></settings-password>
           </div>
           <div class="tab-pane" id="notification" role="tabpanel">
             <settings-notification></settings-notification>
@@ -34,7 +34,7 @@
 <script>
 import { auth } from '../../vuex/getters';
 import SettingsProfile from './SettingsProfile.vue';
-import SettingsAccount from './SettingsAccount.vue';
+import SettingsPassword from './SettingsPassword.vue';
 import SettingsNotification from './SettingsNotification.vue';
 
 export default {
@@ -45,7 +45,7 @@ export default {
   },
   components: {
     SettingsProfile,
-    SettingsAccount,
+    SettingsPassword,
     SettingsNotification,
   },
   data() {
