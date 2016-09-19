@@ -9,7 +9,7 @@ RUN apt-get install -y nodejs && apt-get clean
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
-RUN npm install -g vue-cli
+RUN npm install -g vue-cli bower
 
 COPY ./nginx /etc/nginx
 
@@ -17,6 +17,8 @@ WORKDIR /app
 
 COPY ./package.json /app/
 RUN npm install
+COPY ./bower.json /app/
+RUN bower install -F
 
 COPY . /app/
 

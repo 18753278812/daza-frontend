@@ -47,6 +47,7 @@
 </template>
 
 <script>
+// import toastr from 'toastr';
 import { auth } from '../../vuex/getters';
 import { login, logout } from '../../vuex/actions';
 
@@ -80,6 +81,8 @@ export default {
       // 用户登录
       this.login(this.params).then(() => {
         this.$route.router.go('/');
+      // }).catch((error) => {
+      //   toastr.error(error.data.message);
       });
     },
   },
