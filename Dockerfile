@@ -15,6 +15,7 @@ COPY ./nginx /etc/nginx
 
 WORKDIR /app
 
+COPY . /app/
 RUN npm install
 RUN bower install --allow-root --force
 
