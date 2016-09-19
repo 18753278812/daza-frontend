@@ -6,7 +6,7 @@
           <div class="col-sm-2 col-xs-4">
             <img class="img-rounded" v-lazy="data.user.image_url" style="width: 100%; height: auto;">
           </div>
-          <div class="col-sm-8 col-xs-4" style="padding-left: 0;">
+          <div class="col-sm-8 col-xs-8" style="padding-left: 0;">
             <ul class="list-unstyled">
               <li><h3 style="display: inline-block">{{ data.user.name }}</h3>&nbsp;<span class="tag tag-default">{{data.user.username}}</span></li>
               <li><small class="text-muted">来自 {{data.user.city}}，加入于  {{data.user.created_at}}</small></li>
@@ -14,7 +14,7 @@
               <li><p>{{ data.user.bio }}</p></li>
             </ul>
           </div>
-          <div class="col-sm-2 col-xs-4 text-sm-right">
+          <div class="col-sm-2 col-xs-12 text-xs-right">
             <form @submit.prevent="subscribe(data.topic.id)">
               <button
                 class="btn btn-sm btn-outline-primary"

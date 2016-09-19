@@ -1,18 +1,6 @@
 <template>
   <validator name="validation">
     <form novalidate @submit.prevent="submit()">
-      <div class="form-group row">
-        <label for="username-input" class="col-xs-3 col-sm-2 col-form-label">用户名</label>
-        <div class="col-xs-9 col-sm-10">
-          <p class="form-control-static">{{ user.username }}</p>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="email-input" class="col-xs-3 col-sm-2 col-form-label">邮箱</label>
-        <div class="col-xs-9 col-sm-10">
-          <label class="form-control-static">{{ user.email }}</label>
-        </div>
-      </div>
       <div class="form-group row" style="display: none;">
         <label for="mobile-input" class="col-xs-3 col-sm-2 col-form-label">手机</label>
         <div class="col-xs-9 col-sm-10">

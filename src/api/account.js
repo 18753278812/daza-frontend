@@ -53,4 +53,13 @@ export default {
       return Promise.reject(new Error('error'));
     });
   },
+  passwordModify(params) {
+    const req = Vue.http.post('account/password_modify', params);
+    return req.then((response) => {
+      if (response.ok) {
+        return Promise.resolve(response.data.data);
+      }
+      return Promise.reject(new Error('error'));
+    });
+  },
 };
