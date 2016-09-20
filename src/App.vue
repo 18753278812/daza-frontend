@@ -22,11 +22,9 @@ export default {
     };
   },
   ready() {
+    // 如果当前用户已经登录，则重新获取用户资料及Token
     if (this.auth.check()) {
-      this.getProfile().then((data) => {
-        console.log(data);
-        console.log('更新成功');
-      });
+      this.getProfile().then(() => {});
     }
   },
 };
@@ -104,7 +102,14 @@ html, body {
       word-wrap: break-word;
     }
   }
-
+  // 文章详情上方主题元素
+  .article-content-top-topic {
+    display: none;
+  }
+  // 文章详情侧边栏主题元素
+  .article-content-side-topic {
+    display: block;
+  }
   // 评论列表
   .comment-list {
     list-style-type: none;
@@ -154,6 +159,15 @@ html, body {
           }
         }
       }
+    }
+
+    // 文章详情上方主题元素
+    .article-content-top-topic {
+      display: block;
+    }
+    // 文章详情侧边栏主题元素
+    .article-content-side-topic {
+      display: none;
     }
   }
 

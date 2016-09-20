@@ -6,21 +6,31 @@
           <div class="col-sm-2 col-xs-4">
             <img class="lazy img-rounded" :data-original="data.topic.image_url" style="width: 100%; height: auto;">
           </div>
-          <div class="col-sm-8 col-xs-4" style="padding-left: 0;">
+          <div class="col-sm-10 col-xs-8" style="padding-left: 0;">
+            <div class="row">
+              <div class="col-sm-9 col-xs-6">
+                {{ data.topic.name }}</h3>&nbsp;<span class="tag tag-default" v-if="data.topic.type === 'original'">原创</span>
+              </div>
+              <div class="col-sm-3 col-xs-6 text-xs-right" v-if="data.topic.user_id !== auth.user.id">
+                <form @submit.prevent="subscribe(data.topic.id)">
+                  <button
+                    class="btn btn-sm btn-outline-primary"
+                    type="submit"
+                    :class="{ 'active': data.topic.subscribed }">&nbsp;订阅 ({{ data.topic.subscriber_count }})&nbsp;</button>
+                </form>
+              </div>
+              <div class="col-sm-3 col-xs-6 text-xs-right" v-if="data.topic.user_id === auth.user.id">
+                <button
+                  class="btn btn-sm btn-outline-primary"
+                  href="#"
+                  >编辑</button>
+              </div>
+            </div>
             <ul class="list-unstyled">
-              <li><h3 style="display: inline-block">{{ data.topic.name }}</h3>&nbsp;<span class="tag tag-default" v-if="data.topic.type === 'original'">原创</span></li>
               <li><small class="text-muted" v-if="data.topic.website">主页：<a :href="data.topic.website">{{ data.topic.website }}</a></small></li>
               <li><small class="text-muted">由 <a v-link="{ name: 'user_detail', params: { id: data.topic.user.id } }">{{ data.topic.user.name }}</a> 维护</small></li>
               <li><p>{{ data.topic.description }}</p></li>
             </ul>
-          </div>
-          <div class="col-sm-2 col-xs-4 text-sm-right">
-            <form @submit.prevent="subscribe(data.topic.id)">
-              <button
-                class="btn btn-sm btn-outline-primary"
-                type="submit"
-                :class="{ 'active': data.topic.subscribed }">&nbsp;订阅 ({{ data.topic.subscriber_count }})&nbsp;</button>
-            </form>
           </div>
         </div>
       </div>

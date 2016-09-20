@@ -6,27 +6,31 @@
           <div class="col-sm-2 col-xs-4">
             <img class="lazy img-rounded" :data-original="data.user.avatar_url" style="width: 100%; height: auto;">
           </div>
-          <div class="col-sm-8 col-xs-8" style="padding-left: 0;">
+          <div class="col-sm-10 col-xs-8" style="padding-left: 0;">
+            <div class="row">
+              <div class="col-sm-9 col-xs-6">
+                <h3>{{ data.user.name }}</h3>
+              </div>
+              <div class="col-sm-3 col-xs-6 text-xs-right" v-if="data.user.id !== auth.user.id">
+                <form @submit.prevent="follow()">
+                  <button
+                    class="btn btn-sm btn-outline-primary"
+                    type="submit"
+                    :class="{ 'active': data.user.followed }">关注 ({{ data.user.followers_count }})</button>
+                </form>
+              </div>
+              <div class="col-sm-3 col-xs-6 text-xs-right" v-if="data.user.id === auth.user.id">
+                <button
+                  class="btn btn-sm btn-outline-primary"
+                  v-link="'/account/settings'"
+                  >编辑资料</button>
+              </div>
+            </div>
             <ul class="list-unstyled">
-              <li><h3 style="display: inline-block">{{ data.user.name }}</h3>&nbsp;<span class="tag tag-default">{{data.user.username}}</span></li>
               <li><small class="text-muted">来自 {{ data.user.city }}，加入于  {{ data.user.created_at | moment }}</small></li>
               <li><small class="text-muted" v-if="data.user.website">主页：<a :href="data.user.website">{{ data.user.website }}</a></small></li>
               <li><p>{{ data.user.bio }}</p></li>
             </ul>
-          </div>
-          <div class="col-sm-2 col-xs-12 text-xs-right" v-if="data.user.id !== auth.user.id">
-            <form @submit.prevent="follow()">
-              <button
-                class="btn btn-sm btn-outline-primary"
-                type="submit"
-                :class="{ 'active': data.user.followed }">&nbsp;关注 ({{ data.user.followers_count }})&nbsp;</button>
-            </form>
-          </div>
-          <div class="col-sm-2 col-xs-12 text-xs-right" v-if="data.user.id === auth.user.id">
-            <button
-              class="btn btn-sm btn-outline-primary"
-              v-link="'/account/settings'"
-              >&nbsp;编辑资料&nbsp;</button>
           </div>
         </div>
       </div>

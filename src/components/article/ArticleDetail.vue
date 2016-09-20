@@ -15,7 +15,18 @@
             <a v-if="data.article.type === 'feed'" v-bind:href="data.article.link" target="_blank"><small class="text-muted">阅读原文</small></a>
           </div>
         </div>
-        <hr>
+        <div class="row article-content-top-topic" style="margin-top: 15px;">
+          <div class="col-xs-2">
+            <img class="img-circle lazy" :data-original="data.topic.image_url" style="width: 100%; height: auto; margin-right: 5px;">
+          </div>
+          <div class="col-xs-10" style="padding-left: 0;">
+            <ul class="list-unstyled">
+              <li><a v-link="{ name: 'topic_detail', params: { id: data.topic.id }}"><h6>{{ data.topic.name }}</h6></a></li>
+              <li><small class="text-muted">{{ data.topic.subscriber_count }} 人订阅，由 <a v-link="{ name: 'user_detail', params: { id: data.topic.user.id } }">{{ data.topic.user.name }}</a> 维护</small></li>
+            </ul>
+          </div>
+        </div>
+        <hr style="margin-top: 0;">
         <blockquote class="blockquote" v-if="data.article.type === 'share'">
           <p>{{ data.article.summary }}</p>
           <a :href="data.article.link" target="_blank">立即跳转到文章</a>
@@ -111,7 +122,7 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="row">
+        <div class="row article-content-side-topic">
           <div class="col-xs-12">
             <div class="row">
               <div class="col-xs-4">
@@ -134,7 +145,6 @@
             </div>
           </div>
         </div>
-        <hr style="margin-top: 0;">
       </div>
     </div>
   </div>
@@ -144,7 +154,13 @@
 import $ from 'jquery';
 import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
-import { articleShow, articleVote, articleComment, articleCommentList } from '../../vuex/actions';
+import {
+  topicSubscribe,
+  articleShow,
+  articleVote,
+  articleComment,
+  articleCommentList,
+} from '../../vuex/actions';
 import VuePagination from '../_common/VuePagination';
 
 export default {
@@ -153,6 +169,7 @@ export default {
       auth,
     },
     actions: {
+      topicSubscribe,
       articleShow,
       articleVote,
       articleComment,
@@ -233,6 +250,16 @@ export default {
         comment.user = this.auth.user;
         comments.push(comment);
         article.comment_count = article.comment_count + 1;
+      });
+    },
+    subscribe(id) {
+      const topic = this.data.topic;
+      if (topic.subscribed) {
+        return;
+      }
+      this.topicSubscribe(id).then(() => {
+        topic.subscriber_count += 1;
+        topic.subscribed = true;
       });
     },
     upvote() {
