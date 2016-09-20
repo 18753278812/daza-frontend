@@ -104,6 +104,7 @@
 </template>
 
 <script>
+import shortid from 'shortid';
 import { auth } from '../../vuex/getters';
 import { getUserTopics, articleCreate } from '../../vuex/actions';
 // import NProgress from 'nprogress';
@@ -134,6 +135,7 @@ export default {
       },
       params: {
         topic_id: '',
+        guid: shortid.generate(),
         type: 'original',
         title: '',
         summary: '',

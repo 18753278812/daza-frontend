@@ -153,15 +153,14 @@
 <script>
 import $ from 'jquery';
 import NProgress from 'nprogress';
+import VuePagination from '../_common/VuePagination';
 import { auth } from '../../vuex/getters';
 import {
-  topicSubscribe,
   articleShow,
   articleVote,
   articleComment,
   articleCommentList,
 } from '../../vuex/actions';
-import VuePagination from '../_common/VuePagination';
 
 export default {
   vuex: {
@@ -169,7 +168,6 @@ export default {
       auth,
     },
     actions: {
-      topicSubscribe,
       articleShow,
       articleVote,
       articleComment,
@@ -250,16 +248,6 @@ export default {
         comment.user = this.auth.user;
         comments.push(comment);
         article.comment_count = article.comment_count + 1;
-      });
-    },
-    subscribe(id) {
-      const topic = this.data.topic;
-      if (topic.subscribed) {
-        return;
-      }
-      this.topicSubscribe(id).then(() => {
-        topic.subscriber_count += 1;
-        topic.subscribed = true;
       });
     },
     upvote() {
