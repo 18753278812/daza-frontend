@@ -5,7 +5,6 @@ import VueRouter from 'vue-router';
 import VueValidator from 'vue-validator';
 import VueResource from 'vue-resource';
 import $ from 'jquery';
-import moment from 'moment';
 
 import routes from './routes';
 import locales from './lang';
@@ -50,6 +49,7 @@ Vue.validator('email', (val) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.
 // Register url validator function.
 Vue.validator('url', (val) => /^(http\u003a\/\/|https\u003a\/\/)(.{4,})$/.test(val));
 
+// 自定义指令
 $.fn.select2.defaults.set('theme', 'bootstrap');
 $.fn.select2.defaults.set('language', 'zh-CN');
 Vue.directive('select2', {
@@ -73,10 +73,8 @@ Vue.directive('select2', {
   },
 });
 
-Vue.filter('moment', (value) => {
-  moment.locale('zh-cn');
-  return moment(value, 'YYYY-MM-DDThh:mm:ssTZD').fromNow();
-});
+// 自定义过滤器
+Vue.filter('moment', require('./filters/moment'));
 
 // 创建一个路由器实例
 const router = new VueRouter({
