@@ -105,6 +105,7 @@
 </template>
 
 <script>
+import shortid from 'shortid';
 import { auth } from '../../vuex/getters';
 import { getCategoryList, topicCreate } from '../../vuex/actions';
 // import NProgress from 'nprogress';
@@ -132,6 +133,7 @@ export default {
         website: { },
       },
       params: {
+        short_id: shortid.generate(),
         category_id: '',
         type: '',
         source_format: '',

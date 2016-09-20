@@ -8,10 +8,10 @@
           </div>
           <div class="col-sm-10 col-xs-8" style="padding-left: 0;">
             <div class="row">
-              <div class="col-sm-9 col-xs-6">
-                {{ data.topic.name }}</h3>&nbsp;<span class="tag tag-default" v-if="data.topic.type === 'original'">原创</span>
+              <div class="col-sm-9 col-xs-8">
+                <h3 style="display: inline-block;">{{ data.topic.name }}</h3>&nbsp;<span class="tag tag-default" v-if="data.topic.type === 'original'">原创</span>
               </div>
-              <div class="col-sm-3 col-xs-6 text-xs-right" v-if="data.topic.user_id !== auth.user.id">
+              <div class="col-sm-3 col-xs-4 text-xs-right" v-if="data.topic.user_id !== auth.user.id">
                 <form @submit.prevent="subscribe(data.topic.id)">
                   <button
                     class="btn btn-sm btn-outline-primary"
@@ -19,7 +19,7 @@
                     :class="{ 'active': data.topic.subscribed }">&nbsp;订阅 ({{ data.topic.subscriber_count }})&nbsp;</button>
                 </form>
               </div>
-              <div class="col-sm-3 col-xs-6 text-xs-right" v-if="data.topic.user_id === auth.user.id">
+              <div class="col-sm-3 col-xs-4 text-xs-right" v-if="data.topic.user_id === auth.user.id">
                 <button
                   class="btn btn-sm btn-outline-primary"
                   href="#"

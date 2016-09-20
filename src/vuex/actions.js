@@ -11,6 +11,7 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   UPDATE_PROFILE_SUCCESS,
+  UPDATE_CONFIGS_SUCCESS,
   PASSWORD_MODIFY_SUCCESS,
   RECEIVE_ERRORS,
   RECEIVE_FOLLOWERS,
@@ -72,6 +73,16 @@ export const getProfile = ({ dispatch }) => {
 export const updateProfile = ({ dispatch }, params) => {
   const req = account.updateProfile(params).then((data) => {
     dispatch(UPDATE_PROFILE_SUCCESS, data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+
+export const updateConfigs = ({ dispatch }, params) => {
+  const req = account.updateConfigs(params).then((data) => {
+    dispatch(UPDATE_CONFIGS_SUCCESS, data);
     return Promise.resolve(data);
   })
   .catch((error) => Promise.reject(error));

@@ -134,8 +134,8 @@ export default {
         latitude: {},
       },
       params: {
+        short_id: shortid.generate(),
         topic_id: '',
-        guid: shortid.generate(),
         type: 'original',
         title: '',
         summary: '',
