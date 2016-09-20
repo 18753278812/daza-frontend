@@ -11,9 +11,9 @@
             type="hidden"
             v-model="params.avatar_url" />
           <img
-            class="img-thumbnail"
+            class="lazy img-thumbnail"
             style="width: 80px; height: 80px; float: left"
-            v-lazy="params.avatar_url">
+            :data-original="params.avatar_url">
           <div style="margin-top: 10px; margin-left: 10px; float: left">
             <button type="submit" class="btn btn-sm btn-secondary">选择头像</button>
             <div class="form-check">
@@ -107,6 +107,7 @@
 </template>
 
 <script>
+import $ from 'jquery';
 import { auth } from '../../vuex/getters';
 import { updateProfile } from '../../vuex/actions';
 
@@ -137,7 +138,13 @@ export default {
       },
     };
   },
+  watch: {
+    avatar_url() {
+      $('img.lazy').lazyload();
+    },
+  },
   ready() {
+    $('img.lazy').lazyload();
   },
   methods: {
     submit() {

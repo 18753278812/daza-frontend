@@ -34,7 +34,7 @@ html, body {
   }
   // 导航栏
   .bg-inverse {
-    background-color: #37474F;
+    background-color: #37474F!important;
   }
   .search-form input[name='keyword'] {
     width: 250px;

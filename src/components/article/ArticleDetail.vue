@@ -55,7 +55,7 @@
               <li class="entry" v-for="comment in data.comments">
                 <div class="avatar">
                   <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">
-                    <img class="img-circle" v-lazy="comment.user.avatar_url">
+                    <img class="lazy img-circle" :data-original="comment.user.avatar_url">
                   </a>
                 </div>
                 <div class="content">
@@ -116,7 +116,7 @@
             <div class="row">
               <div class="col-xs-4">
                 <p>
-                  <img class="img-rounded" style="width: 100%; height: auto;" v-lazy="topic.image_url" >
+                  <img class="lazy img-rounded" :data-original="topic.image_url" style="width: 100%; height: auto;">
                 </p>
               </div>
               <div class="col-xs-8" style="padding-left: 0px;">
@@ -141,10 +141,11 @@
 </template>
 
 <script>
+import $ from 'jquery';
+import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { articleShow, articleVote, articleComment, articleCommentList } from '../../vuex/actions';
 import VuePagination from '../_common/VuePagination';
-import NProgress from 'nprogress';
 
 export default {
   vuex: {
@@ -179,6 +180,14 @@ export default {
         content: '',
       },
     };
+  },
+  watch: {
+    'data.topic': () => {
+      $('img.lazy').lazyload();
+    },
+    'data.comments': () => {
+      $('img.lazy').lazyload();
+    },
   },
   ready() {
     const articleId = this.$route.params.id;

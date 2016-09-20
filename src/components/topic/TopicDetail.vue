@@ -4,7 +4,7 @@
       <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-2 col-xs-4">
-            <img class="img-rounded" v-lazy="data.topic.image_url" style="width: 100%; height: auto;">
+            <img class="lazy img-rounded" :data-original="data.topic.image_url" style="width: 100%; height: auto;">
           </div>
           <div class="col-sm-8 col-xs-4" style="padding-left: 0;">
             <ul class="list-unstyled">
@@ -49,9 +49,10 @@
 </template>
 
 <script>
+import $ from 'jquery';
+import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { topicShow, topicSubscribe } from '../../vuex/actions';
-import NProgress from 'nprogress';
 
 export default {
   vuex: {
@@ -75,7 +76,13 @@ export default {
       },
     };
   },
+  watch: {
+    'data.topic': () => {
+      $('img.lazy').lazyload();
+    },
+  },
   ready() {
+    $('img.lazy').lazyload();
     const topicId = this.$route.params.id;
     NProgress.start();
     this.topicShow(topicId).then(data => {

@@ -24,7 +24,7 @@
                   <a class="title" v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a>
                 </div>
                 <div class="image" v-if="data.image_url">
-                  <img class="img-rounded" v-lazy="data.image_url">
+                  <img class="lazy img-rounded" :data-original="data.image_url">
                 </div>
               </div>
             </div>
@@ -90,7 +90,7 @@
             <ul>
               <li v-for="topic in topics ">
                 <div class="image">
-                  <img class="img-rounded" v-lazy="topic.image_url">
+                  <img class="lazy img-rounded" :data-original="topic.image_url">
                 </div>
                 <div class="content">
                   <div class="row">
@@ -134,11 +134,12 @@
 </template>
 
 <script>
+import $ from 'jquery';
+import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getCategoryList, getTopicList, getArticleList, getTagList } from '../../vuex/actions';
 import ArticleShareDialog from '../article/ArticleShareDialog';
 import VuePagination from '../_common/VuePagination';
-import NProgress from 'nprogress';
 
 export default {
   vuex: {
@@ -175,7 +176,16 @@ export default {
       source_link: '',
     };
   },
+  watch: {
+    topics() {
+      $('img.lazy').lazyload();
+    },
+    articles() {
+      $('img.lazy').lazyload();
+    },
+  },
   ready() {
+    $('img.lazy').lazyload();
     // 加载分类
     if (this.categories.length === 0) {
       this.getCategoryList();
