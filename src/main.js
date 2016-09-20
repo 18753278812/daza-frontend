@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import VueValidator from 'vue-validator';
 import VueResource from 'vue-resource';
 import $ from 'jquery';
+import moment from 'moment';
 
 import routes from './routes';
 import locales from './lang';
@@ -70,6 +71,11 @@ Vue.directive('select2', {
   unbind() {
     $(this.el).off().select2('destroy');
   },
+});
+
+Vue.filter('moment', (value) => {
+  moment.locale('zh-cn');
+  return moment(value, 'YYYY-MM-DDThh:mm:ssTZD').fromNow();
 });
 
 // 创建一个路由器实例

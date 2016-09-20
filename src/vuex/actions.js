@@ -52,6 +52,20 @@ export const logout = ({ dispatch }) => {
   return req;
 };
 
+export const getProfile = ({ dispatch }) => {
+  const req = account.profile().then((data) => {
+    dispatch(LOGIN_SUCCESS, data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => {
+    console.log('not ok');
+    console.log(error);
+    dispatch(RECEIVE_ERRORS, error.data.errors);
+    return Promise.reject(error);
+  });
+  return req;
+};
+
 export const updateProfile = ({ dispatch }, params) => {
   const req = account.updateProfile(params).then((data) => {
     dispatch(UPDATE_PROFILE_SUCCESS, data);
@@ -70,9 +84,14 @@ export const passwordModify = ({ dispatch }, params) => {
   return req;
 };
 
-
 export const userShow = ({ dispatch }, id) => {
   const req = users.show(id).then((data) => Promise.resolve(data))
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const userRelationship = ({ dispatch }, id, action) => {
+  const req = users.relationship(id, action).then((data) => Promise.resolve(data))
   .catch((error) => Promise.reject(error));
   return req;
 };

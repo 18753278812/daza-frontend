@@ -35,7 +35,7 @@ export default {
   },
   // 当前用户资料
   profile() {
-    const req = Vue.http.post('account/profile');
+    const req = Vue.http.get('account/profile');
     return req.then((response) => {
       if (response.ok) {
         return Promise.resolve(response.data.data);

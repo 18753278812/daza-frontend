@@ -82,9 +82,9 @@
 </template>
 
 <script>
+import $ from 'jquery';
 import { auth } from '../../vuex/getters';
 import { articleCreate, getUserTopics } from '../../vuex/actions';
-import $ from 'jquery';
 
 export default {
   vuex: {
@@ -134,11 +134,13 @@ export default {
       placeholder: '选择一个主题',
       dropdownParent: $('#article-share-dialog'),
     });
-    this.getUserTopics(this.auth.id).then((data) => {
-      if (data) {
-        this.data.topics = data;
-      }
-    });
+    if (this.auth.check()) {
+      this.getUserTopics(this.auth.id).then((data) => {
+        if (data) {
+          this.data.topics = data;
+        }
+      });
+    }
   },
   methods: {
     submit() {
@@ -152,6 +154,8 @@ export default {
       $('#article-share-dialog').modal('hide');
       this.params = {
         topic_id: '',
+        type: 'share',
+        link: '',
         title: '',
         summary: '',
         tags: '',

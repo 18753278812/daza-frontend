@@ -9,17 +9,17 @@
           <div class="col-sm-8 col-xs-8" style="padding-left: 0;">
             <ul class="list-unstyled">
               <li><h3 style="display: inline-block">{{ data.user.name }}</h3>&nbsp;<span class="tag tag-default">{{data.user.username}}</span></li>
-              <li><small class="text-muted">来自 {{data.user.city}}，加入于  {{data.user.created_at}}</small></li>
+              <li><small class="text-muted">来自 {{ data.user.city }}，加入于  {{ data.user.created_at | moment }}</small></li>
               <li><small class="text-muted" v-if="data.user.website">主页：<a :href="data.user.website">{{ data.user.website }}</a></small></li>
               <li><p>{{ data.user.bio }}</p></li>
             </ul>
           </div>
-          <div class="col-sm-2 col-xs-12 text-xs-right">
-            <form @submit.prevent="subscribe(data.topic.id)">
+          <div class="col-sm-2 col-xs-12 text-xs-right" v-if="data.user.id !== auth.user.id">
+            <form @submit.prevent="follow()">
               <button
                 class="btn btn-sm btn-outline-primary"
                 type="submit"
-                :class="{ 'active': data.user.followed }">&nbsp;关注 ({{ data.user.subscriber_count }})&nbsp;</button>
+                :class="{ 'active': data.user.followed }">&nbsp;关注 ({{ data.user.followers_count }})&nbsp;</button>
             </form>
           </div>
         </div>
@@ -53,7 +53,7 @@
 import $ from 'jquery';
 import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
-import { userShow } from '../../vuex/actions';
+import { userShow, userRelationship } from '../../vuex/actions';
 
 export default {
   vuex: {
@@ -62,6 +62,7 @@ export default {
     },
     actions: {
       userShow,
+      userRelationship,
     },
   },
   data() {
@@ -84,6 +85,18 @@ export default {
       this.data.user = data;
       NProgress.done();
     });
+  },
+  methods: {
+    follow() {
+      const user = this.data.user;
+      if (user.followed) {
+        return;
+      }
+      this.userRelationship(user.id, 'follow').then(() => {
+        user.followers_count = user.followers_count + 1;
+        user.followed = true;
+      });
+    },
   },
 };
 </script>

@@ -4,13 +4,17 @@
 
 <script>
 import store from './vuex/store';
+import { auth } from './vuex/getters';
+import { getProfile } from './vuex/actions';
 
 export default {
   store,
   vuex: {
     getters: {
+      auth,
     },
     actions: {
+      getProfile,
     },
   },
   data() {
@@ -18,6 +22,12 @@ export default {
     };
   },
   ready() {
+    if (this.auth.check()) {
+      this.getProfile().then((data) => {
+        console.log(data);
+        console.log('更新成功');
+      });
+    }
   },
 };
 </script>

@@ -24,16 +24,19 @@
             <hr>
           </div>
         </div>
+        <!-- 分页导航 -->
+        <vue-pagination :pagination="data.pagination" :callback="loadTopics"></vue-pagination>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import $ from 'jquery';
+import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getTopicList } from '../../vuex/actions';
 import VuePagination from '../_common/VuePagination';
-import NProgress from 'nprogress';
 
 export default {
   vuex: {
@@ -47,26 +50,38 @@ export default {
   },
   data() {
     return {
-      pagination: {
-        total: 0,
-        per_page: 15,
-        current_page: 1,
-        last_page: 0,
-        from: null,
-        to: null,
+      data: {
+        pagination: {},
       },
     };
+  },
+  watch: {
+    topics() {
+      $('img.lazy').lazyload();
+    },
   },
   ready() {
     // 加载最新主题
     NProgress.start();
     this.getTopicList(1).then(data => {
-      this.pagination = data.pagination;
+      this.data.pagination = data.pagination;
       NProgress.done();
     });
   },
+  route: {
+    canReuse: false,
+  },
   components: {
     VuePagination,
+  },
+  methods: {
+    loadTopics(page) {
+      window.scrollTo(0, 0);
+      const query = {
+        page,
+      };
+      this.$route.router.go({ name: 'topic_list', query });
+    },
   },
 };
 </script>

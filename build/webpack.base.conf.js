@@ -29,6 +29,7 @@ module.exports = {
     'jquery': 'jQuery',
     'nprogress': 'NProgress',
     'toastr': 'toastr',
+    'moment': 'moment',
   },
   module: {
     preLoaders: [

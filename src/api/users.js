@@ -19,6 +19,15 @@ export default {
       return Promise.reject(new Error('error'));
     });
   },
+  relationship(id, action) {
+    const req = Vue.http.post(`users/${id}/relationship`, { action });
+    return req.then((response) => {
+      if (response.ok) {
+        return Promise.resolve(response.data.data);
+      }
+      return Promise.reject(new Error('error'));
+    });
+  },
   followers(id) {
     const req = Vue.http.get(`users/${id}/followers`);
     return req.then((response) => {

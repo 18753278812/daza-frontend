@@ -32,7 +32,7 @@
               <div class="col-xs-8">
                 <a v-link="{ name: 'topic_detail', params: { id: data.topic.id } }">{{ data.topic.name }}</a>
                 <small class="text-muted"> · </small>
-                <small class="text-muted">{{ data.published_at }}</small>
+                <small class="text-muted">{{ data.published_at | moment }}</small>
               </div>
               <div class="col-xs-4 text-xs-right">
                 <small class="text-muted">{{ data.comment_count }}评论</small>

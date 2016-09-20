@@ -31,12 +31,12 @@
                 :options="{ placeholder: '选择主题的类型' }"
                 v-validate:type="rules.type">
                 <option></option>
-                <option value="original">original</option>
-                <option value="feed">feed</option>
+                <option value="original">原创</option>
+                <option value="feed">聚合内容</option>
               </select>
             </div>
             <div class="form-group" v-if="params.type === 'feed'">
-              <label for="name-input" class="form-control-label">订阅文章来源：</label>
+              <label for="name-input" class="form-control-label">聚合内容来源：</label>
               <div class="row">
                 <div class="col-md-3 col-xs-4">
                   <select
@@ -50,7 +50,6 @@
                     <option></option>
                     <option value="rss+xml">rss+xml</option>
                     <option value="atom+xml">atom+xml</option>
-                    <option value="daza+json">daza+json</option>
                   </select>
                 </div>
                 <div class="col-md-9 col-xs-8" style="padding-left: 0;">
