@@ -4,6 +4,7 @@ import categories from '../api/categories';
 import topics from '../api/topics';
 import articles from '../api/articles';
 import tags from '../api/tags';
+import notifications from '../api/notifications';
 
 import {
   REGISTER_SUCCESS,
@@ -18,6 +19,8 @@ import {
   RECEIVE_TOPICS,
   RECEIVE_ARTICLES,
   RECEIVE_TAGS,
+  RECEIVE_NOTIFICATIONS,
+  RECEIVE_NOTIFICATIONS_COUNTS,
 } from './mutation-types';
 
 export const register = ({ dispatch }, params) => {
@@ -209,6 +212,24 @@ export const getTagList = ({ dispatch }, page) => {
 
 export const tagShow = ({ dispatch }, name) => {
   const req = tags.show(name).then((data) => Promise.resolve(data))
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const getNotificationList = ({ dispatch }, page) => {
+  const req = notifications.lists(page).then((data) => {
+    dispatch(RECEIVE_NOTIFICATIONS, data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => Promise.reject(error));
+  return req;
+};
+
+export const getNotificationCounts = ({ dispatch }) => {
+  const req = notifications.counts().then((data) => {
+    dispatch(RECEIVE_NOTIFICATIONS_COUNTS, data);
+    return Promise.resolve(data);
+  })
   .catch((error) => Promise.reject(error));
   return req;
 };

@@ -14,7 +14,7 @@
       <ul class="nav navbar-nav pull-xs-right" v-if="auth.check()">
         <li class="nav-item">
           <a class="nav-link" v-link="'/notifications'">
-            通知 <span class="tag tag-pill tag-danger">{{ unread_notification_count }}</span>
+            通知 <span class="tag tag-pill tag-danger" v-if="counts.unread_count > 0">{{ counts.unread_count }}</span>
           </a>
         </li>
         <li class="nav-item dropdown">
@@ -52,11 +52,11 @@ export default {
   vuex: {
     getters: {
       auth,
+      counts: state => state.notifications.counts,
     },
   },
   data() {
     return {
-      unread_notification_count: 100,
     };
   },
   watch: {

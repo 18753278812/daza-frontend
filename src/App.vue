@@ -5,16 +5,18 @@
 <script>
 import store from './vuex/store';
 import { auth } from './vuex/getters';
-import { getProfile } from './vuex/actions';
+import { getProfile, getNotificationCounts } from './vuex/actions';
 
 export default {
   store,
   vuex: {
     getters: {
       auth,
+      counts: state => state.notifications.counts,
     },
     actions: {
       getProfile,
+      getNotificationCounts,
     },
   },
   data() {
@@ -24,7 +26,10 @@ export default {
   ready() {
     // 如果当前用户已经登录，则重新获取用户资料及Token
     if (this.auth.check()) {
-      this.getProfile().then(() => {});
+      this.getProfile().then(() => {
+        this.getNotificationCounts().then(() => {
+        });
+      });
     }
   },
 };
