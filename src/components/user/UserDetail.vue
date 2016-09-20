@@ -22,6 +22,12 @@
                 :class="{ 'active': data.user.followed }">&nbsp;关注 ({{ data.user.followers_count }})&nbsp;</button>
             </form>
           </div>
+          <div class="col-sm-2 col-xs-12 text-xs-right" v-if="data.user.id === auth.user.id">
+            <button
+              class="btn btn-sm btn-outline-primary"
+              v-link="'/account/settings'"
+              >&nbsp;编辑资料&nbsp;</button>
+          </div>
         </div>
       </div>
       <div class="col-sm-12" style="padding-top: 15px;">
