@@ -53,6 +53,9 @@ export default {
       user: this.auth.user,
     };
   },
+  ready() {
+    window.scrollTo(0, 0);
+  },
 };
 </script>
 
