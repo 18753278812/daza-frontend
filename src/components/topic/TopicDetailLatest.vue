@@ -16,8 +16,6 @@
           </div>
           <div class="row extra">
             <div class="col-xs-8">
-              <a v-link="{ name: 'topic_detail', params: { id: data.topic.id } }">{{ data.topic.name }}</a>
-              <small class="text-muted"> · </small>
               <small class="text-muted">{{ data.published_at | moment }}</small>
             </div>
             <div class="col-xs-4 text-xs-right">
@@ -78,7 +76,7 @@ export default {
     NProgress.start();
     this.getTopicArticleList(topicId).then(data => {
       this.data.articles = data.data;
-      this.data.pagination = data.data.pagination;
+      this.data.pagination = data.pagination;
       NProgress.done();
     });
   },

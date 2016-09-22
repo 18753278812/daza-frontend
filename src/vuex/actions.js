@@ -217,7 +217,7 @@ export const topicSubscribe = ({ dispatch }, id) => {
 
 export const getTopicArticleList = ({ dispatch }, page, topicId) => {
   const req = topics.articles(page, topicId).then((data) => {
-    dispatch(RECEIVE_TOPIC_ARTICLES, data);
+    dispatch(RECEIVE_TOPIC_ARTICLES, data.data);
     return Promise.resolve(data);
   })
   .catch((error) => {

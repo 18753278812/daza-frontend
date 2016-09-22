@@ -15,7 +15,11 @@
             style="width: 80px; height: 80px; float: left"
             :data-original="params.avatar_url">
           <div style="margin-top: 10px; margin-left: 10px; float: left">
-            <button type="submit" class="btn btn-sm btn-secondary">选择头像</button>
+            <a
+              class="btn btn-sm btn-secondary"
+              data-toggle="modal"
+              data-target="#asset-manager-dialog"
+              >选择头像</a>
             <div class="form-check">
               <label class="form-check-label">
                 <input
@@ -104,12 +108,15 @@
       </div>
     </form>
   </validator>
+  <!-- Asset manager dialog -->
+  <asset-manager-dialog></asset-manager-dialog>
 </template>
 
 <script>
 import $ from 'jquery';
 import { auth } from '../../vuex/getters';
 import { updateProfile } from '../../vuex/actions';
+import AssetManagerDialog from '../asset/AssetManagerDialog';
 
 export default {
   vuex: {
@@ -149,9 +156,12 @@ export default {
   methods: {
     submit() {
       this.updateProfile(this.params).then(() => {
-        this.$route.router.go('/');
+        // this.$route.router.go('/');
       });
     },
+  },
+  components: {
+    AssetManagerDialog,
   },
 };
 </script>
