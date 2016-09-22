@@ -163,12 +163,9 @@ export default {
       categoryId: null,
       categorySlug: null,
       pagination: {
-        total: 0,
         per_page: 15,
         current_page: 1,
         last_page: 0,
-        from: null,
-        to: null,
       },
       rules: {
         source_link: { required: true, url: true },

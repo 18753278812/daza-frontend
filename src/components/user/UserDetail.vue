@@ -92,7 +92,7 @@ export default {
     const userId = this.$route.params.id;
     NProgress.start();
     this.userShow(userId).then(data => {
-      this.data.user = data;
+      this.data.user = data.data;
       NProgress.done();
     });
   },

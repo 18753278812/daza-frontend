@@ -3,41 +3,21 @@ import Vue from 'vue';
 export default {
   lists(page) {
     const req = Vue.http.get('tags', { page });
-    return req.then((response) => {
-      if (response.ok) {
-        return Promise.resolve(response.data.data);
-      }
-      return Promise.reject(new Error('error'));
-    });
+    return req.then((response) => Promise.resolve(response.data));
   },
   store() {
 
   },
   show(name) {
     const req = Vue.http.get(`tags/${name}`);
-    return req.then((response) => {
-      if (response.ok) {
-        return Promise.resolve(response.data.data);
-      }
-      return Promise.reject(new Error('error'));
-    });
+    return req.then((response) => Promise.resolve(response.data));
   },
   update(id) {
     const req = Vue.http.put(`tags/${id}`);
-    return req.then((response) => {
-      if (response.ok) {
-        return Promise.resolve(response.data.data);
-      }
-      return Promise.reject(new Error('error'));
-    });
+    return req.then((response) => Promise.resolve(response.data));
   },
   destroy(id) {
     const req = Vue.http.delete(`tags/${id}`);
-    return req.then((response) => {
-      if (response.ok) {
-        return Promise.resolve(response.data.data);
-      }
-      return Promise.reject(new Error('error'));
-    });
+    return req.then((response) => Promise.resolve(response.data));
   },
 };

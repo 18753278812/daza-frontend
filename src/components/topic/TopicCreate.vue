@@ -106,9 +106,9 @@
 
 <script>
 import shortid from 'shortid';
+import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getCategoryList, topicCreate } from '../../vuex/actions';
-// import NProgress from 'nprogress';
 
 export default {
   vuex: {
@@ -146,7 +146,10 @@ export default {
   ready() {
     // 加载分类
     if (this.categories.length === 0) {
-      this.getCategoryList();
+      NProgress.start();
+      this.getCategoryList().then(() => {
+        NProgress.done();
+      });
     }
   },
   methods: {

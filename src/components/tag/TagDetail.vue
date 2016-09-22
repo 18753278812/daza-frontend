@@ -54,7 +54,7 @@ export default {
     const tagName = this.$route.params.name;
     NProgress.start();
     this.tagShow(tagName).then(data => {
-      this.data.tag = data;
+      this.data.tag = data.data;
       NProgress.done();
     });
   },

@@ -208,8 +208,8 @@ export default {
     const articleId = this.$route.params.id;
     NProgress.start();
     this.articleShow(articleId).then(data => {
-      this.data.topic = data.topic;
-      this.data.article = data;
+      this.data.topic = data.data.topic;
+      this.data.article = data.data;
       this.loadComments(this.page);
     });
   },
@@ -244,7 +244,7 @@ export default {
       this.articleComment(article.id, this.params).then((data) => {
         this.params.content = '';
         // 将新评论插入到当前页最后一条，并且评论数+1
-        const comment = data;
+        const comment = data.data;
         comment.user = this.auth.user;
         comments.push(comment);
         article.comment_count = article.comment_count + 1;
