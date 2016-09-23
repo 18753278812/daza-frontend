@@ -32,4 +32,11 @@ export default {
     const req = Vue.http.get(`topics/${id}/articles`, params);
     return req.then((response) => Promise.resolve(response.data));
   },
+  subscribers(id, page) {
+    const params = {
+      page,
+    };
+    const req = Vue.http.get(`topics/${id}/subscribers`, params);
+    return req.then((response) => Promise.resolve(response.data));
+  },
 };

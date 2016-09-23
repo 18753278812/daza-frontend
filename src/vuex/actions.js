@@ -19,6 +19,7 @@ import {
   RECEIVE_CATEGORIES,
   RECEIVE_TOPICS,
   RECEIVE_TOPIC_ARTICLES,
+  RECEIVE_TOPIC_SUBSCRIBERS,
   RECEIVE_ARTICLES,
   RECEIVE_TAGS,
   RECEIVE_NOTIFICATIONS,
@@ -227,6 +228,18 @@ export const getTopicArticleList = ({ dispatch }, page, topicId) => {
   return req;
 };
 
+export const getTopicSubscriberList = ({ dispatch }, page, topicId) => {
+  const req = topics.subscribers(page, topicId).then((data) => {
+    dispatch(RECEIVE_TOPIC_SUBSCRIBERS, data.data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => {
+    dispatch(RECEIVE_ERRORS, error.data);
+    return Promise.reject(error);
+  });
+  return req;
+};
+
 export const getArticleList = ({ dispatch }, page, categoryId, categorySlug) => {
   const req = articles.lists(page, categoryId, categorySlug).then((data) => {
     dispatch(RECEIVE_ARTICLES, data);
@@ -320,6 +333,18 @@ export const getNotificationList = ({ dispatch }, page) => {
 export const getNotificationCounts = ({ dispatch }) => {
   const req = notifications.counts().then((data) => {
     dispatch(RECEIVE_NOTIFICATIONS_COUNTS, data.data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => {
+    dispatch(RECEIVE_ERRORS, error.data);
+    return Promise.reject(error);
+  });
+  return req;
+};
+
+export const markAsRead = ({ dispatch }) => {
+  const req = notifications.markAsRead().then((data) => {
+    dispatch(RECEIVE_NOTIFICATIONS_COUNTS, { count: 0, unread: 0 });
     return Promise.resolve(data);
   })
   .catch((error) => {

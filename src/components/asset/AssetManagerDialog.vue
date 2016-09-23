@@ -15,7 +15,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="hideModal()">关闭</button>
-          <button type="submit" class="btn btn-primary" :disabled="!$validation.valid">确定</button>
+          <button type="submit" class="btn btn-primary">确定</button>
         </div>
       </div>
     </div>

@@ -21,7 +21,7 @@ export default {
     return req.then((response) => Promise.resolve(response.data));
   },
   markAsRead() {
-    const req = Vue.http.delete('notifications/mark_as_read');
+    const req = Vue.http.post('notifications/mark_as_read');
     return req.then((response) => Promise.resolve(response.data));
   },
 };
