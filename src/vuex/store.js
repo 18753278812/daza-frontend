@@ -7,6 +7,7 @@ import categories from './modules/categories';
 import topics from './modules/topics';
 import articles from './modules/articles';
 import tags from './modules/tags';
+import notifications from './modules/notifications';
 
 Vue.use(Vuex);
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     topics,
     articles,
     tags,
+    notifications,
   },
   strict: true,
 });

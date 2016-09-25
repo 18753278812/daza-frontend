@@ -24,7 +24,7 @@
                   <a class="title" v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a>
                 </div>
                 <div class="image" v-if="data.image_url">
-                  <img class="img-rounded" v-lazy="data.image_url">
+                  <img class="lazy img-rounded" :data-original="data.image_url">
                 </div>
               </div>
             </div>
@@ -32,7 +32,7 @@
               <div class="col-xs-8">
                 <a v-link="{ name: 'topic_detail', params: { id: data.topic.id } }">{{ data.topic.name }}</a>
                 <small class="text-muted"> · </small>
-                <small class="text-muted">{{ data.published_at }}</small>
+                <small class="text-muted">{{ data.published_at | moment }}</small>
               </div>
               <div class="col-xs-4 text-xs-right">
                 <small class="text-muted">{{ data.comment_count }}评论</small>
@@ -90,7 +90,7 @@
             <ul>
               <li v-for="topic in topics ">
                 <div class="image">
-                  <img class="img-rounded" v-lazy="topic.image_url">
+                  <img class="lazy img-rounded" :data-original="topic.image_url">
                 </div>
                 <div class="content">
                   <div class="row">
@@ -134,11 +134,12 @@
 </template>
 
 <script>
+import $ from 'jquery';
+import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getCategoryList, getTopicList, getArticleList, getTagList } from '../../vuex/actions';
 import ArticleShareDialog from '../article/ArticleShareDialog';
 import VuePagination from '../_common/VuePagination';
-import NProgress from 'nprogress';
 
 export default {
   vuex: {
@@ -162,12 +163,9 @@ export default {
       categoryId: null,
       categorySlug: null,
       pagination: {
-        total: 0,
         per_page: 15,
         current_page: 1,
         last_page: 0,
-        from: null,
-        to: null,
       },
       rules: {
         source_link: { required: true, url: true },
@@ -175,7 +173,16 @@ export default {
       source_link: '',
     };
   },
+  watch: {
+    topics() {
+      $('img.lazy').lazyload();
+    },
+    articles() {
+      $('img.lazy').lazyload();
+    },
+  },
   ready() {
+    $('img.lazy').lazyload();
     // 加载分类
     if (this.categories.length === 0) {
       this.getCategoryList();

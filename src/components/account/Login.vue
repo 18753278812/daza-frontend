@@ -47,6 +47,7 @@
 </template>
 
 <script>
+// import toastr from 'toastr';
 import { auth } from '../../vuex/getters';
 import { login, logout } from '../../vuex/actions';
 

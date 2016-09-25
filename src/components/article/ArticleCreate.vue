@@ -104,6 +104,8 @@
 </template>
 
 <script>
+import shortid from 'shortid';
+import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getUserTopics, articleCreate } from '../../vuex/actions';
 // import NProgress from 'nprogress';
@@ -133,6 +135,7 @@ export default {
         latitude: {},
       },
       params: {
+        short_id: shortid.generate(),
         topic_id: '',
         type: 'original',
         title: '',
@@ -146,10 +149,10 @@ export default {
     };
   },
   ready() {
+    NProgress.start();
     this.getUserTopics(this.auth.id).then((data) => {
-      if (data) {
-        this.data.topics = data;
-      }
+      this.data.topics = data.data;
+      NProgress.done();
     });
   },
   methods: {

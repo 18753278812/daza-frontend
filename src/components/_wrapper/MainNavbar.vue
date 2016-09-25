@@ -14,12 +14,12 @@
       <ul class="nav navbar-nav pull-xs-right" v-if="auth.check()">
         <li class="nav-item">
           <a class="nav-link" v-link="'/notifications'">
-            通知 <span class="tag tag-pill tag-danger">{{ unread_notification_count }}</span>
+            通知 <span class="tag tag-pill tag-danger" v-if="counts.unread_count > 0">{{ counts.unread_count }}</span>
           </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            <img v-lazy="auth.user.avatar_url" class="img-circle" style="width: 1.3rem; height: 1.3rem"> {{ auth.user.name }}
+            <img class="lazy img-circle" :data-original="auth.user.avatar_url" style="width: 1.3rem; height: 1.3rem"> {{ auth.user.name }}
           </a>
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" v-link="{ name: 'user_detail', params: { id: auth.id } }">查看个人主页</a>
@@ -45,20 +45,27 @@
 </template>
 
 <script>
+import $ from 'jquery';
 import { auth } from '../../vuex/getters';
 
 export default {
   vuex: {
     getters: {
       auth,
+      counts: state => state.notifications.counts,
     },
   },
   data() {
     return {
-      unread_notification_count: 100,
     };
   },
+  watch: {
+    auth() {
+      $('img.lazy').lazyload();
+    },
+  },
   ready() {
+    $('img.lazy').lazyload();
   },
 };
 </script>

@@ -10,13 +10,13 @@
         <div class="col-xs-7 col-sm-9">
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="on" checked>
+              <input class="form-check-input" type="radio" name="notification_followed" value="true" v-model="params.notification_followed" checked>
               开启
             </label>
           </div>
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="off">
+              <input class="form-check-input" type="radio" name="notification_followed" value="false" v-model="params.notification_followed">
               关闭
             </label>
           </div>
@@ -27,30 +27,13 @@
         <div class="col-xs-7 col-sm-9">
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="on" checked>
+              <input class="form-check-input" type="radio" name="notification_subscribed" value="true" v-model="params.notification_subscribed" checked>
               开启
             </label>
           </div>
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="off">
-              关闭
-            </label>
-          </div>
-        </div>
-      </fieldset>
-      <fieldset class="form-group row">
-        <label class="col-xs-5 col-sm-3">订阅的主题有更新</label>
-        <div class="col-xs-7 col-sm-9">
-          <div class="form-check-inline">
-            <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="on" checked>
-              开启
-            </label>
-          </div>
-          <div class="form-check-inline">
-            <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="off">
+              <input class="form-check-input" type="radio" name="notification_subscribed" value="false" v-model="params.notification_subscribed">
               关闭
             </label>
           </div>
@@ -61,13 +44,13 @@
         <div class="col-xs-7 col-sm-9">
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="on" checked>
+              <input class="form-check-input" type="radio" name="notification_upvoted" value="true" v-model="params.notification_upvoted" checked>
               开启
             </label>
           </div>
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="off">
+              <input class="form-check-input" type="radio" name="notification_upvoted" value="false" v-model="params.notification_upvoted">
               关闭
             </label>
           </div>
@@ -78,30 +61,47 @@
         <div class="col-xs-7 col-sm-9">
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="on" checked>
+              <input class="form-check-input" type="radio" name="" value="true" checked>
               开启
             </label>
           </div>
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="off">
+              <input class="form-check-input" type="radio" name="" value="false">
               关闭
             </label>
           </div>
         </div>
       </fieldset>
       <fieldset class="form-group row">
-        <label class="col-xs-5 col-sm-3">@ / 评论我</label>
+        <label class="col-xs-5 col-sm-3">评论我</label>
         <div class="col-xs-7 col-sm-9">
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="on" checked>
+              <input class="form-check-input" type="radio" name="notification_comment" value="true" v-model="params.notification_comment" checked>
               开启
             </label>
           </div>
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="off">
+              <input class="form-check-input" type="radio" name="notification_comment" value="false" v-model="params.notification_comment">
+              关闭
+            </label>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="form-group row">
+        <label class="col-xs-5 col-sm-3">提及我</label>
+        <div class="col-xs-7 col-sm-9">
+          <div class="form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="notification_mention" value="true" v-model="params.notification_mention" checked>
+              开启
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="notification_mention" value="false" v-model="params.notification_mention">
               关闭
             </label>
           </div>
@@ -117,13 +117,13 @@
         <div class="col-xs-7 col-sm-9">
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="on" checked>
+              <input class="form-check-input" type="radio" name="" value="true" checked>
               开启
             </label>
           </div>
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="off">
+              <input class="form-check-input" type="radio" name="" value="false">
               关闭
             </label>
           </div>
@@ -134,13 +134,13 @@
         <div class="col-xs-7 col-sm-9">
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="on" checked>
+              <input class="form-check-input" type="radio" name="" value="true" checked>
               开启
             </label>
           </div>
           <div class="form-check-inline">
             <label class="form-check-label">
-              <input class="form-check-input" type="radio" name="" value="off">
+              <input class="form-check-input" type="radio" name="" value="false">
               关闭
             </label>
           </div>
@@ -156,7 +156,7 @@
 
 <script>
 import { auth } from '../../vuex/getters';
-import { updateProfile } from '../../vuex/actions';
+import { updateProfile, updateConfigs } from '../../vuex/actions';
 
 export default {
   vuex: {
@@ -165,17 +165,38 @@ export default {
     },
     actions: {
       updateProfile,
+      updateConfigs,
     },
   },
   data() {
     return {
-      user: this.auth.user,
+      data: {
+        user: this.auth.user,
+      },
+      params: {
+        notification_followed: 'true',
+        notification_subscribed: 'true',
+        notification_upvoted: 'true',
+        notification_comment: 'true',
+        notification_mention: 'true',
+      },
     };
   },
   ready() {
+    this.auth.user.configs.forEach((value) => {
+      this.params[value.key] = value.value;
+    });
+    console.log(this.params);
+    // this.params.notification_followed = this.auth.user.configs['notification_followed'];
+    // this.params.notification_subscribed = this.auth.user.configs['notification_subscribed'];
+    // this.params.notification_upvoted = this.auth.user.configs['notification_upvoted'];
+    // this.params.notification_comment = this.auth.user.configs['notification_comment'];
+    // this.params.notification_mention = this.auth.user.configs['notification_mention'];
   },
   methods: {
     submit() {
+      console.log(this.params);
+      this.updateConfigs(this.params);
     },
   },
 };

@@ -1,28 +1,22 @@
 <template>
   <router-view></router-view>
-  <div class="container" v-for="error in errors">
-    <div id="alert" class="alert alert-success alert-dismissible fade in" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <h4 class="alert-heading">Well done!</h4>
-      <p>{{ error.message }}</p>
-      <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-      <p class="m-b-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-    </div>
-  </div>
 </template>
 
 <script>
 import store from './vuex/store';
+import { auth } from './vuex/getters';
+import { getProfile, getNotificationCounts } from './vuex/actions';
 
 export default {
   store,
   vuex: {
     getters: {
-      errors: state => state.errors.all,
+      auth,
+      counts: state => state.notifications.counts,
     },
     actions: {
+      getProfile,
+      getNotificationCounts,
     },
   },
   data() {
@@ -30,6 +24,13 @@ export default {
     };
   },
   ready() {
+    // 如果当前用户已经登录，则重新获取用户资料及Token
+    if (this.auth.check()) {
+      // this.getProfile().then(() => {
+      this.getNotificationCounts().then(() => {
+      });
+      // });
+    }
   },
 };
 </script>
@@ -40,51 +41,13 @@ html, body {
   font-size: 14px;
 }
 
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Support for IE. */
-  font-feature-settings: 'liga';
-}
-/* Rules for sizing the icon. */
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
-
-/* Rules for using icons as black on a light background. */
-.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
-
-/* Rules for using icons as white on a dark background. */
-.material-icons.md-light { color: rgba(255, 255, 255, 1); }
-.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
-
 #wrapper {
   > .container {
     padding-top: 70px;
   }
   // 导航栏
   .bg-inverse {
-    background-color: #37474F;
+    background-color: #37474F!important;
   }
   .search-form input[name='keyword'] {
     width: 250px;
@@ -144,7 +107,14 @@ html, body {
       word-wrap: break-word;
     }
   }
-
+  // 文章详情上方主题元素
+  .article-content-top-topic {
+    display: none;
+  }
+  // 文章详情侧边栏主题元素
+  .article-content-side-topic {
+    display: block;
+  }
   // 评论列表
   .comment-list {
     list-style-type: none;
@@ -194,6 +164,14 @@ html, body {
           }
         }
       }
+    }
+    // 文章详情上方主题元素
+    .article-content-top-topic {
+      display: block;
+    }
+    // 文章详情侧边栏主题元素
+    .article-content-side-topic {
+      display: none;
     }
   }
 

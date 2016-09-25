@@ -7,7 +7,7 @@
           <div class="col-xs-9">
             <small class="text-muted">{{ data.article.author }}</small>
             <small class="text-muted">发表于 </small>
-            <small class="text-muted">{{ data.article.published_at }}</small>
+            <small class="text-muted">{{ data.article.published_at | moment }}</small>
             <small class="text-muted"> · </small>
             <small class="text-muted">{{ data.article.view_count }}阅读</small>
           </div>
@@ -15,7 +15,18 @@
             <a v-if="data.article.type === 'feed'" v-bind:href="data.article.link" target="_blank"><small class="text-muted">阅读原文</small></a>
           </div>
         </div>
-        <hr>
+        <div class="row article-content-top-topic" style="margin-top: 15px;">
+          <div class="col-xs-2">
+            <img class="img-circle lazy" :data-original="data.topic.image_url" style="width: 100%; height: auto; margin-right: 5px;">
+          </div>
+          <div class="col-xs-10" style="padding-left: 0;">
+            <ul class="list-unstyled">
+              <li><a v-link="{ name: 'topic_detail', params: { id: data.topic.id }}"><h6>{{ data.topic.name }}</h6></a></li>
+              <li><small class="text-muted">{{ data.topic.subscriber_count }} 人订阅，由 <a v-link="{ name: 'user_detail', params: { id: data.topic.user.id } }">{{ data.topic.user.name }}</a> 维护</small></li>
+            </ul>
+          </div>
+        </div>
+        <hr style="margin-top: 0;">
         <blockquote class="blockquote" v-if="data.article.type === 'share'">
           <p>{{ data.article.summary }}</p>
           <a :href="data.article.link" target="_blank">立即跳转到文章</a>
@@ -55,14 +66,14 @@
               <li class="entry" v-for="comment in data.comments">
                 <div class="avatar">
                   <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">
-                    <img class="img-circle" v-lazy="comment.user.avatar_url">
+                    <img class="lazy img-circle" :data-original="comment.user.avatar_url">
                   </a>
                 </div>
                 <div class="content">
                   <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">{{ comment.user.name }}</a>
                   <p>{{ comment.content }}</p>
                   <div>
-                    <small class="text-muted">{{ comment.created_at }}</small>
+                    <small class="text-muted">{{ comment.created_at | moment }}</small>
                     <small class="text-muted"> &nbsp; </small>
                     <div class="extra" style="display: none;">
                       <a href="#"><small class="text-muted">回复</small></a>
@@ -111,12 +122,12 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="row">
+        <div class="row article-content-side-topic">
           <div class="col-xs-12">
             <div class="row">
               <div class="col-xs-4">
                 <p>
-                  <img class="img-rounded" style="width: 100%; height: auto;" v-lazy="topic.image_url" >
+                  <img class="lazy img-rounded" :data-original="topic.image_url" style="width: 100%; height: auto;">
                 </p>
               </div>
               <div class="col-xs-8" style="padding-left: 0px;">
@@ -134,17 +145,22 @@
             </div>
           </div>
         </div>
-        <hr style="margin-top: 0;">
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { auth } from '../../vuex/getters';
-import { articleShow, articleVote, articleComment, articleCommentList } from '../../vuex/actions';
-import VuePagination from '../_common/VuePagination';
+import $ from 'jquery';
 import NProgress from 'nprogress';
+import VuePagination from '../_common/VuePagination';
+import { auth } from '../../vuex/getters';
+import {
+  articleShow,
+  articleVote,
+  articleComment,
+  articleCommentList,
+} from '../../vuex/actions';
 
 export default {
   vuex: {
@@ -180,12 +196,20 @@ export default {
       },
     };
   },
+  watch: {
+    'data.topic': () => {
+      $('img.lazy').lazyload();
+    },
+    'data.comments': () => {
+      $('img.lazy').lazyload();
+    },
+  },
   ready() {
     const articleId = this.$route.params.id;
     NProgress.start();
     this.articleShow(articleId).then(data => {
-      this.data.topic = data.topic;
-      this.data.article = data;
+      this.data.topic = data.data.topic;
+      this.data.article = data.data;
       this.loadComments(this.page);
     });
   },
@@ -220,7 +244,7 @@ export default {
       this.articleComment(article.id, this.params).then((data) => {
         this.params.content = '';
         // 将新评论插入到当前页最后一条，并且评论数+1
-        const comment = data;
+        const comment = data.data;
         comment.user = this.auth.user;
         comments.push(comment);
         article.comment_count = article.comment_count + 1;

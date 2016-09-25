@@ -25,9 +25,13 @@ module.exports = {
     fallback: [path.join(__dirname, '../node_modules')]
   },
   externals: {
-    'nprogress': 'NProgress',
-    'jquery': 'jQuery',
     'daovoice': 'daovoice',
+    'jquery': 'jQuery',
+    'nprogress': 'NProgress',
+    'toastr': 'toastr',
+    'moment': 'moment',
+    'qiniu': 'Qiniu',
+    'plupload': 'plupload',
   },
   module: {
     preLoaders: [

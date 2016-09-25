@@ -4,7 +4,6 @@ import VueI18n from 'vue-i18n';
 import VueRouter from 'vue-router';
 import VueValidator from 'vue-validator';
 import VueResource from 'vue-resource';
-import VueLazyload from 'vue-lazyload';
 import $ from 'jquery';
 
 import routes from './routes';
@@ -20,12 +19,6 @@ Vue.use(VueI18n);
 Vue.use(VueRouter);
 Vue.use(VueValidator);
 Vue.use(VueResource);
-Vue.use(VueLazyload, {
-  preLoad: 1.3,
-  error: '/static/images/placeholder_image.png',
-  loading: '/static/images/placeholder_image.png',
-  try: 3,
-});
 
 Vue.config.devtools = true;
 
@@ -56,6 +49,7 @@ Vue.validator('email', (val) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.
 // Register url validator function.
 Vue.validator('url', (val) => /^(http\u003a\/\/|https\u003a\/\/)(.{4,})$/.test(val));
 
+// 自定义指令
 $.fn.select2.defaults.set('theme', 'bootstrap');
 $.fn.select2.defaults.set('language', 'zh-CN');
 Vue.directive('select2', {
@@ -78,6 +72,9 @@ Vue.directive('select2', {
     $(this.el).off().select2('destroy');
   },
 });
+
+// 自定义过滤器
+Vue.filter('moment', require('./filters/moment'));
 
 // 创建一个路由器实例
 const router = new VueRouter({
