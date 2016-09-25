@@ -109,7 +109,11 @@
     </form>
   </validator>
   <!-- Asset manager dialog -->
-  <asset-manager-dialog></asset-manager-dialog>
+  <asset-manager-dialog
+    :target_type="'user'"
+    :target_id="auth.user.id"
+    :callback="onAssetSelected"
+    ></asset-manager-dialog>
 </template>
 
 <script>
@@ -146,7 +150,7 @@ export default {
     };
   },
   watch: {
-    avatar_url() {
+    'params.avatar_url': () => {
       $('img.lazy').lazyload();
     },
   },
@@ -158,6 +162,10 @@ export default {
       this.updateProfile(this.params).then(() => {
         // this.$route.router.go('/');
       });
+    },
+    onAssetSelected(asset) {
+      this.params.avatar_url = asset.url;
+      this.params.use_gravatar = false;
     },
   },
   components: {

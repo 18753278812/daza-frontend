@@ -5,6 +5,7 @@ import topics from '../api/topics';
 import articles from '../api/articles';
 import tags from '../api/tags';
 import notifications from '../api/notifications';
+import assets from '../api/assets';
 
 import {
   REGISTER_SUCCESS,
@@ -24,6 +25,7 @@ import {
   RECEIVE_TAGS,
   RECEIVE_NOTIFICATIONS,
   RECEIVE_NOTIFICATIONS_COUNTS,
+  RECEIVE_ASSETS,
 } from './mutation-types';
 
 export const register = ({ dispatch }, params) => {
@@ -347,6 +349,27 @@ export const markAsRead = ({ dispatch }) => {
     dispatch(RECEIVE_NOTIFICATIONS_COUNTS, { count: 0, unread: 0 });
     return Promise.resolve(data);
   })
+  .catch((error) => {
+    dispatch(RECEIVE_ERRORS, error.data);
+    return Promise.reject(error);
+  });
+  return req;
+};
+
+export const getAssetList = ({ dispatch }, page, targetType, targetId) => {
+  const req = assets.lists(page, targetType, targetId).then((data) => {
+    dispatch(RECEIVE_ASSETS, data.data);
+    return Promise.resolve(data);
+  })
+  .catch((error) => {
+    dispatch(RECEIVE_ERRORS, error.data);
+    return Promise.reject(error);
+  });
+  return req;
+};
+
+export const assetCreate = ({ dispatch }, params) => {
+  const req = assets.store(params).then((data) => Promise.resolve(data))
   .catch((error) => {
     dispatch(RECEIVE_ERRORS, error.data);
     return Promise.reject(error);

@@ -30,6 +30,8 @@ module.exports = {
     'nprogress': 'NProgress',
     'toastr': 'toastr',
     'moment': 'moment',
+    'qiniu': 'Qiniu',
+    'plupload': 'plupload',
   },
   module: {
     preLoaders: [

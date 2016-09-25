@@ -26,10 +26,10 @@ export default {
   ready() {
     // 如果当前用户已经登录，则重新获取用户资料及Token
     if (this.auth.check()) {
-      this.getProfile().then(() => {
-        this.getNotificationCounts().then(() => {
-        });
+      // this.getProfile().then(() => {
+      this.getNotificationCounts().then(() => {
       });
+      // });
     }
   },
 };
