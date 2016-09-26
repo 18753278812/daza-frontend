@@ -22,7 +22,7 @@
                 name="topic_id"
                 v-model="params.topic_id"
                 v-select2="params.topic_id"
-                :options="{ placeholder: '选择一个主题' }"
+                placeholder="选择一个主题"
                 v-validate:topic_id="rules.topic_id">
                 <option></option>
                 <option v-for="topic in data.topics" :value="topic.id">{{ topic.name }}</option>
@@ -58,7 +58,7 @@
                 name="tags"
                 multiple="multiple"
                 v-select2="params.tags"
-                :options="{ tags: true }">
+                tags="true">
               </select>
             </div>
             <div class="form-group" v-if="data.extra_showed">

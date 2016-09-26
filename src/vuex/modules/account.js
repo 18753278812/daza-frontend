@@ -10,6 +10,7 @@ export default {
     auth: {
       id: localStorage.getItem('auth.id'),
       user: JSON.parse(localStorage.getItem('auth.user')),
+      jwt_token: JSON.parse(localStorage.getItem('auth.jwt_token')),
     },
   },
   mutations: {

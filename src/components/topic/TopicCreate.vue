@@ -14,7 +14,7 @@
                 name="category_id"
                 v-model="params.category_id"
                 v-select2="params.category_id"
-                :options="{ placeholder: '选择一个分类' }"
+                placeholder="选择一个分类"
                 v-validate:category_id="rules.category_id">
                 <option></option>
                 <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
@@ -28,7 +28,7 @@
                 name="type"
                 v-model="params.type"
                 v-select2="params.type"
-                :options="{ placeholder: '选择主题的类型' }"
+                placeholder="选择主题的类型"
                 v-validate:type="rules.type">
                 <option></option>
                 <option value="original">原创</option>
@@ -45,7 +45,7 @@
                     name="source_format"
                     v-model="params.source_format"
                     v-select2="params.source_format"
-                    :options="{ placeholder: '来源格式' }"
+                    placeholder="来源格式"
                     v-validate:source_format="rules.source_format">
                     <option></option>
                     <option value="rss+xml">rss+xml</option>

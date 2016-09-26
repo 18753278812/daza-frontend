@@ -40,6 +40,11 @@ Vue.http.interceptors.push({
     return request;
   },
   response(response) {
+    if (response.statusCode === 401) {
+      localStorage.removeItem('auth.id');
+      localStorage.removeItem('auth.user');
+      localStorage.removeItem('auth.jwt_token');
+    }
     return response;
   },
 });
@@ -53,12 +58,20 @@ Vue.validator('url', (val) => /^(http\u003a\/\/|https\u003a\/\/)(.{4,})$/.test(v
 $.fn.select2.defaults.set('theme', 'bootstrap');
 $.fn.select2.defaults.set('language', 'zh-CN');
 Vue.directive('select2', {
+  deep: true,
   twoWay: true,
   priority: 1000,
-  params: ['options'],
+  params: ['placeholder', 'tags'],
   bind() {
+    // params 突然无法直接传递 JSON，修改为单个配置!!!
     const self = this;
-    const options = this.params.options;
+    const options = {};
+    if (this.params.placeholder) {
+      Object.assign(options, { placeholder: this.params.placeholder });
+    }
+    if (this.params.tags) {
+      Object.assign(options, { tags: this.params.tags });
+    }
     $(this.el)
       .select2(options)
       .on('change', () => {
