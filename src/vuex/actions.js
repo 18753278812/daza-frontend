@@ -88,7 +88,6 @@ export const updateProfile = ({ dispatch }, params) => {
   return req;
 };
 
-
 export const updateConfigs = ({ dispatch }, params) => {
   const req = account.updateConfigs(params).then((data) => {
     dispatch(UPDATE_CONFIGS_SUCCESS, data.data);

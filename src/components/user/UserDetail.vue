@@ -40,18 +40,12 @@
           <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#topics" role="tab">维护的主题</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#topics2" role="tab">订阅的主题</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#upvotes" role="tab">赞过的文章</a>
-          </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-          <div class="tab-pane active" id="topics" role="tabpanel">...</div>
-          <div class="tab-pane" id="topics2" role="tabpanel">...</div>
-          <div class="tab-pane" id="upvotes" role="tabpanel">...</div>
+          <div class="tab-pane active" id="topics" role="tabpanel">
+            <user-detail-topic-list></user-detail-topic-list>
+          </div>
         </div>
       </div>
     </div>
@@ -61,6 +55,7 @@
 <script>
 import $ from 'jquery';
 import NProgress from 'nprogress';
+import UserDetailTopicList from './UserDetailTopicList';
 import { auth } from '../../vuex/getters';
 import { userShow, userRelationship } from '../../vuex/actions';
 
@@ -107,8 +102,14 @@ export default {
       });
     },
   },
+  components: {
+    UserDetailTopicList,
+  },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.nav-tabs {
+    margin-bottom: 1rem;
+}
 </style>

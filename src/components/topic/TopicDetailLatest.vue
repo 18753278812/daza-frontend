@@ -67,25 +67,26 @@ export default {
     };
   },
   watch: {
-    topics() {
+    'data.articles': () => {
       $('img.lazy').lazyload();
     },
   },
   ready() {
-    const topicId = this.$route.params.id;
-    NProgress.start();
-    this.getTopicArticleList(topicId).then(data => {
-      this.data.articles = data.data;
-      this.data.pagination = data.pagination;
-      NProgress.done();
-    });
+    this.loadArticles(1);
   },
   components: {
     VuePagination,
   },
   methods: {
-    loadArticles() {
+    loadArticles(page) {
       window.scrollTo(0, 0);
+      const topicId = this.$route.params.id;
+      NProgress.start();
+      this.getTopicArticleList(topicId, page).then(data => {
+        this.data.articles = data.data;
+        this.data.pagination = data.pagination;
+        NProgress.done();
+      });
     },
   },
 };

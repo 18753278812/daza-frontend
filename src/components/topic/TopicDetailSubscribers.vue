@@ -62,7 +62,6 @@ export default {
     const topicId = this.$route.params.id;
     NProgress.start();
     this.getTopicSubscriberList(topicId).then(data => {
-      console.log(data);
       this.data.subscribers = data.data;
       this.data.pagination = data.pagination;
       NProgress.done();

@@ -183,19 +183,15 @@ export default {
     };
   },
   ready() {
-    this.auth.user.configs.forEach((value) => {
-      this.params[value.key] = value.value;
-    });
-    console.log(this.params);
-    // this.params.notification_followed = this.auth.user.configs['notification_followed'];
-    // this.params.notification_subscribed = this.auth.user.configs['notification_subscribed'];
-    // this.params.notification_upvoted = this.auth.user.configs['notification_upvoted'];
-    // this.params.notification_comment = this.auth.user.configs['notification_comment'];
-    // this.params.notification_mention = this.auth.user.configs['notification_mention'];
+    const configs = this.auth.configs;
+    if (configs instanceof Array) {
+      configs.forEach((value) => {
+        this.params[value.key] = value.value;
+      });
+    }
   },
   methods: {
     submit() {
-      console.log(this.params);
       this.updateConfigs(this.params);
     },
   },

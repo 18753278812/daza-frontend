@@ -8,7 +8,6 @@ export default {
   },
   mutations: {
     [RECEIVE_ERRORS](state, data) {
-      console.log(data);
       let message = '';
       if (data.message) {
         message = `${data.message}<br>`;
@@ -17,6 +16,9 @@ export default {
         data.errors.forEach((value) => {
           message += `${value.message}<br>`;
         });
+      }
+      if (message === '') {
+        message = '未知错误！';
       }
       toastr.error(message);
     },

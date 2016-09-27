@@ -21,8 +21,8 @@ export default {
     const req = Vue.http.get(`users/${id}/following`);
     return req.then((response) => Promise.resolve(response.data));
   },
-  topics(id) {
-    const req = Vue.http.get(`users/${id}/topics`);
+  topics(id, page) {
+    const req = Vue.http.get(`users/${id}/topics`, { page });
     return req.then((response) => Promise.resolve(response.data));
   },
 };
