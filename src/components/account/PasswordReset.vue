@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import toastr from 'toastr';
 import { auth } from '../../vuex/getters';
 // import {  } from '../../vuex/actions';
 
@@ -47,7 +48,7 @@ export default {
   },
   methods: {
     submit() {
-      alert('开发中，敬请期待！');
+      toastr.warning('开发中，敬请期待！');
     },
   },
 };

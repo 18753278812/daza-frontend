@@ -64,7 +64,7 @@ export default {
     // 加载最新主题
     NProgress.start();
     this.getTopicList(1).then(data => {
-      this.data.pagination = data.data.pagination;
+      this.data.pagination = data.pagination;
       NProgress.done();
     });
   },

@@ -9,9 +9,6 @@ export default {
     const req = Vue.http.get(`notifications/${id}`);
     return req.then((response) => Promise.resolve(response.data));
   },
-  update(id) {
-    console.log(id);
-  },
   destroy(id) {
     const req = Vue.http.delete(`notifications/${id}`);
     return req.then((response) => Promise.resolve(response.data));

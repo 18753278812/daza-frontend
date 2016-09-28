@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h3>新建主题</h3>
+        <h3>编辑主题</h3>
         <hr>
         <validator name="validation">
           <form novalidate @submit.prevent="submit()">
@@ -128,11 +128,10 @@
 
 <script>
 import $ from 'jquery';
-import shortid from 'shortid';
 import NProgress from 'nprogress';
 import AssetManagerDialog from '../asset/AssetManagerDialog';
 import { auth } from '../../vuex/getters';
-import { getCategoryList, topicCreate } from '../../vuex/actions';
+import { getCategoryList, topicShow, topicUpdate } from '../../vuex/actions';
 
 export default {
   vuex: {
@@ -142,7 +141,8 @@ export default {
     },
     actions: {
       getCategoryList,
-      topicCreate,
+      topicShow,
+      topicUpdate,
     },
   },
   data() {
@@ -157,7 +157,7 @@ export default {
         website: { },
       },
       params: {
-        short_id: shortid.generate(),
+        short_id: '',
         category_id: '',
         type: '',
         source_format: '',
@@ -181,10 +181,15 @@ export default {
         NProgress.done();
       });
     }
+    const topicId = this.$route.params.id;
+    this.topicShow(topicId).then((data) => {
+      this.params = data.data;
+    });
   },
   methods: {
     submit() {
-      this.topicCreate(this.params).then(() => {
+      const topicId = this.$route.params.id;
+      this.topicUpdate(topicId, this.params).then(() => {
         this.$route.router.go('/');
       });
     },

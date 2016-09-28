@@ -1,23 +1,26 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="row topic-list">
-          <div class="col-md-12" v-for="topic in data.topics">
-            <div class="image">
-              <img class="lazy img-rounded" :data-original="topic.image_url">
-            </div>
-            <div class="content">
-              <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
-              <small class="text-muted">{{ topic.subscriber_count }} 人订阅</small>
-              <p class="description">{{ topic.description }}</p>
-            </div>
-            <hr>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="row topic-list">
+        <div class="col-md-12" v-for="topic in data.topics">
+          <div class="image">
+            <img class="lazy img-rounded" :data-original="topic.image_url">
           </div>
+          <div class="content">
+            <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
+            <small class="text-muted">{{ topic.subscriber_count }} 人订阅</small>
+            <p class="description">{{ topic.description }}</p>
+          </div>
+          <hr>
         </div>
-        <!-- 分页导航 -->
-        <vue-pagination :pagination="data.pagination" :callback="loadTopics"></vue-pagination>
       </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <p class="text-xs-center" v-if="data.topics.length == 0">空空如也</p>
+        </div>
+      </div>
+      <!-- 分页导航 -->
+      <vue-pagination :pagination="data.pagination" :callback="loadTopics"></vue-pagination>
     </div>
   </div>
 </template>

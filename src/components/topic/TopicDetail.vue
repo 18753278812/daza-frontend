@@ -22,7 +22,7 @@
               <div class="col-sm-3 col-xs-4 text-xs-right" v-if="data.topic.user_id === auth.user.id">
                 <button
                   class="btn btn-sm btn-outline-primary"
-                  href="#"
+                  v-link="{ name: 'topic_edit', params: { id: data.topic.id } }"
                   >编辑</button>
               </div>
             </div>

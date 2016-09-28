@@ -8,7 +8,7 @@
           </div>
           <div class="content">
             <div style="margin: 0;">
-              <a class="name" v-link="{ name: 'user_detail', params: { subscriber: subscriber.user.id } }">{{ subscriber.user.name }}</a>
+              <a class="name" v-link="{ name: 'user_detail', params: { id: subscriber.user.id } }">{{ subscriber.user.name }}</a>
             </div>
           </div>
           <hr>

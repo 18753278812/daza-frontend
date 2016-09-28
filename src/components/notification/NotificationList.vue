@@ -27,6 +27,11 @@
             <hr>
           </div>
         </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="text-xs-center" v-if="data.notifications.length == 0">空空如也</p>
+          </div>
+        </div>
         <!-- 分页导航 -->
         <vue-pagination :pagination="data.pagination" :callback="loadNotifications"></vue-pagination>
       </div>

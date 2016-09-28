@@ -13,8 +13,8 @@ export default {
     const req = Vue.http.get(`topics/${id}`);
     return req.then((response) => Promise.resolve(response.data));
   },
-  update(id) {
-    const req = Vue.http.put(`topics/${id}`);
+  update(id, params) {
+    const req = Vue.http.put(`topics/${id}`, params);
     return req.then((response) => Promise.resolve(response.data));
   },
   destroy(id) {

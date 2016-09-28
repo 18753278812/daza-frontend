@@ -22,8 +22,9 @@ import CategoryList from './components/category/CategoryList';
 import CategoryDetail from './components/category/CategoryDetail';
 
 import TopicCreate from './components/topic/TopicCreate';
-import TopicList from './components/topic/TopicList';
 import TopicDetail from './components/topic/TopicDetail';
+import TopicEdit from './components/topic/TopicEdit';
+import TopicList from './components/topic/TopicList';
 
 import ArticleCreate from './components/article/ArticleCreate';
 import ArticleDetail from './components/article/ArticleDetail';
@@ -88,6 +89,10 @@ export default {
       '/topics/:id': {
         name: 'topic_detail',
         component: TopicDetail,
+      },
+      '/topics/:id/edit': {
+        name: 'topic_edit',
+        component: TopicEdit,
       },
       '/articles/create': {
         name: 'article_create',

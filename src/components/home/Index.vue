@@ -198,8 +198,6 @@ export default {
     });
     // 加载最新主题
     this.getTopicList(1);
-    // // 加载最热主题
-    // this.getTopicList(1);
     // 加载热门标签
     this.getTagList(1);
   },

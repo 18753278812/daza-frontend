@@ -192,16 +192,4 @@ html, body {
     }
   }
 }
-
-#alert {
-  position: fixed;
-  max-width: 400px;
-  margin-left: 12px;
-  top: 12px;
-  right: 12px;
-  z-index: 9999;
-     -moz-box-shadow: 0 0 12px #999999;
-  -webkit-box-shadow: 0 0 12px #999999;
-          box-shadow: 0 0 12px #999999;
-}
 </style>

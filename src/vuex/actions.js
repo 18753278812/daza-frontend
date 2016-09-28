@@ -208,6 +208,15 @@ export const topicCreate = ({ dispatch }, params) => {
   return req;
 };
 
+export const topicUpdate = ({ dispatch }, id, params) => {
+  const req = topics.update(id, params).then((data) => Promise.resolve(data))
+  .catch((error) => {
+    dispatch(RECEIVE_ERRORS, error.data);
+    return Promise.reject(error);
+  });
+  return req;
+};
+
 export const topicSubscribe = ({ dispatch }, id) => {
   const req = topics.subscribe(id).then((data) => Promise.resolve(data))
   .catch((error) => {
