@@ -110,7 +110,31 @@ export default {
     'data.assets': () => {
       $('img.lazy').lazyload();
     },
-    target_id() {
+    target_id(oldValue, value) {
+      if (oldValue !== value) {
+        this.resetQiniu();
+        console.log('reset2');
+      }
+    },
+  },
+  ready() {
+    if (this.target_id) {
+      this.resetQiniu();
+      console.log('reset');
+    }
+  },
+  methods: {
+    submit() {
+    },
+    hideModal() {
+      $('#asset-manager-dialog').modal('hide');
+      this.params = {
+        mime_type: '',
+        size: '',
+        url: '',
+      };
+    },
+    resetQiniu() {
       this.getAssetList(1, this.target_type, this.target_id).then(data => {
         this.data.assets = data.data;
       });
@@ -197,20 +221,6 @@ export default {
           },
         },
       });
-    },
-  },
-  ready() {
-  },
-  methods: {
-    submit() {
-    },
-    hideModal() {
-      $('#asset-manager-dialog').modal('hide');
-      this.params = {
-        mime_type: '',
-        size: '',
-        url: '',
-      };
     },
     selectAsset(asset) {
       this.callback(asset);

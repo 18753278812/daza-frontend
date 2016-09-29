@@ -19,6 +19,7 @@
               class="btn btn-sm btn-secondary"
               data-toggle="modal"
               data-target="#asset-manager-dialog"
+              href="javascript:void();"
               >选择头像</a>
             <div class="form-check">
               <label class="form-check-label">
@@ -111,7 +112,7 @@
   <!-- Asset manager dialog -->
   <asset-manager-dialog
     :target_type="'user'"
-    :target_id="auth.user.id"
+    :target_id="params.user_id"
     :callback="onAssetSelected"
     ></asset-manager-dialog>
 </template>
@@ -140,6 +141,7 @@ export default {
         bio: { },
       },
       params: {
+        user_id: String(this.auth.user.id),
         avatar_url: this.auth.user.avatar_url,
         use_gravatar: this.auth.user.use_gravatar,
         name: this.auth.user.name,
