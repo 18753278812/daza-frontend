@@ -219,8 +219,10 @@ export default {
   },
   computed: {
     mailToReport() {
-      const reportEmail = process.env.EMAIL_REPORT;
-      return `mailto:${reportEmail}?subject=[举报文章] ${this.data.article.title}`;
+      const email = process.env.EMAIL_REPORT;
+      const subject = `举报文章 -《${this.data.article.title}》`;
+      const body = `ID: ${this.data.article.id}%0D%0A标题：${this.data.article.title}%0D%0A原因：-`;
+      return `mailto:${email}?subject=${subject}&body=${body}`;
     },
   },
   methods: {

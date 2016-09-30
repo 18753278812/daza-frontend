@@ -363,7 +363,11 @@ export const getNotificationCounts = ({ dispatch }) => {
 
 export const markAsRead = ({ dispatch }) => {
   const req = notifications.markAsRead().then((data) => {
-    dispatch(RECEIVE_NOTIFICATIONS_COUNTS, { count: 0, unread: 0 });
+    const counts = {
+      count: 0,
+      unread_count: 0,
+    };
+    dispatch(RECEIVE_NOTIFICATIONS_COUNTS, counts);
     return Promise.resolve(data);
   })
   .catch((error) => {

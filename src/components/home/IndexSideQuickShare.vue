@@ -8,7 +8,7 @@
             class="form-control"
             rows="3"
             name="link"
-            placeholder="将主题/文章链接粘贴到这里！"
+            placeholder="将文章链接粘贴到这里！"
             v-model="params.link"
             v-validate:source_link="rules.link"></textarea>
         </div>

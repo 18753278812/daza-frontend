@@ -28,7 +28,9 @@
             </div>
             <ul class="list-unstyled">
               <li><small class="text-muted" v-if="data.topic.website">主页：<a :href="data.topic.website">{{ data.topic.website }}</a></small></li>
-              <li><small class="text-muted">由 <a v-link="{ name: 'user_detail', params: { id: data.topic.user.id } }">{{ data.topic.user.name }}</a> 维护</small></li>
+              <li>
+                <small class="text-muted">由 <a v-link="{ name: 'user_detail', params: { id: data.topic.user.id } }">{{ data.topic.user.name }}</a> 维护</small>
+              </li>
               <li><p>{{ data.topic.description }}</p></li>
             </ul>
           </div>
@@ -101,6 +103,14 @@ export default {
       this.data.topic = data.data;
       NProgress.done();
     });
+  },
+  computed: {
+    mailToReport() {
+      const email = process.env.EMAIL_REPORT;
+      const subject = `举报主题 -《${this.data.topic.name}》`;
+      const body = `ID: ${this.data.topic.id}%0D%0A名称：${this.data.topic.name}%0D%0A原因：-`;
+      return `mailto:${email}?subject=${subject}&body=${body}`;
+    },
   },
   methods: {
     subscribe(id) {

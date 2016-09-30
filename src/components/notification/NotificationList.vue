@@ -7,7 +7,7 @@
             <h3>消息通知</h3>
           </div>
           <div class="col-sm-3 col-xs-4 text-xs-right">
-            <form @submit.prevent="markAsRead2()">
+            <form @submit.prevent="markAsRead2()" v-if="this.counts.unread_count > 0">
               <button
                 class="btn btn-sm btn-outline-primary"
                 type="submit"
@@ -69,6 +69,7 @@ export default {
   vuex: {
     getters: {
       auth,
+      counts: state => state.notifications.counts,
     },
     actions: {
       getNotificationList,
