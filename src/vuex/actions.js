@@ -328,6 +328,15 @@ export const tagShow = ({ dispatch }, name) => {
   return req;
 };
 
+export const getTagArticleList = ({ dispatch }, page, tagName) => {
+  const req = tags.articles(page, tagName).then((data) => Promise.resolve(data))
+  .catch((error) => {
+    dispatch(RECEIVE_ERRORS, error.data);
+    return Promise.reject(error);
+  });
+  return req;
+};
+
 export const getNotificationList = ({ dispatch }, page) => {
   const req = notifications.lists(page).then((data) => Promise.resolve(data))
   //   dispatch(RECEIVE_NOTIFICATIONS, data);

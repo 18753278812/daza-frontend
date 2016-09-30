@@ -57,7 +57,11 @@
         <div id="comments" class="row">
           <div class="col-sm-12">
             <p class="text-xs-left" v-if="data.comments.length > 0">{{ data.article.comment_count }}条精彩回复</p>
-            <p class="text-xs-center" v-if="data.comments.length == 0">空空如也</p>
+          </div>
+        </div>        
+        <div class="row data-empty" v-if="data.comments.length == 0">
+          <div class="col-sm-12">
+            <p class="text-xs-center">空空如也</p>
           </div>
         </div>
         <div class="row">

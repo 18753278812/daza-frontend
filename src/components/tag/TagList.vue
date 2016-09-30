@@ -10,9 +10,9 @@
         <hr>
         <div class="row tag-list">
           <div class="col-sm-4 col-md-3" v-for="tag in tags">
-            <div class="image">
+            <!-- <div class="image">
               <img class="lazy img-rounded" :data-original="tag.image_url">
-            </div>
+            </div> -->
             <div class="content">
               <div style="margin: 0;">
                 <a class="name" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</a>

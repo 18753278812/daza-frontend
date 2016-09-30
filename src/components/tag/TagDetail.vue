@@ -13,15 +13,14 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#home" role="tab">最新文章</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#messages" role="tab">最热文章</a>
+            <a class="nav-link active" data-toggle="tab" href="#latest" role="tab">最新文章</a>
           </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-          <div class="tab-pane active" id="home" role="tabpanel">...</div>
+          <div class="tab-pane active" id="latest" role="tabpanel">
+            <tag-detail-latest></tag-detail-latest>
+          </div>
           <div class="tab-pane" id="profile" role="tabpanel">...</div>
         </div>
       </div>
@@ -30,9 +29,10 @@
 </template>
 
 <script>
+import NProgress from 'nprogress';
+import TagDetailLatest from './TagDetailLatest';
 import { auth } from '../../vuex/getters';
 import { tagShow } from '../../vuex/actions';
-import NProgress from 'nprogress';
 
 export default {
   vuex: {
@@ -42,6 +42,9 @@ export default {
     actions: {
       tagShow,
     },
+  },
+  components: {
+    TagDetailLatest,
   },
   data() {
     return {
@@ -61,5 +64,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.nav-tabs {
+    margin-bottom: 1rem;
+}
 </style>

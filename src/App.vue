@@ -59,6 +59,9 @@ html, body {
   .data-empty {
     padding-top: 25px;
     padding-bottom: 25px;
+    div > p {
+      margin-bottom: 0;
+    }
   }
   // 文章列表
   .article-list {
