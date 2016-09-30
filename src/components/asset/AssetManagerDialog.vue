@@ -17,7 +17,7 @@
                 </div>
               </div>
             </div>
-            <div>
+            <div v-if="data.uploading.length > 0">
               <hr>
               <div class="row" >
                 <div class="col-sm-12">
@@ -32,7 +32,7 @@
             </div>
             <hr>
             <div class="row">
-              <div class="col-sm-3" v-for="asset in data.assets">
+              <div class="col-sm-3 col-xs-4" v-for="asset in data.assets">
                 <a href="#" v-on:click.prevent="selectAsset(asset)">
                   <div class="caption">
                   </div>

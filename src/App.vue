@@ -24,10 +24,14 @@ export default {
     };
   },
   ready() {
-    // 如果当前用户已经登录，则重新获取用户资料及Token
     if (this.auth.check()) {
-      this.getNotificationCounts().then(() => {
-      });
+      const expiresIn = this.auth.jwt_token.expires_in;
+      if (Math.floor(Date.now() / 1000) > expiresIn) {
+        this.$route.router.go('/account/refresh_token');
+        return;
+      }
+      // 获取未读通知数
+      this.getNotificationCounts();
     }
   },
 };

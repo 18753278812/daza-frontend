@@ -13,6 +13,7 @@ import AccountLogin from './components/account/Login';
 import AccountLogout from './components/account/Logout';
 import AccountPasswordReset from './components/account/PasswordReset';
 import AccountSettings from './components/account/Settings';
+import AccountRefreshToken from './components/account/RefreshToken';
 
 import UserDetail from './components/user/UserDetail';
 import UserFollowers from './components/user/UserFollowers';
@@ -133,6 +134,10 @@ export default {
       },
       '/password_reset': {
         component: AccountPasswordReset,
+      },
+      '/refresh_token': {
+        name: 'account_refresh_token',
+        component: AccountRefreshToken,
       },
     },
   },
