@@ -14,7 +14,7 @@
         <div class="row topic-list">
           <div class="col-md-4 col-sm-6" v-for="topic in topics">
             <div class="image">
-              <img class="lazy img-rounded" :data-original="topic.image_url">
+              <img class="lazy img-rounded" :data-original="topic.image_url | thumbnail">
             </div>
             <div class="content">
               <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>

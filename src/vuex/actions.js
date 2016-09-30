@@ -280,6 +280,15 @@ export const articleCreate = ({ dispatch }, params) => {
   return req;
 };
 
+export const articleUpdate = ({ dispatch }, id, params) => {
+  const req = articles.update(id, params).then((data) => Promise.resolve(data))
+  .catch((error) => {
+    dispatch(RECEIVE_ERRORS, error.data);
+    return Promise.reject(error);
+  });
+  return req;
+};
+
 export const articleVote = ({ dispatch }, id, type) => {
   const req = articles.articleVote(id, type).then((data) => Promise.resolve(data))
   .catch((error) => {

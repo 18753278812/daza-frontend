@@ -13,22 +13,6 @@
         <hr>
         <validator name="validation">
           <form novalidate @submit.prevent="submit()">
-            <div class="form-group row">
-              <div class="col-sm-12 text-xs-center">
-                <input
-                  id="avatar_url-input"
-                  class="form-control"
-                  name="image_url"
-                  type="hidden"
-                  v-model="params.image_url" />
-                <img
-                  class="lazy img-thumbnail text-xs-right"
-                  style="width: 180px; height: 180px;"
-                  data-toggle="modal"
-                  data-target="#asset-manager-dialog"
-                  :data-original="params.image_url">
-              </div>
-            </div>
             <div class="form-group">
               <label class="form-control-label">主题：</label>
               <select
@@ -117,21 +101,14 @@
       </div>
     </div>
   </div>
-  <!-- Asset manager dialog -->
-  <asset-manager-dialog
-    :target_type="'topic'"
-    :target_id="params.short_id"
-    :callback="onAssetSelected"
-    ></asset-manager-dialog>
 </template>
 
 <script>
-import $ from 'jquery';
 import shortid from 'shortid';
 import NProgress from 'nprogress';
-import AssetManagerDialog from '../asset/AssetManagerDialog';
 import { auth } from '../../vuex/getters';
 import { getUserTopics, articleCreate } from '../../vuex/actions';
+// import NProgress from 'nprogress';
 
 export default {
   vuex: {
@@ -142,9 +119,6 @@ export default {
       getUserTopics,
       articleCreate,
     },
-  },
-  components: {
-    AssetManagerDialog,
   },
   data() {
     return {
@@ -168,18 +142,12 @@ export default {
         summary: '',
         content_format: 'markdown',
         content: '',
-        image_url: '',
         tags: '',
         location: '',
         longitude: '',
         latitude: '',
       },
     };
-  },
-  watch: {
-    'params.image_url': () => {
-      $('img.lazy').lazyload();
-    },
   },
   ready() {
     NProgress.start();
@@ -190,14 +158,11 @@ export default {
   },
   methods: {
     submit() {
-      this.articleCreate(this.params).then((data) => {
+      this.articleUpdate(this.params).then((data) => {
         if (data) {
           this.$route.router.go('/');
         }
       });
-    },
-    onAssetSelected(asset) {
-      this.params.image_url = asset.url;
     },
     toggleExtraInputs() {
       this.data.extra_showed = !this.data.extra_showed;

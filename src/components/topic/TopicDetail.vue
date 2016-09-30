@@ -4,7 +4,7 @@
       <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-2 col-xs-4">
-            <img class="lazy img-rounded" :data-original="data.topic.image_url" style="width: 100%; height: auto;">
+            <img class="lazy img-rounded" :data-original="data.topic.image_url | thumbnail" style="width: 100%; height: auto;">
           </div>
           <div class="col-sm-10 col-xs-8" style="padding-left: 0;">
             <div class="row">
