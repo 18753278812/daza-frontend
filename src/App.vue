@@ -56,10 +56,15 @@ html, body {
     margin-top: 0.3rem;
     margin-bottom: 0.3rem;
   }
+  .data-empty {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
   // 文章列表
   .article-list {
     list-style-type: none;
     padding: 0;
+    margin: 0;
     > .entry {
       a {
         color: #424242;
@@ -86,6 +91,11 @@ html, body {
       }
       .extra {
         margin-top: 8px;
+      }
+    }
+    > .entry:last-child {
+      hr {
+        margin-bottom: 5px;
       }
     }
   }

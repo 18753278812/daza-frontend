@@ -250,8 +250,8 @@ export const getTopicSubscriberList = ({ dispatch }, page, topicId) => {
   return req;
 };
 
-export const getArticleList = ({ dispatch }, page, categoryId, categorySlug) => {
-  const req = articles.lists(page, categoryId, categorySlug).then((data) => {
+export const getArticleList = ({ dispatch }, page, slug) => {
+  const req = articles.lists(page, slug, slug).then((data) => {
     dispatch(RECEIVE_ARTICLES, data);
     return Promise.resolve(data);
   })

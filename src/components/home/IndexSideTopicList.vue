@@ -31,7 +31,6 @@
 </template>
 
 <script>
-// import $ from 'jquery';
 import { auth } from '../../vuex/getters';
 import { getTopicList } from '../../vuex/actions';
 
@@ -51,9 +50,7 @@ export default {
   },
   ready() {
     // 加载最新主题
-    this.getTopicList(1).then(() => {
-
-    });
+    this.getTopicList(1);
   },
 };
 </script>
@@ -95,20 +92,6 @@ export default {
           -webkit-box-orient: vertical;
         }
       }
-    }
-  }
-}
-// 侧边栏文章列表样式
-.side-article-list {
-
-}
-.side-tags {
-  ul {
-    list-style-type: none;
-    padding: 0;
-    li {
-      display: inline-table;
-      padding: 2px;
     }
   }
 }

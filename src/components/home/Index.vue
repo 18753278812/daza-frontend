@@ -5,15 +5,24 @@
         <!-- 分类导航 -->
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link" href="#" v-link="{ name: 'home_index_slug', params: { slug: 'latest' } }">最新</a>
+            <a
+              class="nav-link"
+              href="#"
+              v-link="{ name: 'home_index_slug', params: { slug: 'latest' } }"
+              v-on:click="categoryChanged('latest')">最新</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" v-link="{ name: 'home_index_slug', params: { slug: 'popular' } }">推荐</a>
+            <a
+              class="nav-link"
+              href="#"
+              v-link="{ name: 'home_index_slug', params: { slug: 'popular' } }"
+              v-on:click="categoryChanged('popular')">推荐</a>
           </li>
           <li class="nav-item" v-for="category in categories" >
             <a
               class="nav-link"
-              v-link="{ name: 'home_index_slug', params: { slug: category.slug ? category.slug : category.id } }"> {{ category.name }}</a>
+              v-link="{ name: 'home_index_slug', params: { slug: category.slug ? category.slug : category.id } }"
+              v-on:click="categoryChanged(category.slug ? category.slug : category.id)"> {{ category.name }}</a>
           </li>
         </ul>
         <hr>
@@ -45,50 +54,24 @@
             <hr>
           </li>
         </ul>
-        <div class="row">
+        <div class="row data-empty" v-if="articles.length == 0">
           <div class="col-sm-12">
-            <p class="text-xs-center" v-if="articles.length == 0">空空如也</p>
+            <p class="text-xs-center">空空如也</p>
           </div>
         </div>
         <!-- 分页导航 -->
-        <vue-pagination :pagination="pagination" :callback="loadArticles"></vue-pagination>
+        <vue-pagination :pagination="data.pagination" :callback="pageChanged"></vue-pagination>
       </div>
       <div class="col-sm-4">
-        <validator name="validation">
-          <form novalidate onsubmit="return false;">
-            <div class="form-group row">
-              <div class="col-xs-12">
-                <textarea
-                  id="source_link-input"
-                  class="form-control"
-                  rows="3"
-                  name="source_link"
-                  placeholder="将主题/文章链接粘贴到这里！"
-                  v-model="source_link"
-                  v-validate:source_link="rules.source_link"></textarea>
-              </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-xs-12 text-xs-right">
-                <a v-link="{ name: 'article_create' }"><small class="text-muted">发表原创文章</small></a>
-                <button
-                  class="btn btn-primary btn-sm"
-                  data-toggle="modal"
-                  data-target="#article-share-dialog"
-                  >&nbsp;&nbsp;分享&nbsp;&nbsp;</button>
-              </div>
-            </div>
-          </form>
-        </validator>
+        <!-- 侧边栏快速分享组件 -->
+        <index-side-quick-share></index-side-quick-share>
+        <!-- 侧边栏最新主题组件 -->
         <index-side-topic-list></index-side-topic-list>
+        <!-- 侧边栏热门标签组件 -->
         <index-side-tag-list></index-side-tag-list>
-        <index-side-beian></index-side-beian>
       </div>
     </div>
   </div>
-  <!-- Article share dialog -->
-  <article-share-dialog :link="source_link"></article-share-dialog>
-
 </template>
 
 <script>
@@ -96,11 +79,10 @@ import $ from 'jquery';
 import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getCategoryList, getArticleList } from '../../vuex/actions';
+import VuePagination from '../_common/VuePagination';
+import IndexSideQuickShare from './IndexSideQuickShare';
 import IndexSideTopicList from './IndexSideTopicList';
 import IndexSideTagList from './IndexSideTagList';
-import IndexSideBeian from './IndexSideBeian';
-import ArticleShareDialog from '../article/ArticleShareDialog';
-import VuePagination from '../_common/VuePagination';
 
 export default {
   vuex: {
@@ -116,18 +98,12 @@ export default {
   },
   data() {
     return {
-      page: 1,
-      categoryId: null,
-      categorySlug: null,
-      pagination: {
-        per_page: 15,
-        current_page: 1,
-        last_page: 0,
+      data: {
+        slug: 'latest',
+        page: 1,
+        lists: [],
+        pagination: {},
       },
-      rules: {
-        source_link: { required: true, url: true },
-      },
-      source_link: '',
     };
   },
   watch: {
@@ -140,38 +116,44 @@ export default {
     if (this.categories.length === 0) {
       this.getCategoryList();
     }
-    // 加载文章
-    this.page = this.$route.query.page;
-    this.categorySlug = this.$route.params.slug;
-    this.categoryId = this.categorySlug;
-    // NProgress.start();
-    this.loadArticles(this.page);
-  },
-  route: {
-    canReuse: false,
+
+    const page = this.$route.query.page;
+    const slug = this.$route.params.slug;
+
+    this.load(page, slug);
   },
   components: {
+    VuePagination,
+    IndexSideQuickShare,
     IndexSideTopicList,
     IndexSideTagList,
-    IndexSideBeian,
-    ArticleShareDialog,
-    VuePagination,
   },
   methods: {
-    loadArticles(page) {
+    load(page, slug) {
+      NProgress.start();
       window.scrollTo(0, 0);
-      this.getArticleList(page, this.categoryId, this.categorySlug).then(data => {
-        this.pagination = data.pagination;
+      this.getArticleList(page, slug).then(data => {
+        this.data.pagination = data.pagination;
         NProgress.done();
         $('img.lazy').lazyload();
       });
-      const query = {
-        page,
-      };
-      const params = {
-        slug: this.categorySlug,
-      };
+    },
+    pageChanged(page) {
+      this.data.page = page;
+      const query = { page: this.data.page };
+      const params = { slug: this.data.slug };
+
       this.$route.router.go({ name: 'home_index_slug', query, params });
+      this.load(this.data.page, this.data.slug);
+    },
+    categoryChanged(slug) {
+      this.data.page = 1;
+      this.data.slug = slug;
+
+      const params = { slug: this.data.slug };
+
+      this.$route.router.go({ name: 'home_index_slug', query: { }, params });
+      this.load(this.data.page, this.data.slug);
     },
   },
 };

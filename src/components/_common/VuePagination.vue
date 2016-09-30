@@ -7,14 +7,14 @@
           href="#"
           aria-label="Previous"
           v-on:click.prevent="changePage(prevPage)">
-          <span aria-hidden="true">{{{ $t("pagination.previous") }}}</span>
+          <span aria-hidden="true">&nbsp;{{{ $t("pagination.previous") }}}&nbsp;</span>
           <span class="sr-only">Previous</span>
         </a>
       </li>
       <li class="page-item" v-for="element in elements" v-bind:class="{ active: element.page === pagination.current_page }">
         <a
           class="page-link"
-          href="#"
+          href="javascript:void();"
           v-on:click.prevent="changePage(element.page)">{{element.page}}</a>
       </li>
       <li class="page-item" v-bind:class="{ disabled: !hasMorePages }">
@@ -23,7 +23,7 @@
           href="#"
           aria-label="Next"
           v-on:click.prevent="changePage(nextPage)">
-          <span aria-hidden="true">{{{ $t("pagination.next") }}}</span>
+          <span aria-hidden="true">&nbsp;{{{ $t("pagination.next") }}}&nbsp;</span>
           <span class="sr-only">Next</span>
         </a>
       </li>

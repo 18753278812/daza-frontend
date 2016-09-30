@@ -14,9 +14,9 @@
           <hr>
         </div>
       </div>
-      <div class="row">
+      <div class="row data-empty" v-if="data.subscribers.length == 0">
         <div class="col-sm-12">
-          <p class="text-xs-center" v-if="data.subscribers.length == 0">空空如也</p>
+          <p class="text-xs-center">空空如也</p>
         </div>
       </div>
       <!-- 分页导航 -->
