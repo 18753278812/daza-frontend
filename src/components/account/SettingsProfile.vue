@@ -112,13 +112,14 @@
   <!-- Asset manager dialog -->
   <asset-manager-dialog
     :target_type="'user'"
-    :target_id="params.user_id"
+    :target_id="data.user_id"
     :callback="onAssetSelected"
     ></asset-manager-dialog>
 </template>
 
 <script>
 import $ from 'jquery';
+import toastr from 'toastr';
 import { auth } from '../../vuex/getters';
 import { updateProfile } from '../../vuex/actions';
 import AssetManagerDialog from '../asset/AssetManagerDialog';
@@ -134,6 +135,9 @@ export default {
   },
   data() {
     return {
+      data: {
+        user_id: String(this.auth.user.id),
+      },
       rules: {
         name: { required: true },
         city: { required: true },
@@ -141,7 +145,6 @@ export default {
         bio: { },
       },
       params: {
-        user_id: String(this.auth.user.id),
         avatar_url: this.auth.user.avatar_url,
         use_gravatar: this.auth.user.use_gravatar,
         name: this.auth.user.name,
@@ -162,7 +165,7 @@ export default {
   methods: {
     submit() {
       this.updateProfile(this.params).then(() => {
-        // this.$route.router.go('/');
+        toastr.success('基本资料修改成功');
       });
     },
     onAssetSelected(asset) {

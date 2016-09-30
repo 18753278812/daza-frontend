@@ -155,6 +155,7 @@
 </template>
 
 <script>
+import toastr from 'toastr';
 import { auth } from '../../vuex/getters';
 import { updateProfile, updateConfigs } from '../../vuex/actions';
 
@@ -192,7 +193,9 @@ export default {
   },
   methods: {
     submit() {
-      this.updateConfigs(this.params);
+      this.updateConfigs(this.params).then(() => {
+        toastr.success('消息设置修改成功');
+      });
     },
   },
 };

@@ -36,7 +36,7 @@
             id="website-input"
             class="form-control"
             name="new_password_confirmation"
-            type="url"
+            type="password"
             placeholder=""
             v-model="params.new_password_confirmation"
             v-validate:new_password_confirmation="rules.new_password_confirmation">
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import toastr from 'toastr';
 import { auth } from '../../vuex/getters';
 import { passwordModify } from '../../vuex/actions';
 
@@ -85,7 +86,13 @@ export default {
   methods: {
     submit() {
       this.passwordModify(this.params).then(() => {
-        this.$route.router.go('/');
+        toastr.success('密码修改成功');
+
+        this.params = {
+          old_password: '',
+          new_password: '',
+          new_password_confirmation: '',
+        };
       });
     },
   },
