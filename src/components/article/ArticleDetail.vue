@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-12 col-md-8">
         <h4>{{ data.article.title }}</h4>
         <div class="row">
           <div class="col-xs-9">
@@ -58,7 +58,7 @@
           <div class="col-sm-12">
             <p class="text-xs-left" v-if="data.comments.length > 0">{{ data.article.comment_count }}条精彩回复</p>
           </div>
-        </div>        
+        </div>
         <div class="row data-empty" v-if="data.comments.length == 0">
           <div class="col-sm-12">
             <p class="text-xs-center">空空如也</p>
@@ -125,7 +125,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4 col-md-12">
         <div class="row article-content-side-topic">
           <div class="col-xs-12">
             <div class="row">

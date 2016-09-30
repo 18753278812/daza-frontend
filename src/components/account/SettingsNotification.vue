@@ -108,7 +108,7 @@
         </div>
       </fieldset>
       <hr>
-      <h5>
+      <!-- <h5>
         邮件设置<br>
         <small class="text-muted">你可以在这里设置是否接收邮件。</small>
       </h5>
@@ -146,7 +146,7 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr> -->
       <div class="form-group">
         <button type="submit" class="btn btn-primary">保存</button>
       </div>

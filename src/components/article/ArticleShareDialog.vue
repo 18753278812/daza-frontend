@@ -23,7 +23,7 @@
                   placeholder="请选择一个主题"
                   v-validate:topic_id="rules.topic_id">
                   <option></option>
-                  <option v-for="topic in data.topics" :value="topic.id">{{ topic.name }}</option>
+                  <option v-for="topic in data.topics" :value="topic.id" :disabled="topic.type === 'feed'">{{ topic.name }}</option>
                 </select>
               </div>
               <div class="form-group">
@@ -136,9 +136,7 @@ export default {
     });
     if (this.auth.check()) {
       this.getUserTopics(this.auth.id).then((data) => {
-        if (data) {
-          this.data.topics = data;
-        }
+        this.data.topics = data.data;
       });
     }
   },

@@ -25,7 +25,7 @@
                 placeholder="选择一个主题"
                 v-validate:topic_id="rules.topic_id">
                 <option></option>
-                <option v-for="topic in data.topics" :value="topic.id">{{ topic.name }}</option>
+                <option v-for="topic in data.topics" :value="topic.id" :disabled="topic.type === 'feed'">{{ topic.name }}</option>
               </select>
             </div>
             <div class="form-group">
