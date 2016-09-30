@@ -11,7 +11,7 @@
       <ul>
         <li v-for="topic in topics ">
           <div class="image">
-            <img class="lazy img-rounded" :data-original="topic.image_url">
+            <img class="lazy img-rounded" :data-original="topic.image_url | thumbnail">
           </div>
           <div class="content">
             <div class="row">

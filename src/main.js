@@ -88,6 +88,7 @@ Vue.directive('select2', {
 
 // 自定义过滤器
 Vue.filter('moment', require('./filters/moment'));
+Vue.filter('thumbnail', require('./filters/thumbnail'));
 
 // 创建一个路由器实例
 const router = new VueRouter({
