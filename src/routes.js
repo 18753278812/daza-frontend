@@ -111,6 +111,7 @@ export default {
         component: TagDetail,
       },
       '/notifications': {
+        name: 'notification_list',
         component: NotificationList,
       },
       '*': {

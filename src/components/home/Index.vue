@@ -130,8 +130,8 @@ export default {
   },
   methods: {
     load(page, slug) {
-      NProgress.start();
       window.scrollTo(0, 0);
+      NProgress.start();
       this.getArticleList(page, slug).then(data => {
         this.data.pagination = data.pagination;
         NProgress.done();

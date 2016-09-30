@@ -23,7 +23,7 @@ import {
   RECEIVE_TOPIC_SUBSCRIBERS,
   RECEIVE_ARTICLES,
   RECEIVE_TAGS,
-  RECEIVE_NOTIFICATIONS,
+  // RECEIVE_NOTIFICATIONS,
   RECEIVE_NOTIFICATIONS_COUNTS,
   RECEIVE_ASSETS,
 } from './mutation-types';
@@ -329,10 +329,10 @@ export const tagShow = ({ dispatch }, name) => {
 };
 
 export const getNotificationList = ({ dispatch }, page) => {
-  const req = notifications.lists(page).then((data) => {
-    dispatch(RECEIVE_NOTIFICATIONS, data.data);
-    return Promise.resolve(data);
-  })
+  const req = notifications.lists(page).then((data) => Promise.resolve(data))
+  //   dispatch(RECEIVE_NOTIFICATIONS, data);
+  //   return Promise.resolve(data);
+  // })
   .catch((error) => {
     dispatch(RECEIVE_ERRORS, error.data);
     return Promise.reject(error);
