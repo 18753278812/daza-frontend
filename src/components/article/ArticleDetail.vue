@@ -127,7 +127,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4 col-md-12">
+      <div class="col-sm-12 col-md-4">
         <div class="row article-content-side-topic">
           <div class="col-xs-12">
             <div class="row">

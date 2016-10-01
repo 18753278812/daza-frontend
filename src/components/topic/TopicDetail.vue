@@ -3,10 +3,12 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="row">
-          <div class="col-sm-2 col-xs-4">
-            <img class="lazy img-rounded" :data-original="data.topic.image_url | thumbnail" style="width: 100%; height: auto;">
+          <div class="col-sm-4 col-md-2 col-xs-4">
+            <div>
+              <img class="lazy img-rounded" style="width: 100%; height: auto;" :data-original="data.topic.image_url | thumbnail 300">
+            </div>
           </div>
-          <div class="col-sm-10 col-xs-8" style="padding-left: 0;">
+          <div class="col-sm-8 col-md-10 col-xs-8" style="padding-left: 0;">
             <div class="row">
               <div class="col-sm-9 col-xs-8">
                 <h3 style="display: inline-block;">{{ data.topic.name }}</h3>&nbsp;<span class="tag tag-default" v-if="data.topic.type === 'original'">原创</span>

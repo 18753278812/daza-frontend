@@ -75,6 +75,7 @@
                 multiple="multiple"
                 v-select2="params.tags"
                 tags="true">
+                <option v-for="tag in data.tags" track-by="name" :value="tag.name">{{ tag.name }}</option>
               </select>
             </div>
             <div class="form-group" v-if="data.extra_showed">
@@ -151,6 +152,7 @@ export default {
     return {
       data: {
         topics: [],
+        tags: [],
         extra_showed: false,
       },
       rules: {
@@ -191,6 +193,13 @@ export default {
     const articleId = this.$route.params.id;
     this.articleShow(articleId).then(data => {
       const article = data.data;
+      const tags = [];
+      if (article.tags != null) {
+        this.data.tags = article.tags;
+        article.tags.forEach((value) => {
+          tags.push(value.name);
+        });
+      }
       this.params = {
         short_id: article.short_id,
         topic_id: article.topic_id,
@@ -200,7 +209,7 @@ export default {
         content_format: article.content_format,
         content: article.content,
         image_url: article.image_url,
-        tags: [],
+        tags,
         location: article.location,
         longitude: article.longitude,
         latitude: article.latitude,

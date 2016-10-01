@@ -113,14 +113,12 @@ export default {
     target_id(oldValue, value) {
       if (oldValue !== value) {
         this.resetQiniu();
-        console.log('reset2');
       }
     },
   },
   ready() {
     if (this.target_id) {
       this.resetQiniu();
-      console.log('reset');
     }
   },
   methods: {
@@ -153,7 +151,7 @@ export default {
         get_new_uptoken: false,  // 设置上传文件的时候是否每次都重新获取新的token
         container: 'qiniu-dragdrop-zone', // 上传区域DOM ID，默认是browser_button的父元素，
         max_file_size: '100mb',           // 最大文件体积限制
-        flash_swf_url: 'js/plupload/Moxie.swf',  // 引入flash,相对路径
+        flash_swf_url: '/static/vendor/plupload/js/plupload/Moxie.swf',  // 引入flash,相对路径
         max_retries: 3,                   // 上传失败最大重试次数
         dragdrop: true,                   // 开启可拖曳上传
         drop_element: 'qiniu-dragdrop-zone',        // 拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
@@ -163,7 +161,6 @@ export default {
           FilesAdded(up, files) {
             plupload.each(files, (file) => {
               // 文件添加进队列后,处理相关的事情
-              console.log(file);
               Object.assign(file, { progress: 0 });
               self.data.uploading.push(file);
             });
@@ -180,7 +177,6 @@ export default {
           //   Object.assign(file, { progress: 0 });
           // },
           FileUploaded(up, file, info) {
-            console.log(up);
             const key = JSON.parse(info).key;
             const params = {
               target_type: self.target_type,
@@ -215,7 +211,6 @@ export default {
             // 队列文件处理完毕后,处理相关的事情
           },
           Key(up, file) {
-            console.log(up);
             const suffix = file.name.substr(file.name.indexOf('.'));
             return `${self.target_type}/${self.target_id}/${shortid.generate()}${suffix}`;
           },

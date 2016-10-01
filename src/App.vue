@@ -90,10 +90,19 @@ html, body {
       }
       .image {
         float: right;
-        padding-left: 5px;
+        margin-left: 5px;
+        width: 120px;
+        height: 68px;
+        position: relative;
+        overflow: hidden;
+        border-radius: .3rem;
         img {
-          width: 120px;
-          height: 68px;
+          position: absolute;
+          width: 100%;
+          top: 50%;
+          -ms-transform: translateY(-50%);
+          -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
         }
       }
       .extra {
