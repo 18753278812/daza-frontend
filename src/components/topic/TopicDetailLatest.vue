@@ -17,6 +17,8 @@
           <div class="row extra">
             <div class="col-xs-8">
               <small class="text-muted">{{ data.published_at | moment }}</small>
+              <small v-if="data.type === 'original' && data.user_id == auth.id" class="text-muted"> · </small>
+              <a v-if="data.type === 'original' && data.user_id == auth.id" v-link="{ name: 'article_edit', params: { id: data.id } }"><small class="text-muted">编辑</small></a>
             </div>
             <div class="col-xs-4 text-xs-right">
               <small class="text-muted">{{ data.comment_count }}评论</small>

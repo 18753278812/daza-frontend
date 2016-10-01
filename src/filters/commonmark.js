@@ -6,6 +6,5 @@ module.exports = (value) => {
   const parsed = reader.parse(value);
   // transform parsed if you like...
   const result = writer.render(parsed);
-  console.log(result);
   return result;
 };

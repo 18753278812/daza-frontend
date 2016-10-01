@@ -13,6 +13,7 @@
           </div>
           <div class="col-xs-3 text-xs-right">
             <a v-if="data.article.type === 'feed'" v-bind:href="data.article.link" target="_blank"><small class="text-muted">阅读原文</small></a>
+            <a v-if="data.article.type === 'original' && data.article.user_id == auth.id" v-link="{ name: 'article_edit', params: { id: data.article.id } }"><small class="text-muted">编辑</small></a>
           </div>
         </div>
         <div class="row article-content-top-topic" style="margin-top: 15px;">
