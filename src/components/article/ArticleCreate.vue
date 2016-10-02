@@ -50,7 +50,7 @@
                 class="form-control"
                 type="text"
                 name="title"
-                placeholder="请填写不小于6个字符的标题。"
+                placeholder="请填写不小于2个字符的标题。"
                 v-model="params.title"
                 v-validate:email="rules.title">
             </div>
@@ -61,7 +61,7 @@
                 class="form-control"
                 rows="15"
                 name="content"
-                placeholder="请写入 Markdown（本站使用了 CommonMark 规范） 格式的正文，并且不能小于32个字符。"
+                placeholder="请写入 Markdown（本站使用了 CommonMark 规范） 格式的正文，并且不能小于16个字符。"
                 v-model="params.content"
                 v-validate:email="rules.content"></textarea>
             </div>
@@ -154,8 +154,8 @@ export default {
       },
       rules: {
         topic_id: { required: true },
-        title: { required: true, minlength: 6 },
-        content: { required: true, minlength: 32 },
+        title: { required: true, minlength: 2 },
+        content: { required: true, minlength: 16 },
         location: {},
         longitude: {},
         latitude: {},
