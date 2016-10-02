@@ -25,11 +25,12 @@ export default {
     const req = Vue.http.post(`topics/${id}/subscribe`);
     return req.then((response) => Promise.resolve(response.data));
   },
-  articles(id, page) {
-    const params = {
+  articles(id, page, perPage) {
+    const query = {
       page,
+      per_page: perPage,
     };
-    const req = Vue.http.get(`topics/${id}/articles`, params);
+    const req = Vue.http.get(`topics/${id}/articles`, query);
     return req.then((response) => Promise.resolve(response.data));
   },
   subscribers(id, page) {

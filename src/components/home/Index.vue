@@ -65,10 +65,14 @@
       <div class="col-sm-4">
         <!-- 侧边栏快速分享组件 -->
         <index-side-quick-share></index-side-quick-share>
+        <!-- 侧边栏置顶广告组件 -->
+        <index-side-ad></index-side-ad>
         <!-- 侧边栏最新主题组件 -->
         <index-side-topic-list></index-side-topic-list>
         <!-- 侧边栏热门标签组件 -->
         <index-side-tag-list></index-side-tag-list>
+        <!-- 侧边栏友情链接组件 -->
+        <index-side-links></index-side-links>
       </div>
     </div>
   </div>
@@ -81,8 +85,10 @@ import { auth } from '../../vuex/getters';
 import { getCategoryList, getArticleList } from '../../vuex/actions';
 import VuePagination from '../_common/VuePagination';
 import IndexSideQuickShare from './IndexSideQuickShare';
+import IndexSideAd from './IndexSideAd';
 import IndexSideTopicList from './IndexSideTopicList';
 import IndexSideTagList from './IndexSideTagList';
+import IndexSideLinks from './IndexSideLinks';
 
 export default {
   vuex: {
@@ -125,8 +131,10 @@ export default {
   components: {
     VuePagination,
     IndexSideQuickShare,
+    IndexSideAd,
     IndexSideTopicList,
     IndexSideTagList,
+    IndexSideLinks,
   },
   methods: {
     load(page, slug) {
