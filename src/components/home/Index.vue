@@ -5,13 +5,24 @@
         <!-- 分类导航 -->
         <ul class="nav nav-pills">
           <li class="nav-item">
-            <a class="nav-link" href="#" v-link="{ name: 'home_index_slug', params: { slug: 'latest' } }">最新</a>
+            <a
+              class="nav-link"
+              href="#"
+              v-link="{ name: 'home_index_slug', params: { slug: 'latest' } }"
+              v-on:click="categoryChanged('latest')">最新</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" v-link="{ name: 'home_index_slug', params: { slug: 'popular' } }">推荐</a>
+            <a
+              class="nav-link"
+              href="#"
+              v-link="{ name: 'home_index_slug', params: { slug: 'popular' } }"
+              v-on:click="categoryChanged('popular')">推荐</a>
           </li>
           <li class="nav-item" v-for="category in categories" >
-            <a class="nav-link" v-link="{ name: 'home_index_slug', params: { slug: category.slug ? category.slug : category.id } }"> {{ category.name }}</a>
+            <a
+              class="nav-link"
+              v-link="{ name: 'home_index_slug', params: { slug: category.slug ? category.slug : category.id } }"
+              v-on:click="categoryChanged(category.slug ? category.slug : category.id)"> {{ category.name }}</a>
           </li>
         </ul>
         <hr>
@@ -24,7 +35,7 @@
                   <a class="title" v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a>
                 </div>
                 <div class="image" v-if="data.image_url">
-                  <img class="lazy img-rounded" :data-original="data.image_url">
+                  <img class="lazy" :data-original="data.image_url | thumbnail">
                 </div>
               </div>
             </div>
@@ -43,183 +54,106 @@
             <hr>
           </li>
         </ul>
-        <div class="row">
+        <div class="row data-empty" v-if="articles.length == 0">
           <div class="col-sm-12">
-            <p class="text-xs-center" v-if="articles.length == 0">空空如也</p>
+            <p class="text-xs-center">空空如也</p>
           </div>
         </div>
         <!-- 分页导航 -->
-        <vue-pagination :pagination="pagination" :callback="loadArticles"></vue-pagination>
+        <vue-pagination :pagination="data.pagination" :callback="pageChanged"></vue-pagination>
       </div>
       <div class="col-sm-4">
-        <validator name="validation">
-          <form novalidate onsubmit="return false;">
-            <div class="form-group row">
-              <div class="col-xs-12">
-                <textarea
-                  id="source_link-input"
-                  class="form-control"
-                  rows="3"
-                  name="source_link"
-                  placeholder="将主题/文章链接粘贴到这里！"
-                  v-model="source_link"
-                  v-validate:source_link="rules.source_link"></textarea>
-              </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-xs-12 text-xs-right">
-                <a v-link="{ name: 'article_create' }"><small class="text-muted">发表原创文章</small></a>
-                <button
-                  class="btn btn-primary btn-sm"
-                  data-toggle="modal"
-                  data-target="#article-share-dialog"
-                  >&nbsp;&nbsp;分享&nbsp;&nbsp;</button>
-              </div>
-            </div>
-          </form>
-        </validator>
-        <hr>
-        <div class="row side-topics">
-          <div class="col-xs-7">
-            <h5>最新主题</h5>
-          </div>
-          <div class="col-xs-5 text-xs-right">
-            <a v-link="{ name: 'topic_list' }"><small class="text-muted">主题广场</small></a>
-          </div>
-          <div class="col-xs-12">
-            <ul>
-              <li v-for="topic in topics ">
-                <div class="image">
-                  <img class="lazy img-rounded" :data-original="topic.image_url">
-                </div>
-                <div class="content">
-                  <div class="row">
-                    <div class="col-md-8 col-sm-12">
-                      <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
-                    </div>
-                    <div class="col-md-4 text-md-right col-sm-12 text-sm-left">
-                      <small class="text-muted">{{ topic.subscriber_count }} 人订阅</small>
-                    </div>
-                  </div>
-                  <p class="description">{{ topic.description }}</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <hr>
-        <div class="row side-tags">
-          <div class="col-xs-7">
-            <h5>热门标签</h5>
-          </div>
-          <div class="col-xs-5 text-xs-right">
-            <a v-link="{ name: 'tag_list' }"><small class="text-muted">全部标签</small></a>
-          </div>
-          <div class="col-xs-12">
-            <ul>
-              <li v-for="tag in tags">
-                <a v-link="{ name: 'tag_detail', params: { name: tag.name } }">
-                  <span class="tag tag-default">{{ tag.name }}</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <!-- 侧边栏快速分享组件 -->
+        <index-side-quick-share></index-side-quick-share>
+        <!-- 侧边栏最新主题组件 -->
+        <index-side-topic-list></index-side-topic-list>
+        <!-- 侧边栏热门标签组件 -->
+        <index-side-tag-list></index-side-tag-list>
       </div>
     </div>
   </div>
-  <!-- Article share dialog -->
-  <article-share-dialog :link="source_link"></article-share-dialog>
-
 </template>
 
 <script>
 import $ from 'jquery';
 import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
-import { getCategoryList, getTopicList, getArticleList, getTagList } from '../../vuex/actions';
-import ArticleShareDialog from '../article/ArticleShareDialog';
+import { getCategoryList, getArticleList } from '../../vuex/actions';
 import VuePagination from '../_common/VuePagination';
+import IndexSideQuickShare from './IndexSideQuickShare';
+import IndexSideTopicList from './IndexSideTopicList';
+import IndexSideTagList from './IndexSideTagList';
 
 export default {
   vuex: {
     getters: {
       auth,
       categories: state => state.categories.all,
-      topics: state => state.topics.all,
       articles: state => state.articles.all,
-      tags: state => state.tags.all,
     },
     actions: {
       getCategoryList,
-      getTopicList,
       getArticleList,
-      getTagList,
     },
   },
   data() {
     return {
-      page: 1,
-      categoryId: null,
-      categorySlug: null,
-      pagination: {
-        per_page: 15,
-        current_page: 1,
-        last_page: 0,
+      data: {
+        slug: 'latest',
+        page: 1,
+        lists: [],
+        pagination: {},
       },
-      rules: {
-        source_link: { required: true, url: true },
-      },
-      source_link: '',
     };
   },
   watch: {
-    topics() {
-      $('img.lazy').lazyload();
-    },
     articles() {
       $('img.lazy').lazyload();
     },
   },
   ready() {
-    $('img.lazy').lazyload();
     // 加载分类
     if (this.categories.length === 0) {
       this.getCategoryList();
     }
-    // 加载文章
-    this.page = this.$route.query.page;
-    this.categorySlug = this.$route.params.slug;
-    this.categoryId = this.categorySlug;
-    NProgress.start();
-    this.getArticleList(this.page, this.categoryId, this.categorySlug).then(data => {
-      this.pagination = data.pagination;
-      NProgress.done();
-    });
-    // 加载最新主题
-    this.getTopicList(1);
-    // // 加载最热主题
-    // this.getTopicList(1);
-    // 加载热门标签
-    this.getTagList(1);
-  },
-  route: {
-    canReuse: false,
+
+    const page = this.$route.query.page;
+    const slug = this.$route.params.slug;
+
+    this.load(page, slug);
   },
   components: {
-    ArticleShareDialog,
     VuePagination,
+    IndexSideQuickShare,
+    IndexSideTopicList,
+    IndexSideTagList,
   },
   methods: {
-    loadArticles(page) {
+    load(page, slug) {
       window.scrollTo(0, 0);
-      const query = {
-        page,
-      };
-      const params = {
-        slug: this.categorySlug,
-      };
+      NProgress.start();
+      this.getArticleList(page, slug).then(data => {
+        this.data.pagination = data.pagination;
+        NProgress.done();
+        $('img.lazy').lazyload();
+      });
+    },
+    pageChanged(page) {
+      this.data.page = page;
+      const query = { page: this.data.page };
+      const params = { slug: this.data.slug };
+
       this.$route.router.go({ name: 'home_index_slug', query, params });
+      this.load(this.data.page, this.data.slug);
+    },
+    categoryChanged(slug) {
+      this.data.page = 1;
+      this.data.slug = slug;
+
+      const params = { slug: this.data.slug };
+
+      this.$route.router.go({ name: 'home_index_slug', query: { }, params });
+      this.load(this.data.page, this.data.slug);
     },
   },
 };
@@ -234,58 +168,5 @@ export default {
 }
 .nav-link.active {
   border-radius: 20px;
-}
-// 侧边样主题列表样式
-.side-topics {
-  ul {
-    list-style-type: none;
-    padding: 0;
-    li {
-      margin: 10px 0 10px 0;
-      .image {
-        display: table-cell;
-        vertical-align: top;
-        img {
-          width: 60px;
-          height: 60px;
-        }
-      }
-      .content {
-        width: 10000px;
-        display: table-cell;
-        vertical-align: top;
-        padding-left: 8px;
-        .name {
-          font-size: 13px;
-        }
-        .description {
-          font-size: 10px;
-          color: #bbb;
-          margin-bottom: 2px;
-          height: 32px;
-          line-height: 16px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-        }
-      }
-    }
-  }
-}
-// 侧边栏文章列表样式
-.side-article-list {
-
-}
-.side-tags {
-  ul {
-    list-style-type: none;
-    padding: 0;
-    li {
-      display: inline-table;
-      padding: 2px;
-    }
-  }
 }
 </style>

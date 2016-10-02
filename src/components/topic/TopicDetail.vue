@@ -3,10 +3,12 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="row">
-          <div class="col-sm-2 col-xs-4">
-            <img class="lazy img-rounded" :data-original="data.topic.image_url" style="width: 100%; height: auto;">
+          <div class="col-sm-4 col-md-2 col-xs-4">
+            <div>
+              <img class="lazy img-rounded" style="width: 100%; height: auto;" :data-original="data.topic.image_url | thumbnail 300">
+            </div>
           </div>
-          <div class="col-sm-10 col-xs-8" style="padding-left: 0;">
+          <div class="col-sm-8 col-md-10 col-xs-8" style="padding-left: 0;">
             <div class="row">
               <div class="col-sm-9 col-xs-8">
                 <h3 style="display: inline-block;">{{ data.topic.name }}</h3>&nbsp;<span class="tag tag-default" v-if="data.topic.type === 'original'">原创</span>
@@ -22,13 +24,15 @@
               <div class="col-sm-3 col-xs-4 text-xs-right" v-if="data.topic.user_id === auth.user.id">
                 <button
                   class="btn btn-sm btn-outline-primary"
-                  href="#"
+                  v-link="{ name: 'topic_edit', params: { id: data.topic.id } }"
                   >编辑</button>
               </div>
             </div>
             <ul class="list-unstyled">
               <li><small class="text-muted" v-if="data.topic.website">主页：<a :href="data.topic.website">{{ data.topic.website }}</a></small></li>
-              <li><small class="text-muted">由 <a v-link="{ name: 'user_detail', params: { id: data.topic.user.id } }">{{ data.topic.user.name }}</a> 维护</small></li>
+              <li>
+                <small class="text-muted">由 <a v-link="{ name: 'user_detail', params: { id: data.topic.user.id } }">{{ data.topic.user.name }}</a> 维护</small>
+              </li>
               <li><p>{{ data.topic.description }}</p></li>
             </ul>
           </div>
@@ -101,6 +105,14 @@ export default {
       this.data.topic = data.data;
       NProgress.done();
     });
+  },
+  computed: {
+    mailToReport() {
+      const email = process.env.EMAIL_REPORT;
+      const subject = `举报主题 -《${this.data.topic.name}》`;
+      const body = `ID: ${this.data.topic.id}%0D%0A名称：${this.data.topic.name}%0D%0A原因：-`;
+      return `mailto:${email}?subject=${subject}&body=${body}`;
+    },
   },
   methods: {
     subscribe(id) {

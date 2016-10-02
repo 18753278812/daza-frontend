@@ -20,4 +20,10 @@ export default {
     const req = Vue.http.delete(`tags/${id}`);
     return req.then((response) => Promise.resolve(response.data));
   },
+  articles(tagName, page) {
+    const query = { page };
+    const params = { page };
+    const req = Vue.http.get(`tags/${tagName}/articles`, query, params);
+    return req.then((response) => Promise.resolve(response.data));
+  },
 };

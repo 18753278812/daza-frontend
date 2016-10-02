@@ -23,7 +23,7 @@ import {
   RECEIVE_TOPIC_SUBSCRIBERS,
   RECEIVE_ARTICLES,
   RECEIVE_TAGS,
-  RECEIVE_NOTIFICATIONS,
+  // RECEIVE_NOTIFICATIONS,
   RECEIVE_NOTIFICATIONS_COUNTS,
   RECEIVE_ASSETS,
 } from './mutation-types';
@@ -87,7 +87,6 @@ export const updateProfile = ({ dispatch }, params) => {
   });
   return req;
 };
-
 
 export const updateConfigs = ({ dispatch }, params) => {
   const req = account.updateConfigs(params).then((data) => {
@@ -209,6 +208,15 @@ export const topicCreate = ({ dispatch }, params) => {
   return req;
 };
 
+export const topicUpdate = ({ dispatch }, id, params) => {
+  const req = topics.update(id, params).then((data) => Promise.resolve(data))
+  .catch((error) => {
+    dispatch(RECEIVE_ERRORS, error.data);
+    return Promise.reject(error);
+  });
+  return req;
+};
+
 export const topicSubscribe = ({ dispatch }, id) => {
   const req = topics.subscribe(id).then((data) => Promise.resolve(data))
   .catch((error) => {
@@ -242,8 +250,8 @@ export const getTopicSubscriberList = ({ dispatch }, page, topicId) => {
   return req;
 };
 
-export const getArticleList = ({ dispatch }, page, categoryId, categorySlug) => {
-  const req = articles.lists(page, categoryId, categorySlug).then((data) => {
+export const getArticleList = ({ dispatch }, page, slug) => {
+  const req = articles.lists(page, slug, slug).then((data) => {
     dispatch(RECEIVE_ARTICLES, data);
     return Promise.resolve(data);
   })
@@ -265,6 +273,15 @@ export const articleShow = ({ dispatch }, id) => {
 
 export const articleCreate = ({ dispatch }, params) => {
   const req = articles.store(params).then((data) => Promise.resolve(data))
+  .catch((error) => {
+    dispatch(RECEIVE_ERRORS, error.data);
+    return Promise.reject(error);
+  });
+  return req;
+};
+
+export const articleUpdate = ({ dispatch }, id, params) => {
+  const req = articles.update(id, params).then((data) => Promise.resolve(data))
   .catch((error) => {
     dispatch(RECEIVE_ERRORS, error.data);
     return Promise.reject(error);
@@ -320,11 +337,20 @@ export const tagShow = ({ dispatch }, name) => {
   return req;
 };
 
+export const getTagArticleList = ({ dispatch }, page, tagName) => {
+  const req = tags.articles(page, tagName).then((data) => Promise.resolve(data))
+  .catch((error) => {
+    dispatch(RECEIVE_ERRORS, error.data);
+    return Promise.reject(error);
+  });
+  return req;
+};
+
 export const getNotificationList = ({ dispatch }, page) => {
-  const req = notifications.lists(page).then((data) => {
-    dispatch(RECEIVE_NOTIFICATIONS, data.data);
-    return Promise.resolve(data);
-  })
+  const req = notifications.lists(page).then((data) => Promise.resolve(data))
+  //   dispatch(RECEIVE_NOTIFICATIONS, data);
+  //   return Promise.resolve(data);
+  // })
   .catch((error) => {
     dispatch(RECEIVE_ERRORS, error.data);
     return Promise.reject(error);
@@ -346,7 +372,11 @@ export const getNotificationCounts = ({ dispatch }) => {
 
 export const markAsRead = ({ dispatch }) => {
   const req = notifications.markAsRead().then((data) => {
-    dispatch(RECEIVE_NOTIFICATIONS_COUNTS, { count: 0, unread: 0 });
+    const counts = {
+      count: 0,
+      unread_count: 0,
+    };
+    dispatch(RECEIVE_NOTIFICATIONS_COUNTS, counts);
     return Promise.resolve(data);
   })
   .catch((error) => {

@@ -13,6 +13,7 @@ import AccountLogin from './components/account/Login';
 import AccountLogout from './components/account/Logout';
 import AccountPasswordReset from './components/account/PasswordReset';
 import AccountSettings from './components/account/Settings';
+import AccountRefreshToken from './components/account/RefreshToken';
 
 import UserDetail from './components/user/UserDetail';
 import UserFollowers from './components/user/UserFollowers';
@@ -22,11 +23,13 @@ import CategoryList from './components/category/CategoryList';
 import CategoryDetail from './components/category/CategoryDetail';
 
 import TopicCreate from './components/topic/TopicCreate';
-import TopicList from './components/topic/TopicList';
 import TopicDetail from './components/topic/TopicDetail';
+import TopicEdit from './components/topic/TopicEdit';
+import TopicList from './components/topic/TopicList';
 
 import ArticleCreate from './components/article/ArticleCreate';
 import ArticleDetail from './components/article/ArticleDetail';
+import ArticleEdit from './components/article/ArticleEdit';
 
 import TagList from './components/tag/TagList';
 import TagDetail from './components/tag/TagDetail';
@@ -89,6 +92,10 @@ export default {
         name: 'topic_detail',
         component: TopicDetail,
       },
+      '/topics/:id/edit': {
+        name: 'topic_edit',
+        component: TopicEdit,
+      },
       '/articles/create': {
         name: 'article_create',
         component: ArticleCreate,
@@ -96,6 +103,10 @@ export default {
       '/articles/:id': {
         name: 'article_detail',
         component: ArticleDetail,
+      },
+      '/articles/:id/edit': {
+        name: 'article_edit',
+        component: ArticleEdit,
       },
       '/tags': {
         name: 'tag_list',
@@ -106,6 +117,7 @@ export default {
         component: TagDetail,
       },
       '/notifications': {
+        name: 'notification_list',
         component: NotificationList,
       },
       '*': {
@@ -127,6 +139,10 @@ export default {
       },
       '/password_reset': {
         component: AccountPasswordReset,
+      },
+      '/refresh_token': {
+        name: 'account_refresh_token',
+        component: AccountRefreshToken,
       },
     },
   },

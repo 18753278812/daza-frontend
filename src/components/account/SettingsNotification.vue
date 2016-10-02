@@ -108,7 +108,7 @@
         </div>
       </fieldset>
       <hr>
-      <h5>
+      <!-- <h5>
         邮件设置<br>
         <small class="text-muted">你可以在这里设置是否接收邮件。</small>
       </h5>
@@ -146,7 +146,7 @@
           </div>
         </div>
       </div>
-      <hr>
+      <hr> -->
       <div class="form-group">
         <button type="submit" class="btn btn-primary">保存</button>
       </div>
@@ -155,6 +155,7 @@
 </template>
 
 <script>
+import toastr from 'toastr';
 import { auth } from '../../vuex/getters';
 import { updateProfile, updateConfigs } from '../../vuex/actions';
 
@@ -183,20 +184,18 @@ export default {
     };
   },
   ready() {
-    this.auth.user.configs.forEach((value) => {
-      this.params[value.key] = value.value;
-    });
-    console.log(this.params);
-    // this.params.notification_followed = this.auth.user.configs['notification_followed'];
-    // this.params.notification_subscribed = this.auth.user.configs['notification_subscribed'];
-    // this.params.notification_upvoted = this.auth.user.configs['notification_upvoted'];
-    // this.params.notification_comment = this.auth.user.configs['notification_comment'];
-    // this.params.notification_mention = this.auth.user.configs['notification_mention'];
+    const configs = this.auth.configs;
+    if (configs instanceof Array) {
+      configs.forEach((value) => {
+        this.params[value.key] = value.value;
+      });
+    }
   },
   methods: {
     submit() {
-      console.log(this.params);
-      this.updateConfigs(this.params);
+      this.updateConfigs(this.params).then(() => {
+        toastr.success('消息设置修改成功');
+      });
     },
   },
 };

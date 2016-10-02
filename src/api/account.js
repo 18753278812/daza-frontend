@@ -28,20 +28,10 @@ export default {
   },
   updateConfigs(params) {
     const req = Vue.http.put('account/configs', params);
-    return req.then((response) => {
-      if (response.ok) {
-        return Promise.resolve(response.data.data);
-      }
-      return Promise.reject(new Error('error'));
-    });
+    return req.then((response) => Promise.resolve(response.data));
   },
   passwordModify(params) {
     const req = Vue.http.post('account/password_modify', params);
-    return req.then((response) => {
-      if (response.ok) {
-        return Promise.resolve(response.data.data);
-      }
-      return Promise.reject(new Error('error'));
-    });
+    return req.then((response) => Promise.resolve(response.data));
   },
 };

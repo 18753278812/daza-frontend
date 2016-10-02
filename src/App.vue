@@ -24,12 +24,14 @@ export default {
     };
   },
   ready() {
-    // 如果当前用户已经登录，则重新获取用户资料及Token
     if (this.auth.check()) {
-      // this.getProfile().then(() => {
-      this.getNotificationCounts().then(() => {
-      });
-      // });
+      const expiresIn = this.auth.jwt_token.expires_in;
+      if (Math.floor(Date.now() / 1000) > expiresIn) {
+        this.$route.router.go('/account/refresh_token');
+        return;
+      }
+      // 获取未读通知数
+      this.getNotificationCounts();
     }
   },
 };
@@ -58,10 +60,18 @@ html, body {
     margin-top: 0.3rem;
     margin-bottom: 0.3rem;
   }
+  .data-empty {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    div > p {
+      margin-bottom: 0;
+    }
+  }
   // 文章列表
   .article-list {
     list-style-type: none;
     padding: 0;
+    margin: 0;
     > .entry {
       a {
         color: #424242;
@@ -80,14 +90,28 @@ html, body {
       }
       .image {
         float: right;
-        padding-left: 5px;
+        margin-left: 5px;
+        width: 120px;
+        height: 68px;
+        position: relative;
+        overflow: hidden;
+        border-radius: .3rem;
         img {
-          width: 120px;
-          height: 68px;
+          position: absolute;
+          width: 100%;
+          top: 50%;
+          -ms-transform: translateY(-50%);
+          -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
         }
       }
       .extra {
         margin-top: 8px;
+      }
+    }
+    > .entry:last-child {
+      hr {
+        margin-bottom: 5px;
       }
     }
   }
@@ -193,17 +217,5 @@ html, body {
       width: 980px;
     }
   }
-}
-
-#alert {
-  position: fixed;
-  max-width: 400px;
-  margin-left: 12px;
-  top: 12px;
-  right: 12px;
-  z-index: 9999;
-     -moz-box-shadow: 0 0 12px #999999;
-  -webkit-box-shadow: 0 0 12px #999999;
-          box-shadow: 0 0 12px #999999;
 }
 </style>

@@ -4,7 +4,7 @@
       <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-8">
-            <h3>发表文章</h3>
+            <h3>编辑文章</h3>
           </div>
           <div class="col-sm-4 text-sm-right">
             <button type="button" class="btn btn-secondary btn-sm" v-on:click="toggleExtraInputs()">显示更多填写内容</button>
@@ -75,6 +75,7 @@
                 multiple="multiple"
                 v-select2="params.tags"
                 tags="true">
+                <option v-for="tag in data.tags" track-by="name" :value="tag.name">{{ tag.name }}</option>
               </select>
             </div>
             <div class="form-group" v-if="data.extra_showed">
@@ -131,7 +132,7 @@ import shortid from 'shortid';
 import NProgress from 'nprogress';
 import AssetManagerDialog from '../asset/AssetManagerDialog';
 import { auth } from '../../vuex/getters';
-import { getUserTopics, articleCreate } from '../../vuex/actions';
+import { getUserTopics, articleShow, articleUpdate } from '../../vuex/actions';
 
 export default {
   vuex: {
@@ -140,7 +141,8 @@ export default {
     },
     actions: {
       getUserTopics,
-      articleCreate,
+      articleShow,
+      articleUpdate,
     },
   },
   components: {
@@ -150,6 +152,7 @@ export default {
     return {
       data: {
         topics: [],
+        tags: [],
         extra_showed: false,
       },
       rules: {
@@ -187,10 +190,37 @@ export default {
       this.data.topics = data.data;
       NProgress.done();
     });
+    const articleId = this.$route.params.id;
+    this.articleShow(articleId).then(data => {
+      const article = data.data;
+      const tags = [];
+      if (article.tags != null) {
+        this.data.tags = article.tags;
+        article.tags.forEach((value) => {
+          tags.push(value.name);
+        });
+      }
+      this.params = {
+        short_id: article.short_id,
+        topic_id: article.topic_id,
+        type: article.type,
+        title: article.title,
+        summary: article.summary,
+        content_format: article.content_format,
+        content: article.content,
+        image_url: article.image_url,
+        tags,
+        location: article.location,
+        longitude: article.longitude,
+        latitude: article.latitude,
+      };
+      // this.params.topic_id = article.topic_id;
+    });
   },
   methods: {
     submit() {
-      this.articleCreate(this.params).then((data) => {
+      const articleId = this.$route.params.id;
+      this.articleUpdate(articleId, this.params).then((data) => {
         if (data) {
           this.$route.router.go('/');
         }

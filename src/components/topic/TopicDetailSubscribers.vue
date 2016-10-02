@@ -8,15 +8,15 @@
           </div>
           <div class="content">
             <div style="margin: 0;">
-              <a class="name" v-link="{ name: 'user_detail', params: { subscriber: subscriber.user.id } }">{{ subscriber.user.name }}</a>
+              <a class="name" v-link="{ name: 'user_detail', params: { id: subscriber.user.id } }">{{ subscriber.user.name }}</a>
             </div>
           </div>
           <hr>
         </div>
       </div>
-      <div class="row">
+      <div class="row data-empty" v-if="data.subscribers.length == 0">
         <div class="col-sm-12">
-          <p class="text-xs-center" v-if="data.subscribers.length == 0">空空如也</p>
+          <p class="text-xs-center">空空如也</p>
         </div>
       </div>
       <!-- 分页导航 -->
@@ -62,7 +62,6 @@ export default {
     const topicId = this.$route.params.id;
     NProgress.start();
     this.getTopicSubscriberList(topicId).then(data => {
-      console.log(data);
       this.data.subscribers = data.data;
       this.data.pagination = data.pagination;
       NProgress.done();

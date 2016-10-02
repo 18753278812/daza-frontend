@@ -15,7 +15,11 @@
           <h4 class="modal-title" id="shortcut-cheat-sheet-label">键盘快捷键</h4>
         </div>
         <div class="modal-body">
-          ...
+          <div class="row">
+            <div class="col-sm-12 text-xs-center">
+              <p>功能开发中，敬请期待</p>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
@@ -29,8 +33,16 @@
 import MainNavbar from '../../components/_wrapper/MainNavbar';
 import MainFooter from '../../components/_wrapper/MainFooter';
 import daovoice from 'daovoice';
+import { auth } from '../../vuex/getters';
 
 export default {
+  vuex: {
+    getters: {
+      auth,
+    },
+    actions: {
+    },
+  },
   components: {
     'navbar-view': MainNavbar,
     'footer-view': MainFooter,
@@ -40,10 +52,20 @@ export default {
     };
   },
   ready() {
-    daovoice('init', {
+    const options = {
       app_id: process.env.DAOVOICE_APPID,
-    });
-
+    };
+    // 如果用户已经登录，传入用户信息到 DaoVoice
+    if (this.auth.check()) {
+      const user = this.auth.user;
+      Object.assign(options, {
+        user_id: String(user.id),
+        email: user.email,
+        name: user.name,
+        signed_up: Math.floor(new Date(user.created_at).getTime() / 1000),
+      });
+    }
+    daovoice('init', options);
     daovoice('update');
   },
 };

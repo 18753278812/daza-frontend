@@ -19,6 +19,7 @@
               class="btn btn-sm btn-secondary"
               data-toggle="modal"
               data-target="#asset-manager-dialog"
+              href="javascript:void();"
               >选择头像</a>
             <div class="form-check">
               <label class="form-check-label">
@@ -111,13 +112,14 @@
   <!-- Asset manager dialog -->
   <asset-manager-dialog
     :target_type="'user'"
-    :target_id="auth.user.id"
+    :target_id="data.user_id"
     :callback="onAssetSelected"
     ></asset-manager-dialog>
 </template>
 
 <script>
 import $ from 'jquery';
+import toastr from 'toastr';
 import { auth } from '../../vuex/getters';
 import { updateProfile } from '../../vuex/actions';
 import AssetManagerDialog from '../asset/AssetManagerDialog';
@@ -133,6 +135,9 @@ export default {
   },
   data() {
     return {
+      data: {
+        user_id: String(this.auth.user.id),
+      },
       rules: {
         name: { required: true },
         city: { required: true },
@@ -160,7 +165,7 @@ export default {
   methods: {
     submit() {
       this.updateProfile(this.params).then(() => {
-        // this.$route.router.go('/');
+        toastr.success('基本资料修改成功');
       });
     },
     onAssetSelected(asset) {

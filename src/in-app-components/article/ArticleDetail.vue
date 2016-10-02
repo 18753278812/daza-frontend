@@ -32,7 +32,8 @@
           <p>{{ data.article.summary }}</p>
           <a :href="data.article.link" target="_blank">立即跳转到文章</a>
         </blockquote>
-        <p class="article-content">{{{ data.article.content }}}</p>
+        <p class="article-content" v-if="data.article.content_format === 'html'">{{{ data.article.content }}}</p>
+        <p class="article-content" v-if="data.article.content_format === 'markdown'">{{{ data.article.content | commonmark }}}</p>
         <p>
           <div class="row">
             <div class="col-xs-12">
@@ -146,8 +147,8 @@ export default {
   ready() {
     const articleId = this.$route.params.id;
     this.articleShow(articleId).then(data => {
-      this.data.article = data;
-      this.data.topic = data.topic;
+      this.data.article = data.data;
+      this.data.topic = data.data.topic;
     });
     this.loadComments(1);
   },

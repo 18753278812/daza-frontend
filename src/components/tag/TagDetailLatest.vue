@@ -3,7 +3,7 @@
     <div class="col-sm-12">
       <!-- 文章列表 -->
       <ul class="article-list">
-        <li class="entry" v-for="data in data.articles">
+        <li class="entry" v-for="data in data.lists">
           <div class="row">
             <div class="col-sm-12">
               <div class="content" v-bind:class="{ haveimage: data.image_url !== '' }">
@@ -17,8 +17,6 @@
           <div class="row extra">
             <div class="col-xs-8">
               <small class="text-muted">{{ data.published_at | moment }}</small>
-              <small v-if="data.type === 'original' && data.user_id == auth.id" class="text-muted"> · </small>
-              <a v-if="data.type === 'original' && data.user_id == auth.id" v-link="{ name: 'article_edit', params: { id: data.id } }"><small class="text-muted">编辑</small></a>
             </div>
             <div class="col-xs-4 text-xs-right">
               <small class="text-muted">{{ data.comment_count }}评论</small>
@@ -29,13 +27,13 @@
           <hr>
         </li>
       </ul>
-      <div class="row data-empty" v-if="data.articles.length == 0">
+      <div class="row data-empty" v-if="data.lists.length == 0">
         <div class="col-sm-12">
           <p class="text-xs-center">空空如也</p>
         </div>
       </div>
       <!-- 分页导航 -->
-      <vue-pagination :pagination="data.pagination" :callback="loadArticles"></vue-pagination>
+      <vue-pagination :pagination="data.pagination" :callback="pageChanged"></vue-pagination>
     </div>
   </div>
 </template>
@@ -44,7 +42,7 @@
 import $ from 'jquery';
 import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
-import { getTopicArticleList } from '../../vuex/actions';
+import { getTagArticleList } from '../../vuex/actions';
 import VuePagination from '../_common/VuePagination';
 
 export default {
@@ -53,42 +51,50 @@ export default {
       auth,
     },
     actions: {
-      getTopicArticleList,
+      getTagArticleList,
     },
   },
   data() {
     return {
       data: {
-        articles: [],
-        pagination: {
-          per_page: 15,
-          current_page: 1,
-          last_page: 0,
-        },
+        page: 1,
+        tagName: null,
+        lists: [],
+        pagination: {},
       },
     };
   },
   watch: {
-    'data.articles': () => {
+    'data.lists': () => {
       $('img.lazy').lazyload();
     },
   },
   ready() {
-    this.loadArticles(1);
+    this.data.page = this.$route.query.page;
+    this.data.tagName = this.$route.params.tag_name;
+    this.load(this.data.page);
   },
   components: {
     VuePagination,
   },
   methods: {
-    loadArticles(page) {
+    load(page) {
       window.scrollTo(0, 0);
-      const topicId = this.$route.params.id;
+      const tagName = this.$route.params.name;
       NProgress.start();
-      this.getTopicArticleList(topicId, page).then(data => {
-        this.data.articles = data.data;
+      this.getTagArticleList(tagName, page).then(data => {
+        this.data.lists = data.data;
         this.data.pagination = data.pagination;
         NProgress.done();
       });
+    },
+    pageChanged(page) {
+      this.data.page = page;
+      const query = { page: this.data.page };
+      const params = { tag_name: this.data.tagName };
+
+      this.$route.router.go({ name: 'tag_detail', query, params });
+      this.load(this.data.page);
     },
   },
 };

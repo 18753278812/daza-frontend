@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-12 col-md-8">
         <h4>{{ data.article.title }}</h4>
         <div class="row">
           <div class="col-xs-9">
@@ -13,6 +13,7 @@
           </div>
           <div class="col-xs-3 text-xs-right">
             <a v-if="data.article.type === 'feed'" v-bind:href="data.article.link" target="_blank"><small class="text-muted">阅读原文</small></a>
+            <a v-if="data.article.type === 'original' && data.article.user_id == auth.id" v-link="{ name: 'article_edit', params: { id: data.article.id } }"><small class="text-muted">编辑</small></a>
           </div>
         </div>
         <div class="row article-content-top-topic" style="margin-top: 15px;">
@@ -31,7 +32,8 @@
           <p>{{ data.article.summary }}</p>
           <a :href="data.article.link" target="_blank">立即跳转到文章</a>
         </blockquote>
-        <p class="article-content">{{{ data.article.content }}}</p>
+        <p class="article-content" v-if="data.article.content_format === 'html'">{{{ data.article.content }}}</p>
+        <p class="article-content" v-if="data.article.content_format === 'markdown'">{{{ data.article.content | commonmark }}}</p>
         <div class="row">
           <div class="col-xs-12">
             <h5 v-for="tag in data.article.tags" style="display: inline;">
@@ -57,7 +59,11 @@
         <div id="comments" class="row">
           <div class="col-sm-12">
             <p class="text-xs-left" v-if="data.comments.length > 0">{{ data.article.comment_count }}条精彩回复</p>
-            <p class="text-xs-center" v-if="data.comments.length == 0">空空如也</p>
+          </div>
+        </div>
+        <div class="row data-empty" v-if="data.comments.length == 0">
+          <div class="col-sm-12">
+            <p class="text-xs-center">空空如也</p>
           </div>
         </div>
         <div class="row">
@@ -121,7 +127,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-12 col-md-4">
         <div class="row article-content-side-topic">
           <div class="col-xs-12">
             <div class="row">
@@ -215,8 +221,10 @@ export default {
   },
   computed: {
     mailToReport() {
-      const reportEmail = process.env.EMAIL_REPORT;
-      return `mailto:${reportEmail}?subject=[举报文章] ${this.data.article.title}`;
+      const email = process.env.EMAIL_REPORT;
+      const subject = `举报文章 -《${this.data.article.title}》`;
+      const body = `ID: ${this.data.article.id}%0D%0A标题：${this.data.article.title}%0D%0A原因：-`;
+      return `mailto:${email}?subject=${subject}&body=${body}`;
     },
   },
   methods: {

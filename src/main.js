@@ -5,12 +5,12 @@ import VueRouter from 'vue-router';
 import VueValidator from 'vue-validator';
 import VueResource from 'vue-resource';
 import $ from 'jquery';
+import toastr from 'toastr';
 
 import routes from './routes';
 import locales from './lang';
 
-// import store from './vuex/store';
-// import { unauthorized } from './vuex/actions';
+import store from './vuex/store';
 
 import App from './App';
 
@@ -40,6 +40,10 @@ Vue.http.interceptors.push({
     return request;
   },
   response(response) {
+    if (response.status === 400 || response.status === 401) {
+      // 当 Token 已经失效时，清空所有保存在 localStorage 的数据
+      localStorage.clear();
+    }
     return response;
   },
 });
@@ -49,16 +53,27 @@ Vue.validator('email', (val) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.
 // Register url validator function.
 Vue.validator('url', (val) => /^(http\u003a\/\/|https\u003a\/\/)(.{4,})$/.test(val));
 
+toastr.options.timeOut = 1000;
+toastr.options.extendedTimeOut = 3000;
+
 // 自定义指令
 $.fn.select2.defaults.set('theme', 'bootstrap');
 $.fn.select2.defaults.set('language', 'zh-CN');
 Vue.directive('select2', {
+  deep: true,
   twoWay: true,
   priority: 1000,
-  params: ['options'],
+  params: ['placeholder', 'tags'],
   bind() {
+    // params 突然无法直接传递 JSON，修改为单个配置!!!
     const self = this;
-    const options = this.params.options;
+    const options = {};
+    if (this.params.placeholder) {
+      Object.assign(options, { placeholder: this.params.placeholder });
+    }
+    if (this.params.tags) {
+      Object.assign(options, { tags: this.params.tags });
+    }
     $(this.el)
       .select2(options)
       .on('change', () => {
@@ -75,6 +90,8 @@ Vue.directive('select2', {
 
 // 自定义过滤器
 Vue.filter('moment', require('./filters/moment'));
+Vue.filter('commonmark', require('./filters/commonmark'));
+Vue.filter('thumbnail', require('./filters/thumbnail'));
 
 // 创建一个路由器实例
 const router = new VueRouter({
@@ -93,4 +110,7 @@ router.redirect({
 
 // 现在我们可以启动应用了！
 // 路由器会创建一个 App 实例，并且挂载到选择符 app 匹配的元素上。
-router.start(App, 'app');
+router.start({
+  components: { App },
+  store,
+}, 'body');

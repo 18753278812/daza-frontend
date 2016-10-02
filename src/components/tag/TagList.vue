@@ -9,10 +9,10 @@
         </div>
         <hr>
         <div class="row tag-list">
-          <div class="col-sm-3" v-for="tag in tags">
-            <div class="image">
+          <div class="col-sm-4 col-md-3" v-for="tag in tags">
+            <!-- <div class="image">
               <img class="lazy img-rounded" :data-original="tag.image_url">
-            </div>
+            </div> -->
             <div class="content">
               <div style="margin: 0;">
                 <a class="name" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</a>
@@ -22,6 +22,13 @@
             <hr>
           </div>
         </div>
+        <div class="row data-empty" v-if="tags.length == 0">
+          <div class="col-sm-12">
+            <p class="text-xs-center">空空如也</p>
+          </div>
+        </div>
+        <!-- 分页导航 -->
+        <vue-pagination :pagination="data.pagination" :callback="loadTags"></vue-pagination>
       </div>
     </div>
   </div>
@@ -46,13 +53,15 @@ export default {
   },
   data() {
     return {
-      pagination: {
-        total: 0,
-        per_page: 15,
-        current_page: 1,
-        last_page: 0,
-        from: null,
-        to: null,
+      data: {
+        pagination: {
+          total: 0,
+          per_page: 15,
+          current_page: 1,
+          last_page: 0,
+          from: null,
+          to: null,
+        },
       },
     };
   },
@@ -62,17 +71,20 @@ export default {
     },
   },
   ready() {
-    // 加载最新主题
-    NProgress.start();
-    this.getTagList(1).then(data => {
-      this.pagination = data.pagination;
-      NProgress.done();
-    });
+    this.loadTags(1);
   },
   components: {
     VuePagination,
   },
   methods: {
+    loadTags(page) {
+      window.scrollTo(0, 0);
+      NProgress.start();
+      this.getTagList(page).then(data => {
+        this.data.pagination = data.pagination;
+        NProgress.done();
+      });
+    },
   },
 };
 </script>
