@@ -5,12 +5,12 @@ import VueRouter from 'vue-router';
 import VueValidator from 'vue-validator';
 import VueResource from 'vue-resource';
 import $ from 'jquery';
+import toastr from 'toastr';
 
 import routes from './routes';
 import locales from './lang';
 
 import store from './vuex/store';
-// import { unauthorized } from './vuex/actions';
 
 import App from './App';
 
@@ -40,10 +40,9 @@ Vue.http.interceptors.push({
     return request;
   },
   response(response) {
-    if (response.statusCode === 401) {
-      localStorage.removeItem('auth.id');
-      localStorage.removeItem('auth.user');
-      localStorage.removeItem('auth.jwt_token');
+    if (response.status === 400 || response.status === 401) {
+      // 当 Token 已经失效时，清空所有保存在 localStorage 的数据
+      localStorage.clear();
     }
     return response;
   },
@@ -53,6 +52,9 @@ Vue.http.interceptors.push({
 Vue.validator('email', (val) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(val));
 // Register url validator function.
 Vue.validator('url', (val) => /^(http\u003a\/\/|https\u003a\/\/)(.{4,})$/.test(val));
+
+toastr.options.timeOut = 1000;
+toastr.options.extendedTimeOut = 3000;
 
 // 自定义指令
 $.fn.select2.defaults.set('theme', 'bootstrap');

@@ -26,6 +26,10 @@ export default {
       setTimeout(() => {
         this.$route.router.go('/');
       }, 600);
+    }).catch(() => {
+      setTimeout(() => {
+        this.$route.router.go('/account/login');
+      }, 600);
     });
   },
 };

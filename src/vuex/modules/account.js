@@ -33,15 +33,12 @@ export default {
       localStorage.setItem('auth.configs', JSON.stringify(user.configs));
     },
     [LOGOUT_SUCCESS](state) {
-      Object.assign(state, { auth: { id: 0, user: null } });
-      localStorage.removeItem('auth.id');
-      localStorage.removeItem('auth.user');
-      localStorage.removeItem('auth.jwt_token');
+      Object.assign(state, { auth: { id: 0, user: null, jwt_token: null, configs: [] } });
+      localStorage.clear();
     },
     [UPDATE_PROFILE_SUCCESS](state, user) {
       const auth = { id: user.id, user };
       Object.assign(state, { auth });
-      localStorage.setItem('auth.id', user.id);
       localStorage.setItem('auth.user', JSON.stringify(user));
     },
     [UPDATE_CONFIGS_SUCCESS](state, configs) {
