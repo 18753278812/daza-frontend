@@ -19,7 +19,7 @@
                   style="width: 180px; height: 180px;"
                   data-toggle="modal"
                   data-target="#asset-manager-dialog"
-                  :data-original="params.image_url">
+                  :data-original="params.image_url | thumbnail">
               </div>
             </div>
             <div class="form-group">
