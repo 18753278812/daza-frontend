@@ -182,10 +182,8 @@ html, body {
           width: calc(100% - 105px);
         }
         .image {
-          img {
-            width: 100px;
-            height: 56px;
-          }
+          width: 100px;
+          height: 56px;
         }
       }
     }

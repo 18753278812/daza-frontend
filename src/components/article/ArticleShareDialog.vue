@@ -42,7 +42,7 @@
                   class="form-control"
                   type="text"
                   name="title"
-                  placeholder="请填写不小于6个字符的标题。"
+                  placeholder="请填写不小于2个字符的标题。"
                   v-model="params.title"
                   v-validate:title="rules.title">
               </div>
@@ -53,7 +53,7 @@
                   class="form-control"
                   rows="3"
                   name="summary"
-                  placeholder="请填写不小于16个字符的摘要。"
+                  placeholder="请填写不小于2个字符的摘要。"
                   v-model="params.summary"
                   v-validate:summary="rules.summary"></textarea>
               </div>
@@ -109,9 +109,9 @@ export default {
       },
       rules: {
         topic_id: { required: true },
-        title: { required: true, minlength: 6 },
+        title: { required: true, minlength: 2 },
         link: { required: true, url: true },
-        summary: { required: true, minlength: 16 },
+        summary: { required: true, minlength: 2 },
       },
       params: {
         topic_id: '',

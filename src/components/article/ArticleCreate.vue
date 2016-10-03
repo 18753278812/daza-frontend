@@ -26,7 +26,7 @@
                   style="width: 180px; height: 180px;"
                   data-toggle="modal"
                   data-target="#asset-manager-dialog"
-                  :data-original="params.image_url">
+                  :data-original="params.image_url | thumbnail">
               </div>
             </div>
             <div class="form-group">
@@ -61,7 +61,7 @@
                 class="form-control"
                 rows="15"
                 name="content"
-                placeholder="请写入 Markdown（本站使用了 CommonMark 规范） 格式的正文，并且不能小于16个字符。"
+                placeholder="请写入 Markdown（本站使用了 CommonMark 规范） 格式的正文，并且不能小于2个字符。"
                 v-model="params.content"
                 v-validate:email="rules.content"></textarea>
             </div>
@@ -155,7 +155,7 @@ export default {
       rules: {
         topic_id: { required: true },
         title: { required: true, minlength: 2 },
-        content: { required: true, minlength: 16 },
+        content: { required: true, minlength: 2 },
         location: {},
         longitude: {},
         latitude: {},

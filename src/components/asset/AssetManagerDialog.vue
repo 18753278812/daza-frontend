@@ -37,7 +37,7 @@
                   <div class="caption">
                   </div>
                   <div class="image">
-                    <img class="lazy img-thumbnail" style="width: 100%; height: 100%;" :data-original="asset.url" :alt="asset.url">
+                    <img class="lazy img-thumbnail" style="width: 100%; height: 100%;" :data-original="asset.url | thumbnail" :alt="asset.url">
                   </div>
                 </a>
               </div>
