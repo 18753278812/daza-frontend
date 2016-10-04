@@ -19,7 +19,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            <img class="lazy img-circle" :data-original="auth.user.avatar_url" style="width: 1.3rem; height: 1.3rem"> {{ auth.user.name }}
+            <img class="lazy img-circle" :data-original="auth.user.avatar_url | thumbnail 25" style="width: 1.3rem; height: 1.3rem"> {{ auth.user.name }}
           </a>
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" v-link="{ name: 'user_detail', params: { id: auth.id } }">查看个人主页</a>

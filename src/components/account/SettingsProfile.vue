@@ -13,7 +13,7 @@
           <img
             class="lazy img-thumbnail"
             style="width: 80px; height: 80px; float: left"
-            :data-original="params.avatar_url">
+            :data-original="params.avatar_url | thumbnail">
           <div style="margin-top: 10px; margin-left: 10px; float: left">
             <a
               class="btn btn-sm btn-secondary"
