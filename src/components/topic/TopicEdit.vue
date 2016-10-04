@@ -96,7 +96,7 @@
                 class="form-control"
                 rows="3"
                 name="description"
-                placeholder="请填写不小于10个字符的描述。"
+                placeholder="请填写不小于2个字符的描述。"
                 v-model="params.description"
                 v-validate:description="rules.description"></textarea>
             </div>
@@ -153,7 +153,7 @@ export default {
         source_format: { },
         source_link: { },
         name: { required: true, minlength: 2 },
-        description: { required: true, minlength: 10 },
+        description: { required: true, minlength: 2 },
         website: { },
       },
       params: {
