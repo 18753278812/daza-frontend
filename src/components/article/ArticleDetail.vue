@@ -12,7 +12,7 @@
             <small class="text-muted">{{ data.article.view_count }}阅读</small>
           </div>
           <div class="col-xs-3 text-xs-right">
-            <a v-if="data.article.type === 'feed'" v-bind:href="data.article.link" target="_blank"><small class="text-muted">阅读原文</small></a>
+            <a v-if="data.article.type === 'feed' && data.article.content !== ''" v-bind:href="data.article.link" target="_blank"><small class="text-muted">阅读原文</small></a>
             <a v-if="data.article.type === 'original' && data.article.user_id == auth.id" v-link="{ name: 'article_edit', params: { id: data.article.id } }"><small class="text-muted">编辑</small></a>
           </div>
         </div>
@@ -28,8 +28,8 @@
           </div>
         </div>
         <hr style="margin-top: 0;">
-        <blockquote class="blockquote" v-if="data.article.type === 'share'">
-          <p>{{ data.article.summary }}</p>
+        <blockquote class="blockquote" v-if="data.article.type === 'share' || (data.article.type === 'feed' && data.article.content === '')">
+          <p>{{{ data.article.summary }}}</p>
           <a :href="data.article.link" target="_blank">立即跳转到文章</a>
         </blockquote>
         <p class="article-content" v-if="data.article.content_format === 'html'">{{{ data.article.content }}}</p>
