@@ -14,7 +14,7 @@
         </div>
         <div class="row" style="margin-top: 15px; ">
           <div class="col-xs-8">
-            <a href="#">
+            <a href="daza://topics/{{ data.topic.id }}">
               <img class="img-circle lazy" :data-original="data.topic.image_url" style="width: 1.8rem; height: 1.8rem; margin-right: 5px;">{{ data.topic.name }}
             </a>
           </div>
@@ -37,9 +37,9 @@
         <p>
           <div class="row">
             <div class="col-xs-12">
-              <span v-for="tag in data.article.tags">
-                <span class="tag tag-default">{{ tag.name }}</span>
-              </span>
+            <h5 v-for="tag in data.article.tags" style="display: inline;">
+              <span class="tag tag-default" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</span>
+            </h5>
             </div>
           </div>
         </p>
@@ -52,10 +52,14 @@
           </div>
         </div>
         <hr>
-        <div class="row">
+        <div id="comments" class="row">
           <div class="col-sm-12">
             <p class="text-xs-left" v-if="data.comments.length > 0">{{ data.article.comment_count }}条精彩回复</p>
-            <p class="text-xs-center" v-if="data.comments.length == 0">空空如也</p>
+          </div>
+        </div>
+        <div class="row data-empty" v-if="data.comments.length == 0">
+          <div class="col-sm-12">
+            <p class="text-xs-center">空空如也</p>
           </div>
         </div>
         <div class="row">
@@ -68,18 +72,20 @@
                   </a>
                 </div>
                 <div class="content">
-                  <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">{{ comment.user.name }}</a>
+                  <a href="daza://users/{{ comment.user.id }}">{{ comment.user.name }}</a>
                   <p>{{ comment.content }}</p>
                   <div>
                     <small class="text-muted">{{ comment.created_at | moment }}</small>
                     <small class="text-muted"> &nbsp; </small>
-                    <a href="#"><small class="text-muted">回复</small></a>
-                    <small class="text-muted"> · </small>
-                    <a href="#"><small class="text-muted">举报</small></a>
-                    <span v-if="auth.check && auth.user.id === comment.user_id">
+                    <div class="extra" style="display: none;">
+                      <a href="#"><small class="text-muted">回复</small></a>
                       <small class="text-muted"> · </small>
-                      <a href="#"><small class="text-muted red">删除</small></a>
-                    </span>
+                      <a href="#"><small class="text-muted">举报</small></a>
+                      <span v-if="auth.check && auth.user.id === comment.user_id">
+                        <small class="text-muted"> · </small>
+                        <a href="#"><small class="text-muted red">删除</small></a>
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <hr>
@@ -89,7 +95,7 @@
         </div>
         <div class="row" v-if="data.comments.length > 0">
           <div class="col-sm-12">
-            <p class="text-xs-center"><a href="#">查看全部评论</a></p>
+            <p class="text-xs-center"><a href="daza://articles/{{data.article.id}}/comments">查看全部评论</a></p>
           </div>
         </div>
       </div>
@@ -154,9 +160,10 @@ export default {
   },
   computed: {
     mailToReport() {
-      const article = this.data.article;
-      const reportEmail = process.env.EMAIL_REPORT;
-      return `mailto:${reportEmail}?subject=[举报文章] ${article.title}`;
+      const email = process.env.EMAIL_REPORT;
+      const subject = `举报文章 -《${this.data.article.title}》`;
+      const body = `ID: ${this.data.article.id}%0D%0A标题：${this.data.article.title}%0D%0A原因：-`;
+      return `mailto:${email}?subject=${subject}&body=${body}`;
     },
   },
   methods: {
@@ -200,5 +207,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.extra {
+  display: inline-block;
+}
 </style>
