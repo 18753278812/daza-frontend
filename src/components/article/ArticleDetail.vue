@@ -133,7 +133,7 @@
             <div class="row">
               <div class="col-xs-4">
                 <p>
-                  <img class="lazy img-rounded" :data-original="topic.image_url" style="width: 100%; height: auto;">
+                  <img class="lazy img-rounded" :data-original="data.topic.image_url | thumbnail" style="width: 100%; height: auto;">
                 </p>
               </div>
               <div class="col-xs-8" style="padding-left: 0px;">
