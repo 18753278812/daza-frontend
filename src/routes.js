@@ -88,13 +88,13 @@ export default {
         name: 'topic_list',
         component: TopicList,
       },
-      '/topics/:id': {
-        name: 'topic_detail',
-        component: TopicDetail,
-      },
       '/topics/:id/edit': {
         name: 'topic_edit',
         component: TopicEdit,
+      },
+      '/topics/:id/:tab': {
+        name: 'topic_detail',
+        component: TopicDetail,
       },
       '/articles/create': {
         name: 'article_create',
