@@ -32,6 +32,7 @@ module.exports = {
     'moment': 'moment',
     'qiniu': 'Qiniu',
     'plupload': 'plupload',
+    'simplemde': 'SimpleMDE',
   },
   module: {
     preLoaders: [

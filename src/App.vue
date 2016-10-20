@@ -49,6 +49,12 @@ html, body {
   font-size: 14px;
 }
 
+// SimpleMDE
+.CodeMirror-fullscreen,
+.editor-toolbar.fullscreen {
+  z-index: 1050;
+}
+
 #wrapper {
   > .container {
     padding-top: 70px;
