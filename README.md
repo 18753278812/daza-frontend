@@ -56,7 +56,6 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 ## 捐赠作者
 ![](http://obryq3mj0.bkt.clouddn.com/topic/ByRafuLR/r1WH8F90.jpg?imageView2/2/w/480/h/480)
 
-
 ## License
 
     Copyright (C) 2015 JianyingLi <lijy91@foxmail.com>
