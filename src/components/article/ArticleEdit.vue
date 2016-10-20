@@ -130,6 +130,7 @@
 import $ from 'jquery';
 import shortid from 'shortid';
 import NProgress from 'nprogress';
+import SimpleMDE from 'simplemde';
 import AssetManagerDialog from '../asset/AssetManagerDialog';
 import { auth } from '../../vuex/getters';
 import { getUserTopics, articleShow, articleUpdate } from '../../vuex/actions';
@@ -185,6 +186,12 @@ export default {
     },
   },
   ready() {
+    const simplemde = new SimpleMDE({
+      element: document.getElementById('content-input'),
+    });
+    simplemde.codemirror.on('change', () => {
+      this.params.content = simplemde.value();
+    });
     NProgress.start();
     this.getUserTopics(this.auth.id).then((data) => {
       this.data.topics = data.data;
@@ -215,6 +222,7 @@ export default {
         latitude: article.latitude,
       };
       // this.params.topic_id = article.topic_id;
+      simplemde.value(article.content);
     });
   },
   methods: {
