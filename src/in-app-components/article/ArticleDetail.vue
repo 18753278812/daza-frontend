@@ -37,7 +37,7 @@
         <div class="row">
           <div class="col-xs-12">
             <h5 v-for="tag in data.article.tags" style="display: inline;">
-              <span class="tag tag-default" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</span>
+              <span class="tag tag-default" href="daza://tags/{{tag.name}}">{{ tag.name }}</span>
             </h5>
           </div>
         </div>
