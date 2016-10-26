@@ -28,21 +28,20 @@
           </div>
         </div>
         <hr>
-        <blockquote class="blockquote" v-if="data.article.type === 'share'">
-          <p>{{ data.article.summary }}</p>
+        <blockquote class="blockquote" v-if="data.article.type === 'share' || (data.article.type === 'feed' && data.article.content === '')">
+          <p>{{{ data.article.summary }}}</p>
           <a :href="data.article.link" target="_blank">立即跳转到文章</a>
         </blockquote>
         <p class="article-content" v-if="data.article.content_format === 'html'">{{{ data.article.content }}}</p>
         <p class="article-content" v-if="data.article.content_format === 'markdown'">{{{ data.article.content | commonmark }}}</p>
-        <p>
-          <div class="row">
-            <div class="col-xs-12">
+        <div class="row">
+          <div class="col-xs-12">
             <h5 v-for="tag in data.article.tags" style="display: inline;">
-              <span class="tag tag-default" v-link="{ name: 'tag_detail', params: { name: tag.name } }">{{ tag.name }}</span>
+              <span class="tag tag-default" href="daza://tags/{{tag.name}}">{{ tag.name }}</span>
             </h5>
-            </div>
           </div>
-        </p>
+        </div>
+        <p>&nbsp;</p>
         <div class="row">
           <div class="col-xs-6">
             <a :href="mailToReport"><small class="text-muted">举报</small></a>
