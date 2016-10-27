@@ -51,7 +51,7 @@
               <button
                 class="btn btn-sm btn-outline-primary"
                 type="submit"
-                :class="{ 'active': data.article.voted }">&nbsp;&nbsp;&nbsp;赞 ({{ data.article.upvote_count }})&nbsp;&nbsp;&nbsp;</button>
+                :class="{ 'active': data.article.upvoted }">&nbsp;&nbsp;&nbsp;赞 ({{ data.article.upvote_count }})&nbsp;&nbsp;&nbsp;</button>
             </form>
           </div>
         </div>
@@ -260,12 +260,12 @@ export default {
     },
     upvote() {
       const article = this.data.article;
-      if (article.voted) {
+      if (article.upvoted) {
         return;
       }
       this.articleVote(article.id, 'up').then(() => {
         article.upvote_count += 1;
-        article.voted = true;
+        article.upvoted = true;
       });
     },
   },
