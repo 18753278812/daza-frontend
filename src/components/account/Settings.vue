@@ -11,7 +11,7 @@
             <a class="nav-link" data-toggle="tab" href="#password" role="tab">密码</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#notification" role="tab">推送消息设置</a>
+            <a class="nav-link" data-toggle="tab" href="#notification" role="tab">消息设置</a>
           </li>
         </ul>
         <!-- Tab panes -->
