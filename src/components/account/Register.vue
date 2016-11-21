@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       rules: {
-        username: { required: true },
+        username: { required: true, minlength: 4, maxlength: 32 },
         email: { required: true, email: true },
         password: { required: true, minlength: 6, maxlength: 32 },
         accepted: { required: true },
