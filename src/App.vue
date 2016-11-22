@@ -24,10 +24,6 @@ export default {
     };
   },
   created() {
-    // 如果是生产环境，将默认跳转至 https
-    if (process.env.NODE_ENV === 'production' && window.location.protocol !== 'https:') {
-      window.location = window.location.href.replace('http://', 'https://');
-    }
   },
   ready() {
     if (this.auth.check()) {
