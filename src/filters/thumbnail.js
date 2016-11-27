@@ -6,7 +6,8 @@ module.exports = (value, size) => {
   if (value === undefined || value === '') {
     return '/static/images/placeholder_image.png';
   // 加入参数七牛的图片处理参数
-  } else if (value.indexOf(process.env.DOMAIN_NAME) > -1 || value.indexOf('clouddn.com') > -1) {
+  } else if (value.indexOf(process.env.DOMAIN_NAME) > -1 ||
+    value.indexOf('clouddn.com') > -1 || value.indexOf('qnssl.com') > -1) {
     if (size !== undefined) {
       width = size;
       height = size;
