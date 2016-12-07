@@ -151,19 +151,6 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- 文章详情侧边栏 -->
-            <ins class="adsbygoogle"
-               style="display:inline-block;width:336px;height:280px"
-               data-ad-client="ca-pub-6049036475236211"
-               data-ad-slot="1942448283"></ins>
-            <script>
-            (window.adsbygoogle || []).push({});
-            </script>
-          </div>
-        </div>
       </div>
     </div>
   </div>
