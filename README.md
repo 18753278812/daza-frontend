@@ -1,6 +1,6 @@
 # Daza.io Front-End
 
-> A Vue.js project
+[「daza.io」](https://daza.io)是一款基于技能树的技术内容聚合应用，根据你的技能对内容进行筛选，让你在这个信息过载的时代里更高效地获取你所需的内容。
 
 [![Build Status](https://api.travis-ci.org/lijy91/daza-frontend.svg?branch=master)](https://travis-ci.org/lijy91/daza-frontend)
 
@@ -8,53 +8,55 @@
 - 主页：[https://daza.io](https://daza.io)
 - 接口：[https://api.daza.io](https://api.daza.io)
 
-## 相关项目
-- [daza-backend](https://github.com/lijy91/daza-backend)
-- [daza-frontend](https://github.com/lijy91/daza-frontend)
-- [daza-ios](https://github.com/lijy91/daza-ios)
-- [daza-android](https://github.com/lijy91/daza-android)
+## 项目说明
+> 本项目使用 Vue.js 1.x 进行开发，基于 vue-cli 构建的 SPA 前端项目。
 
-## 演示
-[Live Demo](http://mock-web.daza.io)
-
-## Documentation
+### 项目依赖
 - [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 - [vue.js](http://cn.vuejs.org/guide/)
 - [vue-router](http://vuejs.github.io/vue-router/zh-cn/index.html)
 - [vue-resource](https://github.com/vuejs/vue-resource)
 - [vue-validator](http://vuejs.github.io/vue-validator/zh-cn/index.html)
 
-## Build Setup
+## 入门指南
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+### 克隆项目源码到本地
+```
+$ cd ~/Documents/Projects
+$ git clone git@github.com:lijy91/daza-frontend.git
+$ cd daza-frontend
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### 安装项目依赖
+``` bash
+$ npm install
+$ bower install
+```
 
-## 加入讨论组
-![](http://obryq3mj0.bkt.clouddn.com/topic/ByRafuLR/r1no_q9R.jpg?imageView2/2/w/480/h/480)
+### 运行
+``` bash
+$ npm run dev
+```
 
-> 微信限制，加我微信时请注明加入讨论组。
+> 详情命令请查看 vue-cli 文档。
 
-## 捐赠作者
-![](http://obryq3mj0.bkt.clouddn.com/topic/ByRafuLR/r1WH8F90.jpg?imageView2/2/w/480/h/480)
+## 相关项目
+- [daza-backend](https://github.com/lijy91/daza-backend)
+- [daza-frontend](https://github.com/lijy91/daza-frontend)
+- [daza-ios](https://github.com/lijy91/daza-ios)
+- [daza-android](https://github.com/lijy91/daza-android)
+
+## 关于作者
+
+![](https://oeolgl6y5.qnssl.com/topic/ByRafuLR/r1no_q9R.jpg?imageView2/2/w/200)
+
+> 如果你有什么好想法想告诉我，或者想加入讨论组（注明加入讨论组），请加我微信。
+
+## 捐赠
+
+![](http://obryq3mj0.bkt.clouddn.com/topic/ByRafuLR/r1WH8F90.jpg?imageView2/2/w/200)
+
+> 如果你觉得我的工作对你有帮助，那你可以为项目捐赠运营费用。
 
 ## License
 
