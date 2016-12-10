@@ -12,7 +12,7 @@
 - 接口：[https://api.daza.io](https://api.daza.io)
 
 ## 项目说明
-> 本项目使用 Vue.js 1.x 进行开发，基于 vue-cli 构建的 SPA 前端项目。
+> 本项目使用 Vue.js 1.x 进行开发，基于 [vue-cli](https://github.com/vuejs/vue-cli) 构建的 SPA 前端项目。
 
 ### 项目依赖
 - [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
@@ -41,7 +41,7 @@ $ bower install
 $ npm run dev
 ```
 
-> 详情命令请查看 vue-cli 文档。
+> 详情命令请查看 [vue-cli](https://github.com/vuejs/vue-cli) 文档。
 
 ## 相关项目
 - [daza-backend](https://github.com/lijy91/daza-backend)
