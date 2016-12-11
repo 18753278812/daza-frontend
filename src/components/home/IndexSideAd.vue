@@ -3,7 +3,7 @@
     <div class="col-xs-12">
       <div class="card">
         <div class="image-container">
-          <a v-link="{ name: 'article_detail', params: { id: data.article.id} }" target="_blank">
+          <a href="{{data.article.link}}" target="_blank">
             <img class="lazy card-img-top" :data-original="data.article.image_url | thumbnail 400">
           </a>
         </div>
