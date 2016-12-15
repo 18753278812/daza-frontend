@@ -4,7 +4,7 @@
       <div class="row subscriber-list">
         <div class="col-sm-3" v-for="subscriber in data.subscribers">
           <div class="image">
-            <img class="lazy img-rounded" :data-original="subscriber.user.avatar_url">
+            <img class="img-rounded" v-lazy="subscriber.user.avatar_url | thumbnail">
           </div>
           <div class="content">
             <div style="margin: 0;">
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getTopicSubscriberList } from '../../vuex/actions';
@@ -52,11 +51,6 @@ export default {
         },
       },
     };
-  },
-  watch: {
-    subscribers() {
-      $('img.lazy').lazyload();
-    },
   },
   ready() {
     const topicId = this.$route.params.id;

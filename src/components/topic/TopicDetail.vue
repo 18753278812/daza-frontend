@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-sm-4 col-md-2 col-xs-4">
             <div>
-              <img class="lazy img-rounded" style="width: 100%; height: auto;" :data-original="data.topic.image_url | thumbnail">
+              <img class="img-rounded" style="width: 100%; height: auto;" v-lazy="data.topic.image_url | thumbnail">
             </div>
           </div>
           <div class="col-sm-8 col-md-10 col-xs-8" style="padding-left: 0;">
@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import NProgress from 'nprogress';
 import TopicDetailLatest from './TopicDetailLatest';
 import TopicDetailSubscribers from './TopicDetailSubscribers';
@@ -92,13 +91,7 @@ export default {
       },
     };
   },
-  watch: {
-    'data.topic': () => {
-      $('img.lazy').lazyload();
-    },
-  },
   ready() {
-    $('img.lazy').lazyload();
     const topicId = this.$route.params.id;
     NProgress.start();
     this.topicShow(topicId).then(data => {

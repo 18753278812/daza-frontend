@@ -79,7 +79,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getCategoryList, getArticleList } from '../../vuex/actions';
@@ -112,11 +111,6 @@ export default {
       },
     };
   },
-  watch: {
-    articles() {
-      $('img.lazy').lazyload();
-    },
-  },
   ready() {
     // 加载分类
     if (this.categories.length === 0) {
@@ -143,7 +137,6 @@ export default {
       this.getArticleList(page, slug).then(data => {
         this.data.pagination = data.pagination;
         NProgress.done();
-        $('img.lazy').lazyload();
       });
     },
     pageChanged(page) {

@@ -15,7 +15,7 @@
         <div class="row" style="margin-top: 15px; ">
           <div class="col-xs-8">
             <a href="daza://topics/{{ data.topic.id }}">
-              <img class="img-circle lazy" :data-original="data.topic.image_url" style="width: 1.8rem; height: 1.8rem; margin-right: 5px;">{{ data.topic.name }}
+              <img class="img-circle lazy" v-lazy="data.topic.image_url" style="width: 1.8rem; height: 1.8rem; margin-right: 5px;">{{ data.topic.name }}
             </a>
           </div>
           <div class="col-xs-4 text-xs-right">
@@ -67,7 +67,7 @@
               <li class="entry" v-for="comment in data.comments">
                 <div class="avatar">
                   <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">
-                    <img class="lazy img-circle" :data-original="comment.user.avatar_url">
+                    <img class="img-circle" v-lazy="comment.user.avatar_url">
                   </a>
                 </div>
                 <div class="content">
@@ -103,7 +103,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import { auth } from '../../vuex/getters';
 import {
   topicSubscribe,
@@ -140,14 +139,6 @@ export default {
         content: '',
       },
     };
-  },
-  watch: {
-    'data.topic': () => {
-      $('img.lazy').lazyload();
-    },
-    'data.comments': () => {
-      $('img.lazy').lazyload();
-    },
   },
   ready() {
     const articleId = this.$route.params.id;

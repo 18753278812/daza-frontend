@@ -15,11 +15,11 @@
                   type="hidden"
                   v-model="params.image_url" />
                 <img
-                  class="lazy img-thumbnail text-xs-right"
+                  class="img-thumbnail text-xs-right"
                   style="width: 180px; height: 180px;"
                   data-toggle="modal"
                   data-target="#asset-manager-dialog"
-                  :data-original="params.image_url | thumbnail">
+                  v-lazy="params.image_url | thumbnail">
               </div>
             </div>
             <div class="form-group">
@@ -127,7 +127,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import NProgress from 'nprogress';
 import AssetManagerDialog from '../asset/AssetManagerDialog';
 import { auth } from '../../vuex/getters';
@@ -167,11 +166,6 @@ export default {
         description: '',
       },
     };
-  },
-  watch: {
-    'params.image_url': () => {
-      $('img.lazy').lazyload();
-    },
   },
   ready() {
     // 加载分类

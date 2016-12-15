@@ -11,7 +11,7 @@
         <div class="row tag-list">
           <div class="col-sm-4 col-md-3" v-for="tag in tags">
             <!-- <div class="image">
-              <img class="lazy img-rounded" :data-original="tag.image_url">
+              <img class="img-rounded" v-lazy="tag.image_url">
             </div> -->
             <div class="content">
               <div style="margin: 0;">
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getTagList } from '../../vuex/actions';
@@ -64,11 +63,6 @@ export default {
         },
       },
     };
-  },
-  watch: {
-    tags() {
-      $('img.lazy').lazyload();
-    },
   },
   ready() {
     this.loadTags(1);

@@ -22,11 +22,11 @@
                   type="hidden"
                   v-model="params.image_url" />
                 <img
-                  class="lazy img-thumbnail text-xs-right"
+                  class="img-thumbnail text-xs-right"
                   style="width: 180px; height: 180px;"
                   data-toggle="modal"
                   data-target="#asset-manager-dialog"
-                  :data-original="params.image_url | thumbnail">
+                  v-lazy="params.image_url | thumbnail">
               </div>
             </div>
             <div class="form-group">
@@ -126,7 +126,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import shortid from 'shortid';
 import NProgress from 'nprogress';
 import SimpleMDE from 'simplemde';
@@ -176,11 +175,6 @@ export default {
         latitude: '',
       },
     };
-  },
-  watch: {
-    'params.image_url': () => {
-      $('img.lazy').lazyload();
-    },
   },
   ready() {
     const simplemde = new SimpleMDE({
