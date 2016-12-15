@@ -10,7 +10,7 @@
                 <a class="title" v-link="{ name: 'article_detail', params: { id: data.id } }">{{ data.title }}</a>
               </div>
               <div class="image" v-if="data.image_url">
-                <img class="lazy img-rounded" :data-original="data.image_url | thumbnail">
+                <img class="img-rounded" v-lazy="data.image_url | thumbnail">
               </div>
             </div>
           </div>
@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getTopicArticleList } from '../../vuex/actions';
@@ -67,11 +66,6 @@ export default {
         },
       },
     };
-  },
-  watch: {
-    'data.articles': () => {
-      $('img.lazy').lazyload();
-    },
   },
   ready() {
     this.loadArticles(1);

@@ -4,7 +4,7 @@
       <div class="row topic-list">
         <div class="col-md-12" v-for="topic in data.topics">
           <div class="image">
-            <img class="lazy img-rounded" :data-original="topic.image_url">
+            <img class="img-rounded" v-lazy="topic.image_url">
           </div>
           <div class="content">
             <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getUserTopics } from '../../vuex/actions';
@@ -49,11 +48,6 @@ export default {
         pagination: {},
       },
     };
-  },
-  watch: {
-    topics() {
-      $('img.lazy').lazyload();
-    },
   },
   ready() {
     this.loadTopics(1);

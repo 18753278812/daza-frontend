@@ -18,7 +18,7 @@
         </div>
         <div class="row article-content-top-topic" style="margin-top: 15px;">
           <div class="col-xs-2">
-            <img class="img-circle lazy" :data-original="data.topic.image_url" style="width: 100%; height: auto; margin-right: 5px;">
+            <img class="img-circle lazy" v-lazy="data.topic.image_url" style="width: 100%; height: auto; margin-right: 5px;">
           </div>
           <div class="col-xs-10" style="padding-left: 0;">
             <ul class="list-unstyled">
@@ -72,7 +72,7 @@
               <li class="entry" v-for="comment in data.comments">
                 <div class="avatar">
                   <a v-link="{ name: 'user_detail', params: { id: comment.user.id } }">
-                    <img class="lazy img-circle" :data-original="comment.user.avatar_url">
+                    <img class="img-circle" v-lazy="comment.user.avatar_url">
                   </a>
                 </div>
                 <div class="content">
@@ -133,7 +133,7 @@
             <div class="row">
               <div class="col-xs-4">
                 <p>
-                  <img class="lazy img-rounded" :data-original="data.topic.image_url | thumbnail" style="width: 100%; height: auto;">
+                  <img class="img-rounded" v-lazy="data.topic.image_url | thumbnail" style="width: 100%; height: auto;">
                 </p>
               </div>
               <div class="col-xs-8" style="padding-left: 0px;">
@@ -157,7 +157,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import NProgress from 'nprogress';
 import VuePagination from '../_common/VuePagination';
 import { auth } from '../../vuex/getters';
@@ -201,14 +200,6 @@ export default {
         content: '',
       },
     };
-  },
-  watch: {
-    'data.topic': () => {
-      $('img.lazy').lazyload();
-    },
-    'data.comments': () => {
-      $('img.lazy').lazyload();
-    },
   },
   ready() {
     const articleId = this.$route.params.id;

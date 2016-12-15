@@ -14,7 +14,7 @@
         <div class="row topic-list">
           <div class="col-md-4 col-sm-6" v-for="topic in topics">
             <div class="image">
-              <img class="lazy img-rounded" :data-original="topic.image_url | thumbnail">
+              <img class="img-rounded" v-lazy="topic.image_url | thumbnail">
             </div>
             <div class="content">
               <a class="name" v-link="{ name: 'topic_detail', params: { id: topic.id } }">{{ topic.name }}</a>
@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import NProgress from 'nprogress';
 import { auth } from '../../vuex/getters';
 import { getTopicList } from '../../vuex/actions';
@@ -54,11 +53,6 @@ export default {
         pagination: {},
       },
     };
-  },
-  watch: {
-    topics() {
-      $('img.lazy').lazyload();
-    },
   },
   ready() {
     // 加载最新主题

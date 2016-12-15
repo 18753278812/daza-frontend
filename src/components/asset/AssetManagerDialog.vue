@@ -37,7 +37,7 @@
                   <div class="caption">
                   </div>
                   <div class="image">
-                    <img class="lazy img-thumbnail" style="width: 100%; height: 100%;" :data-original="asset.url | thumbnail" :alt="asset.url">
+                    <img class="img-thumbnail" style="width: 100%; height: 100%;" v-lazy="asset.url | thumbnail" :alt="asset.url">
                   </div>
                 </a>
               </div>
@@ -104,12 +104,6 @@ export default {
     };
   },
   watch: {
-    'data.uploading': () => {
-      $('img.lazy').lazyload();
-    },
-    'data.assets': () => {
-      $('img.lazy').lazyload();
-    },
     target_id(oldValue, value) {
       if (oldValue !== value) {
         this.resetQiniu();
