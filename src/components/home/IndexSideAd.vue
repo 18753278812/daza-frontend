@@ -4,7 +4,7 @@
       <div class="card">
         <div class="image-container">
           <a href="{{data.article.link}}" target="_blank">
-            <img class="lazy card-img-top" :data-original="data.article.image_url | thumbnail 400">
+            <img class="card-img-top" v-lazy="data.article.image_url | thumbnail 400">
           </a>
         </div>
         <div class="card-block">

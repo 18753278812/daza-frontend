@@ -4,6 +4,7 @@ import VueI18n from 'vue-i18n';
 import VueRouter from 'vue-router';
 import VueValidator from 'vue-validator';
 import VueResource from 'vue-resource';
+import VueLazyload from 'vue-lazyload';
 import $ from 'jquery';
 import toastr from 'toastr';
 
@@ -19,6 +20,7 @@ Vue.use(VueI18n);
 Vue.use(VueRouter);
 Vue.use(VueValidator);
 Vue.use(VueResource);
+Vue.use(VueLazyload);
 
 Vue.config.devtools = true;
 
@@ -52,6 +54,13 @@ Vue.http.interceptors.push({
 Vue.validator('email', (val) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(val));
 // Register url validator function.
 Vue.validator('url', (val) => /^(http\u003a\/\/|https\u003a\/\/)(.{4,})$/.test(val));
+
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: 'static/images/placeholder_image.png',
+  loading: 'static/images/placeholder_image.png',
+  attempt: 1,
+});
 
 toastr.options.timeOut = 1000;
 toastr.options.extendedTimeOut = 3000;

@@ -8,7 +8,7 @@
       <ul>
         <li v-for="article in data.lists ">
           <div class="image">
-            <img class="lazy img-rounded" :data-original="article.image_url | thumbnail">
+            <img class="img-rounded" v-lazy="article.image_url | thumbnail">
           </div>
           <div class="content">
             <div class="row">
