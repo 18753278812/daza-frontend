@@ -56,11 +56,8 @@ export default {
   },
   ready() {
     // 加载最新主题
-    NProgress.start();
-    this.getTopicList(1).then(data => {
-      this.data.pagination = data.pagination;
-      NProgress.done();
-    });
+    // NProgress.start();
+    this.loadTopics(1);
   },
   route: {
     canReuse: false,
@@ -70,11 +67,16 @@ export default {
   },
   methods: {
     loadTopics(page) {
+      NProgress.start();
       window.scrollTo(0, 0);
-      const query = {
-        page,
-      };
-      this.$route.router.go({ name: 'topic_list', query });
+      // const query = {
+      //   page,
+      // };
+      this.getTopicList(page).then(data => {
+        this.data.pagination = data.pagination;
+        NProgress.done();
+      });
+      // this.$route.router.go({ name: 'topic_list', query });
     },
   },
 };
