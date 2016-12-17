@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import Navbar from '../components/Navbar';
+import NavbarClean from '../components/NavbarClean';
 
 export default {
   components: {
-    'navbar-view': Navbar,
+    'navbar-view': NavbarClean,
   },
 };
 </script>
