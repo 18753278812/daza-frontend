@@ -1,4 +1,4 @@
-# Daza.io Front-End
+# daza-frontend
 
 [「daza.io」](https://daza.io)是一款基于技能树的技术内容聚合应用，根据你的技能对内容进行筛选，让你在这个信息过载的时代里更高效地获取你所需的内容。
 
