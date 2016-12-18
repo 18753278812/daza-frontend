@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    LOGOUT
+    <div class="row">
+      <div class="col-xs-12">
+        <h3 class="text-xs-center">注销中...</h3>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,5 +17,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>

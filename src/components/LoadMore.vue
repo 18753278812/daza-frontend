@@ -1,11 +1,12 @@
 <template>
-  <div class="container">
-    NotFound
+  <div>
+    LoadMore
   </div>
 </template>
 
 <script>
 export default {
+  name: 'loadmore',
   data() {
     return {
     };
@@ -13,5 +14,5 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 </style>

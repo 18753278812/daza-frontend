@@ -15,5 +15,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+#wrapper {
+  background-color: #FFFFFF;
+}
 </style>

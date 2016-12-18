@@ -1,14 +1,14 @@
 <template>
-  <nav class="navbar navbar-fixed-top navbar-light bg-faded">
+  <nav class="navbar navbar-fixed-top navbar-light bg-white">
     <div class="container">
       <router-link to="/" class="navbar-brand">
         <img alt="Brand" src="../assets/ic_logo_dark.png">
       </router-link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <a class="nav-link">
+          <router-link to="/notifications" class="nav-link">
             通知 <span class="tag tag-pill tag-danger">0</span>
-          </a>
+          </router-link>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -17,8 +17,7 @@
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item">查看个人主页</a>
             <div class="dropdown-divider"></div>
-            <router-link to="/articles/help" class="dropdown-item">帮助</router-link>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#shortcut-cheat-sheet">键盘快捷键</a>
+            <router-link to="/topics/help" class="dropdown-item">帮助</router-link>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item">设置</a>
             <router-link to="/account/logout" class="dropdown-item">退出登录</router-link>

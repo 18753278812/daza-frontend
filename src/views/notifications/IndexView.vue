@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    NotFound
+    notifications
   </div>
 </template>
 

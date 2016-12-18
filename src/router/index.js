@@ -11,12 +11,19 @@ import HomeIndexView from '../views/home/IndexView';
 import AccountRegisterView from '../views/account/RegisterView';
 import AccountLoginView from '../views/account/LoginView';
 import AccountLogoutView from '../views/account/LogoutView';
+import AccountPasswordResetView from '../views/account/PasswordResetView';
+
+import UserDetailView from '../views/users/DetailView';
+
+import TopicDetailView from '../views/topics/DetailView';
 
 import ArticleDetailView from '../views/articles/DetailView';
 
+import NotificationIndexView from '../views/notifications/IndexView';
+
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
   routes: [
@@ -29,20 +36,34 @@ export default new VueRouter({
           component: HomeIndexView,
         },
         {
-          path: '/categories/:slug',
+          path: 'users/:id',
+          component: UserDetailView,
+        },
+        {
+          path: 'categories/:slug',
           component: HomeIndexView,
         },
         {
-          path: '/categories',
+          path: 'categories',
           redirect: '/categories/latest',
         },
         {
-          path: '/home/:slug',
+          path: 'home/:slug',
           redirect: '/categories/:slug',
         },
         {
-          path: '/articles/:slug',
+          path: 'topics/:slug',
+          component: TopicDetailView,
+        },
+        {
+          name: 'article_detail',
+          path: 'articles/:slug',
           component: ArticleDetailView,
+        },
+        {
+          path: 'notifications',
+          component: NotificationIndexView,
+          meta: { requiresAuth: true },
         },
       ],
     },
@@ -62,6 +83,10 @@ export default new VueRouter({
           path: 'logout',
           component: AccountLogoutView,
         },
+        {
+          path: 'password_reset',
+          component: AccountPasswordResetView,
+        },
       ],
     },
     {
@@ -70,3 +95,21 @@ export default new VueRouter({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const loggedIn = false;
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!loggedIn) {
+      next({
+        path: '/account/login',
+        query: { redirect_url: to.fullPath },
+      });
+      return;
+    }
+  }
+  next();
+});
+
+export default router;

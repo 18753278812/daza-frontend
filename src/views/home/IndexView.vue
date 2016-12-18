@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -13,5 +14,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>
