@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss">
 html, body {
-  font-size: 13px;
+  font-size: 14px;
   font-family: "Open sans","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft YaHei",Arial,sans-serif;
 }
 #wrapper {
@@ -21,7 +21,7 @@ html, body {
     box-shadow: 0 1px 2px rgba(0,0,0,.08);
   }
   .navbar {
-    padding: 1rem 1rem;
+    padding: 0.8rem 0.8rem;
     .navbar-brand img {
       height: 1.2rem;
       width: auto;

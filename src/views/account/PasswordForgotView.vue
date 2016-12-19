@@ -7,15 +7,15 @@
         <div class="validator">
           <form novalidate @submit.prevent="submit()">
             <div class="form-group">
+              <label>我们将发送一封密码重置邮件到你的邮箱<br>点击按钮即可重置密码</label>
               <input
                 class="form-control"
-                type="password"
-                name="password"
-                placeholder="请输入新密码"
-                v-model="params.new_password">
+                type="email"
+                name="email"
+                placeholder="请输入邮箱">
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block">确定</button>
+              <button type="submit" class="btn btn-primary btn-block">发送验证邮件</button>
             </div>
           </form>
         </div>
@@ -29,9 +29,6 @@
 export default {
   data() {
     return {
-      params: {
-        new_password: '',
-      },
     };
   },
   methods: {

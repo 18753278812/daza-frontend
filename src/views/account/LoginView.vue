@@ -31,7 +31,7 @@
         </div>
         <div class="row">
           <div class="col-xs-6">
-            <router-link to="/account/password_reset">忘记密码？</router-link>
+            <router-link to="/account/password_forgot">忘记密码？</router-link>
           </div>
           <div class="col-xs-6 text-xs-right">
             <router-link to="/account/register">创建账号</router-link>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -57,6 +58,7 @@ export default {
   },
   methods: {
     submit() {
+      this.$store.dispatch('login', this.params);
     },
   },
 };

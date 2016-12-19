@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import VueValidator from 'vue-validator';
+import VueLazyload from 'vue-lazyload';
 
 import { sync } from 'vuex-router-sync';
 import router from './router';
@@ -10,7 +11,16 @@ import store from './store';
 import App from './App';
 
 Vue.use(VueValidator);
+Vue.use(VueLazyload);
+
 require('./filters');
+
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: 'static/images/placeholder_image.png',
+  loading: 'static/images/placeholder_image.png',
+  attempt: 1,
+});
 
 // sync the router with the vuex store.
 // this registers `store.state.route`

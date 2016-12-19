@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '../store';
 
 import _MainWrapperView from '../views/_MainWrapperView';
 import _CleanWrapperView from '../views/_CleanWrapperView';
@@ -11,12 +12,16 @@ import HomeIndexView from '../views/home/IndexView';
 import AccountRegisterView from '../views/account/RegisterView';
 import AccountLoginView from '../views/account/LoginView';
 import AccountLogoutView from '../views/account/LogoutView';
+import AccountPasswordForgotView from '../views/account/PasswordForgotView';
 import AccountPasswordResetView from '../views/account/PasswordResetView';
+import AccountSettingsView from '../views/account/SettingsView';
 
 import UserDetailView from '../views/users/DetailView';
 
+import TopicCreateView from '../views/topics/CreateView';
 import TopicDetailView from '../views/topics/DetailView';
 
+import ArticleCreateView from '../views/articles/CreateView';
 import ArticleDetailView from '../views/articles/DetailView';
 
 import NotificationIndexView from '../views/notifications/IndexView';
@@ -36,6 +41,11 @@ const router = new VueRouter({
           component: HomeIndexView,
         },
         {
+          path: 'account/settings',
+          component: AccountSettingsView,
+        },
+        {
+          name: 'user_detail',
           path: 'users/:id',
           component: UserDetailView,
         },
@@ -52,8 +62,18 @@ const router = new VueRouter({
           redirect: '/categories/:slug',
         },
         {
+          path: 'topics/create',
+          component: TopicCreateView,
+          meta: { requiresAuth: true },
+        },
+        {
           path: 'topics/:slug',
           component: TopicDetailView,
+        },
+        {
+          path: 'articles/create',
+          component: ArticleCreateView,
+          meta: { requiresAuth: true },
         },
         {
           name: 'article_detail',
@@ -84,6 +104,10 @@ const router = new VueRouter({
           component: AccountLogoutView,
         },
         {
+          path: 'password_forgot',
+          component: AccountPasswordForgotView,
+        },
+        {
           path: 'password_reset',
           component: AccountPasswordResetView,
         },
@@ -98,7 +122,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const loggedIn = false;
+    const loggedIn = store.state.account.auth.check();
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!loggedIn) {
