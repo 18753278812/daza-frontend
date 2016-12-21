@@ -4,7 +4,7 @@
       <router-link to="/" class="navbar-brand">
         <img alt="Brand" src="../assets/ic_logo_dark.png">
       </router-link>
-      <ul class="nav navbar-nav pull-xs-right" v-if="auth.check()">
+      <ul class="nav navbar-nav float-xs-right" v-if="auth.check()">
         <li class="nav-item">
           <router-link to="/notifications" class="nav-link">
             通知 <span class="tag tag-pill tag-danger">0</span>
@@ -12,7 +12,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            <img v-lazy="auth.user.avatar_url" src="/static/images/placeholder_image.png" class="img-circle" style="width: 1.3rem; height: 1.3rem"> {{ auth.user.name }}
+            <img v-lazy="auth.user.avatar_url" src="/static/images/placeholder_image.png" class="rounded-circle" style="width: 1.3rem; height: 1.3rem"> {{ auth.user.name }}
           </a>
           <div class="dropdown-menu dropdown-menu-right">
             <router-link :to="{ name: 'user_detail', params: { id: auth.id } }" class="dropdown-item">查看个人主页</router-link>
@@ -24,7 +24,7 @@
           </div>
         </li>
       </ul>
-      <ul class="nav navbar-nav pull-xs-right" v-if="!auth.check()">
+      <ul class="nav navbar-nav float-xs-right" v-if="!auth.check()">
         <li class="nav-item">
           <router-link to="/account/register" class="nav-link">创建账号</router-link>
         </li>

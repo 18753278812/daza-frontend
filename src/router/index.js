@@ -18,6 +18,8 @@ import AccountSettingsView from '../views/account/SettingsView';
 
 import UserDetailView from '../views/users/DetailView';
 
+import CategoryIndexView from '../views/categories/IndexView';
+
 import TopicCreateView from '../views/topics/CreateView';
 import TopicDetailView from '../views/topics/DetailView';
 
@@ -51,7 +53,7 @@ const router = new VueRouter({
         },
         {
           path: 'categories/:slug',
-          component: HomeIndexView,
+          component: CategoryIndexView,
         },
         {
           path: 'categories',

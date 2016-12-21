@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     HOME
+    <router-link to="/categories/latest">/categories/latest</router-link>
   </div>
 </template>
 
