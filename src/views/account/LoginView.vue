@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import NProgress from 'nprogress';
 
 export default {
   data() {
@@ -58,7 +59,13 @@ export default {
   },
   methods: {
     submit() {
-      this.$store.dispatch('login', this.params);
+      NProgress.start();
+      this.$store.dispatch('login', this.params).then(() => {
+        setTimeout(() => {
+          NProgress.done();
+          this.$router.push('/');
+        }, 300);
+      });
     },
   },
 };

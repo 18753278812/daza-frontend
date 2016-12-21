@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import NProgress from 'nprogress';
+
 export default {
   data() {
     return {
@@ -69,6 +71,13 @@ export default {
   },
   methods: {
     submit() {
+      NProgress.start();
+      this.$store.dispatch('register', this.params).then(() => {
+        setTimeout(() => {
+          NProgress.done();
+          this.$router.push('/');
+        }, 300);
+      });
     },
   },
 };

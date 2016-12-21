@@ -14,8 +14,12 @@ export default {
     return {
     };
   },
-  created() {
-    this.$store.dispatch('logout');
+  mounted() {
+    this.$store.dispatch('logout').then(() => {
+      setTimeout(() => {
+        this.$router.push('/');
+      }, 300);
+    });
   },
 };
 </script>
