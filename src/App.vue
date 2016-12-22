@@ -18,7 +18,7 @@ html, body {
 #wrapper {
   .bg-white {
     background-color: #FFFFFF!important;
-    box-shadow: 0 1px 2px rgba(0,0,0,.08);
+    box-shadow: 1px 1px 2px #eeeeee;
   }
   .navbar {
     padding: 0.8rem 0.8rem;
