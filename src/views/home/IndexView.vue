@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="ui main container">
     <div class="row">
       <div class="col-xs-8">
         <router-link to="/categories/latest">/categories/latest</router-link>

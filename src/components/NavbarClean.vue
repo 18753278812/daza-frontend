@@ -1,11 +1,13 @@
 <template>
-  <nav class="navbar navbar-fixed-top navbar-light bg-faded">
-    <div class="container">
-      <router-link to="/" class="navbar-brand">
-        <img alt="Brand" src="../assets/ic_logo_dark.png">
-      </router-link>
+  <div class="ui small borderless fixed menu">
+    <div class="ui container">
+      <div class="header item">
+        <router-link to="/" style="height: 32px;">
+          <img class="logo" src="../assets/ic_logo_dark.png">
+        </router-link>
+      </div>
     </div>
-  </nav>
+  </div>
 </template>
 
 <script>

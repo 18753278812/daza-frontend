@@ -3,6 +3,7 @@
     <navbar-view :auth="auth"></navbar-view>
     <router-view></router-view>
     <footer-view></footer-view>
+    <floating-action-button></floating-action-button>
   </div>
 </template>
 
@@ -11,6 +12,7 @@ import { mapGetters } from 'vuex';
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import FloatingActionButton from '../components/FloatingActionButton';
 
 export default {
   computed: mapGetters({
@@ -19,12 +21,10 @@ export default {
   components: {
     'navbar-view': Navbar,
     'footer-view': Footer,
+    'floating-action-button': FloatingActionButton,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-#wrapper {
-  background-color: #ECEFF1;
-}
 </style>

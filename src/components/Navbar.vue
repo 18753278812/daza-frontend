@@ -1,39 +1,51 @@
 <template>
-  <nav class="navbar navbar-fixed-top navbar-light bg-white">
-    <div class="container">
-      <router-link to="/" class="navbar-brand">
-        <img alt="Brand" src="../assets/ic_logo_dark.png">
-      </router-link>
-      <ul class="nav navbar-nav float-xs-right" v-if="auth.check()">
-        <li class="nav-item">
-          <router-link to="/notifications" class="nav-link">
-            通知 <span class="tag tag-pill tag-danger">0</span>
-          </router-link>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-            <img v-lazy="auth.user.avatar_url" src="/static/images/placeholder_image.png" class="rounded-circle" style="width: 1.3rem; height: 1.3rem"> {{ auth.user.name }}
-          </a>
-          <div class="dropdown-menu dropdown-menu-right">
-            <router-link :to="{ name: 'user_detail', params: { id: auth.id } }" class="dropdown-item">查看个人主页</router-link>
-            <div class="dropdown-divider"></div>
-            <router-link to="/topics/help" class="dropdown-item">帮助</router-link>
-            <div class="dropdown-divider"></div>
-            <router-link to="/account/settings" class="dropdown-item">设置</router-link>
-            <router-link to="/account/logout" class="dropdown-item">退出登录</router-link>
+  <div class="ui small borderless fixed menu">
+    <div class="ui container">
+      <div class="header item">
+        <router-link to="/" style="height: 32px;">
+          <img class="logo" src="../assets/ic_logo_dark.png">
+        </router-link>
+      </div>
+      <div class="right menu" v-if="auth.check()">
+        <router-link
+          class="item"
+          to="/notifications">
+          通知 <div class="ui small teal label">0</div>
+        </router-link>
+        <div class="ui simple dropdown item">
+          <img class="ui avatar image" v-lazy="auth.user.avatar_url">
+          <span>{{ auth.user.name }}</span>
+          <i class="dropdown icon"></i>
+          <div class="ui vertical menu">
+            <div class="item">
+              <div class="ui icon input">
+                <input type="text" placeholder="Search mail...">
+                <i class="search icon"></i>
+              </div>
+            </div>
+            <router-link class="item" :to="{ name: 'user_detail', params: { id: auth.id } }">查看个人主页</router-link>
+            <router-link class="item" to="/topics/help">帮助</router-link>
+            <router-link class="item" to="/account/settings">设置</router-link>
+            <router-link class="item" to="/account/logout">退出登录</router-link>
           </div>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav float-xs-right" v-if="!auth.check()">
-        <li class="nav-item">
-          <router-link to="/account/register" class="nav-link">创建账号</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/account/login" class="btn btn-success">登录</router-link>
-        </li>
-      </ul>
+        </div>
+      </div>
+      <div class="right menu" v-if="!auth.check()">
+        <router-link
+          class="item"
+          to="/account/register">
+          创建账号
+        </router-link>
+        <div class="item">
+          <router-link
+            class="ui primary button"
+            to="/account/login" >
+            登录
+          </router-link>
+        </div>
+      </div>
     </div>
-  </nav>
+  </div>
 </template>
 
 <script>
