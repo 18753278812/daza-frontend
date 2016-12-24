@@ -26,6 +26,8 @@ import TopicDetailView from '../views/topics/DetailView';
 import ArticleCreateView from '../views/articles/CreateView';
 import ArticleDetailView from '../views/articles/DetailView';
 
+import TagDetailView from '../views/tags/DetailView';
+
 import NotificationIndexView from '../views/notifications/IndexView';
 
 Vue.use(VueRouter);
@@ -83,6 +85,11 @@ const router = new VueRouter({
           component: ArticleDetailView,
         },
         {
+          name: 'tag_detail',
+          path: 'tags/:name',
+          component: TagDetailView,
+        },
+        {
           path: 'notifications',
           component: NotificationIndexView,
           meta: { requiresAuth: true },
@@ -124,10 +131,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const loggedIn = store.state.account.auth.check();
+    const auth = store.state.account.auth;
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (!loggedIn) {
+    if (!auth.check()) {
       next({
         path: '/account/login',
         query: { redirect_url: to.fullPath },

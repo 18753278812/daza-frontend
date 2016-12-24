@@ -50,10 +50,11 @@ export default {
   methods: {
     submit() {
       NProgress.start();
-      this.$store.dispatch('login', this.params).then(() => {
+      const redirectUrl = this.$route.query.redirect_url || '/';
+      this.$store.dispatch('accountLogin', this.params).then(() => {
         setTimeout(() => {
           NProgress.done();
-          this.$router.push('/');
+          this.$router.push(redirectUrl);
         }, 300);
       });
     },

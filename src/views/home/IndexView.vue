@@ -53,7 +53,7 @@ export default {
   },
   mounted() {
     const params = { per_page: 1, page: 1 };
-    this.$http.get('topics/side-ad/articles', params).then((data) => {
+    this.$http.get('topics/side-ad/articles', { params }).then((data) => {
       console.log(data.data.data[0]);
       this.ad_article = data.data.data[0];
     });

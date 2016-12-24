@@ -8,15 +8,25 @@
     </div>
     <div class="container">
       topic
+      {{ entity }}
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+  computed: mapState({
+    entity: state => state.topics.entity,
+  }),
   data() {
     return {
     };
+  },
+  mounted() {
+    const id = this.$route.params.slug;
+    this.$store.dispatch('topicGetEntity', id);
   },
 };
 </script>

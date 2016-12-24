@@ -8,7 +8,7 @@
               <img class="ui tiny qrcode image" src="../assets/ic_logo_light.png">
             </h4>
             <p class="description">
-              「daza.io」是一款基于技能树（正在实现）的技术内容聚合应用，根据你的技能对内容进行筛选，让你在这个信息过载的时代里更高效地获取你所需的内容。
+              「daza.io」是一款基于技能树的技术内容聚合应用，根据你的技能对内容进行筛选，让你在这个信息过载的时代里更高效地获取你所需的内容。
             </p>
             <div class="ui inverted bulleted horizontal link list">
               <router-link class="item" to="/articles/about">关于我们</router-link>
@@ -28,7 +28,7 @@
             <h4 class="ui inverted header">客户端下载</h4>
             <div class="ui inverted link list">
               <a class="item" href="http://a.app.qq.com/o/simple.jsp?pkgname=io.daza.app" target="_blank">
-                <img class="ui tiny qrcode image" src="/static/images/download_qrcode.png">
+                <img class="ui tiny qrcode image" src="/static/images/qrcode_download.png">
               </a>
               <p>iOS &amp; Android</p>
             </div>
@@ -64,7 +64,7 @@ export default {
 <style lang="scss" scoped>
 .sections.container {
   padding-top: 10px;
-  font-size: 13px;
+  font-size: 12px;
   .description{
     color: rgba(255, 255, 255, 0.5);
   }
@@ -83,7 +83,7 @@ export default {
   }
 }
 .copyright.container {
-  font-size: 13px;
+  font-size: 12px;
   color: rgba(255, 255, 255, 0.5);
   a {
     color: rgba(255, 255, 255, 0.5);

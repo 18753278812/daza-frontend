@@ -18,13 +18,16 @@ html, body {
 }
 #wrapper {
   .main.container {
-    padding-top: 6em;
+    padding-top: 60px;
     padding-bottom: 2em;
   }
-  .ui.menu .item img.logo {
-    width: auto;
-    height: 18px;
-    margin: 7px 0;
+  .navbar.menu {
+    height: 60px;
+    .item img.logo {
+      width: auto;
+      height: 18px;
+      margin: 7px 0;
+    }
   }
 }
 </style>
