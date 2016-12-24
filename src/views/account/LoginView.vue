@@ -1,14 +1,22 @@
 <template>
   <div class="ui main container">
-    <div class="three column ui centered grid">
+    <div class="ui three column centered doubling grid">
       <div class="column">
         <h1 class="ui center aligned header">登录</h1>
-        <form class="ui form">
+        <form class="ui form" novalidate @submit.prevent="submit()">
           <div class="field">
-            <input type="text" name="first-name" placeholder="请输入邮箱">
+            <input
+              type="email"
+              name="email"
+              placeholder="请输入邮箱"
+              v-model="params.email">
           </div>
           <div class="field">
-            <input type="text" name="last-name" placeholder="请输入密码">
+            <input
+              type="password"
+              name="password"
+              placeholder="请输入密码"
+              v-model="params.password">
           </div>
           <button class="fluid ui primary button" type="submit">登录</button>
         </form>

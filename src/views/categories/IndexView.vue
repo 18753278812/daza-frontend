@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="ui main container">
     <ul class="nav nav-pills">
       <li class="nav-item">
         <a class="nav-link active" href="#">Active</a>

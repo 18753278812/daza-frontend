@@ -1,7 +1,17 @@
 <template>
-  <div class="btn-group-vertical">
-    <button type="button" class="btn btn-secondary">1</button>
-    <button type="button" class="btn btn-secondary">2</button>
+  <div class="ui vertical labeled icon menu" style="display: none;">
+    <a class="item">
+      <i class="gamepad icon"></i>
+      Games
+    </a>
+    <a class="item">
+      <i class="video camera icon"></i>
+      Channels
+    </a>
+    <a class="item">
+      <i class="video play icon"></i>
+      Videos
+    </a>
   </div>
 </template>
 
@@ -16,8 +26,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.btn-group-vertical {
-  bottom: 60px;
+.menu {
+  bottom: 100px;
   position: fixed;
   right: 20px;
   z-index: 1000;

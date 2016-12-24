@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="ui main container">
     settings
   </div>
 </template>

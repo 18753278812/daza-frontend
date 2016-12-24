@@ -12,11 +12,14 @@ export default {
 
 <style lang="scss">
 html, body {
-  font-family: "Open sans","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft YaHei",Arial,sans-serif;
+  font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,STHeitiSC-Light,simsun,WenQuanYi Zen Hei,WenQuanYi Micro Hei,'sans-serif';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 #wrapper {
   .main.container {
     padding-top: 6em;
+    padding-bottom: 2em;
   }
   .ui.menu .item img.logo {
     width: auto;

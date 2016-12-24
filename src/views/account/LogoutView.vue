@@ -1,9 +1,7 @@
 <template>
   <div class="ui main container">
-    <div class="row">
-      <div class="col-xs-12">
-        <h3 class="text-xs-center">注销中...</h3>
-      </div>
+    <div class="ui active inverted dimmer">
+      <div class="ui large text loader">注销中...</div>
     </div>
   </div>
 </template>
@@ -18,7 +16,7 @@ export default {
     this.$store.dispatch('logout').then(() => {
       setTimeout(() => {
         this.$router.push('/');
-      }, 300);
+      }, 1200);
     });
   },
 };
