@@ -1,26 +1,24 @@
 <template>
   <div class="ui main container">
-    <div class="row">
-      <div class="col-md-4 col-sm-3"></div>
-      <div class="col-md-4 col-sm-6">
-        <h3 class="text-xs-center">重置密码</h3>
-        <div class="validator">
-          <form novalidate @submit.prevent="submit()">
-            <div class="form-group">
-              <label>我们将发送一封密码重置邮件到你的邮箱<br>点击按钮即可重置密码</label>
-              <input
-                class="form-control"
-                type="email"
-                name="email"
-                placeholder="请输入邮箱">
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block">发送验证邮件</button>
-            </div>
-          </form>
-        </div>
+    <div class="ui centered grid">
+      <div class="column">
+        <h1 class="ui center aligned header">重置密码</h1>
+        <form class="ui form" novalidate @submit.prevent="submit()">
+          <div class="field">
+            <label>我们将发送一封密码重置邮件到你的邮箱<br>点击按钮即可重置密码</label>
+          </div>
+          <div class="field">
+            <input
+              type="email"
+              name="email"
+              placeholder="请输入邮箱"
+              v-model="params.email">
+          </div>
+          <div class="field">
+            <button class="fluid ui primary button" type="submit">发送验证邮件</button>
+          </div>
+        </form>
       </div>
-      <div class="col-md-4 col-sm-3"></div>
     </div>
   </div>
 </template>
@@ -29,6 +27,9 @@
 export default {
   data() {
     return {
+      params: {
+        email: '',
+      },
     };
   },
   methods: {
@@ -39,4 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.column {
+  max-width: 400px;
+}
 </style>

@@ -16,7 +16,7 @@ export default {
     this.$store.dispatch('accountLogout').then(() => {
       setTimeout(() => {
         this.$router.push('/');
-      }, 1200);
+      }, 300);
     });
   },
 };

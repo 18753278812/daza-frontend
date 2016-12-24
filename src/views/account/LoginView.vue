@@ -1,6 +1,6 @@
 <template>
   <div class="ui main container">
-    <div class="ui three column centered doubling grid">
+    <div class="ui centered grid">
       <div class="column">
         <h1 class="ui center aligned header">登录</h1>
         <form class="ui form" novalidate @submit.prevent="submit()">
@@ -18,16 +18,18 @@
               placeholder="请输入密码"
               v-model="params.password">
           </div>
-          <button class="fluid ui primary button" type="submit">登录</button>
+          <div class="field">
+            <button class="fluid ui primary button" type="submit">登录</button>
+          </div>
+          <div class="ui grid">
+            <div class="left aligned eight wide column">
+              <router-link to="/account/password_forgot">忘记密码？</router-link>
+            </div>
+            <div class="right aligned eight wide column">
+              <router-link to="/account/register">创建账号</router-link>
+            </div>
+          </div>
         </form>
-        <div class="row">
-          <div class="col-xs-6">
-            <router-link to="/account/password_forgot">忘记密码？</router-link>
-          </div>
-          <div class="col-xs-6 text-xs-right">
-            <router-link to="/account/register">创建账号</router-link>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -63,4 +65,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.column {
+  max-width: 400px;
+}
 </style>

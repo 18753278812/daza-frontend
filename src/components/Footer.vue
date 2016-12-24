@@ -38,11 +38,11 @@
     </div>
     <div class="ui inverted vertical footer segment">
       <div class="ui copyright container">
-        <div class="ui two column centered doubling grid">
-          <div class="column">
+        <div class="ui grid">
+          <div class="left aligned eight wide column">
             &copy; 2017 <a href="https://daza.io" target="_blank">daza.io</a> All Rights Reserved.
           </div>
-          <div class="right aligned column">
+          <div class="right aligned eight wide column">
             <a href="http://www.miitbeian.gov.cn" target="_blank">粤ICP备15047595号-2</a>
           </div>
         </div>

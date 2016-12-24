@@ -20,6 +20,7 @@ import UserDetailView from '../views/users/DetailView';
 
 import CategoryIndexView from '../views/categories/IndexView';
 
+import TopicIndexView from '../views/topics/IndexView';
 import TopicCreateView from '../views/topics/CreateView';
 import TopicDetailView from '../views/topics/DetailView';
 
@@ -34,6 +35,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'history',
+  linkActiveClass: 'active',
   scrollBehavior: () => ({ y: 0 }),
   routes: [
     {
@@ -42,6 +44,7 @@ const router = new VueRouter({
       children: [
         {
           path: '/',
+          name: 'home_index',
           component: HomeIndexView,
         },
         {
@@ -66,6 +69,10 @@ const router = new VueRouter({
           redirect: '/categories/:slug',
         },
         {
+          path: 'topics',
+          component: TopicIndexView,
+        },
+        {
           path: 'topics/create',
           component: TopicCreateView,
           meta: { requiresAuth: true },
@@ -80,13 +87,13 @@ const router = new VueRouter({
           meta: { requiresAuth: true },
         },
         {
-          name: 'article_detail',
           path: 'articles/:slug',
+          name: 'article_detail',
           component: ArticleDetailView,
         },
         {
-          name: 'tag_detail',
           path: 'tags/:name',
+          name: 'tag_detail',
           component: TagDetailView,
         },
         {

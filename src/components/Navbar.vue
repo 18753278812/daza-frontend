@@ -2,9 +2,14 @@
   <div class="ui navbar borderless fixed menu">
     <div class="ui container">
       <div class="header item">
-        <router-link to="/" style="height: 32px;">
+        <router-link to="/">
           <img class="logo" src="../assets/ic_logo_dark.png">
         </router-link>
+      </div>
+      <div class="left menu" style="display: none;">
+        <router-link class="item" to="/" exact>首页</router-link>
+        <router-link class="item" to="/topics">主题</router-link>
+        <a class="item">精选集</a>
       </div>
       <div class="right menu" v-if="auth.check()">
         <router-link
@@ -64,5 +69,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.left.menu {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-left: 60px !important;
+}
+.left.menu .active {
+  border-bottom: 4px solid #1B1C1D;
+  // margin-top: 4px;
+}
 </style>

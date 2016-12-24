@@ -11,15 +11,10 @@ export default {
 </script>
 
 <style lang="scss">
-html, body {
-  font-family: PingFang SC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,STHeitiSC-Light,simsun,WenQuanYi Zen Hei,WenQuanYi Micro Hei,'sans-serif';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 #wrapper {
   .main.container {
-    padding-top: 60px;
-    padding-bottom: 2em;
+    padding-top: 80px;
+    padding-bottom: 20px;
   }
   .navbar.menu {
     height: 60px;
