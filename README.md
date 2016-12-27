@@ -24,7 +24,7 @@
 ## 入门指南
 
 ### 克隆项目源码到本地
-```
+``` bash
 $ cd ~/Documents/Projects
 $ git clone git@github.com:lijy91/daza-frontend.git
 $ cd daza-frontend
@@ -35,6 +35,12 @@ $ cd daza-frontend
 $ npm install
 $ bower install
 ```
+
+### 修改配置
+``` bash
+$ vim config/dev.env.js
+```
+将 `API_URL` 修改为服务端的地址
 
 ### 运行
 ``` bash
