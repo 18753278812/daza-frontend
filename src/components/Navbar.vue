@@ -2,11 +2,11 @@
   <div class="ui navbar borderless fixed menu">
     <div class="ui container">
       <div class="header item">
-        <router-link to="/">
+        <router-link to="/" style="height: 32px;">
           <img class="logo" src="../assets/ic_logo_dark.png">
         </router-link>
       </div>
-      <div class="left menu" style="display: none;">
+      <div class="left menu">
         <router-link class="item" to="/" exact>首页</router-link>
         <router-link class="item" to="/topics">主题</router-link>
         <a class="item">精选集</a>
@@ -78,6 +78,19 @@ export default {
 }
 .left.menu .active {
   border-bottom: 4px solid #1B1C1D;
-  // margin-top: 4px;
+  margin-bottom: -1px;
+}
+
+// Mobile
+@media (max-width: 768px) {
+  .left.menu {
+    display: none!important;
+  }
+}
+// Tablet
+@media (min-width: 768px) and (max-width: 991px) {
+  .left.menu {
+    margin-left: 20px !important;
+  }
 }
 </style>

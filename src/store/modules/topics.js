@@ -21,7 +21,7 @@ export default {
   actions: {
     topicGetLists({ commit }) {
       api.topic_get_lists().then((response) => {
-        commit(types.TOPIC_GET_ENTITY_SUCCESS, response.data);
+        commit(types.TOPIC_GET_LISTS_SUCCESS, response.data);
       });
     },
     topicCreateEntity({ commit }, id) {

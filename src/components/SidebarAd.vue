@@ -1,16 +1,10 @@
 <template>
-  <div class="row" v-if="article !== null">
-    <div class="col-xs-12" v-if="article !== null">
-      <div class="card">
-        <div class="image-container">
-          <a :href="article.link" target="_blank">
-            <img class="card-img-top" v-bind:src="article.image_url | thumbnail">
-          </a>
-        </div>
-        <div class="card-block">
-          <p class="card-text">{{ article.title }}</p>
-        </div>
-      </div>
+  <div class="ui ad card" v-if="data !== null">
+    <div class="image">
+      <img v-bind:src="data.image_url">
+    </div>
+    <div class="content">
+      <a class="header" :href="data.link" target="_blank">{{ data.title }}</a>
     </div>
   </div>
 </template>
@@ -19,12 +13,15 @@
 export default {
   name: 'sidebar-ad',
   props: {
-    article: {
+    data: {
       type: Object,
     },
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.ad.card {
+  width: 100%;
+}
 </style>

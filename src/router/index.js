@@ -79,6 +79,7 @@ const router = new VueRouter({
         },
         {
           path: 'topics/:slug',
+          name: 'topic_detail',
           component: TopicDetailView,
         },
         {
