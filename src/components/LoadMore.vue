@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="fluid ui basic button" v-bind:class="{ loading: isLoading }" v-on:click="submit">{{ hasMore ? '点击加载更多' : '没有更加数据'}}</button>
+    <button class="fluid ui basic button" v-bind:class="{ loading: isLoading }" v-on:click="submit">{{ hasMore ? '点击加载更多' : '没有更多数据'}}</button>
   </div>
 </template>
 

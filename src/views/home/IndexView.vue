@@ -5,7 +5,12 @@
         <div class="ui segment">
           <p>N/A</p>
         </div>
-        <loadMore :pagination="pagination" :callback="loadMore" />
+        <div class="ui basic center aligned segment" style="padding: 0px;">
+          <loadMore :pagination="pagination" :callback="loadMore" />
+        </div>
+        <div class="ui basic center aligned segment" style="padding: 0px;">
+          <pagination :pagination="pagination" :callback="loadMore" />
+        </div>
       </div>
       <div class="four wide column">
         <sidebar-ad :data="side_ad"></sidebar-ad>
@@ -18,6 +23,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import Pagination from '../../components/Pagination';
 import LoadMore from '../../components/LoadMore';
 import SidebarAd from '../../components/SidebarAd';
 import SidebarTopics from '../../components/SidebarTopics';
@@ -25,6 +31,7 @@ import SidebarLinks from '../../components/SidebarLinks';
 
 export default {
   components: {
+    Pagination,
     LoadMore,
     'sidebar-ad': SidebarAd,
     'sidebar-topics': SidebarTopics,
@@ -40,7 +47,7 @@ export default {
       pagination: {
         per_page: 15,
         current_page: 1,
-        last_page: 10,
+        last_page: 100,
       },
     };
   },
@@ -49,12 +56,11 @@ export default {
   },
   methods: {
     loadMore(page) {
-      console.log(`Page: ${page}`);
       setTimeout(() => {
         this.pagination = {
           per_page: 15,
           current_page: page,
-          last_page: 10,
+          last_page: 100,
         };
       }, 300);
     },
