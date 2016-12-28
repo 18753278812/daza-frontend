@@ -5,6 +5,7 @@
 <script>
 import 'nprogress/nprogress.css';
 import 'toastr/build/toastr.css';
+import 'github-markdown-css/github-markdown.css';
 
 export default {
 };

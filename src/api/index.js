@@ -76,8 +76,8 @@ export default {
     return Vue.http.get(`categories/${id}/topics`);
   },
   // TOPIC
-  topic_get_lists() {
-    return Vue.http.get('topics');
+  topic_get_lists(page) {
+    return Vue.http.get('topics', { params: { page } });
   },
   topic_create_entity(params) {
     return Vue.http.post('topics', params);
@@ -91,8 +91,8 @@ export default {
   topic_get_entity(id) {
     return Vue.http.get(`topics/${id}`);
   },
-  topic_article_get_lists(id) {
-    return Vue.http.get(`topics/${id}/articles`);
+  topic_article_get_lists(id, page) {
+    return Vue.http.get(`topics/${id}/articles`, { params: { page } });
   },
   topic_get_subscribers(id) {
     return Vue.http.get(`topics/${id}/subscribers`);

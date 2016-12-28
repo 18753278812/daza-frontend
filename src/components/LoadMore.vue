@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="pagination">
     <button class="fluid ui basic button" v-bind:class="{ loading: isLoading }" v-on:click="submit">{{ hasMore ? '点击加载更多' : '没有更多数据'}}</button>
   </div>
 </template>
@@ -10,7 +10,6 @@ export default {
   props: {
     pagination: {
       type: Object,
-      required: true,
     },
     callback: {
       type: Function,

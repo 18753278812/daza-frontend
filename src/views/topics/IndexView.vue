@@ -13,22 +13,35 @@
         </div>
       </div>
     </div>
+    <div class="ui basic center aligned segment" style="padding: 0px;">
+      <loadMore :pagination="pagination" :callback="loadMore" />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import LoadMore from '../../components/LoadMore';
 
 export default {
+  components: {
+    LoadMore,
+  },
   computed: mapState({
-    lists: state => state.topics.lists,
+    lists: state => state.topics.lists.data,
+    pagination: state => state.topics.lists.pagination,
   }),
   data() {
     return {
     };
   },
   mounted() {
-    this.$store.dispatch('topicGetLists');
+    this.loadMore(1);
+  },
+  methods: {
+    loadMore(page) {
+      this.$store.dispatch('topicGetLists', page);
+    },
   },
 };
 </script>

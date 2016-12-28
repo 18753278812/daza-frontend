@@ -7,20 +7,40 @@ import * as types from '../mutation-types';
 
 export default {
   state: {
-    lists: [],
+    lists: {
+      pagination: null,
+      data: [],
+    },
     entity: null,
+    articles: {
+      pagination: null,
+      data: [],
+    },
   },
   mutations: {
-    TOPIC_GET_LISTS_SUCCESS: (state, { data }) => {
-      Vue.set(state, 'lists', data);
+    TOPIC_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
+      if (pagination.current_page === 1) {
+        Vue.set(state.lists, 'data', []);
+      }
+      const lists = state.lists.data.concat(data);
+      Vue.set(state.lists, 'pagination', pagination);
+      Vue.set(state.lists, 'data', lists);
     },
     TOPIC_GET_ENTITY_SUCCESS: (state, { data }) => {
       Vue.set(state, 'entity', data);
     },
+    TOPIC_ARTICLE_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
+      if (pagination.current_page === 1) {
+        Vue.set(state.articles, 'data', []);
+      }
+      const lists = state.articles.data.concat(data);
+      Vue.set(state.articles, 'pagination', pagination);
+      Vue.set(state.articles, 'data', lists);
+    },
   },
   actions: {
-    topicGetLists({ commit }) {
-      api.topic_get_lists().then((response) => {
+    topicGetLists({ commit }, page) {
+      api.topic_get_lists(page).then((response) => {
         commit(types.TOPIC_GET_LISTS_SUCCESS, response.data);
       });
     },
@@ -39,9 +59,9 @@ export default {
         commit(types.TOPIC_GET_ENTITY_SUCCESS, response.data);
       });
     },
-    topicArticleGetLists({ commit }, id) {
-      api.topic_article_get_lists(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
+    topicArticleGetLists({ commit }, { id, page }) {
+      api.topic_article_get_lists(id, page).then((response) => {
+        commit(types.TOPIC_ARTICLE_GET_LISTS_SUCCESS, response.data);
       });
     },
     topicGetSubscribers({ commit }, id) {

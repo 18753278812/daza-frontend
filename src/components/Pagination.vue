@@ -1,5 +1,5 @@
 <template>
-  <div class="ui pagination menu">
+  <div class="ui pagination menu" v-if="pagination">
     <a
       class="item"
       v-bind:class="{ disabled: currentPage === 1 }"
@@ -28,7 +28,6 @@ export default {
   props: {
     pagination: {
       type: Object,
-      required: true,
     },
     callback: {
       type: Function,
