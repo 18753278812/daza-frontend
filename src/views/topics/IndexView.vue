@@ -1,7 +1,7 @@
 <template>
   <div class="ui main container">
     <div class="ui items">
-      <div class="item" v-for="item in lists">
+      <div class="item" v-for="item in topics.lists">
         <a class="ui small image">
           <img :src="item.image_url">
         </a>
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="ui basic center aligned segment" style="padding: 0px;">
-      <loadMore :pagination="pagination" :callback="loadMore" />
+      <loadMore :pagination="topics.pagination" :callback="loadMore" />
     </div>
   </div>
 </template>
@@ -28,8 +28,7 @@ export default {
     LoadMore,
   },
   computed: mapState({
-    lists: state => state.topics.lists.data,
-    pagination: state => state.topics.lists.pagination,
+    topics: state => state.topics.index.topics,
   }),
   data() {
     return {
@@ -40,7 +39,7 @@ export default {
   },
   methods: {
     loadMore(page) {
-      this.$store.dispatch('topicGetLists', page);
+      this.$store.dispatch('topicIndexGetLists', page);
     },
   },
 };

@@ -2,23 +2,20 @@
   <div class="ui main text container" v-if="entity">
     <h1 class="ui header">{{entity.title}}</h1>
     <div class="ui divider"></div>
-    <div class="markdown-body" v-html="compiledMarkdown"></div>
+    <markdown-view :content="entity.content"></markdown-view>
   </div>
 </template>
 
 <script>
-import marked from 'marked';
 import { mapState } from 'vuex';
+import MarkdownView from '../../components/MarkdownView';
 
 export default {
+  components: {
+    MarkdownView,
+  },
   computed: mapState({
     entity: state => state.articles.entity,
-    compiledMarkdown() {
-      if (this.entity.content_format !== 'markdown') {
-        return this.entity.content;
-      }
-      return marked(this.entity.content, { sanitize: true });
-    },
   }),
   data() {
     return {

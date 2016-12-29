@@ -1,35 +1,33 @@
 <template>
-  <div class="ui vertical labeled icon menu" style="display: none;">
-    <a class="item">
-      <i class="gamepad icon"></i>
-      Games
-    </a>
-    <a class="item">
-      <i class="video camera icon"></i>
-      Channels
-    </a>
-    <a class="item">
-      <i class="video play icon"></i>
-      Videos
+  <div class="ui vertical icon menu">
+    <a class="item" v-on:click="backtop">
+      <i class="chevron up icon"></i>
     </a>
   </div>
 </template>
 
 <script>
+const $ = global.jQuery;
+
 export default {
   name: 'floating-action-button',
   data() {
     return {
     };
   },
+  methods: {
+    backtop() {
+      $('html, body').animate({ scrollTop: 0 }, 500);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.menu {
-  bottom: 100px;
+.icon.menu {
+  bottom: 50px;
   position: fixed;
-  right: 20px;
+  right: 10px;
   z-index: 1000;
 }
 </style>

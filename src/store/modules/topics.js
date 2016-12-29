@@ -7,41 +7,46 @@ import * as types from '../mutation-types';
 
 export default {
   state: {
-    lists: {
-      pagination: null,
-      data: [],
+    index: {
+      topics: {
+        lists: [],
+        pagination: {},
+      },
     },
-    entity: null,
-    articles: {
-      pagination: null,
-      data: [],
+    detail: {
+      topic: {},
+      articles: {
+        lists: [],
+        pagination: {},
+      },
     },
   },
   mutations: {
-    TOPIC_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
+    TOPIC_INDEX_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
       if (pagination.current_page === 1) {
-        Vue.set(state.lists, 'data', []);
+        Vue.set(state.index.topics, 'lists', []);
       }
-      const lists = state.lists.data.concat(data);
-      Vue.set(state.lists, 'pagination', pagination);
-      Vue.set(state.lists, 'data', lists);
+      const lists = state.index.topics.lists.concat(data);
+      Vue.set(state.index.topics, 'lists', lists);
+      Vue.set(state.index.topics, 'pagination', pagination);
     },
-    TOPIC_GET_ENTITY_SUCCESS: (state, { data }) => {
-      Vue.set(state, 'entity', data);
+    TOPIC_DETAIL_GET_DATA_SUCCESS: (state, { data }) => {
+      Vue.set(state.detail, 'topic', data);
     },
-    TOPIC_ARTICLE_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
+    TOPIC_DETAIL_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
       if (pagination.current_page === 1) {
-        Vue.set(state.articles, 'data', []);
+        Vue.set(state.detail.articles, 'lists', []);
       }
-      const lists = state.articles.data.concat(data);
-      Vue.set(state.articles, 'pagination', pagination);
-      Vue.set(state.articles, 'data', lists);
+      const lists = state.detail.articles.lists.concat(data);
+      Vue.set(state.detail.articles, 'lists', lists);
+      Vue.set(state.detail.articles, 'pagination', pagination);
     },
   },
   actions: {
-    topicGetLists({ commit }, page) {
+    // TopicIndex
+    topicIndexGetLists({ commit }, page) {
       api.topic_get_lists(page).then((response) => {
-        commit(types.TOPIC_GET_LISTS_SUCCESS, response.data);
+        commit(types.TOPIC_INDEX_GET_LISTS_SUCCESS, response.data);
       });
     },
     topicCreateEntity({ commit }, id) {
@@ -54,14 +59,15 @@ export default {
         commit(types.REQUEST_SUCCESS, response.data);
       });
     },
-    topicGetEntity({ commit }, id) {
+    // TopicDetail
+    topicDetailGetData({ commit }, id) {
       api.topic_get_entity(id).then((response) => {
-        commit(types.TOPIC_GET_ENTITY_SUCCESS, response.data);
+        commit(types.TOPIC_DETAIL_GET_DATA_SUCCESS, response.data);
       });
     },
-    topicArticleGetLists({ commit }, { id, page }) {
+    topicDetailGetLists({ commit }, { id, page }) {
       api.topic_article_get_lists(id, page).then((response) => {
-        commit(types.TOPIC_ARTICLE_GET_LISTS_SUCCESS, response.data);
+        commit(types.TOPIC_DETAIL_GET_LISTS_SUCCESS, response.data);
       });
     },
     topicGetSubscribers({ commit }, id) {

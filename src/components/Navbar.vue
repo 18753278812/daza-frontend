@@ -74,11 +74,13 @@ export default {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    margin-left: 60px !important;
+    margin-left: 50px !important;
 }
 .left.menu .active {
-  border-bottom: 4px solid #1B1C1D;
-  margin-bottom: -1px;
+  border-top: 4px solid #1B1C1D;
+  // margin-top: -4px;
+  padding-top: 8px;
+  background-color: #FFFFFF;
 }
 
 // Mobile
