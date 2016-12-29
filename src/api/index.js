@@ -56,8 +56,8 @@ export default {
   user_get_following(id) {
     return Vue.http.get(`users/${id}/following`);
   },
-  user_get_topics(id) {
-    return Vue.http.get(`users/${id}/topics`);
+  user_topic_get_lists(id, page) {
+    return Vue.http.get(`users/${id}/topics`, { params: { page } });
   },
   user_get_subscribes(id) {
     return Vue.http.get(`users/${id}/subscribes`);
@@ -104,8 +104,15 @@ export default {
     return Vue.http.post(`topics/${id}/unsubscribe`);
   },
   // ARTICLE
-  article_get_lists() {
-    return Vue.http.get('articles{?page}');
+  article_get_lists(categoryId, categorySlug, page) {
+    const options = {
+      params: {
+        category_id: categoryId,
+        category_slug: categorySlug,
+        page,
+      },
+    };
+    return Vue.http.get('articles', options);
   },
   article_create_entity(params) {
     return Vue.http.post('articles', params);

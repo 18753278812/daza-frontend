@@ -7,17 +7,37 @@ import * as types from '../mutation-types';
 
 export default {
   state: {
-    entity: null,
+    detail: {
+      user: {},
+      topics: {
+        lists: [],
+        pagination: {},
+      },
+    },
   },
   mutations: {
-    USER_GET_ENTITY_SUCCESS: (state, { data }) => {
-      Vue.set(state, 'entity', data);
+    USER_DETAIL_GET_DATA_SUCCESS: (state, { data }) => {
+      Vue.set(state.detail, 'user', data);
+    },
+    USER_DETAIL_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
+      if (pagination.current_page === 1) {
+        Vue.set(state.detail.topics, 'lists', []);
+      }
+      const lists = state.detail.topics.lists.concat(data);
+      Vue.set(state.detail.topics, 'lists', lists);
+      Vue.set(state.detail.topics, 'pagination', pagination);
     },
   },
   actions: {
-    userGetEntity({ commit }, id) {
+    // TopicDetail
+    userDetailGetData({ commit }, id) {
       api.user_get_entity(id).then((response) => {
-        commit(types.USER_GET_ENTITY_SUCCESS, response.data);
+        commit(types.USER_DETAIL_GET_DATA_SUCCESS, response.data);
+      });
+    },
+    userDetailGetLists({ commit }, { id, page }) {
+      api.user_topic_get_lists(id, page).then((response) => {
+        commit(types.USER_DETAIL_GET_LISTS_SUCCESS, response.data);
       });
     },
     userEstablishRelationship({ commit }, id, params) {

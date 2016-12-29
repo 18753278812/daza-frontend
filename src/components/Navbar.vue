@@ -9,7 +9,6 @@
       <div class="left menu">
         <router-link class="item" to="/" exact>首页</router-link>
         <router-link class="item" to="/topics">主题</router-link>
-        <a class="item">精选集</a>
       </div>
       <div class="right menu" v-if="auth.check()">
         <router-link
@@ -18,18 +17,19 @@
           通知 <div class="ui small teal label">0</div>
         </router-link>
         <div class="ui simple dropdown item">
-          <img class="ui avatar image" v-lazy="auth.user.avatar_url">
+          <imageView
+            class="ui avatar image"
+            :src="auth.user.avatar_url"
+            :width="25"
+            :height="25"
+          />
           <span>{{ auth.user.name }}</span>
           <i class="dropdown icon"></i>
           <div class="ui vertical menu">
-            <div class="item">
-              <div class="ui icon input">
-                <input type="text" placeholder="Search mail...">
-                <i class="search icon"></i>
-              </div>
-            </div>
             <router-link class="item" :to="{ name: 'user_detail', params: { id: auth.id } }">查看个人主页</router-link>
+            <div class="ui divider"></div>
             <router-link class="item" to="/topics/help">帮助</router-link>
+            <div class="ui divider"></div>
             <router-link class="item" to="/account/settings">设置</router-link>
             <router-link class="item" to="/account/logout">退出登录</router-link>
           </div>
@@ -54,8 +54,13 @@
 </template>
 
 <script>
+import ImageView from './ImageView';
+
 export default {
   name: 'navbar',
+  components: {
+    ImageView,
+  },
   props: {
     auth: {
       type: Object,

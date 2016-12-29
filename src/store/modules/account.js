@@ -21,10 +21,18 @@ export default {
       user: JSON.parse(localStorage.getItem(AUTH_USER)),
       configs: JSON.parse(localStorage.getItem(AUTH_USER_CONFIGS)),
     },
+    register: {
+      status: 0,
+    },
+    login: {
+      status: 0,
+    },
+    logout: {
+      status: 0,
+    },
   },
   mutations: {
-    ACCOUNT_LOGIN_STATUS_CHANGED: (state, { data }) => {
-      console.log(data);
+    ACCOUNT_AUTH_STATUS_CHANGED: (state, { data }) => {
       if (!data) {
         Vue.set(state.auth, 'jwt_token', null);
         Vue.set(state.auth, 'id', 0);
@@ -45,35 +53,33 @@ export default {
       localStorage.setItem(AUTH_USER, JSON.stringify(data));
       localStorage.setItem(AUTH_USER_CONFIGS, JSON.stringify(data.configs));
     },
-    ACCOUNT_REGISTER_SUCCESS: (state, { data }) => {
-      console.log(data);
-      console.log(state);
+    ACCOUNT_REGISTER_SUCCESS: (state) => {
+      Vue.set(state.register, 'status', 0);
     },
-    ACCOUNT_LOGIN_SUCCESS: (state, { data }) => {
-      console.log(data);
-      console.log(state);
+    ACCOUNT_LOGIN_SUCCESS: (state) => {
+      Vue.set(state.login, 'status', 0);
     },
     ACCOUNT_LOGOUT_SUCCESS: (state) => {
-      console.log(state);
+      Vue.set(state.logout, 'status', 0);
     },
   },
   actions: {
     // ACCOUNT
     accountRegister({ commit }, params) {
       api.account_register(params).then((response) => {
-        commit(types.ACCOUNT_LOGIN_STATUS_CHANGED, response.data);
-        commit(types.ACCOUNT_REGISTER_SUCCESS, response.data);
+        commit(types.ACCOUNT_AUTH_STATUS_CHANGED, response.data);
+        commit(types.ACCOUNT_REGISTER_SUCCESS);
       });
     },
     accountLogin({ commit }, params) {
       api.account_login(params).then((response) => {
-        commit(types.ACCOUNT_LOGIN_STATUS_CHANGED, response.data);
-        commit(types.ACCOUNT_LOGIN_SUCCESS, response.data);
+        commit(types.ACCOUNT_AUTH_STATUS_CHANGED, response.data);
+        commit(types.ACCOUNT_LOGIN_SUCCESS);
       });
     },
     accountLogout({ commit }) {
+      commit(types.ACCOUNT_AUTH_STATUS_CHANGED, { data: null });
       api.account_logout().then(() => {
-        commit(types.ACCOUNT_LOGIN_STATUS_CHANGED, { data: null });
         commit(types.ACCOUNT_LOGOUT_SUCCESS);
       });
     },

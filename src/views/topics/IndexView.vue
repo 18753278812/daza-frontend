@@ -3,7 +3,10 @@
     <div class="ui items">
       <div class="item" v-for="item in topics.lists">
         <a class="ui small image">
-          <img :src="item.image_url">
+          <imageView
+            class="image"
+            :src="item.image_url"
+          />
         </a>
         <div class="content">
           <router-link class="header" :to="{ name: 'topic_detail', params: { slug: item.id } }">{{item.name}}</router-link>
@@ -22,10 +25,12 @@
 <script>
 import { mapState } from 'vuex';
 import LoadMore from '../../components/LoadMore';
+import ImageView from '../../components/ImageView';
 
 export default {
   components: {
     LoadMore,
+    ImageView,
   },
   computed: mapState({
     topics: state => state.topics.index.topics,

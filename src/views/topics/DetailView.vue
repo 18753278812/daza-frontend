@@ -1,9 +1,12 @@
 <template>
   <div>
     <div class="ui jumbotron inverted vertical center aligned segment">
-      <div v-if="topic">
+      <div class="ui text container" v-if="topic">
         <h1 class="ui inverted header">
-          <img class="ui tiny circular image" :src="topic.image_url">
+          <imageView
+            class="ui tiny circular image"
+            :src="topic.image_url"
+          >
         </h1>
         <h1 class="ui inverted header">
           {{topic.name}}
@@ -11,7 +14,7 @@
         <div class="sub header">{{ topic.description }}</div>
       </div>
     </div>
-    <div class="ui main container">
+    <div class="ui container">
       <ul>
         <li v-for="item in articles.lists">
           <router-link :to="{ name: 'article_detail', params: { slug: item.id } }">{{item.title}}</router-link>
@@ -25,15 +28,16 @@
 </template>
 
 <script>
-
 import { mapState } from 'vuex';
 import Pagination from '../../components/Pagination';
 import LoadMore from '../../components/LoadMore';
+import ImageView from '../../components/ImageView';
 
 export default {
   components: {
     Pagination,
     LoadMore,
+    ImageView,
   },
   computed: mapState({
     topic: state => state.topics.detail.topic,
@@ -41,8 +45,6 @@ export default {
   }),
   data() {
     return {
-      lists: [],
-      pagination: null,
     };
   },
   mounted() {

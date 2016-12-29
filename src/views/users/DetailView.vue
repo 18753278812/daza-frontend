@@ -1,30 +1,45 @@
 <template>
   <div>
     <div class="ui jumbotron inverted vertical center aligned segment">
-      <div v-if="entity">
+      <div v-if="user">
         <h1 class="ui inverted header">
-          <img class="ui tiny circular image" :src="entity.avatar_url">
+          <imageView
+            class="ui tiny circular image"
+            :src="user.avatar_url"
+          >
         </h1>
         <h1 class="ui inverted header">
-          {{entity.name}}
+          {{user.name}}
         </h1>
-        <div class="sub header">{{ entity.bio }}</div>
+        <div class="sub header">{{ user.bio }}</div>
       </div>
     </div>
-    <div class="ui main container">
-      user
-      <div v-if="entity == null">NULL</div>
-      {{ entity }}
+    <div class="ui container">
+      <ul>
+        <li v-for="item in topics.lists">
+          <router-link :to="{ name: 'topic_detail', params: { slug: item.id } }">{{item.name}}</router-link>
+        </li>
+      </ul>
+      <div class="ui basic center aligned segment" style="padding: 0px;">
+        <loadMore :pagination="topics.pagination" :callback="loadMore" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import LoadMore from '../../components/LoadMore';
+import ImageView from '../../components/ImageView';
 
 export default {
+  components: {
+    LoadMore,
+    ImageView,
+  },
   computed: mapState({
-    entity: state => state.users.entity,
+    user: state => state.users.detail.user,
+    topics: state => state.users.detail.topics,
   }),
   data() {
     return {
@@ -32,7 +47,15 @@ export default {
   },
   mounted() {
     const id = this.$route.params.id;
-    this.$store.dispatch('userGetEntity', id);
+    this.$store.dispatch('userDetailGetData', id);
+    this.loadMore(1);
+  },
+  methods: {
+    loadMore(page) {
+      const id = this.$route.params.id;
+      this.$router.replace({ name: 'user_detail', params: { id }, query: { page } });
+      this.$store.dispatch('userDetailGetLists', { id, page });
+    },
   },
 };
 </script>

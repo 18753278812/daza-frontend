@@ -3,13 +3,14 @@
     <div class="ui stackable four column grid">
       <div class="twelve wide column">
         <div class="ui segment">
-          <p>N/A</p>
+          <ul>
+            <li v-for="item in articles.lists">
+              <router-link :to="{ name: 'article_detail', params: { slug: item.id }}">{{item.title}}</router-link>
+            </li>
+          </ul>
         </div>
         <div class="ui basic center aligned segment" style="padding: 0px;">
-          <loadMore :pagination="pagination" :callback="loadMore" />
-        </div>
-        <div class="ui basic center aligned segment" style="padding: 0px;">
-          <pagination :pagination="pagination" :callback="loadMore" />
+          <loadMore :pagination="articles.pagination" :callback="loadMore" />
         </div>
       </div>
       <div class="four wide column">
@@ -38,31 +39,24 @@ export default {
     'sidebar-links': SidebarLinks,
   },
   computed: mapState({
+    articles: state => state.home.index.articles,
     side_ad: state => state.home.side_ad,
     side_topics: state => state.home.side_topics,
     side_links: state => state.home.side_links,
   }),
   data() {
     return {
-      pagination: {
-        per_page: 15,
-        current_page: 1,
-        last_page: 100,
-      },
     };
   },
   mounted() {
     this.$store.dispatch('homeGetData');
+    if (this.articles.lists.length === 0) {
+      this.loadMore(1);
+    }
   },
   methods: {
     loadMore(page) {
-      setTimeout(() => {
-        this.pagination = {
-          per_page: 15,
-          current_page: page,
-          last_page: 100,
-        };
-      }, 300);
+      this.$store.dispatch('homeIndexGetLists', page);
     },
   },
 };
