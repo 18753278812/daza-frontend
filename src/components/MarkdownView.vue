@@ -1,5 +1,5 @@
 <template>
-  <div class="markdown-body" v-html="markdownContent">
+  <div class="markdown-body" v-html="markdownText">
   </div>
 </template>
 
@@ -17,13 +17,19 @@ marked.setOptions({
 export default {
   name: 'loader',
   props: {
-    content: {
+    text: {
+      type: String,
+    },
+    format: {
       type: String,
     },
   },
   computed: {
-    markdownContent() {
-      return marked(this.content, { sanitize: true });
+    markdownText() {
+      if (this.format === 'html') {
+        return this.text;
+      }
+      return marked(this.text, { sanitize: true });
     },
   },
   data() {

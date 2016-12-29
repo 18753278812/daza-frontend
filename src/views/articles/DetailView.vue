@@ -2,7 +2,9 @@
   <div class="ui main text container" v-if="entity">
     <h1 class="ui header">{{entity.title}}</h1>
     <div class="ui divider"></div>
-    <markdown-view :content="entity.content"></markdown-view>
+    <markdown-view
+      :text="entity.content"
+      :format="entity.content_format" />
   </div>
 </template>
 
