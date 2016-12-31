@@ -163,8 +163,8 @@ export default {
     return Vue.http.get(`tags/${name}/articles`);
   },
   // NOTIFICATION
-  notification_get_lists() {
-    return Vue.http.get('notifications');
+  notification_get_lists(page) {
+    return Vue.http.get('notifications', { params: { page } });
   },
   notification_delete_entity(id) {
     return Vue.http.delete(`notifications/${id}`);

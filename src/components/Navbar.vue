@@ -1,9 +1,9 @@
 <template>
-  <div class="ui navbar borderless fixed menu">
+  <div class="ui navbar borderless inverted fixed menu">
     <div class="ui container">
       <div class="header item">
         <router-link to="/" style="height: 32px;">
-          <img class="logo" src="../assets/ic_logo_dark.png">
+          <img class="logo" src="../assets/ic_logo_light.png">
         </router-link>
       </div>
       <div class="left menu">
@@ -14,7 +14,7 @@
         <router-link
           class="item"
           to="/notifications">
-          通知 <div class="ui small teal label">0</div>
+          通知 <a class="ui red circular label">2</a>
         </router-link>
         <div class="ui simple dropdown item">
           <imageView
@@ -43,7 +43,8 @@
         </router-link>
         <div class="item">
           <router-link
-            class="ui primary button"
+            class="ui positive button"
+            tag="button"
             to="/account/login" >
             登录
           </router-link>
@@ -79,13 +80,12 @@ export default {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    margin-left: 50px !important;
 }
 .left.menu .active {
-  border-top: 4px solid #1B1C1D;
-  // margin-top: -4px;
-  padding-top: 8px;
-  background-color: #FFFFFF;
+}
+
+.menu .item > .label {
+    margin-left: 4px;
 }
 
 // Mobile

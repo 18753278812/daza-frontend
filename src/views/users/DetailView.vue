@@ -29,13 +29,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import LoadMore from '../../components/LoadMore';
 import ImageView from '../../components/ImageView';
+import LoadMore from '../../components/LoadMore';
 
 export default {
   components: {
-    LoadMore,
     ImageView,
+    LoadMore,
   },
   computed: mapState({
     user: state => state.users.detail.user,

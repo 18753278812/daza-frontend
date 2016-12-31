@@ -70,6 +70,10 @@ export default {
         commit(types.TOPIC_DETAIL_GET_LISTS_SUCCESS, response.data);
       });
     },
+    topicDetailClean({ commit }) {
+      commit(types.TOPIC_DETAIL_GET_DATA_SUCCESS, {});
+      commit(types.TOPIC_DETAIL_GET_LISTS_SUCCESS, { data: [], pagination: {} });
+    },
     topicGetSubscribers({ commit }, id) {
       api.topic_get_subscribers(id).then((response) => {
         commit(types.REQUEST_SUCCESS, response.data);

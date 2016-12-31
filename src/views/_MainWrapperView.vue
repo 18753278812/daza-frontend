@@ -15,14 +15,14 @@ import Footer from '../components/Footer';
 import FloatingActionButton from '../components/FloatingActionButton';
 
 export default {
-  computed: mapGetters({
-    auth: 'auth',
-  }),
   components: {
     'navbar-view': Navbar,
     'footer-view': Footer,
     'floating-action-button': FloatingActionButton,
   },
+  computed: mapGetters({
+    auth: 'auth',
+  }),
 };
 </script>
 

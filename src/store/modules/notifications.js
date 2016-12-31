@@ -7,21 +7,30 @@ import * as types from '../mutation-types';
 
 export default {
   state: {
-    lists: [],
-    entity: null,
+    index: {
+      notifications: {
+        lists: [],
+        pagination: {},
+      },
+    },
   },
   mutations: {
-    NOTIFICATION_GET_LISTS_SUCCESS: (state, { data }) => {
-      Vue.set(state, 'lists', data);
+    NOTIFICATION_INDEX_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
+      if (pagination.current_page === 1) {
+        Vue.set(state.index.notifications, 'lists', []);
+      }
+      const lists = state.index.notifications.lists.concat(data);
+      Vue.set(state.index.notifications, 'lists', lists);
+      Vue.set(state.index.notifications, 'pagination', pagination);
     },
     NOTIFICATION_GET_ENTITY_SUCCESS: (state, { data }) => {
       Vue.set(state, 'entity', data);
     },
   },
   actions: {
-    notificationGetLists({ commit }) {
-      api.notification_get_lists().then((response) => {
-        commit(types.NOTIFICATION_GET_LISTS_SUCCESS, response.data);
+    notificationIndexGetLists({ commit }, page) {
+      api.notification_get_lists(page).then((response) => {
+        commit(types.NOTIFICATION_INDEX_GET_LISTS_SUCCESS, response.data);
       });
     },
     notificationDeleteEntity({ commit }, id) {

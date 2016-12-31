@@ -14,7 +14,7 @@
         <div class="sub header">{{ topic.description }}</div>
       </div>
     </div>
-    <div class="ui container">
+    <div class="ui main container">
       <ul>
         <li v-for="item in articles.lists">
           <router-link :to="{ name: 'article_detail', params: { slug: item.id } }">{{item.title}}</router-link>
@@ -29,15 +29,15 @@
 
 <script>
 import { mapState } from 'vuex';
+import ImageView from '../../components/ImageView';
 import Pagination from '../../components/Pagination';
 import LoadMore from '../../components/LoadMore';
-import ImageView from '../../components/ImageView';
 
 export default {
   components: {
+    ImageView,
     Pagination,
     LoadMore,
-    ImageView,
   },
   computed: mapState({
     topic: state => state.topics.detail.topic,
@@ -47,17 +47,20 @@ export default {
     return {
     };
   },
-  mounted() {
-    const id = this.$route.params.slug;
-    this.$store.dispatch('topicDetailGetData', id);
-    this.loadMore(1);
-  },
   methods: {
     loadMore(page) {
       const id = this.$route.params.slug;
       this.$router.replace({ name: 'topic_detail', params: { slug: id }, query: { page } });
       this.$store.dispatch('topicDetailGetLists', { id, page });
     },
+  },
+  mounted() {
+    const id = this.$route.params.slug;
+    this.$store.dispatch('topicDetailGetData', id);
+    this.loadMore(1);
+  },
+  destroyed() {
+    this.$store.dispatch('topicDetailClean');
   },
 };
 </script>

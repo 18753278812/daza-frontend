@@ -7,38 +7,51 @@ import 'nprogress/nprogress.css';
 import 'toastr/build/toastr.css';
 import 'github-markdown-css/github-markdown.css';
 import 'highlight.js/styles/github.css';
+import 'simplemde/dist/simplemde.min.css';
 
 export default {
 };
 </script>
 
 <style lang="scss">
-* {
+// SimpleMDE
+.CodeMirror-fullscreen,
+.editor-toolbar.fullscreen {
+  z-index: 1050 !important;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
 }
-body {
-  // background-color: #f3f4f4;
+
+.ui.container {
+  width: 980px;
 }
 #wrapper {
+  overflow: hidden;
   .main.container {
-    padding-top: 90px;
+    padding-top: 70px;
     padding-bottom: 20px;
   }
   // 导航栏
   .navbar.menu {
-    height: 60px;
+    height: 50px;
     border: none;
-    box-shadow: 0 1px 5px #dcdddd;
+    box-shadow: none;
+    background-color: #f7f7f9;
     .item img.logo {
       width: auto;
-      height: 18px;
-      margin: 7px 0;
+      height: 16px;
+      margin-top: 8px;
+      margin-bottom: 8px;
     }
+  }
+  .navbar.inverted.menu {
+    background-color: #37474f;
   }
   // Jumbotron
   .jumbotron.segment {
     background-color: #212121;
     min-height: 240px;
-    margin-top: 60px;
+    margin-top: 50px;
     padding-top: 40px;
     h1.ui.header img {
       margin-right: 0px;

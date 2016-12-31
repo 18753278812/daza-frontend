@@ -8,6 +8,10 @@ import * as types from '../mutation-types';
 export default {
   state: {
     index: {
+      topics: {
+        lists: [],
+        pagination: {},
+      },
       articles: {
         lists: [],
         pagination: {},

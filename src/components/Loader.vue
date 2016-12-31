@@ -1,6 +1,7 @@
 <template>
-  <div>
-    loader
+  <div class="ui basic segment">
+    <div class="ui active loader"></div>
+    <p></p>
   </div>
 </template>
 
@@ -14,5 +15,5 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 </style>

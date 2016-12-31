@@ -1,5 +1,5 @@
 <template>
-  <img :src="thumbnailUrl"/>
+  <img :src="thumbnailUrl" v-on:error="onError"/>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
       let width = 120;
       let height = 120;
       // 如是为空，则返回默认占位图
-      if (value === undefined || value === '') {
+      if (value === undefined || value === '' || !value.startsWith('http')) {
         return '/static/images/placeholder_image.png';
       // 加入参数七牛的图片处理参数
       } else if (value.indexOf(process.env.DOMAIN_NAME) > -1 ||
@@ -41,6 +41,11 @@ export default {
   data() {
     return {
     };
+  },
+  methods: {
+    onError() {
+      // this.src = null;
+    },
   },
 };
 </script>
