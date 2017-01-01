@@ -8,7 +8,7 @@ import * as types from '../mutation-types';
 export default {
   state: {
     detail: {
-      user: {},
+      user: null,
       topics: {
         lists: [],
         pagination: null,
@@ -20,7 +20,7 @@ export default {
       Vue.set(state.detail, 'user', data);
     },
     USER_DETAIL_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
-      if (pagination.current_page === 1) {
+      if (pagination == null || pagination.current_page === 1) {
         Vue.set(state.detail.topics, 'lists', []);
       }
       const lists = state.detail.topics.lists.concat(data);
@@ -39,6 +39,10 @@ export default {
       api.user_topic_get_lists(id, page).then((response) => {
         commit(types.USER_DETAIL_GET_LISTS_SUCCESS, response.data);
       });
+    },
+    userDetailClean({ commit }) {
+      commit(types.USER_DETAIL_GET_DATA_SUCCESS, { data: null });
+      commit(types.USER_DETAIL_GET_LISTS_SUCCESS, { data: [], pagination: null });
     },
     userEstablishRelationship({ commit }, id, params) {
       api.user_establish_relationship(id, params).then((response) => {

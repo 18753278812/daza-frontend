@@ -7,6 +7,10 @@ import * as types from '../mutation-types';
 
 export default {
   state: {
+    counts: {
+      count: 0,
+      unread_count: 0,
+    },
     index: {
       notifications: {
         lists: [],
@@ -15,6 +19,10 @@ export default {
     },
   },
   mutations: {
+    NOTIFICATION_COUNTS_GET_DATA_SUCCESS: (state, { data }) => {
+      Vue.set(state.counts, 'count', data.count);
+      Vue.set(state.counts, 'unread_count', data.unread_count);
+    },
     NOTIFICATION_INDEX_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
       if (pagination.current_page === 1) {
         Vue.set(state.index.notifications, 'lists', []);
@@ -28,6 +36,19 @@ export default {
     },
   },
   actions: {
+    notificationCountsGetData({ commit }) {
+      api.notification_get_counts().then((response) => {
+        commit(types.NOTIFICATION_COUNTS_GET_DATA_SUCCESS, response.data);
+      });
+    },
+    notificationCountsClean({ commit }) {
+      commit(types.NOTIFICATION_COUNTS_GET_DATA_SUCCESS, {
+        data: {
+          count: 0,
+          unread_count: 0,
+        },
+      });
+    },
     notificationIndexGetLists({ commit }, page) {
       api.notification_get_lists(page).then((response) => {
         commit(types.NOTIFICATION_INDEX_GET_LISTS_SUCCESS, response.data);
@@ -41,11 +62,6 @@ export default {
     notificationGetEntity({ commit }, id) {
       api.notification_get_entity(id).then((response) => {
         commit(types.NOTIFICATION_GET_ENTITY_SUCCESS, response.data);
-      });
-    },
-    notificationGetCounts({ commit }) {
-      api.notification_get_counts().then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
       });
     },
     notificationMarkAsRead({ commit }) {

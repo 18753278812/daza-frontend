@@ -4,7 +4,7 @@
       <router-link class="item" to="/" exact>首页</router-link>
       <router-link class="item" to="/topics">主题</router-link>
     </div>
-    <navbar-view :auth="auth"></navbar-view>
+    <navbar-view :auth="auth" :counts="counts"></navbar-view>
     <router-view></router-view>
     <footer-view></footer-view>
     <floating-action-button></floating-action-button>
@@ -26,6 +26,7 @@ export default {
   },
   computed: mapGetters({
     auth: 'auth',
+    counts: 'counts',
   }),
 };
 </script>

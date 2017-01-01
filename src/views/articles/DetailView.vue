@@ -1,9 +1,8 @@
 <template>
   <div class="ui main container">
     <div class="ui stackable four column grid">
-      <loader :data="article === null" />
-      <div class="eleven wide column" v-if="article">
-        <h1 class="ui header">
+      <div class="eleven wide column">
+        <h1 class="ui header"  v-if="article">
           {{article.title}}
           <div class="sub header">
             <label>
@@ -12,14 +11,16 @@
           </div>
         </h1>
         <div class="ui divider"></div>
-        <markdown-view
-          :text="article.content"
-          :format="article.content_format" />
-        <div class="extra">
+        <div class="content" v-if="article">
+          <markdown-view
+            :text="article.content"
+            :format="article.content_format" />
+        </div>
+        <loader :active="article === null" />
+        <div class="extra" v-if="article">
           <div class="tags">
             <a class="ui tiny label" v-for="tag in article.tags">{{tag.name}}</a>
           </div>
-
           <div class="ui grid" style="margin-top: 10px; margin-bottom: 10px;">
             <div class="center aligned sixteen wide column">
               <div class="ui blue button">
@@ -27,7 +28,6 @@
               </div>
             </div>
           </div>
-
           <div class="ui grid">
             <div class="left aligned six wide column">
               <a :href="mailToReport">举报</a>
@@ -37,9 +37,8 @@
             </div>
           </div>
         </div>
-
+        <h4 class="ui horizontal divider header">文章评论({{article == null ? 0 : article.comment_count}})</h4>
         <div class="ui comments">
-          <h4 class="ui horizontal divider header">文章评论({{article.comment_count}})</h4>
           <div class="comment" v-for="comment in comments.lists">
             <a class="avatar">
               <imageView :src="comment.user.avatar_url" />
@@ -61,9 +60,9 @@
             <div class="field">
               <textarea></textarea>
             </div>
-            <div class="ui blue labeled submit icon button">
-              <i class="icon edit"></i> Add Reply
-            </div>
+            <button class="ui blue submit button" type="submit">
+              回复
+            </button>
              <label>Ctrl+Enter</label>
           </form>
         </div>
@@ -123,5 +122,8 @@ export default {
 <style lang="scss" scoped>
 .extra {
   margin-top: 20px;
+}
+.comments {
+  max-width: 100%;
 }
 </style>

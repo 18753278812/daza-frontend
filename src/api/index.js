@@ -173,7 +173,7 @@ export default {
     return Vue.http.get(`notifications/${id}`);
   },
   notification_get_counts() {
-    return Vue.http.get('notifications');
+    return Vue.http.get('notifications/counts');
   },
   notification_mark_as_read() {
     return Vue.http.post('notifications/mark_as_read');

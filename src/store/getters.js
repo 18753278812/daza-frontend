@@ -3,4 +3,9 @@ export const auth = (state) => {
   return data;
 };
 
-export { auth as default };
+export const counts = (state) => {
+  const data = state.notifications.counts;
+  return data;
+};
+
+// export { auth, counts };

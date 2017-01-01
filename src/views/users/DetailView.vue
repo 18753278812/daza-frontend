@@ -56,16 +56,19 @@ export default {
     return {
     };
   },
-  mounted() {
-    const id = this.$route.params.id;
-    this.$store.dispatch('userDetailGetData', id);
-    this.loadMore(1);
-  },
   methods: {
     loadMore(page) {
       const id = this.$route.params.id;
       this.$store.dispatch('userDetailGetLists', { id, page });
     },
+  },
+  mounted() {
+    const id = this.$route.params.id;
+    this.$store.dispatch('userDetailGetData', id);
+    this.loadMore(1);
+  },
+  destroyed() {
+    this.$store.dispatch('userDetailClean');
   },
 };
 </script>

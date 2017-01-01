@@ -17,7 +17,7 @@
         <router-link
           class="item"
           to="/notifications">
-          通知 <a class="ui red circular label">2</a>
+          通知 <a class="ui red circular label" v-if="counts.unread_count > 0">{{counts.unread_count}}</a>
         </router-link>
         <div class="ui simple dropdown item">
           <imageView
@@ -69,6 +69,10 @@ export default {
   },
   props: {
     auth: {
+      type: Object,
+      required: true,
+    },
+    counts: {
       type: Object,
       required: true,
     },

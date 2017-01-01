@@ -18,6 +18,7 @@ export default {
         this.$router.push('/');
       }, 300);
     });
+    this.$store.dispatch('notificationCountsClean');
   },
 };
 </script>

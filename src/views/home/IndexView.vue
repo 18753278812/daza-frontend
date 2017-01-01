@@ -77,10 +77,9 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch('homeGetData');
-    if (this.articles.lists.length === 0) {
-      this.loadMore(1);
-    }
+    this.$store.dispatch('notificationCountsGetData');
+    this.$store.dispatch('homeIndexGetData');
+    this.loadMore(1);
   },
   methods: {
     loadMore(page) {

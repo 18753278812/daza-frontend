@@ -20,7 +20,7 @@ export default {
       Vue.set(state.detail, 'article', data);
     },
     ARTICLE_DETAIL_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
-      if (pagination.current_page === 1) {
+      if (pagination == null || pagination.current_page === 1) {
         Vue.set(state.detail.comments, 'lists', []);
       }
       const lists = state.detail.comments.lists.concat(data);
@@ -60,8 +60,8 @@ export default {
       });
     },
     articleDetailClean({ commit }) {
-      commit(types.ARTICLE_DETAIL_GET_DATA_SUCCESS, null);
-      commit(types.ARTICLE_DETAIL_GET_LISTS_SUCCESS, { lists: [], pagination: null });
+      commit(types.ARTICLE_DETAIL_GET_DATA_SUCCESS, { data: null });
+      commit(types.ARTICLE_DETAIL_GET_LISTS_SUCCESS, { data: [], pagination: null });
     },
     articleCreateEntity({ commit }, id) {
       api.article_create_entity(id).then((response) => {
