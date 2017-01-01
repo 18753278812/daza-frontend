@@ -15,10 +15,10 @@
       </div>
     </div>
     <div class="ui main container">
-      <loader :pagination="topics.pagination" />
+      <loader :active="topics.pagination === null" />
       <div class="topics">
         <div class="item" v-for="item in topics.lists">
-          <a class="ui image">
+          <a class="ui bordered rounded image">
             <imageView
               :src="item.image_url"
             />
@@ -31,9 +31,7 @@
           </div>
         </div>
       </div>
-      <div class="ui basic center aligned segment">
-        <loadMore :pagination="topics.pagination" :callback="loadMore" />
-      </div>
+      <loadMore :pagination="topics.pagination" :callback="loadMore" />
     </div>
   </div>
 </template>

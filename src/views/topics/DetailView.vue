@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="ui main container">
-      <loader :pagination="articles.pagination" />
+      <loader :active="articles.pagination === null" />
       <div class="articles">
         <div class="item" v-for="item in articles.lists">
           <div class="content">
@@ -44,9 +44,7 @@
           </div>
         </div>
       </div>
-      <div class="ui basic center aligned segment">
-        <loadMore :pagination="articles.pagination" :callback="loadMore" />
-      </div>
+      <loadMore :pagination="articles.pagination" :callback="loadMore" />
     </div>
   </div>
 </template>

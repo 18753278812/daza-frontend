@@ -1,5 +1,5 @@
 <template>
-  <div class="ui basic segment" v-if="!pagination">
+  <div class="ui basic center aligned segment" v-if="active">
     <div class="ui active loader"></div>
     <p></p>
   </div>
@@ -9,8 +9,8 @@
 export default {
   name: 'loader',
   props: {
-    pagination: {
-      type: Object,
+    active: {
+      type: Boolean,
     },
   },
   data() {
@@ -21,4 +21,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.segment {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
 </style>

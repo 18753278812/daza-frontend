@@ -34,7 +34,7 @@ export default {
       Vue.set(state.detail, 'topic', data);
     },
     TOPIC_DETAIL_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
-      if (pagination.current_page === 1) {
+      if (pagination == null || pagination.current_page === 1) {
         Vue.set(state.detail.articles, 'lists', []);
       }
       const lists = state.detail.articles.lists.concat(data);
@@ -72,7 +72,7 @@ export default {
     },
     topicDetailClean({ commit }) {
       commit(types.TOPIC_DETAIL_GET_DATA_SUCCESS, {});
-      commit(types.TOPIC_DETAIL_GET_LISTS_SUCCESS, { data: [], pagination: {} });
+      commit(types.TOPIC_DETAIL_GET_LISTS_SUCCESS, { data: [], pagination: null });
     },
     topicGetSubscribers({ commit }, id) {
       api.topic_get_subscribers(id).then((response) => {

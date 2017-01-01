@@ -1,5 +1,7 @@
 <template>
-  <button v-if="pagination" class="ui basic button" v-bind:class="{ loading: isLoading }" v-on:click="submit">{{ hasMore ? '点击加载更多' : '没有更多数据'}}</button>
+  <div class="ui basic center aligned segment" v-if="pagination">
+    <button class="ui basic button" v-bind:class="{ loading: isLoading }" v-on:click="submit">{{ hasMore ? '点击加载更多' : '没有更多数据'}}</button>
+  </div>
 </template>
 
 <script>
@@ -48,5 +50,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.segment {
+  margin-top: 0px;
+}
 </style>

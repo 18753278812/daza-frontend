@@ -7,24 +7,63 @@ import * as types from '../mutation-types';
 
 export default {
   state: {
-    lists: [],
-    entity: null,
+    detail: {
+      article: null,
+      comments: {
+        lists: [],
+        pagination: null,
+      },
+    },
   },
   mutations: {
-    ARTICLE_GET_LISTS_SUCCESS: (state, { data }) => {
-      Vue.set(state, 'lists', data);
+    ARTICLE_DETAIL_GET_DATA_SUCCESS: (state, { data }) => {
+      Vue.set(state.detail, 'article', data);
     },
-    ARTICLE_GET_ENTITY_SUCCESS: (state, { data }) => {
-      Vue.set(state, 'entity', data);
+    ARTICLE_DETAIL_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
+      if (pagination.current_page === 1) {
+        Vue.set(state.detail.comments, 'lists', []);
+      }
+      const lists = state.detail.comments.lists.concat(data);
+      Vue.set(state.detail.comments, 'lists', lists);
+      Vue.set(state.detail.comments, 'pagination', pagination);
     },
   },
   actions: {
-    articleGetLists({ commit }) {
-      api.article_get_lists().then((response) => {
-        commit(types.ARTICLE_GET_LISTS_SUCCESS, response.data);
+    articleDetailGetData({ commit }, id) {
+      api.article_get_entity(id).then((response) => {
+        commit(types.ARTICLE_DETAIL_GET_DATA_SUCCESS, response.data);
       });
     },
-    articleAreateEntity({ commit }, id) {
+    articleDetailGetLists({ commit }, id, page) {
+      api.article_comment_get_lists(id, page).then((response) => {
+        commit(types.ARTICLE_DETAIL_GET_LISTS_SUCCESS, response.data);
+      });
+    },
+    articleDetailUpvote({ commit }, id) {
+      api.article_upvote(id).then((response) => {
+        commit(types.REQUEST_SUCCESS, response.data);
+      });
+    },
+    articleDetailDownvote({ commit }, id) {
+      api.article_downvote(id).then((response) => {
+        commit(types.REQUEST_SUCCESS, response.data);
+      });
+    },
+    articleDetailCommentCreate({ commit }, id, params) {
+      api.article_comment_create_entity(id, params).then((response) => {
+        commit(types.REQUEST_SUCCESS, response.data);
+      });
+    },
+    articleDetailCommentDelete({ commit }, id) {
+      api.article_comment_delete_entity(id).then((response) => {
+        commit(types.REQUEST_SUCCESS, response.data);
+      });
+    },
+    articleDetailClean({ commit }) {
+      commit(types.ARTICLE_DETAIL_GET_DATA_SUCCESS, null);
+      commit(types.ARTICLE_DETAIL_GET_LISTS_SUCCESS, { lists: [], pagination: null });
+    },
+    articleCreateEntity({ commit }, id) {
       api.article_create_entity(id).then((response) => {
         commit(types.REQUEST_SUCCESS, response.data);
       });
@@ -39,38 +78,8 @@ export default {
         commit(types.REQUEST_SUCCESS, response.data);
       });
     },
-    articleGetEntity({ commit }, id) {
-      api.article_get_entity(id).then((response) => {
-        commit(types.ARTICLE_GET_ENTITY_SUCCESS, response.data);
-      });
-    },
-    articleUpvote({ commit }, id) {
-      api.article_upvote(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleDownvote({ commit }, id) {
-      api.article_downvote(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
     articleGetVotes({ commit }, id) {
       api.article_get_votes(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleCommentGetLists({ commit }, id) {
-      api.article_comment_get_lists(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleCommentCreateEntity({ commit }, id, params) {
-      api.article_comment_create_entity(id, params).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleCommentDeleteEntity({ commit }, id) {
-      api.article_comment_delete_entity(id).then((response) => {
         commit(types.REQUEST_SUCCESS, response.data);
       });
     },

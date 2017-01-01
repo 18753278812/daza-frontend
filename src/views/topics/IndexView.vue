@@ -1,7 +1,7 @@
 <template>
   <div class="ui main container">
     <h1 class="ui header">主题广场</h1>
-    <loader :pagination="topics.pagination" />
+    <loader :active="topics.pagination === null" />
     <div class="topics">
       <div class="item" v-for="item in topics.lists">
         <a class="ui bordered rounded image">
@@ -17,9 +17,7 @@
         </div>
       </div>
     </div>
-    <div class="ui basic center aligned segment">
-      <loadMore :pagination="topics.pagination" :callback="loadMore" />
-    </div>
+    <loadMore :pagination="topics.pagination" :callback="loadMore" />
   </div>
 </template>
 

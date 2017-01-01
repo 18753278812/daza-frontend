@@ -1,6 +1,7 @@
 <template>
   <div class="ui main container">
     <div class="ui stackable four column grid">
+      <loader :data="article === null" />
       <div class="eleven wide column" v-if="article">
         <h1 class="ui header">
           {{article.title}}
@@ -14,7 +15,6 @@
         <markdown-view
           :text="article.content"
           :format="article.content_format" />
-
         <div class="extra">
           <div class="tags">
             <a class="ui tiny label" v-for="tag in article.tags">{{tag.name}}</a>
@@ -40,54 +40,20 @@
 
         <div class="ui comments">
           <h4 class="ui horizontal divider header">文章评论({{article.comment_count}})</h4>
-          <div class="comment">
+          <div class="comment" v-for="comment in comments.lists">
             <a class="avatar">
-              <img src="/images/avatar/small/matt.jpg">
+              <imageView :src="comment.user.avatar_url" />
             </a>
             <div class="content">
-              <a class="author">Matt</a>
+              <a class="author">{{comment.user.name}}</a>
               <div class="metadata">
-                <span class="date">Today at 5:42PM</span>
+                <span class="date">{{comment.created_at | moment}}</span>
               </div>
               <div class="text">
-                How artistic!
+                {{comment.content}}
               </div>
               <div class="actions">
-                <a class="reply">Reply</a>
-              </div>
-            </div>
-          </div>
-          <div class="comment">
-            <a class="avatar">
-              <img src="/images/avatar/small/elliot.jpg">
-            </a>
-            <div class="content">
-              <a class="author">Elliot Fu</a>
-              <div class="metadata">
-                <span class="date">Yesterday at 12:30AM</span>
-              </div>
-              <div class="text">
-                <p>This has been very useful for my research. Thanks as well!</p>
-              </div>
-              <div class="actions">
-                <a class="reply">Reply</a>
-              </div>
-            </div>
-          </div>
-          <div class="comment">
-            <a class="avatar">
-              <img src="/images/avatar/small/joe.jpg">
-            </a>
-            <div class="content">
-              <a class="author">Joe Henderson</a>
-              <div class="metadata">
-                <span class="date">5 days ago</span>
-              </div>
-              <div class="text">
-                Dude, this is awesome. Thanks so much
-              </div>
-              <div class="actions">
-                <a class="reply">Reply</a>
+                <a class="reply">回复</a>
               </div>
             </div>
           </div>
@@ -111,16 +77,21 @@
 
 <script>
 import { mapState } from 'vuex';
+import ImageView from '../../components/ImageView';
+import Loader from '../../components/Loader';
 import MarkdownView from '../../components/MarkdownView';
 import ShareButtonGroup from '../../components/ShareButtonGroup';
 
 export default {
   components: {
+    ImageView,
+    Loader,
     MarkdownView,
     ShareButtonGroup,
   },
   computed: mapState({
-    article: state => state.articles.entity,
+    article: state => state.articles.detail.article,
+    comments: state => state.articles.detail.comments,
     mailToReport() {
       const email = process.env.EMAIL_REPORT;
       const subject = `举报文章 -《${this.article.title}》`;
@@ -132,9 +103,19 @@ export default {
     return {
     };
   },
+  methods: {
+    loadMore(page) {
+      const id = this.$route.params.slug;
+      this.$store.dispatch('articleDetailGetLists', id, page);
+    },
+  },
   mounted() {
     const id = this.$route.params.slug;
-    this.$store.dispatch('articleGetEntity', id);
+    this.$store.dispatch('articleDetailGetData', id);
+    this.loadMore(id, 1);
+  },
+  destroyed() {
+    this.$store.dispatch('articleDetailClean');
   },
 };
 </script>
