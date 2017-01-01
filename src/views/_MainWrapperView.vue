@@ -1,5 +1,9 @@
 <template>
   <div id="wrapper">
+    <div class="ui sidebar inverted vertical labeled icon menu">
+      <router-link class="item" to="/" exact>首页</router-link>
+      <router-link class="item" to="/topics">主题</router-link>
+    </div>
     <navbar-view :auth="auth"></navbar-view>
     <router-view></router-view>
     <footer-view></footer-view>

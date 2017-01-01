@@ -10,11 +10,11 @@ export default {
     index: {
       topics: {
         lists: [],
-        pagination: {},
+        pagination: null,
       },
       articles: {
         lists: [],
-        pagination: {},
+        pagination: null,
       },
     },
     side_ad: {},

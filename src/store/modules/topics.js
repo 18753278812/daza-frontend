@@ -10,14 +10,14 @@ export default {
     index: {
       topics: {
         lists: [],
-        pagination: {},
+        pagination: null,
       },
     },
     detail: {
       topic: {},
       articles: {
         lists: [],
-        pagination: {},
+        pagination: null,
       },
     },
   },

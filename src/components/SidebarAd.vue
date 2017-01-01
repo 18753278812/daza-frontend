@@ -1,5 +1,5 @@
 <template>
-  <div class="ui ad card" v-if="data !== null">
+  <div class="ui ad card" v-if="data">
     <div class="image">
       <img v-bind:src="data.image_url">
     </div>

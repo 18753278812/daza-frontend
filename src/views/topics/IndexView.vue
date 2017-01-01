@@ -1,10 +1,11 @@
 <template>
   <div class="ui main container">
-    <div class="ui items">
+    <h1 class="ui header">主题广场</h1>
+    <loader :pagination="topics.pagination" />
+    <div class="topics">
       <div class="item" v-for="item in topics.lists">
-        <a class="ui small image">
+        <a class="ui bordered rounded image">
           <imageView
-            class="image"
             :src="item.image_url"
           />
         </a>
@@ -16,7 +17,7 @@
         </div>
       </div>
     </div>
-    <div class="ui basic center aligned segment" style="padding: 0px;">
+    <div class="ui basic center aligned segment">
       <loadMore :pagination="topics.pagination" :callback="loadMore" />
     </div>
   </div>
@@ -24,13 +25,15 @@
 
 <script>
 import { mapState } from 'vuex';
-import LoadMore from '../../components/LoadMore';
 import ImageView from '../../components/ImageView';
+import Loader from '../../components/Loader';
+import LoadMore from '../../components/LoadMore';
 
 export default {
   components: {
-    LoadMore,
     ImageView,
+    Loader,
+    LoadMore,
   },
   computed: mapState({
     topics: state => state.topics.index.topics,

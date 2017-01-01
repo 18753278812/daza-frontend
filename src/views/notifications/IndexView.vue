@@ -1,7 +1,7 @@
 <template>
   <div class="ui main container">
     <h1 class="ui header">消息通知</h1>
-
+    <loader :pagination="notifications.pagination" />
     <div class="ui divided items">
       <div class="item" v-for="entry in notifications.lists" v-bind:class="{ read: !entry.unread }">
         <div class="ui small image">

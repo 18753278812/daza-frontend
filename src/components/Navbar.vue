@@ -1,6 +1,9 @@
 <template>
   <div class="ui navbar borderless inverted fixed menu">
     <div class="ui container">
+      <a class="launch icon item" v-on:click="toggleSidebar">
+        <i class="content icon"></i>
+      </a>
       <div class="header item">
         <router-link to="/" style="height: 32px;">
           <img class="logo" src="../assets/ic_logo_light.png">
@@ -57,6 +60,8 @@
 <script>
 import ImageView from './ImageView';
 
+const $ = global.jQuery;
+
 export default {
   name: 'navbar',
   components: {
@@ -71,6 +76,11 @@ export default {
   data() {
     return {
     };
+  },
+  methods: {
+    toggleSidebar() {
+      $('.ui.sidebar').sidebar('toggle');
+    },
   },
 };
 </script>
@@ -98,6 +108,12 @@ export default {
 @media (min-width: 768px) and (max-width: 991px) {
   .left.menu {
     margin-left: 20px !important;
+  }
+}
+// Desktop
+@media (min-width: 1199px) {
+  .launch.item {
+    display: none !important;
   }
 }
 </style>

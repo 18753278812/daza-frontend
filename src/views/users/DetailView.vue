@@ -14,13 +14,24 @@
         <div class="sub header">{{ user.bio }}</div>
       </div>
     </div>
-    <div class="ui container">
-      <ul>
-        <li v-for="item in topics.lists">
-          <router-link :to="{ name: 'topic_detail', params: { slug: item.id } }">{{item.name}}</router-link>
-        </li>
-      </ul>
-      <div class="ui basic center aligned segment" style="padding: 0px;">
+    <div class="ui main container">
+      <loader :pagination="topics.pagination" />
+      <div class="topics">
+        <div class="item" v-for="item in topics.lists">
+          <a class="ui image">
+            <imageView
+              :src="item.image_url"
+            />
+          </a>
+          <div class="content">
+            <router-link class="header" :to="{ name: 'topic_detail', params: { slug: item.id } }">{{item.name}}</router-link>
+            <div class="description">
+              <p>{{item.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui basic center aligned segment">
         <loadMore :pagination="topics.pagination" :callback="loadMore" />
       </div>
     </div>
@@ -30,11 +41,13 @@
 <script>
 import { mapState } from 'vuex';
 import ImageView from '../../components/ImageView';
+import Loader from '../../components/Loader';
 import LoadMore from '../../components/LoadMore';
 
 export default {
   components: {
     ImageView,
+    Loader,
     LoadMore,
   },
   computed: mapState({
@@ -53,7 +66,6 @@ export default {
   methods: {
     loadMore(page) {
       const id = this.$route.params.id;
-      this.$router.replace({ name: 'user_detail', params: { id }, query: { page } });
       this.$store.dispatch('userDetailGetLists', { id, page });
     },
   },
@@ -61,4 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main.container {
+  padding-top: 20px !important;
+}
 </style>

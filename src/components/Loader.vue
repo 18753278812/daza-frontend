@@ -1,5 +1,5 @@
 <template>
-  <div class="ui basic segment">
+  <div class="ui basic segment" v-if="!pagination">
     <div class="ui active loader"></div>
     <p></p>
   </div>
@@ -8,6 +8,11 @@
 <script>
 export default {
   name: 'loader',
+  props: {
+    pagination: {
+      type: Object,
+    },
+  },
   data() {
     return {
     };

@@ -11,7 +11,7 @@ export default {
       user: {},
       topics: {
         lists: [],
-        pagination: {},
+        pagination: null,
       },
     },
   },

@@ -2,6 +2,7 @@
   <div class="ui main container">
     <div class="ui stackable four column grid">
       <div class="eleven wide column">
+        <loader :pagination="articles.pagination" />
         <div class="articles">
           <div class="item" v-for="item in articles.lists">
             <div class="content">
@@ -34,7 +35,7 @@
             </div>
           </div>
         </div>
-        <div class="ui basic center aligned segment" style="padding: 0px;">
+        <div class="ui basic center aligned segment">
           <loadMore :pagination="articles.pagination" :callback="loadMore" />
         </div>
       </div>
@@ -92,78 +93,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.articles {
-  .item:first-child {
-    border-top: none;
-    margin-top: 0!important;
-    padding-top: 0!important;
-  }
-  .item {
-    border-top: 1px solid rgba(34,36,38,.15);
-    margin: 0;
-    padding: 1em 0;
-    .content {
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      width: 100%;
-      margin-bottom: 1em;
-      > .intro {
-        display: block;
-        -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-        flex: 1 1 auto;
-        font-size: 1em;
-        > .header {
-          display: inline-block;
-          font-size: 17px;
-          font-weight: bold;
-          color: rgba(0, 0, 0, 0.85);
-        }
-        > .description {
-          margin-top: 0.6em;
-          max-width: auto;
-          color: rgba(0, 0, 0, 0.87);
-        }
-      }
-      > .image {
-        position: relative;
-        -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-        flex: 0 0 auto;
-        width: 120px;
-        height: 68px;
-        overflow: hidden;
-        border-radius: .3rem;
-      }
-      > .image > img {
-        position: absolute;
-        width: 100%;
-        top: 50%;
-        -ms-transform: translateY(-50%);
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-      }
-    }
-    .extra {
-      font-size: 12px;
-      color: #818a91;
-    }
-  }
-}
-
-// Mobile
-@media (max-width: 768px) {
-  .articles {
-    .item {
-      .content {
-        > .image {
-          width: 100px;
-          height: 56px;
-        }
-      }
-    }
-  }
-}
-
 </style>

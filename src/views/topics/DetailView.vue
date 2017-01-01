@@ -4,7 +4,7 @@
       <div class="ui text container" v-if="topic">
         <h1 class="ui inverted header">
           <imageView
-            class="ui tiny circular image"
+            class="ui bordered rounded image"
             :src="topic.image_url"
           >
         </h1>
@@ -15,13 +15,37 @@
       </div>
     </div>
     <div class="ui main container">
-      <ul>
-        <li v-for="item in articles.lists">
-          <router-link :to="{ name: 'article_detail', params: { slug: item.id } }">{{item.title}}</router-link>
-        </li>
-      </ul>
-      <div class="ui basic center aligned segment" style="padding: 0px;">
-        <pagination :pagination="articles.pagination" :callback="loadMore" />
+      <loader :pagination="articles.pagination" />
+      <div class="articles">
+        <div class="item" v-for="item in articles.lists">
+          <div class="content">
+            <div class="intro">
+              <router-link class="header" :to="{ name: 'article_detail', params: { slug: item.id }}">{{item.title}}</router-link>
+              <div class="description">
+                <p class="summary" v-html="item.summary"></p>
+              </div>
+            </div>
+            <div class="image" v-if="item.image_url">
+              <imageView
+                :src="item.image_url">
+            </div>
+          </div>
+          <div class="extra">
+            <div class="ui grid">
+              <div class="left aligned ten wide column">
+                <span>{{item.published_at | moment}}</span>
+              </div>
+              <div class="right aligned six wide column">
+                <span>{{item.comment_count}}评论</span>
+                <span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+                <span>{{item.view_count}}阅读</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui basic center aligned segment">
+        <loadMore :pagination="articles.pagination" :callback="loadMore" />
       </div>
     </div>
   </div>
@@ -30,13 +54,13 @@
 <script>
 import { mapState } from 'vuex';
 import ImageView from '../../components/ImageView';
-import Pagination from '../../components/Pagination';
+import Loader from '../../components/Loader';
 import LoadMore from '../../components/LoadMore';
 
 export default {
   components: {
     ImageView,
-    Pagination,
+    Loader,
     LoadMore,
   },
   computed: mapState({
@@ -50,7 +74,6 @@ export default {
   methods: {
     loadMore(page) {
       const id = this.$route.params.slug;
-      this.$router.replace({ name: 'topic_detail', params: { slug: id }, query: { page } });
       this.$store.dispatch('topicDetailGetLists', { id, page });
     },
   },
@@ -71,5 +94,12 @@ export default {
   .display-3, .lead {
     color: #FFFFFF;
   }
+  .image {
+    width: 80px;
+    height: 80px;
+  }
+}
+.main.container {
+  padding-top: 20px !important;
 }
 </style>
