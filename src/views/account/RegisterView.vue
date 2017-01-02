@@ -67,7 +67,7 @@ export default {
   methods: {
     submit() {
       NProgress.start();
-      this.$store.dispatch('register', this.params).then(() => {
+      this.$store.dispatch('accountRegisterSubmit', this.params).then(() => {
         setTimeout(() => {
           NProgress.done();
           this.$router.push('/');

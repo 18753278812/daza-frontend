@@ -53,34 +53,34 @@ export default {
       localStorage.setItem(AUTH_USER, JSON.stringify(data));
       localStorage.setItem(AUTH_USER_CONFIGS, JSON.stringify(data.configs));
     },
-    ACCOUNT_REGISTER_SUCCESS: (state) => {
+    ACCOUNT_REGISTER_SUBMIT_SUCCESS: (state) => {
       Vue.set(state.register, 'status', 0);
     },
-    ACCOUNT_LOGIN_SUCCESS: (state) => {
+    ACCOUNT_LOGIN_SUBMIT_SUCCESS: (state) => {
       Vue.set(state.login, 'status', 0);
     },
-    ACCOUNT_LOGOUT_SUCCESS: (state) => {
+    ACCOUNT_LOGOUT_SUBMIT_SUCCESS: (state) => {
       Vue.set(state.logout, 'status', 0);
     },
   },
   actions: {
     // ACCOUNT
-    accountRegister({ commit }, params) {
+    accountRegisterSubmit({ commit }, params) {
       api.account_register(params).then((response) => {
         commit(types.ACCOUNT_AUTH_STATUS_CHANGED, response.data);
-        commit(types.ACCOUNT_REGISTER_SUCCESS);
+        commit(types.ACCOUNT_REGISTER_SUBMIT_SUCCESS);
       });
     },
-    accountLogin({ commit }, params) {
+    accountLoginSubmit({ commit }, params) {
       api.account_login(params).then((response) => {
         commit(types.ACCOUNT_AUTH_STATUS_CHANGED, response.data);
-        commit(types.ACCOUNT_LOGIN_SUCCESS);
+        commit(types.ACCOUNT_LOGIN_SUBMIT_SUCCESS);
       });
     },
-    accountLogout({ commit }) {
+    accountLogoutSubmit({ commit }) {
       commit(types.ACCOUNT_AUTH_STATUS_CHANGED, { data: null });
       api.account_logout().then(() => {
-        commit(types.ACCOUNT_LOGOUT_SUCCESS);
+        commit(types.ACCOUNT_LOGOUT_SUBMIT_SUCCESS);
       });
     },
     accountGetProfile({ commit }) {

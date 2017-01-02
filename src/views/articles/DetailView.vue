@@ -15,6 +15,10 @@
           <markdown-view
             :text="article.content"
             :format="article.content_format" />
+          <div v-if="!article.content">
+            <blockquote v-html="article.summary" />
+            <a :href="article.link">立即跳转到文章<a/>
+          </div>
         </div>
         <loader :active="article === null" />
         <div class="extra" v-if="article">
@@ -80,7 +84,7 @@
               </div>
               <div class="meta">
                 <span class="founder">
-                  由 {{article.topic.user.name }} 维护
+                  由 <router-link :to="{ name: 'user_detail', params: { id: article.topic.user.id } }">{{article.topic.user.name }}</router-link> 维护
                 </span>
               </div>
               <div class="description">
@@ -88,7 +92,7 @@
               </div>
             </div>
             <div class="extra content">
-              <div class="ui basic green button">订阅({{article.topic.subscriber_count}})</div>
+              <div class="ui basic green button" v-on:click="subscribe">订阅({{article.topic.subscriber_count}})</div>
             </div>
           </div>
         </div>
@@ -134,6 +138,9 @@ export default {
     upvote() {
       toastr.success('Have fun storming the castle!', 'upvote');
     },
+    subscribe() {
+      toastr.success('Have fun storming the castle!', 'subscribe');
+    },
   },
   mounted() {
     const id = this.$route.params.slug;
@@ -147,6 +154,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content {
+  blockquote {
+    padding: 0 1em;
+    color: #777;
+    border-left: 0.25em solid #ddd;
+    margin-left: 0px;
+    margin-bottom: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  a {
+    font-size: 18px;
+  }
+}
 .extra {
   margin-top: 20px;
 }

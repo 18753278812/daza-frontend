@@ -13,7 +13,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch('accountLogout').then(() => {
+    this.$store.dispatch('accountLogoutSubmit').then(() => {
       setTimeout(() => {
         this.$router.push('/');
       }, 300);
