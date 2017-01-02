@@ -7,36 +7,36 @@ import * as types from '../mutation-types';
 
 export default {
   state: {
-    lists: [],
-    entity: null,
+    detail: {
+      tag: {},
+      articles: {
+        lists: [],
+        pagination: null,
+      },
+    },
   },
   mutations: {
-    TAG_GET_LISTS_SUCCESS: (state, { data }) => {
-      Vue.set(state, 'lists', data);
+    TAG_DETAIL_GET_DATA_SUCCESS: (state, { data }) => {
+      Vue.set(state.detail, 'tag', data);
     },
-    TAG_GET_ENTITY_SUCCESS: (state, { data }) => {
-      Vue.set(state, 'entity', data);
+    TAG_DETAIL_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
+      if (pagination == null || pagination.current_page === 1) {
+        Vue.set(state.detail.articles, 'lists', []);
+      }
+      const lists = state.detail.articles.lists.concat(data);
+      Vue.set(state.detail.articles, 'lists', lists);
+      Vue.set(state.detail.articles, 'pagination', pagination);
     },
   },
   actions: {
-    tagGetLists({ commit }) {
-      api.tag_get_lists().then((response) => {
-        commit(types.TAG_GET_LISTS_SUCCESS, response.data);
-      });
-    },
-    tagCreateEntity({ commit }, params) {
-      api.tag_create_entity(params).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    tagGetEntity({ commit }, name) {
+    tagDetailGetData({ commit }, name) {
       api.tag_get_entity(name).then((response) => {
-        commit(types.TAG_GET_ENTITY_SUCCESS, response.data);
+        commit(types.TAG_DETAIL_GET_DATA_SUCCESS, response.data);
       });
     },
-    tagArticleGetLists({ commit }, name) {
+    tagDetailGetLists({ commit }, name) {
       api.tag_article_get_lists(name).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
+        commit(types.TAG_DETAIL_GET_LISTS_SUCCESS, response.data);
       });
     },
   },

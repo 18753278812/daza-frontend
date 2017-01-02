@@ -19,11 +19,11 @@
         <loader :active="article === null" />
         <div class="extra" v-if="article">
           <div class="tags">
-            <a class="ui tiny label" v-for="tag in article.tags">{{tag.name}}</a>
+            <router-link :to="{ name: 'tag_detail', params: { name: tag.name } }" class="ui tiny label" v-for="tag in article.tags">{{tag.name}}</router-link>
           </div>
           <div class="ui grid" style="margin-top: 10px; margin-bottom: 10px;">
             <div class="center aligned sixteen wide column">
-              <div class="ui blue button">
+              <div class="ui blue button" v-on:click="upvote()">
                 <i class="heart icon"></i> 赞({{article.upvote_count}})
               </div>
             </div>
@@ -68,7 +68,30 @@
         </div>
       </div>
       <div class="five wide column">
-        <p></p>
+        <div class="ui cards">
+          <div class="card" v-if="article">
+            <div class="content">
+              <imageView
+                class="right floated mini ui image"
+                :src="article.topic.image_url"
+                />
+              <div class="header">
+                {{article.topic.name}}
+              </div>
+              <div class="meta">
+                <span class="founder">
+                  由 {{article.topic.user.name }} 维护
+                </span>
+              </div>
+              <div class="description">
+                {{article.topic.description}}
+              </div>
+            </div>
+            <div class="extra content">
+              <div class="ui basic green button">订阅({{article.topic.subscriber_count}})</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -76,6 +99,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import toastr from 'toastr';
 import ImageView from '../../components/ImageView';
 import Loader from '../../components/Loader';
 import MarkdownView from '../../components/MarkdownView';
@@ -107,6 +131,9 @@ export default {
       const id = this.$route.params.slug;
       this.$store.dispatch('articleDetailGetLists', id, page);
     },
+    upvote() {
+      toastr.success('Have fun storming the castle!', 'upvote');
+    },
   },
   mounted() {
     const id = this.$route.params.slug;
@@ -125,5 +152,8 @@ export default {
 }
 .comments {
   max-width: 100%;
+}
+.cards > .card {
+  width: 100%;
 }
 </style>

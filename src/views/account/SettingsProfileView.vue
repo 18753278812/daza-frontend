@@ -14,7 +14,7 @@
         <label>用户名</label>
       </div>
       <div class="thirteen wide field">
-        <input type="text">
+        <label>{{auth.user.username}}</label>
       </div>
     </div>
     <div class="inline fields">
@@ -22,7 +22,7 @@
         <label>邮箱</label>
       </div>
       <div class="thirteen wide field">
-        <input type="text">
+        <label>{{auth.user.email}}</label>
       </div>
     </div>
     <div class="ui divider"></div>
@@ -64,9 +64,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 // import NProgress from 'nprogress';
 
 export default {
+  computed: mapGetters({
+    auth: 'auth',
+  }),
   data() {
     return {
       rules: {

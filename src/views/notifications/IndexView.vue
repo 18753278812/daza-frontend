@@ -26,7 +26,9 @@
             <!-- 评论了文章 -->
             <span v-if="entry.reason === 'comment'">
               <router-link :to="{ name: 'user_detail', params: { id: entry.from_user_id } }">{{ entry.from_user.name }}</router-link> 评论了文章《<router-link :to="{ name: 'article_detail', params: { slug: entry.article_id }}">{{ entry.article.title }}</router-link>》
-              <blockquote class="blockquote">{{ entry.article_comment.content}}</blockquote>
+              <blockquote>
+                <p>{{ entry.article_comment.content}}</p>
+              </blockquote>
             </span>
             <!-- 提及了我 -->
             <span v-if="entry.reason === 'mention'">
@@ -90,10 +92,10 @@ export default {
   max-width: 30px;
 }
 .items > .item > .image > img {
-    max-width: 100% !important;
-    width: auto !important;
-    max-height: 30px !important;
-    position: relative;
+  max-width: 100% !important;
+  max-height: 30px !important;
+  width: auto !important;
+  position: relative;
 }
 .read {
   span {
@@ -104,9 +106,12 @@ export default {
   }
 }
 blockquote {
-  margin-top: 5px;
-  font-size: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 0 1em;
+  color: #777;
+  border-left: 0.25em solid #ddd;
+  margin-left: 0px;
+  margin-bottom: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 </style>

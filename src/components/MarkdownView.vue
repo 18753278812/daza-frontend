@@ -27,6 +27,9 @@ export default {
   computed: {
     markdownText() {
       if (this.format === 'html') {
+        if (this.text.startsWith('<![CDATA[') || this.text.endsWith(']]>')) {
+          return this.text.replace('<![CDATA[', '').replace(']]>', '');
+        }
         return this.text;
       }
       return marked(this.text, { sanitize: true });
