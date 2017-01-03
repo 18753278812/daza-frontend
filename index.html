@@ -30,6 +30,45 @@
 
   <link rel="stylesheet" href="/static/vendor/semantic/dist/semantic.css">
 
+  <!-- DaoVoice -->
+  <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/c4e91260.js","daovoice")</script>
+  <script>
+    const DAOVOICE_APPID = 'c4e91260';
+    let options = {
+      app_id: DAOVOICE_APPID
+    };
+    const user = JSON.parse(localStorage.getItem('auth.user'));
+    if (user !== null) {
+      options = {
+        app_id: DAOVOICE_APPID,
+        user_id: String(user.id),
+        email: user.email,
+        name: user.name,
+        signed_up: Math.floor(new Date(user.created_at).getTime() / 1000),
+      };
+    }
+    daovoice('init', options);
+    daovoice('update');
+    // 待解决问题：如果用户注销后需要更新当前DaoVoice的用户信息。
+  </script>
+
+  <!-- Growingio -->
+  <script type='text/javascript'>
+    var _vds = _vds || [];
+    window._vds = _vds;
+    (function(){
+      _vds.push(['setAccountId', 'bd526e12abd6f8a0']);
+      (function() {
+        var vds = document.createElement('script');
+        vds.type='text/javascript';
+        vds.async = true;
+        vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(vds, s);
+      })();
+    })();
+  </script>
+
 </head>
 
 <body>
