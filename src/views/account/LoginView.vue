@@ -3,7 +3,7 @@
     <div class="ui centered grid">
       <div class="column">
         <h1 class="ui center aligned header">登录</h1>
-        <form class="ui form" novalidate @submit.prevent="submit()">
+        <form class="ui form error" novalidate @submit.prevent="submit()">
           <div class="field">
             <input
               type="email"
@@ -17,6 +17,12 @@
               name="password"
               placeholder="请输入密码"
               v-model="params.password">
+          </div>
+          <div class="ui error message" v-if="failure">
+            <div class="header">{{failure.message}}</div>
+            <ul class="list">
+              <li v-for="error in failure.errors">{{error.message}}</li>
+            </ul>
           </div>
           <div class="field">
             <button class="fluid ui primary button" type="submit">登录</button>
@@ -36,6 +42,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import NProgress from 'nprogress';
 
 export default {
@@ -44,22 +51,37 @@ export default {
       rules: {
       },
       params: {
-        email: '',
-        password: '',
+        email: 'lijy91@foxmail.com',
+        password: '7t2U9P8q99jg',
       },
     };
   },
+  computed: mapState({
+    success: state => state.account.login.success,
+    failure: state => state.account.login.failure,
+  }),
   methods: {
     submit() {
       NProgress.start();
-      const redirectUrl = this.$route.query.redirect_url || '/';
-      this.$store.dispatch('accountLogin', this.params).then(() => {
-        setTimeout(() => {
-          NProgress.done();
-          this.$router.push(redirectUrl);
-        }, 300);
-      });
+      this.$store.dispatch('accountLoginSubmit', this.params);
     },
+    successWatcher(val, oldVal) {
+      if (val && !oldVal) {
+        NProgress.done();
+        const redirectUrl = this.$route.query.redirect_url || '/';
+        this.$router.push(redirectUrl);
+      }
+    },
+    failureWatcher() {
+      NProgress.done();
+    },
+  },
+  watch: {
+    success: 'successWatcher',
+    failure: 'failureWatcher',
+  },
+  beforeCreate() {
+    this.$store.dispatch('accountLoginInit');
   },
 };
 </script>

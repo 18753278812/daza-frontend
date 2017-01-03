@@ -7,18 +7,39 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import NProgress from 'nprogress';
+
 export default {
   data() {
     return {
     };
   },
-  mounted() {
-    this.$store.dispatch('accountLogoutSubmit').then(() => {
-      setTimeout(() => {
+  computed: mapState({
+    success: state => state.account.logout.success,
+    failure: state => state.account.logout.failure,
+  }),
+  methods: {
+    successWatcher(val, oldVal) {
+      if (val && !oldVal) {
+        NProgress.done();
         this.$router.push('/');
-      }, 300);
-    });
-    this.$store.dispatch('notificationCountsClean');
+      }
+    },
+    failureWatcher() {
+      NProgress.done();
+    },
+  },
+  watch: {
+    success: 'successWatcher',
+    failure: 'failureWatcher',
+  },
+  beforeCreate() {
+    this.$store.dispatch('accountLogoutInit');
+  },
+  mounted() {
+    NProgress.start();
+    this.$store.dispatch('accountLogoutSubmit');
   },
 };
 </script>

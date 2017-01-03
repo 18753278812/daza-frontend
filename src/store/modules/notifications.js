@@ -19,6 +19,10 @@ export default {
     },
   },
   mutations: {
+    NOTIFICATION_COUNTS_INIT: (state) => {
+      Vue.set(state.counts, 'count', 0);
+      Vue.set(state.counts, 'unread_count', 0);
+    },
     NOTIFICATION_COUNTS_GET_DATA_SUCCESS: (state, { data }) => {
       Vue.set(state.counts, 'count', data.count);
       Vue.set(state.counts, 'unread_count', data.unread_count);
@@ -39,14 +43,6 @@ export default {
     notificationCountsGetData({ commit }) {
       api.notification_get_counts().then((response) => {
         commit(types.NOTIFICATION_COUNTS_GET_DATA_SUCCESS, response.data);
-      });
-    },
-    notificationCountsClean({ commit }) {
-      commit(types.NOTIFICATION_COUNTS_GET_DATA_SUCCESS, {
-        data: {
-          count: 0,
-          unread_count: 0,
-        },
       });
     },
     notificationIndexGetLists({ commit }, page) {

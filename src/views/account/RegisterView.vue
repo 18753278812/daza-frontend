@@ -3,7 +3,7 @@
     <div class="ui centered grid">
       <div class="column">
         <h1 class="ui center aligned header">注册</h1>
-        <form class="ui form" novalidate @submit.prevent="submit()">
+        <form class="ui form error" novalidate @submit.prevent="submit()">
           <div class="field">
             <input
               type="text"
@@ -35,6 +35,12 @@
               </label>
             </div>
           </div>
+          <div class="ui error message" v-if="failure">
+            <div class="header">{{failure.message}}</div>
+            <ul class="list">
+              <li v-for="error in failure.errors">{{error.message}}</li>
+            </ul>
+          </div>
           <div class="field">
             <button class="fluid ui primary button" type="submit">注册</button>
           </div>
@@ -50,6 +56,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import NProgress from 'nprogress';
 
 export default {
@@ -64,16 +71,32 @@ export default {
       },
     };
   },
+  computed: mapState({
+    success: state => state.account.register.success,
+    failure: state => state.account.register.failure,
+  }),
   methods: {
     submit() {
       NProgress.start();
-      this.$store.dispatch('accountRegisterSubmit', this.params).then(() => {
-        setTimeout(() => {
-          NProgress.done();
-          this.$router.push('/');
-        }, 300);
-      });
+      this.$store.dispatch('accountRegisterSubmit', this.params);
     },
+    successWatcher(val, oldVal) {
+      if (val && !oldVal) {
+        NProgress.done();
+        const redirectUrl = this.$route.query.redirect_url || '/';
+        this.$router.push(redirectUrl);
+      }
+    },
+    failureWatcher() {
+      NProgress.done();
+    },
+  },
+  watch: {
+    success: 'successWatcher',
+    failure: 'failureWatcher',
+  },
+  beforeCreate() {
+    this.$store.dispatch('accountRegisterInit');
   },
 };
 </script>

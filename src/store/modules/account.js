@@ -22,13 +22,16 @@ export default {
       configs: JSON.parse(localStorage.getItem(AUTH_USER_CONFIGS)),
     },
     register: {
-      status: 0,
+      success: true,
+      failure: null,
     },
     login: {
-      status: 0,
+      success: true,
+      failure: null,
     },
     logout: {
-      status: 0,
+      success: true,
+      failure: null,
     },
   },
   mutations: {
@@ -53,34 +56,78 @@ export default {
       localStorage.setItem(AUTH_USER, JSON.stringify(data));
       localStorage.setItem(AUTH_USER_CONFIGS, JSON.stringify(data.configs));
     },
+    ACCOUNT_REGISTER_INIT: (state) => {
+      Vue.set(state.register, 'success', false);
+      Vue.set(state.register, 'failure', null);
+    },
     ACCOUNT_REGISTER_SUBMIT_SUCCESS: (state) => {
-      Vue.set(state.register, 'status', 0);
+      Vue.set(state.register, 'success', true);
+    },
+    ACCOUNT_REGISTER_SUBMIT_FAILURE: (state, data) => {
+      Vue.set(state.register, 'success', false);
+      Vue.set(state.register, 'failure', data);
+    },
+    ACCOUNT_LOGIN_INIT: (state) => {
+      Vue.set(state.login, 'success', false);
+      Vue.set(state.login, 'failure', null);
     },
     ACCOUNT_LOGIN_SUBMIT_SUCCESS: (state) => {
-      Vue.set(state.login, 'status', 0);
+      Vue.set(state.login, 'success', true);
+    },
+    ACCOUNT_LOGIN_SUBMIT_FAILURE: (state, data) => {
+      Vue.set(state.login, 'success', false);
+      Vue.set(state.login, 'failure', data);
+    },
+    ACCOUNT_LOGOUT_INIT: (state) => {
+      Vue.set(state.logout, 'success', false);
+      Vue.set(state.logout, 'failure', null);
     },
     ACCOUNT_LOGOUT_SUBMIT_SUCCESS: (state) => {
-      Vue.set(state.logout, 'status', 0);
+      Vue.set(state.logout, 'success', true);
+      Vue.set(state.logout, 'failure', null);
+    },
+    ACCOUNT_LOGOUT_SUBMIT_FAILURE: (state, data) => {
+      Vue.set(state.logout, 'success', false);
+      Vue.set(state.logout, 'failure', data);
     },
   },
   actions: {
     // ACCOUNT
+    accountRegisterInit({ commit }) {
+      commit(types.ACCOUNT_REGISTER_INIT);
+    },
     accountRegisterSubmit({ commit }, params) {
       api.account_register(params).then((response) => {
         commit(types.ACCOUNT_AUTH_STATUS_CHANGED, response.data);
         commit(types.ACCOUNT_REGISTER_SUBMIT_SUCCESS);
+      })
+      .catch((response) => {
+        commit(types.ACCOUNT_REGISTER_SUBMIT_FAILURE, response.data);
       });
+    },
+    accountLoginInit({ commit }) {
+      commit(types.ACCOUNT_LOGIN_INIT);
     },
     accountLoginSubmit({ commit }, params) {
       api.account_login(params).then((response) => {
         commit(types.ACCOUNT_AUTH_STATUS_CHANGED, response.data);
         commit(types.ACCOUNT_LOGIN_SUBMIT_SUCCESS);
+      })
+      .catch((response) => {
+        commit(types.ACCOUNT_LOGIN_SUBMIT_FAILURE, response.data);
       });
+    },
+    accountLogoutInit({ commit }) {
+      commit(types.ACCOUNT_LOGOUT_INIT);
     },
     accountLogoutSubmit({ commit }) {
       commit(types.ACCOUNT_AUTH_STATUS_CHANGED, { data: null });
       api.account_logout().then(() => {
         commit(types.ACCOUNT_LOGOUT_SUBMIT_SUCCESS);
+        commit(types.NOTIFICATION_COUNTS_INIT);
+      })
+      .catch((response) => {
+        commit(types.ACCOUNT_LOGOUT_SUBMIT_FAILURE, response.data);
       });
     },
     accountGetProfile({ commit }) {
