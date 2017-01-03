@@ -1,5 +1,5 @@
 <template>
-  <div class="ui vertical icon menu">
+  <div class="ui vertical icon menu" style="display: none;">
     <a class="item" v-on:click="backtop">
       <i class="chevron up icon"></i>
     </a>
@@ -27,7 +27,7 @@ export default {
 .icon.menu {
   bottom: 50px;
   position: fixed;
-  right: 10px;
+  right: 18px;
   z-index: 1000;
 }
 </style>

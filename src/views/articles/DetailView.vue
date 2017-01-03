@@ -60,9 +60,12 @@
               </div>
             </div>
           </div>
-          <form class="ui reply form">
+          <form class="ui reply form" novalidate @submit.prevent="submit()">
             <div class="field">
-              <textarea></textarea>
+              <textarea
+                name="content"
+                v-on:keyup="submit($event)">
+              </textarea>
             </div>
             <button class="ui blue submit button" type="submit">
               回复
@@ -116,6 +119,10 @@ export default {
     MarkdownView,
     ShareButtonGroup,
   },
+  data() {
+    return {
+    };
+  },
   computed: mapState({
     article: state => state.articles.detail.article,
     comments: state => state.articles.detail.comments,
@@ -126,10 +133,6 @@ export default {
       return `mailto:${email}?subject=${subject}&body=${body}`;
     },
   }),
-  data() {
-    return {
-    };
-  },
   methods: {
     loadMore(page) {
       const id = this.$route.params.slug;
@@ -141,14 +144,25 @@ export default {
     subscribe() {
       toastr.success('Have fun storming the castle!', 'subscribe');
     },
+    submit(e) {
+      // 判断是否为按了Ctrl+Enter组合键
+      if (e != null && !((e.metaKey || e.ctrlKey) && e.keyCode === 13)) {
+        return;
+      }
+    },
+  },
+  watch: {
+    article() {
+      global.document.title = `${this.article.title} - daza.io`;
+    },
+  },
+  beforeCreate() {
+    this.$store.dispatch('articleDetailInit');
   },
   mounted() {
     const id = this.$route.params.slug;
     this.$store.dispatch('articleDetailGetData', id);
     this.loadMore(id, 1);
-  },
-  destroyed() {
-    this.$store.dispatch('articleDetailClean');
   },
 };
 </script>

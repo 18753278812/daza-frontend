@@ -1,6 +1,6 @@
 <template>
   <div class="ui main container">
-    <h1 class="ui header">新建主题</h1>
+    <h1 class="ui header">修改主题</h1>
     <div class="ui divider"></div>
     <form class="ui form error" novalidate @submit.prevent="submit()">
       <div class="field">
@@ -91,6 +91,7 @@ export default {
       rules: {
       },
       params: {
+        id: 0,
         short_id: shortid.generate(),
         category_id: '',
         type: '',
@@ -103,19 +104,37 @@ export default {
     };
   },
   computed: mapState({
-    categories: state => state.topics.create.categories,
-    success: state => state.topics.create.success,
-    failure: state => state.topics.create.failure,
+    categories: state => state.topics.edit.categories,
+    topic: state => state.topics.edit.topic,
+    success: state => state.topics.edit.success,
+    failure: state => state.topics.edit.failure,
   }),
   methods: {
     submit() {
       NProgress.start();
-      this.$store.dispatch('topicCreateSubmit', this.params);
+      const id = this.$route.params.slug;
+      this.$store.dispatch('topicEditSubmit', { id, params: this.params });
+    },
+    topicWatcher(val, oldVal) {
+      if (val !== null && oldVal === null) {
+        this.params = {
+          id: val.id,
+          short_id: val.short_id,
+          category_id: val.category_id,
+          type: val.type,
+          source_format: val.source_format,
+          source_link: val.source_link,
+          name: val.name,
+          image_url: val.image_url,
+          description: val.description,
+        };
+      }
     },
     successWatcher(val, oldVal) {
       if (val && !oldVal) {
         NProgress.done();
-        this.$router.push('/topics');
+        const id = this.$route.params.slug;
+        this.$router.push({ name: 'topic_detail', params: { slug: id } });
       }
     },
     failureWatcher() {
@@ -123,11 +142,13 @@ export default {
     },
   },
   watch: {
+    topic: 'topicWatcher',
     success: 'successWatcher',
     failure: 'failureWatcher',
   },
   beforeCreate() {
-    this.$store.dispatch('topicCreateInit');
+    const id = this.$route.params.slug;
+    this.$store.dispatch('topicEditInit', id);
   },
   mounted() {
     $('select.dropdown').dropdown();

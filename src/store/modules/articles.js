@@ -2,11 +2,28 @@ import Vue from 'vue';
 import api from '../../api';
 import * as types from '../mutation-types';
 
-// const localStorageglobal.localStorage;
-// const JSONglobal.JSON;
+const localStorage = global.localStorage;
+// const JSON = global.JSON;
 
 export default {
   state: {
+    create: {
+      topics: {
+        lists: [],
+        pagination: null,
+      },
+      success: true,
+      failure: null,
+    },
+    edit: {
+      topics: {
+        lists: [],
+        pagination: null,
+      },
+      article: null,
+      success: true,
+      failure: null,
+    },
     detail: {
       article: null,
       comments: {
@@ -16,6 +33,45 @@ export default {
     },
   },
   mutations: {
+    // Article Create
+    ARTICLE_CREATE_INIT: (state) => {
+      Vue.set(state.create, 'success', false);
+      Vue.set(state.create, 'failure', null);
+    },
+    ARTICLE_CREATE_INIT_GET_OWNTOPICS_SUCCESS: (state, { data, pagination }) => {
+      Vue.set(state.create.topics, 'lists', data);
+      Vue.set(state.create.topics, 'pagination', pagination);
+    },
+    ARTICLE_CREATE_SUBMIT_SUCCESS: (state) => {
+      Vue.set(state.create, 'success', true);
+      Vue.set(state.create, 'failure', null);
+    },
+    ARTICLE_CREATE_SUBMIT_FAILURE: (state, data) => {
+      Vue.set(state.create, 'success', false);
+      Vue.set(state.create, 'failure', data);
+    },
+    // Article Edit
+    ARTICLE_EDIT_INIT: (state) => {
+      Vue.set(state.edit, 'article', null);
+      Vue.set(state.edit, 'success', false);
+      Vue.set(state.edit, 'failure', null);
+    },
+    ARTICLE_EDIT_INIT_GET_OWNTOPICS_SUCCESS: (state, { data, pagination }) => {
+      Vue.set(state.edit.topics, 'lists', data);
+      Vue.set(state.edit.topics, 'pagination', pagination);
+    },
+    ARTICLE_EDIT_INIT_GET_DATA_SUCCESS: (state, { data }) => {
+      Vue.set(state.edit, 'article', data);
+    },
+    ARTICLE_EDIT_SUBMIT_SUCCESS: (state) => {
+      Vue.set(state.edit, 'success', true);
+      Vue.set(state.edit, 'failure', null);
+    },
+    ARTICLE_EDIT_SUBMIT_FAILURE: (state, data) => {
+      Vue.set(state.edit, 'success', false);
+      Vue.set(state.edit, 'failure', data);
+    },
+    // Article Detail
     ARTICLE_DETAIL_GET_DATA_SUCCESS: (state, { data }) => {
       Vue.set(state.detail, 'article', data);
     },
@@ -29,6 +85,46 @@ export default {
     },
   },
   actions: {
+    // Article Create
+    articleCreateInit({ commit }) {
+      const userId = localStorage.getItem('auth.id');
+      commit(types.ARTICLE_CREATE_INIT);
+      api.user_topic_get_lists(userId, 1).then((response) => {
+        commit(types.ARTICLE_CREATE_INIT_GET_OWNTOPICS_SUCCESS, response.data);
+      });
+    },
+    articleCreateSubmit({ commit }, params) {
+      api.article_create_entity(params).then((response) => {
+        commit(types.ARTICLE_CREATE_SUBMIT_SUCCESS, response.data);
+      })
+      .catch((response) => {
+        commit(types.ARTICLE_CREATE_SUBMIT_FAILURE, response.data);
+      });
+    },
+    // Article Edit
+    articleEditInit({ commit }, id) {
+      const userId = localStorage.getItem('auth.id');
+      commit(types.ARTICLE_EDIT_INIT);
+      api.user_topic_get_lists(userId, 1).then((response) => {
+        commit(types.ARTICLE_EDIT_INIT_GET_OWNTOPICS_SUCCESS, response.data);
+      });
+      api.article_get_entity(id).then((response) => {
+        commit(types.ARTICLE_EDIT_INIT_GET_DATA_SUCCESS, response.data);
+      });
+    },
+    articleEditSubmit({ commit }, id) {
+      api.article_update_entity(id).then((response) => {
+        commit(types.ARTICLE_EDIT_SUBMIT_SUCCESS, response.data);
+      })
+      .catch((response) => {
+        commit(types.ARTICLE_EDIT_SUBMIT_FAILURE, response.data);
+      });
+    },
+    // Article Detail
+    articleDetailInit({ commit }) {
+      commit(types.ARTICLE_DETAIL_GET_DATA_SUCCESS, { data: null });
+      commit(types.ARTICLE_DETAIL_GET_LISTS_SUCCESS, { data: [], pagination: null });
+    },
     articleDetailGetData({ commit }, id) {
       api.article_get_entity(id).then((response) => {
         commit(types.ARTICLE_DETAIL_GET_DATA_SUCCESS, response.data);
@@ -46,45 +142,6 @@ export default {
     },
     articleDetailDownvote({ commit }, id) {
       api.article_downvote(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleDetailCommentCreate({ commit }, id, params) {
-      api.article_comment_create_entity(id, params).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleDetailCommentDelete({ commit }, id) {
-      api.article_comment_delete_entity(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleDetailClean({ commit }) {
-      commit(types.ARTICLE_DETAIL_GET_DATA_SUCCESS, { data: null });
-      commit(types.ARTICLE_DETAIL_GET_LISTS_SUCCESS, { data: [], pagination: null });
-    },
-    articleCreateEntity({ commit }, id) {
-      api.article_create_entity(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleDeleteEntity({ commit }, id) {
-      api.article_delete_entity(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleUpdateEntity({ commit }, id) {
-      api.article_update_entity(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleGetVotes({ commit }, id) {
-      api.article_get_votes(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleViewerGetLists({ commit }, id) {
-      api.article_viewer_get_lists(id).then((response) => {
         commit(types.REQUEST_SUCCESS, response.data);
       });
     },

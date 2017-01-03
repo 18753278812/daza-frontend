@@ -28,6 +28,11 @@
             <div class="description">
               <p>{{item.description}}</p>
             </div>
+            <div class="extra">
+              <router-link
+                v-if="auth.user.id === item.user_id"
+                :to="{ name: 'topic_edit', params: { slug: item.id }}">编辑</router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -49,6 +54,7 @@ export default {
     LoadMore,
   },
   computed: mapState({
+    auth: state => state.account.auth,
     user: state => state.users.detail.user,
     topics: state => state.users.detail.topics,
   }),

@@ -1,17 +1,23 @@
 <template>
   <div class="ui main container">
-    <h1 class="ui header">发表文章</h1>
+    <h1 class="ui header">分享文章</h1>
     <div class="ui divider"></div>
     <form class="ui form error" novalidate @submit.prevent="submit()">
       <div class="field">
         <label>主题：</label>
-        <select
-          class="ui search dropdown"
+        <input
+          type="text"
           name="topic_id"
+          placeholder="选择一个主题"
           v-model="params.topic_id">
-          <option value="">选择一个主题</option>
-          <option v-for="item in topics.lists" :value="item.id">{{item.name}}</option>
-        </select>
+      </div>
+      <div class="field">
+        <label>链接：</label>
+        <input
+          type="text"
+          name="title"
+          placeholder="e.g. http://daza.io/articles/example"
+          v-model="params.link">
       </div>
       <div class="field">
         <label>标题：</label>
@@ -30,13 +36,6 @@
           placeholder="请填写不小于2个字符的摘要。"
           v-model="params.summary">
         </textarea>
-      </div>
-      <div class="field">
-        <markdownEditor
-          name="content"
-          placeholder="请写入 Markdown 格式的正文，并且不能小于2个字符。"
-          :value="params.content" :change="textChange"
-        />
       </div>
       <div class="field">
         <label>标签：</label>
@@ -60,6 +59,7 @@
 </template>
 
 <script>
+
 import { mapState } from 'vuex';
 import shortid from 'shortid';
 import NProgress from 'nprogress';
@@ -78,21 +78,15 @@ export default {
       params: {
         short_id: shortid.generate(),
         topic_id: '',
-        type: 'original',
+        type: 'share',
+        link: '',
         title: '',
         summary: '',
-        content_format: 'markdown',
-        content: '',
-        image_url: '',
         tags: '',
-        location: '',
-        longitude: '',
-        latitude: '',
       },
     };
   },
   computed: mapState({
-    topics: state => state.articles.create.topics,
     success: state => state.articles.create.success,
     failure: state => state.articles.create.failure,
   }),
@@ -122,7 +116,6 @@ export default {
     this.$store.dispatch('articleCreateInit');
   },
   mounted() {
-    $('select.dropdown').dropdown();
     $('.tags').dropdown({ allowAdditions: true });
   },
 };

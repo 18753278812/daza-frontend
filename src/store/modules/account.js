@@ -56,6 +56,7 @@ export default {
       localStorage.setItem(AUTH_USER, JSON.stringify(data));
       localStorage.setItem(AUTH_USER_CONFIGS, JSON.stringify(data.configs));
     },
+    // Register
     ACCOUNT_REGISTER_INIT: (state) => {
       Vue.set(state.register, 'success', false);
       Vue.set(state.register, 'failure', null);
@@ -67,6 +68,7 @@ export default {
       Vue.set(state.register, 'success', false);
       Vue.set(state.register, 'failure', data);
     },
+    // Login
     ACCOUNT_LOGIN_INIT: (state) => {
       Vue.set(state.login, 'success', false);
       Vue.set(state.login, 'failure', null);
@@ -78,6 +80,7 @@ export default {
       Vue.set(state.login, 'success', false);
       Vue.set(state.login, 'failure', data);
     },
+    // Logout
     ACCOUNT_LOGOUT_INIT: (state) => {
       Vue.set(state.logout, 'success', false);
       Vue.set(state.logout, 'failure', null);
@@ -92,7 +95,7 @@ export default {
     },
   },
   actions: {
-    // ACCOUNT
+    // Register
     accountRegisterInit({ commit }) {
       commit(types.ACCOUNT_REGISTER_INIT);
     },
@@ -105,6 +108,7 @@ export default {
         commit(types.ACCOUNT_REGISTER_SUBMIT_FAILURE, response.data);
       });
     },
+    // Login
     accountLoginInit({ commit }) {
       commit(types.ACCOUNT_LOGIN_INIT);
     },
@@ -117,6 +121,7 @@ export default {
         commit(types.ACCOUNT_LOGIN_SUBMIT_FAILURE, response.data);
       });
     },
+    // Logout
     accountLogoutInit({ commit }) {
       commit(types.ACCOUNT_LOGOUT_INIT);
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="ui main container">
-    <h1 class="ui header">发表文章</h1>
+    <h1 class="ui header">修改文章</h1>
     <div class="ui divider"></div>
     <form class="ui form error" novalidate @submit.prevent="submit()">
       <div class="field">
@@ -92,9 +92,10 @@ export default {
     };
   },
   computed: mapState({
-    topics: state => state.articles.create.topics,
-    success: state => state.articles.create.success,
-    failure: state => state.articles.create.failure,
+    topics: state => state.articles.edit.topics,
+    article: state => state.articles.edit.article,
+    success: state => state.articles.edit.success,
+    failure: state => state.articles.edit.failure,
   }),
   methods: {
     textChange(value) {
@@ -102,7 +103,31 @@ export default {
     },
     submit() {
       NProgress.start();
-      this.$store.dispatch('articleCreateSubmit', this.params);
+      this.$store.dispatch('articleEditSubmit', this.params);
+    },
+    articleWatcher(val, oldVal) {
+      if (val !== null && oldVal === null) {
+        const tags = [];
+        if (val.tags !== null) {
+          val.tags.forEach((value) => {
+            tags.push(value.name);
+          });
+        }
+        this.params = {
+          short_id: val.short_id,
+          topic_id: val.topic_id,
+          type: val.type,
+          title: val.title,
+          summary: val.summary,
+          content_format: val.content_format,
+          content: val.content,
+          image_url: val.image_url,
+          tags,
+          location: val.location,
+          longitude: val.longitude,
+          latitude: val.latitude,
+        };
+      }
     },
     successWatcher(val, oldVal) {
       if (val && !oldVal) {
@@ -115,11 +140,13 @@ export default {
     },
   },
   watch: {
+    article: 'articleWatcher',
     success: 'successWatcher',
     failure: 'failureWatcher',
   },
   beforeCreate() {
-    this.$store.dispatch('articleCreateInit');
+    const id = this.$route.params.slug;
+    this.$store.dispatch('articleEditInit', id);
   },
   mounted() {
     $('select.dropdown').dropdown();

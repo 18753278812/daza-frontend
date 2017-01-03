@@ -41,6 +41,7 @@
         <sidebar-ad :data="side_ad"></sidebar-ad>
         <sidebar-topics :data="side_topics"></sidebar-topics>
         <sidebar-links :data="side_links"></sidebar-links>
+        <sidebarSocial />
       </div>
     </div>
   </div>
@@ -55,6 +56,7 @@ import LoadMore from '../../components/LoadMore';
 import SidebarAd from '../../components/SidebarAd';
 import SidebarTopics from '../../components/SidebarTopics';
 import SidebarLinks from '../../components/SidebarLinks';
+import SidebarSocial from '../../components/SidebarSocial';
 
 export default {
   components: {
@@ -65,6 +67,7 @@ export default {
     'sidebar-ad': SidebarAd,
     'sidebar-topics': SidebarTopics,
     'sidebar-links': SidebarLinks,
+    SidebarSocial,
   },
   computed: mapState({
     articles: state => state.home.index.articles,

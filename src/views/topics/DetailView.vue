@@ -34,6 +34,10 @@
             <div class="ui grid">
               <div class="left aligned ten wide column">
                 <span>{{item.published_at | moment}}</span>
+                <span v-if="auth.user.id === item.user_id">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+                <router-link
+                  v-if="auth.user.id === item.user_id"
+                  :to="{ name: 'article_edit', params: { slug: item.id }}">编辑</router-link>
               </div>
               <div class="right aligned six wide column">
                 <span>{{item.comment_count}}评论</span>
@@ -61,27 +65,28 @@ export default {
     Loader,
     LoadMore,
   },
-  computed: mapState({
-    topic: state => state.topics.detail.topic,
-    articles: state => state.topics.detail.articles,
-  }),
   data() {
     return {
     };
   },
+  computed: mapState({
+    auth: state => state.account.auth,
+    topic: state => state.topics.detail.topic,
+    articles: state => state.topics.detail.articles,
+  }),
   methods: {
     loadMore(page) {
       const id = this.$route.params.slug;
       this.$store.dispatch('topicDetailGetLists', { id, page });
     },
   },
+  beforeCreate() {
+    this.$store.dispatch('topicDetailInit');
+  },
   mounted() {
     const id = this.$route.params.slug;
     this.$store.dispatch('topicDetailGetData', id);
     this.loadMore(1);
-  },
-  destroyed() {
-    this.$store.dispatch('topicDetailClean');
   },
 };
 </script>
