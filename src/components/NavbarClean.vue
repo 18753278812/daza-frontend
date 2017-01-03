@@ -1,5 +1,5 @@
 <template>
-  <div class="ui navbar borderless fixed menu">
+  <div class="ui navbar tiny borderless fixed menu">
     <div class="ui container">
       <div class="header item">
         <router-link to="/" style="height: 32px;">

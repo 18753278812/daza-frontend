@@ -1,5 +1,5 @@
 <template>
-  <div class="ui navbar borderless inverted fixed menu">
+  <div class="ui navbar tiny borderless inverted fixed menu">
     <div class="ui container">
       <a class="launch icon item" v-on:click="toggleSidebar">
         <i class="content icon"></i>
@@ -19,6 +19,15 @@
           to="/notifications">
           通知 <a class="ui red circular label" v-if="counts.unread_count > 0">{{counts.unread_count}}</a>
         </router-link>
+        <div class="ui simple dropdown item">
+          分享 <i class="dropdown icon"></i>
+          <div class="menu">
+            <router-link to="/topics/create" class="item">创建主题</router-link>
+            <div class="ui divider"></div>
+            <router-link to="/articles/create" class="item">发表文章</router-link>
+            <router-link to="/articles/share" class="item">分享文章</router-link>
+          </div>
+        </div>
         <div class="ui simple dropdown item">
           <imageView
             class="ui avatar image"
