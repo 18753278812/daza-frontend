@@ -34,8 +34,8 @@ export default {
         commit(types.TAG_DETAIL_GET_DATA_SUCCESS, response.data);
       });
     },
-    tagDetailGetLists({ commit }, name) {
-      api.tag_article_get_lists(name).then((response) => {
+    tagDetailGetLists({ commit }, { name, page }) {
+      api.tag_article_get_lists(name, page).then((response) => {
         commit(types.TAG_DETAIL_GET_LISTS_SUCCESS, response.data);
       });
     },

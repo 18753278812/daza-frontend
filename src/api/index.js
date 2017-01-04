@@ -159,8 +159,8 @@ export default {
   tag_get_entity(name) {
     return Vue.http.get(`tags/${name}`);
   },
-  tag_article_get_lists(name) {
-    return Vue.http.get(`tags/${name}/articles`);
+  tag_article_get_lists(name, page) {
+    return Vue.http.get(`tags/${name}/articles`, { params: { page } });
   },
   // NOTIFICATION
   notification_get_lists(page) {

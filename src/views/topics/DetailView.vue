@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="ui jumbotron inverted vertical center aligned segment">
+    <div class="ui masthead inverted vertical center aligned segment">
       <div class="ui text container" v-if="topic">
         <h1 class="ui inverted header">
           <imageView
@@ -8,9 +8,9 @@
             :src="topic.image_url"
           >
         </h1>
-        <h1 class="ui inverted header">
+        <h3 class="ui inverted header">
           {{topic.name}}
-        </h1>
+        </h3>
         <div class="sub header">{{ topic.description }}</div>
       </div>
     </div>
@@ -92,14 +92,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.jumbotron {
-  background-color: #455A64;
-  .display-3, .lead {
-    color: #FFFFFF;
-  }
+.masthead {
   .image {
     width: 80px;
     height: 80px;
+  }
+  .sub.header {
+    color: #BDBDBD;
   }
 }
 .main.container {

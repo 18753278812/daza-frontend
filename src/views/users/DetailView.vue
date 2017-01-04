@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="ui jumbotron inverted vertical center aligned segment">
+    <div class="ui masthead inverted vertical center aligned segment">
       <div v-if="user">
         <h1 class="ui inverted header">
           <imageView
@@ -8,9 +8,9 @@
             :src="user.avatar_url"
           >
         </h1>
-        <h1 class="ui inverted header">
+        <h2 class="ui inverted header">
           {{user.name}}
-        </h1>
+        </h2>
         <div class="sub header">{{ user.bio }}</div>
       </div>
     </div>
@@ -80,6 +80,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.masthead {
+  .image {
+    width: 80px;
+    height: 80px;
+  }
+  .sub.header {
+    color: #BDBDBD;
+  }
+}
 .main.container {
   padding-top: 20px !important;
 }

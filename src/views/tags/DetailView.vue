@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="ui jumbotron inverted vertical center aligned segment">
+    <div class="ui masthead inverted vertical center aligned segment">
       <div class="ui text container" v-if="tag">
         <h1 class="ui inverted header">
           {{tag.name}}
@@ -45,20 +45,28 @@
 
 <script>
 import { mapState } from 'vuex';
+import ImageView from '../../components/ImageView';
+import Loader from '../../components/Loader';
+import LoadMore from '../../components/LoadMore';
 
 export default {
-  computed: mapState({
-    tag: state => state.tags.detail.tag,
-    articles: state => state.tags.detail.articles,
-  }),
+  components: {
+    ImageView,
+    Loader,
+    LoadMore,
+  },
   data() {
     return {
     };
   },
+  computed: mapState({
+    tag: state => state.tags.detail.tag,
+    articles: state => state.tags.detail.articles,
+  }),
   methods: {
     loadMore(page) {
       const name = this.$route.params.name;
-      this.$store.dispatch('tagDetailGetLists', name, page);
+      this.$store.dispatch('tagDetailGetLists', { name, page });
     },
   },
   mounted() {
@@ -70,6 +78,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.masthead.segment {
+  padding-top: 80px !important;
+}
 .main.container {
   padding-top: 20px !important;
 }

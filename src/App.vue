@@ -47,9 +47,9 @@ export default {
   .navbar.inverted.menu {
     background-color: #37474f;
   }
-  // Jumbotron
-  .jumbotron.segment {
-    background-color: #212121;
+  // masthead
+  .masthead.segment {
+    background-color: #263238;
     min-height: 240px;
     margin-top: 50px;
     padding-top: 40px;
