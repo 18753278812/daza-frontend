@@ -99,6 +99,14 @@ export default {
       Vue.set(state.detail.upvote, 'success', false);
       Vue.set(state.detail.upvote, 'failure', data);
     },
+    ARTICLE_DETAIL_TOPIC_SUBSCRIBE_SUCCESS: (state) => {
+      Vue.set(state.detail.subscribe, 'success', true);
+      Vue.set(state.detail.subscribe, 'failure', null);
+    },
+    ARTICLE_DETAIL_TOPIC_SUBSCRIBE_FAILURE: (state, { data }) => {
+      Vue.set(state.detail.subscribe, 'success', false);
+      Vue.set(state.detail.subscribe, 'failure', data);
+    },
   },
   actions: {
     // Article Create
@@ -141,6 +149,7 @@ export default {
       commit(types.ARTICLE_DETAIL_GET_DATA_SUCCESS, { data: null });
       commit(types.ARTICLE_DETAIL_GET_LISTS_SUCCESS, { data: [], pagination: null });
       commit(types.ARTICLE_DETAIL_UPVOTE_FAILURE, { data: null });
+      commit(types.ARTICLE_DETAIL_TOPIC_SUBSCRIBE_FAILURE, { data: null });
     },
     articleDetailGetData({ commit }, id) {
       api.article_get_entity(id).then((response) => {
@@ -158,6 +167,14 @@ export default {
       })
       .catch((response) => {
         commit(types.ARTICLE_DETAIL_UPVOTE_FAILURE, response.data);
+      });
+    },
+    articleDetailTopicSubscribe({ commit }, id) {
+      api.topic_subscribe(id).then((response) => {
+        commit(types.ARTICLE_DETAIL_TOPIC_SUBSCRIBE_SUCCESS, response.data);
+      })
+      .catch((response) => {
+        commit(types.ARTICLE_DETAIL_TOPIC_SUBSCRIBE_FAILURE, response.data);
       });
     },
   },

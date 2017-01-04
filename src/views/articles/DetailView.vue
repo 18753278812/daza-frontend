@@ -28,7 +28,7 @@
           <div class="ui grid" style="margin-top: 10px; margin-bottom: 10px;">
             <div class="center aligned sixteen wide column">
               <div class="ui tiny blue button" v-on:click="upvoteArticle()">
-                <i class="heart icon"></i> {{isUpvated ? '已' : ''}}赞({{article.upvote_count}})
+                <i class="heart icon"></i> {{isUpvated ? '已' : ''}}赞({{upvoteCount}})
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@
             <div class="extra content">
               <div class="ui tiny two buttons">
                 <router-link :to="{ name: 'topic_detail', params: { slug: article.topic.id }}" tag="div" class="ui basic blue button">查看</router-link>
-                <div class="ui basic green button" v-on:click="subscribeTopic">订阅({{article.topic.subscriber_count}})</div>
+                <div class="ui basic green button" v-on:click="subscribeTopic">{{isSubscribed ? '已' : ''}}订阅({{subscriberCount}})</div>
               </div>
             </div>
           </div>
@@ -114,8 +114,6 @@ import Loader from '../../components/Loader';
 import MarkdownView from '../../components/MarkdownView';
 import ShareButtonGroup from '../../components/ShareButtonGroup';
 
-const toastr = global.toastr;
-
 export default {
   components: {
     ImageView,
@@ -131,8 +129,18 @@ export default {
     article: state => state.articles.detail.article,
     comments: state => state.articles.detail.comments,
     upvote: state => state.articles.detail.upvote,
+    subscribe: state => state.articles.detail.subscribe,
     isUpvated() {
       return this.article.upvoted || this.upvote.success;
+    },
+    upvoteCount() {
+      return this.article.upvote_count + (this.upvote.success ? 1 : 0);
+    },
+    isSubscribed() {
+      return this.article.topic.subscribed || this.subscribe.success;
+    },
+    subscriberCount() {
+      return this.article.topic.subscriber_count + (this.subscribe.success ? 1 : 0);
     },
     mailToReport() {
       const email = process.env.EMAIL_REPORT;
@@ -147,14 +155,17 @@ export default {
       this.$store.dispatch('articleDetailGetLists', id, page);
     },
     upvoteArticle() {
-      if (this.article.upvated) {
+      if (this.isUpvated) {
         return;
       }
       const id = this.$route.params.slug;
       this.$store.dispatch('articleDetailUpvote', id);
     },
     subscribeTopic() {
-      toastr.success('Have fun storming the castle!', 'subscribe');
+      if (this.isSubscribed) {
+        return;
+      }
+      this.$store.dispatch('articleDetailTopicSubscribe', this.article.topic_id);
     },
     submit(e) {
       // 判断是否为按了Ctrl+Enter组合键
