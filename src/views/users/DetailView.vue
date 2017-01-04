@@ -30,7 +30,7 @@
             </div>
             <div class="extra">
               <router-link
-                v-if="auth.user.id === item.user_id"
+                v-if="auth.id === item.user_id"
                 :to="{ name: 'topic_edit', params: { slug: item.id }}">编辑</router-link>
             </div>
           </div>

@@ -12,14 +12,13 @@
 - 接口：[https://api.daza.io](https://api.daza.io)
 
 ## 项目说明
-> 本项目使用 Vue.js 1.x 进行开发，基于 [vue-cli](https://github.com/vuejs/vue-cli) 构建的 SPA 前端项目。
+> 本项目使用 Vue.js 2.x 进行开发，基于 [vue-cli](https://github.com/vuejs/vue-cli) 构建的 SPA 前端项目。
 
 ### 项目依赖
 - [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
-- [vue.js](http://cn.vuejs.org/guide/)
-- [vue-router](http://vuejs.github.io/vue-router/zh-cn/index.html)
-- [vue-resource](https://github.com/vuejs/vue-resource)
-- [vue-validator](http://vuejs.github.io/vue-validator/zh-cn/index.html)
+- [vue.js](https://cn.vuejs.org/v2/guide/)
+- [vue-router](https://router.vuejs.org/zh-cn/index.html)
+- [vue-resource](https://github.com/pagekit/vue-resource)
 
 ## 入门指南
 
