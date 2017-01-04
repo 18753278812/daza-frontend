@@ -8,6 +8,7 @@
       </div>
       <div class="left menu">
         <router-link class="item" to="/" exact>首页</router-link>
+        <router-link class="item" to="/categories">分类</router-link>
         <router-link class="item" to="/topics">主题</router-link>
       </div>
       <div class="right menu" v-if="auth.check()">

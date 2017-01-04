@@ -5,6 +5,7 @@
     </div>
     <div class="ui sidebar inverted vertical labeled icon menu">
       <router-link class="item" to="/" exact>首页</router-link>
+      <router-link class="item" to="/categories">分类</router-link>
       <router-link class="item" to="/topics">主题</router-link>
     </div>
     <navbar-view :auth="auth" :counts="counts"></navbar-view>

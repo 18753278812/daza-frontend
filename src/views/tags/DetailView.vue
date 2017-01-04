@@ -27,6 +27,10 @@
           <div class="extra">
             <div class="ui grid">
               <div class="left aligned ten wide column">
+                  <span>
+                    <router-link :to="{ name: 'topic_detail', params: { slug: item.topic_id }}">{{item.topic.name}}</router-link>
+                  </span>
+                  <span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
                 <span>{{item.published_at | moment}}</span>
               </div>
               <div class="right aligned six wide column">

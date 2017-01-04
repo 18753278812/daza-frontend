@@ -56,7 +56,7 @@
                 {{comment.content}}
               </div>
               <div class="actions">
-                <a class="reply">回复</a>
+                <!-- <a class="reply">回复</a> -->
               </div>
             </div>
           </div>
