@@ -27,7 +27,7 @@
           </div>
           <div class="ui grid" style="margin-top: 10px; margin-bottom: 10px;">
             <div class="center aligned sixteen wide column">
-              <div class="ui blue button" v-on:click="upvote()">
+              <div class="ui tiny blue button" v-on:click="upvote()">
                 <i class="heart icon"></i> 赞({{article.upvote_count}})
               </div>
             </div>
@@ -67,7 +67,7 @@
                 v-on:keyup="submit($event)">
               </textarea>
             </div>
-            <button class="ui blue submit button" type="submit">
+            <button class="ui tiny blue submit button" type="submit">
               回复
             </button>
              <label>Ctrl+Enter</label>
@@ -95,7 +95,10 @@
               </div>
             </div>
             <div class="extra content">
-              <div class="ui basic green button" v-on:click="subscribe">订阅({{article.topic.subscriber_count}})</div>
+              <div class="ui tiny two buttons">
+                <router-link :to="{ name: 'topic_detail', params: { slug: article.topic.id }}" tag="div" class="ui basic blue button">查看</router-link>
+                <div class="ui basic green button" v-on:click="subscribe">订阅({{article.topic.subscriber_count}})</div>
+              </div>
             </div>
           </div>
         </div>
@@ -187,6 +190,9 @@ export default {
 }
 .comments {
   max-width: 100%;
+  .reply.form textarea {
+    height: auto;
+  }
 }
 .cards > .card {
   width: 100%;

@@ -1,39 +1,110 @@
 <template>
   <div class="ui main container">
-    <ul class="nav nav-pills">
-      <li class="nav-item">
-        <a class="nav-link active" href="#">Active</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    {{ lists }}
+    <div class="ui stackable four column grid">
+      <div class="sixteen wide column">
+        <div class="ui categories secondary  menu">
+          <router-link class="item" :to="{ name: 'category_index', params: { slug: 'latest' }}" exact>
+            最新
+          </router-link>
+          <router-link class="item" :to="{ name: 'category_index', params: { slug: 'popular' }}" exact>
+            推荐
+          </router-link>
+          <router-link class="item" v-for="category in categories.lists" :to="{ name: 'category_index', params: { slug: category.id }}" exact>
+            {{category.name}}
+          </router-link>
+        </div>
+        <div class="ui divider"></div>
+        <loader :active="articles.pagination === null" />
+        <div class="articles">
+          <div class="item" v-for="item in articles.lists">
+            <div class="content">
+              <div class="intro">
+                <router-link class="header" :to="{ name: 'article_detail', params: { slug: item.id }}">{{item.title}}</router-link>
+                <div class="description">
+                  <p class="summary" v-html="item.summary"></p>
+                </div>
+              </div>
+              <div class="image" v-if="item.image_url">
+                <imageView
+                  :src="item.image_url">
+              </div>
+            </div>
+            <div class="extra">
+              <div class="ui grid">
+                <div class="left aligned ten wide column">
+                  <span>
+                    <router-link :to="{ name: 'topic_detail', params: { slug: item.topic_id }}">{{item.topic.name}}</router-link>
+                  </span>
+                  <span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+                  <span>{{item.published_at | moment}}</span>
+                </div>
+                <div class="right aligned six wide column">
+                  <span>{{item.comment_count}}评论</span>
+                  <span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+                  <span>{{item.view_count}}阅读</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <loadMore :pagination="articles.pagination" :callback="loadMore" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import ImageView from '../../components/ImageView';
+import Loader from '../../components/Loader';
+import Pagination from '../../components/Pagination';
+import LoadMore from '../../components/LoadMore';
 
 export default {
+  components: {
+    ImageView,
+    Loader,
+    Pagination,
+    LoadMore,
+  },
   computed: mapState({
-    lists: state => state.categories.lists,
+    categories: state => state.categories.index.categories,
+    articles: state => state.categories.index.articles,
   }),
   data() {
     return {
     };
   },
+  methods: {
+    routeChanged() {
+      this.$store.dispatch('categoryIndexInit');
+      this.loadMore(1);
+    },
+    loadMore(page) {
+      const id = this.$route.params.slug;
+      this.$store.dispatch('categoryIndexGetLists', { id, page });
+    },
+  },
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    $route: 'routeChanged',
+  },
+  beforeCreate() {
+    this.$store.dispatch('categoryIndexInit');
+  },
   mounted() {
-    this.$store.dispatch('categoryGetLists');
+    this.$store.dispatch('categoryIndexGetCategories');
+    this.loadMore(1);
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.categories.menu {
+  overflow: scroll;
+  .item {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+}
 </style>

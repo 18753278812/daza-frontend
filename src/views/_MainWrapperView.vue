@@ -38,23 +38,6 @@ export default {
       $('.ui.sidebar').sidebar('toggle');
     },
   },
-  mounted() {
-    // const options = {
-    //   app_id: process.env.DAOVOICE_APPID,
-    // };
-    // // 如果用户已经登录，传入用户信息到 DaoVoice
-    // if (this.auth.check()) {
-    //   const user = this.auth.user;
-    //   Object.assign(options, {
-    //     user_id: String(user.id),
-    //     email: user.email,
-    //     name: user.name,
-    //     signed_up: Math.floor(new Date(user.created_at).getTime() / 1000),
-    //   });
-    // }
-    // daovoice('init', options);
-    // daovoice('update');
-  },
 };
 </script>
 

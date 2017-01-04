@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import toastr from 'toastr';
+
 export default {
   data() {
     return {
@@ -34,6 +36,7 @@ export default {
   },
   methods: {
     submit() {
+      toastr.warning('功能开发中，如需帮助请联系作者。');
     },
   },
 };

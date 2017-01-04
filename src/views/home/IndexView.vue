@@ -2,6 +2,18 @@
   <div class="ui main container">
     <div class="ui stackable four column grid">
       <div class="eleven wide column">
+        <div class="ui categories secondary  menu">
+          <a class="item active">
+            最新
+          </a>
+          <router-link class="item" :to="{ name: 'category_index', params: { slug: 'popular' }}">
+            推荐
+          </router-link>
+          <router-link class="item" v-for="category in categories.lists" :to="{ name: 'category_index', params: { slug: category.id }}">
+            {{category.name}}
+          </router-link>
+        </div>
+        <div class="ui divider"></div>
         <loader :active="articles.pagination === null" />
         <div class="articles">
           <div class="item" v-for="item in articles.lists">
@@ -70,6 +82,7 @@ export default {
     SidebarSocial,
   },
   computed: mapState({
+    categories: state => state.home.index.categories,
     articles: state => state.home.index.articles,
     side_ad: state => state.home.side_ad,
     side_topics: state => state.home.side_topics,
@@ -93,4 +106,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.categories.menu {
+  overflow: scroll;
+  .item {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+}
 </style>

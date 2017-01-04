@@ -8,6 +8,10 @@ import * as types from '../mutation-types';
 export default {
   state: {
     index: {
+      categories: {
+        lists: [],
+        pagination: null,
+      },
       topics: {
         lists: [],
         pagination: null,
@@ -22,8 +26,12 @@ export default {
     side_links: [],
   },
   mutations: {
+    HOME_INDEX_GET_CATEGORIES_SUCCESS: (state, { data, pagination }) => {
+      Vue.set(state.index.categories, 'lists', data);
+      Vue.set(state.index.categories, 'pagination', pagination);
+    },
     HOME_INDEX_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
-      if (pagination.current_page === 1) {
+      if (pagination == null || pagination.current_page === 1) {
         Vue.set(state.index.articles, 'lists', []);
       }
       const lists = state.index.articles.lists.concat(data);
@@ -44,6 +52,10 @@ export default {
   },
   actions: {
     homeIndexGetData({ commit }) {
+      // 获取分类
+      api.category_get_lists().then((response) => {
+        commit(types.HOME_INDEX_GET_CATEGORIES_SUCCESS, response.data);
+      });
       // 获取侧边栏数据
       api.topic_article_get_lists('side-ad').then((response) => {
         commit(types.HOME_INDEX_SIDE_AD_GET_ENTITY_SUCCESS, response.data);

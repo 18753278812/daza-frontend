@@ -71,10 +71,11 @@ const router = new VueRouter({
           },
         },
         {
+          name: 'category_index',
           path: 'categories/:slug',
           component: CategoryIndexView,
           meta: {
-            title: '分类详情',
+            title: '分类',
           },
         },
         {

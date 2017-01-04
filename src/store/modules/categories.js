@@ -7,31 +7,45 @@ import * as types from '../mutation-types';
 
 export default {
   state: {
-    lists: [],
-    entity: null,
+    index: {
+      categories: {
+        lists: [],
+        pagination: null,
+      },
+      articles: {
+        lists: [],
+        pagination: null,
+      },
+    },
   },
   mutations: {
-    CATEGORY_GET_LISTS_SUCCESS: (state, { data }) => {
-      Vue.set(state, 'lists', data);
+    CATEGORY_INDEX_GET_CATEGORIES_SUCCESS: (state, { data, pagination }) => {
+      Vue.set(state.index.categories, 'lists', data);
+      Vue.set(state.index.categories, 'pagination', pagination);
     },
-    CATEGORY_GET_ENTITY_SUCCESS: (state, { data }) => {
-      Vue.set(state, 'entity', data);
+    CATEGORY_INDEX_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
+      if (pagination == null || pagination.current_page === 1) {
+        Vue.set(state.index.articles, 'lists', []);
+      }
+      const lists = state.index.articles.lists.concat(data);
+      Vue.set(state.index.articles, 'lists', lists);
+      Vue.set(state.index.articles, 'pagination', pagination);
     },
   },
   actions: {
-    categoryGetLists({ commit }) {
+    categoryIndexInit({ commit }) {
+      commit(types.CATEGORY_INDEX_GET_LISTS_SUCCESS, { data: [], pagination: null });
+    },
+    categoryIndexGetCategories({ commit }) {
       api.category_get_lists().then((response) => {
-        commit(types.CATEGORY_GET_LISTS_SUCCESS, response.data);
+        commit(types.CATEGORY_INDEX_GET_CATEGORIES_SUCCESS, response.data);
       });
     },
-    categoryGetEntity({ commit }, id) {
-      api.category_get_entity(id).then((response) => {
-        commit(types.CATEGORY_GET_ENTITY_SUCCESS, response.data);
-      });
-    },
-    categoryTopicGetLists({ commit }, id) {
-      api.category_topic_get_lists(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
+    categoryIndexGetLists({ commit }, { id, page }) {
+      const categoryId = id;
+      const categorySlug = id;
+      api.article_get_lists(categoryId, categorySlug, page).then((response) => {
+        commit(types.CATEGORY_INDEX_GET_LISTS_SUCCESS, response.data);
       });
     },
   },
