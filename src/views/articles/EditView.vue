@@ -5,7 +5,7 @@
       <div class="field">
         <label>主题：</label>
         <select
-          class="ui search dropdown"
+          class="ui selection dropdown"
           name="topic_id"
           v-model="params.topic_id">
           <option value="">选择一个主题</option>

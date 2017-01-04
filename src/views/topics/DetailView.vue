@@ -34,9 +34,9 @@
             <div class="ui grid">
               <div class="left aligned ten wide column">
                 <span>{{item.published_at | moment}}</span>
-                <span v-if="auth.user.id === item.user_id">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+                <span v-if="auth.id === item.user_id">&nbsp;&nbsp;·&nbsp;&nbsp;</span>
                 <router-link
-                  v-if="auth.user.id === item.user_id"
+                  v-if="auth.id === item.user_id"
                   :to="{ name: 'article_edit', params: { slug: item.id }}">编辑</router-link>
               </div>
               <div class="right aligned six wide column">

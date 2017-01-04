@@ -5,8 +5,8 @@
       <div class="field">
         <label>分类：</label>
         <select
-          class="ui search dropdown"
-          name="topic_id"
+          class="ui selection dropdown"
+          name="category_id"
           v-model="params.category_id">
           <option value="">选择一个分类</option>
           <option v-for="item in categories.lists" :value="item.id">{{item.name}}</option>
@@ -15,7 +15,7 @@
       <div class="field">
         <label>类型：</label>
         <select
-          class="ui search dropdown"
+          class="ui selection dropdown"
           name="type"
           v-model="params.type">
           <option value="">选择主题的类型</option>
@@ -23,12 +23,12 @@
           <option value="feed">聚合内容</option>
         </select>
       </div>
-      <div class="field" v-if="params.type === 'feed'">
+      <div class="field" v-bind:style="{ display: params.type == 'feed' ? 'block' : 'none' }">
         <label>聚合内容来源：</label>
         <div class="fields">
           <div class="four wide field">
             <select
-              class="ui search dropdown"
+              class="ui selection dropdown"
               name="source_format"
               placeholder="来源格式"
               v-model="params.source_format">
@@ -38,7 +38,11 @@
             </select>
           </div>
           <div class="twelve wide field">
-            <input type="text" name="source_link" placeholder="来源链接">
+            <input
+              type="text"
+              name="source_link"
+              placeholder="来源链接"
+              v-model="params.source_link">
           </div>
         </div>
       </div>
@@ -128,6 +132,9 @@ export default {
           description: val.description,
         };
         NProgress.done();
+        $('select[name="category_id"]').dropdown('set selected', val.category_id);
+        $('select[name="type"]').dropdown('set selected', val.type);
+        $('select[name="source_format"]').dropdown('set selected', val.source_format);
       }
     },
     successWatcher(val, oldVal) {
@@ -152,7 +159,7 @@ export default {
     this.$store.dispatch('topicEditInit', id);
   },
   mounted() {
-    $('select.dropdown').dropdown();
+    // $('.selection.dropdown').dropdown();
   },
 };
 </script>

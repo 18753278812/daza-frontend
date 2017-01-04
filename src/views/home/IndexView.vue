@@ -82,6 +82,7 @@ export default {
     SidebarSocial,
   },
   computed: mapState({
+    auth: state => state.account.auth,
     categories: state => state.home.index.categories,
     articles: state => state.home.index.articles,
     side_ad: state => state.home.side_ad,
@@ -93,7 +94,9 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch('notificationCountsGetData');
+    if (this.auth.check()) {
+      this.$store.dispatch('notificationCountsGetData');
+    }
     this.$store.dispatch('homeIndexGetData');
     this.loadMore(1);
   },
