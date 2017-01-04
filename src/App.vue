@@ -4,7 +4,6 @@
 
 <script>
 import 'nprogress/nprogress.css';
-import 'toastr/build/toastr.css';
 import 'github-markdown-css/github-markdown.css';
 import 'highlight.js/styles/github.css';
 import 'simplemde/dist/simplemde.min.css';
@@ -20,6 +19,13 @@ export default {
   z-index: 1050 !important;
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
+}
+// MarkdownStyle
+.markdown-body img.twemoji {
+  height: 1em;
+  width: 1em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.1em;
 }
 
 .ui.container {

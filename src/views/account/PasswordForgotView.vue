@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import toastr from 'toastr';
+const toastr = global.toastr;
 
 export default {
   data() {

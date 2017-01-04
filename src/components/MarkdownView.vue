@@ -15,7 +15,7 @@ marked.setOptions({
 });
 
 export default {
-  name: 'loader',
+  name: 'markdown-view',
   props: {
     text: {
       type: String,

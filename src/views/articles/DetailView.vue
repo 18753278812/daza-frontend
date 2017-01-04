@@ -27,8 +27,8 @@
           </div>
           <div class="ui grid" style="margin-top: 10px; margin-bottom: 10px;">
             <div class="center aligned sixteen wide column">
-              <div class="ui tiny blue button" v-on:click="upvote()">
-                <i class="heart icon"></i> 赞({{article.upvote_count}})
+              <div class="ui tiny blue button" v-on:click="upvoteArticle()">
+                <i class="heart icon"></i> {{isUpvated ? '已' : ''}}赞({{article.upvote_count}})
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@
             <div class="extra content">
               <div class="ui tiny two buttons">
                 <router-link :to="{ name: 'topic_detail', params: { slug: article.topic.id }}" tag="div" class="ui basic blue button">查看</router-link>
-                <div class="ui basic green button" v-on:click="subscribe">订阅({{article.topic.subscriber_count}})</div>
+                <div class="ui basic green button" v-on:click="subscribeTopic">订阅({{article.topic.subscriber_count}})</div>
               </div>
             </div>
           </div>
@@ -109,11 +109,12 @@
 
 <script>
 import { mapState } from 'vuex';
-import toastr from 'toastr';
 import ImageView from '../../components/ImageView';
 import Loader from '../../components/Loader';
 import MarkdownView from '../../components/MarkdownView';
 import ShareButtonGroup from '../../components/ShareButtonGroup';
+
+const toastr = global.toastr;
 
 export default {
   components: {
@@ -129,6 +130,10 @@ export default {
   computed: mapState({
     article: state => state.articles.detail.article,
     comments: state => state.articles.detail.comments,
+    upvote: state => state.articles.detail.upvote,
+    isUpvated() {
+      return this.article.upvoted || this.upvote.success;
+    },
     mailToReport() {
       const email = process.env.EMAIL_REPORT;
       const subject = `举报文章 -《${this.article.title}》`;
@@ -141,10 +146,14 @@ export default {
       const id = this.$route.params.slug;
       this.$store.dispatch('articleDetailGetLists', id, page);
     },
-    upvote() {
-      toastr.success('Have fun storming the castle!', 'upvote');
+    upvoteArticle() {
+      if (this.article.upvated) {
+        return;
+      }
+      const id = this.$route.params.slug;
+      this.$store.dispatch('articleDetailUpvote', id);
     },
-    subscribe() {
+    subscribeTopic() {
       toastr.success('Have fun storming the castle!', 'subscribe');
     },
     submit(e) {
@@ -153,11 +162,15 @@ export default {
         return;
       }
     },
+    upvoteWatcher() {
+      this.article.upvote_count += 1;
+    },
   },
   watch: {
     article() {
       global.document.title = `${this.article.title} - daza.io`;
     },
+    upvote: 'upvoteWatcher',
   },
   beforeCreate() {
     this.$store.dispatch('articleDetailInit');

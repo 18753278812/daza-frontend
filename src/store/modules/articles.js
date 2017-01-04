@@ -30,6 +30,14 @@ export default {
         lists: [],
         pagination: null,
       },
+      upvote: {
+        success: true,
+        failure: null,
+      },
+      subscribe: {
+        success: true,
+        failure: null,
+      },
     },
   },
   mutations: {
@@ -83,6 +91,14 @@ export default {
       Vue.set(state.detail.comments, 'lists', lists);
       Vue.set(state.detail.comments, 'pagination', pagination);
     },
+    ARTICLE_DETAIL_UPVOTE_SUCCESS: (state) => {
+      Vue.set(state.detail.upvote, 'success', true);
+      Vue.set(state.detail.upvote, 'failure', null);
+    },
+    ARTICLE_DETAIL_UPVOTE_FAILURE: (state, { data }) => {
+      Vue.set(state.detail.upvote, 'success', false);
+      Vue.set(state.detail.upvote, 'failure', data);
+    },
   },
   actions: {
     // Article Create
@@ -124,6 +140,7 @@ export default {
     articleDetailInit({ commit }) {
       commit(types.ARTICLE_DETAIL_GET_DATA_SUCCESS, { data: null });
       commit(types.ARTICLE_DETAIL_GET_LISTS_SUCCESS, { data: [], pagination: null });
+      commit(types.ARTICLE_DETAIL_UPVOTE_FAILURE, { data: null });
     },
     articleDetailGetData({ commit }, id) {
       api.article_get_entity(id).then((response) => {
@@ -137,12 +154,10 @@ export default {
     },
     articleDetailUpvote({ commit }, id) {
       api.article_upvote(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    articleDetailDownvote({ commit }, id) {
-      api.article_downvote(id).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
+        commit(types.ARTICLE_DETAIL_UPVOTE_SUCCESS, response.data);
+      })
+      .catch((response) => {
+        commit(types.ARTICLE_DETAIL_UPVOTE_FAILURE, response.data);
       });
     },
   },
