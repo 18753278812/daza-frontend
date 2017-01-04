@@ -1,7 +1,6 @@
 <template>
   <div class="ui main container">
     <h1 class="ui header">修改文章</h1>
-    <div class="ui divider"></div>
     <form class="ui form error" novalidate @submit.prevent="submit()">
       <div class="field">
         <label>主题：</label>
@@ -127,6 +126,7 @@ export default {
           longitude: val.longitude,
           latitude: val.latitude,
         };
+        NProgress.done();
       }
     },
     successWatcher(val, oldVal) {
@@ -145,8 +145,9 @@ export default {
     failure: 'failureWatcher',
   },
   beforeCreate() {
-    const id = this.$route.params.slug;
-    this.$store.dispatch('articleEditInit', id);
+    NProgress.start();
+    const articleId = this.$route.params.slug;
+    this.$store.dispatch('articleEditInit', articleId);
   },
   mounted() {
     $('select.dropdown').dropdown();

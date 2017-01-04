@@ -1,7 +1,6 @@
 <template>
   <div class="ui main container">
     <h1 class="ui header">主题广场</h1>
-    <div class="ui divider"></div>
     <loader :active="topics.pagination === null" />
     <div class="topics">
       <div class="item" v-for="item in topics.lists">

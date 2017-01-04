@@ -1,7 +1,6 @@
 <template>
   <div class="ui main container">
     <h1 class="ui header">分享文章</h1>
-    <div class="ui divider"></div>
     <form class="ui form error" novalidate @submit.prevent="submit()">
       <div class="field">
         <label>主题：</label>
@@ -16,7 +15,7 @@
         <input
           type="text"
           name="title"
-          placeholder="e.g. http://daza.io/articles/example"
+          placeholder="e.g. https://daza.io/articles/example"
           v-model="params.link">
       </div>
       <div class="field">

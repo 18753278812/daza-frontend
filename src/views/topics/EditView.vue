@@ -1,7 +1,6 @@
 <template>
   <div class="ui main container">
     <h1 class="ui header">修改主题</h1>
-    <div class="ui divider"></div>
     <form class="ui form error" novalidate @submit.prevent="submit()">
       <div class="field">
         <label>分类：</label>
@@ -128,6 +127,7 @@ export default {
           image_url: val.image_url,
           description: val.description,
         };
+        NProgress.done();
       }
     },
     successWatcher(val, oldVal) {
@@ -147,6 +147,7 @@ export default {
     failure: 'failureWatcher',
   },
   beforeCreate() {
+    NProgress.start();
     const id = this.$route.params.slug;
     this.$store.dispatch('topicEditInit', id);
   },
