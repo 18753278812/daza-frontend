@@ -14,10 +14,10 @@ export default {
   state: {
     auth: {
       check() {
-        return this.id != null && this.id !== 0;
+        return this.id !== null && this.id !== 0;
       },
       jwt_token: JSON.parse(localStorage.getItem(AUTH_JWT_TOKEN)),
-      id: parseInt(localStorage.getItem(AUTH_USER_ID), 10),
+      id: parseInt(localStorage.getItem(AUTH_USER_ID), 10) || 0,
       user: JSON.parse(localStorage.getItem(AUTH_USER)),
       configs: JSON.parse(localStorage.getItem(AUTH_USER_CONFIGS)),
     },
