@@ -51,8 +51,8 @@ export default {
       rules: {
       },
       params: {
-        email: 'lijy91@foxmail.com',
-        password: '7t2U9P8q99jg',
+        email: '',
+        password: '',
       },
     };
   },

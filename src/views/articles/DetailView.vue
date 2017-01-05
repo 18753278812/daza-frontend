@@ -17,7 +17,7 @@
             :format="article.content_format" />
           <div v-if="!article.content">
             <blockquote v-html="article.summary" />
-            <a :href="article.link">立即跳转到文章<a/>
+            <a :href="article.link" target="_blank" v-if="article.link">立即跳转到文章<a/>
           </div>
         </div>
         <loader :active="article === null" />
@@ -37,7 +37,8 @@
               <a :href="mailToReport">举报</a>
             </div>
             <div class="right aligned ten wide column">
-              <a :href="article.link" v-if="article.link">阅读原文</a>
+              <a :href="article.link" v-if="article.link" target="_blank">阅读原文</a>
+              <router-link :to="{ name: 'article_edit', params: { slug: article.id } }" v-if="article.user_id == auth.id">编辑</router-link>
             </div>
           </div>
         </div>
@@ -126,6 +127,7 @@ export default {
     };
   },
   computed: mapState({
+    auth: state => state.account.auth,
     article: state => state.articles.detail.article,
     comments: state => state.articles.detail.comments,
     upvote: state => state.articles.detail.upvote,
@@ -195,6 +197,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main .sub.header {
+  margin-top: 10px;
+}
 .content {
   blockquote {
     padding: 0 1em;

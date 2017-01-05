@@ -1,7 +1,7 @@
 <template>
   <div class="ui main container">
     <h1 class="ui header">修改文章</h1>
-    <form class="ui form error" novalidate @submit.prevent="submit()">
+    <form class="ui form error" novalidate v-on:submit.prevent>
       <div class="field">
         <label>主题：</label>
         <select
@@ -39,8 +39,11 @@
       </div>
       <div class="field">
         <label>标签：</label>
-        <div class="ui tags fluid multiple search selection dropdown">
-          <input name="tags" type="hidden">
+        <div class="ui fluid multiple search selection dropdown" id="tags">
+          <input
+            name="tags"
+            type="hidden"
+            v-model="params.tags">
           <i class="dropdown icon"></i>
           <div class="default text">&nbsp;</div>
           <div class="menu">
@@ -53,7 +56,7 @@
           <li v-for="error in failure.errors">{{error.message}}</li>
         </ul>
       </div>
-      <button class="ui primary button" type="submit">确认</button>
+      <button class="ui primary button" type="button" v-on:click="submit($event)">确认</button>
     </form>
   </div>
 </template>
@@ -76,7 +79,7 @@ export default {
       },
       params: {
         short_id: shortid.generate(),
-        topic_id: '',
+        topic_id: 0,
         type: 'original',
         title: '',
         summary: '',
@@ -100,7 +103,11 @@ export default {
     textChange(value) {
       this.params.content = value;
     },
-    submit() {
+    submit(e) {
+      // 判断是否为按了Enter键，防止在输入标签时被提交
+      if (e != null && e.keyCode === 13) {
+        return;
+      }
       NProgress.start();
       this.$store.dispatch('articleEditSubmit', this.params);
     },
@@ -127,6 +134,7 @@ export default {
           latitude: val.latitude,
         };
         NProgress.done();
+        $('select[name="topic_id"]').dropdown('set selected', val.topic_id);
       }
     },
     successWatcher(val, oldVal) {
@@ -137,6 +145,9 @@ export default {
     },
     failureWatcher() {
       NProgress.done();
+    },
+    tagsOnChange(value) {
+      this.params.tags = value;
     },
   },
   watch: {
@@ -151,7 +162,10 @@ export default {
   },
   mounted() {
     $('select.dropdown').dropdown();
-    $('.tags').dropdown({ allowAdditions: true });
+    $('#tags').dropdown({
+      allowAdditions: true,
+      onChange: this.tagsOnChange,
+    });
   },
 };
 </script>

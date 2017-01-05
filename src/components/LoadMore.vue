@@ -18,12 +18,21 @@ export default {
   },
   computed: {
     currentPage() {
+      if (!this.pagination) {
+        return 0;
+      }
       return this.pagination.current_page;
     },
     lastPage() {
+      if (!this.pagination) {
+        return 0;
+      }
       return this.pagination.last_page;
     },
     hasMore() {
+      if (!this.pagination) {
+        return false;
+      }
       return this.lastPage > this.currentPage;
     },
   },
