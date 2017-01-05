@@ -3,7 +3,7 @@ import api from '../../api';
 import * as types from '../mutation-types';
 
 const localStorage = global.localStorage;
-// const JSON = global.JSON;
+const JSON = global.JSON;
 
 export default {
   state: {
@@ -12,7 +12,7 @@ export default {
         lists: [],
         pagination: null,
       },
-      success: true,
+      success: false,
       failure: null,
     },
     edit: {
@@ -21,7 +21,7 @@ export default {
         pagination: null,
       },
       article: null,
-      success: true,
+      success: false,
       failure: null,
     },
     detail: {
@@ -30,12 +30,16 @@ export default {
         lists: [],
         pagination: null,
       },
+      comment: {
+        success: false,
+        failure: null,
+      },
       upvote: {
-        success: true,
+        success: false,
         failure: null,
       },
       subscribe: {
-        success: true,
+        success: false,
         failure: null,
       },
     },
@@ -91,6 +95,27 @@ export default {
       Vue.set(state.detail.comments, 'lists', lists);
       Vue.set(state.detail.comments, 'pagination', pagination);
     },
+    ARTICLE_DETAIL_COMMENT_SUCCESS: (state, { data }) => {
+      const user = JSON.parse(localStorage.getItem('auth.user'));
+      const d = data;
+      console.log(d);
+      const comment = {
+        id: d.id,
+        user,
+        user_id: d.user_id,
+        content: d.content,
+        created_at: d.created_at,
+        updated_at: d.updated_at,
+      };
+      const lists = state.detail.comments.lists.concat(comment);
+      Vue.set(state.detail.comments, 'lists', lists);
+      Vue.set(state.detail.comment, 'success', true);
+      Vue.set(state.detail.comment, 'failure', null);
+    },
+    ARTICLE_DETAIL_COMMENT_FAILURE: (state, data) => {
+      Vue.set(state.detail.comment, 'success', false);
+      Vue.set(state.detail.comment, 'failure', data);
+    },
     ARTICLE_DETAIL_UPVOTE_SUCCESS: (state) => {
       Vue.set(state.detail.upvote, 'success', true);
       Vue.set(state.detail.upvote, 'failure', null);
@@ -136,8 +161,8 @@ export default {
         commit(types.ARTICLE_EDIT_INIT_GET_DATA_SUCCESS, response.data);
       });
     },
-    articleEditSubmit({ commit }, id) {
-      api.article_update_entity(id).then((response) => {
+    articleEditSubmit({ commit }, { id, params }) {
+      api.article_update_entity(id, params).then((response) => {
         commit(types.ARTICLE_EDIT_SUBMIT_SUCCESS, response.data);
       })
       .catch((response) => {
@@ -148,6 +173,7 @@ export default {
     articleDetailInit({ commit }) {
       commit(types.ARTICLE_DETAIL_GET_DATA_SUCCESS, { data: null });
       commit(types.ARTICLE_DETAIL_GET_LISTS_SUCCESS, { data: [], pagination: null });
+      commit(types.ARTICLE_DETAIL_COMMENT_FAILURE, null);
       commit(types.ARTICLE_DETAIL_UPVOTE_FAILURE, { data: null });
       commit(types.ARTICLE_DETAIL_TOPIC_SUBSCRIBE_FAILURE, { data: null });
     },
@@ -156,9 +182,19 @@ export default {
         commit(types.ARTICLE_DETAIL_GET_DATA_SUCCESS, response.data);
       });
     },
-    articleDetailGetLists({ commit }, id, page) {
+    articleDetailGetLists({ commit }, { id, page }) {
       api.article_comment_get_lists(id, page).then((response) => {
         commit(types.ARTICLE_DETAIL_GET_LISTS_SUCCESS, response.data);
+      });
+    },
+    articleDetailComment({ commit }, { id, params }) {
+      commit(types.ARTICLE_DETAIL_COMMENT_FAILURE, null);
+      api.article_comment_create_entity(id, params).then((response) => {
+        commit(types.ARTICLE_DETAIL_COMMENT_SUCCESS, response.data);
+      })
+      .catch((response) => {
+        console.log(response);
+        commit(types.ARTICLE_DETAIL_COMMENT_FAILURE, response.data);
       });
     },
     articleDetailUpvote({ commit }, id) {

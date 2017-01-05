@@ -30,7 +30,7 @@
           v-model="params.summary">
         </textarea>
       </div>
-      <div class="field">
+      <div class="field" v-if="params.type === 'original'">
         <markdownEditor
           name="content"
           placeholder="请写入 Markdown 格式的正文，并且不能小于2个字符。"
@@ -109,7 +109,8 @@ export default {
         return;
       }
       NProgress.start();
-      this.$store.dispatch('articleEditSubmit', this.params);
+      const articleId = this.$route.params.slug;
+      this.$store.dispatch('articleEditSubmit', { id: articleId, params: this.params });
     },
     articleWatcher(val, oldVal) {
       if (val !== null && oldVal === null) {

@@ -137,8 +137,8 @@ export default {
   article_get_votes(id) {
     return Vue.http.get(`articles/${id}/votes`);
   },
-  article_comment_get_lists(id) {
-    return Vue.http.get(`articles/${id}/comments`);
+  article_comment_get_lists(id, page) {
+    return Vue.http.get(`articles/${id}/comments`, { params: { page } });
   },
   article_comment_create_entity(id, params) {
     return Vue.http.post(`articles/${id}/comments`, params);

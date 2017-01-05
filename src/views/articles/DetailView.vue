@@ -46,10 +46,10 @@
         <div class="ui comments">
           <div class="comment" v-for="comment in comments.lists">
             <a class="avatar">
-              <imageView :src="comment.user.avatar_url" />
+              <imageView :src="comment.user.avatar_url" v-if="comment.user" />
             </a>
             <div class="content">
-              <a class="author">{{comment.user.name}}</a>
+              <a class="author" v-if="comment.user">{{comment.user.name}}</a>
               <div class="metadata">
                 <span class="date">{{comment.created_at | moment}}</span>
               </div>
@@ -61,12 +61,20 @@
               </div>
             </div>
           </div>
-          <form class="ui reply form" novalidate @submit.prevent="submit()">
+          <loadMore :pagination="comments.pagination" :callback="loadMore" />
+          <form class="ui reply form error" novalidate @submit.prevent="submit()">
             <div class="field">
               <textarea
                 name="content"
+                v-model="params.content"
                 v-on:keyup="submit($event)">
               </textarea>
+            </div>
+            <div class="ui error message" v-if="comment.failure">
+              <div class="header">{{comment.failure.message}}</div>
+              <ul class="list">
+                <li v-for="error in comment.failure.errors">{{error.message}}</li>
+              </ul>
             </div>
             <button class="ui tiny blue submit button" type="submit">
               回复
@@ -112,6 +120,7 @@
 import { mapState } from 'vuex';
 import ImageView from '../../components/ImageView';
 import Loader from '../../components/Loader';
+import LoadMore from '../../components/LoadMore';
 import MarkdownView from '../../components/MarkdownView';
 import ShareButtonGroup from '../../components/ShareButtonGroup';
 
@@ -119,17 +128,22 @@ export default {
   components: {
     ImageView,
     Loader,
+    LoadMore,
     MarkdownView,
     ShareButtonGroup,
   },
   data() {
     return {
+      params: {
+        content: '',
+      },
     };
   },
   computed: mapState({
     auth: state => state.account.auth,
     article: state => state.articles.detail.article,
     comments: state => state.articles.detail.comments,
+    comment: state => state.articles.detail.comment,
     upvote: state => state.articles.detail.upvote,
     subscribe: state => state.articles.detail.subscribe,
     isUpvated() {
@@ -154,7 +168,7 @@ export default {
   methods: {
     loadMore(page) {
       const id = this.$route.params.slug;
-      this.$store.dispatch('articleDetailGetLists', id, page);
+      this.$store.dispatch('articleDetailGetLists', { id, page });
     },
     upvoteArticle() {
       if (this.isUpvated) {
@@ -174,6 +188,14 @@ export default {
       if (e != null && !((e.metaKey || e.ctrlKey) && e.keyCode === 13)) {
         return;
       }
+      const id = this.$route.params.slug;
+      this.$store.dispatch('articleDetailComment', { id, params: this.params });
+    },
+    commentSuccessWatcher(val) {
+      console.log(val);
+      if (val) {
+        this.params.content = '';
+      }
     },
     upvoteWatcher() {
       this.article.upvote_count += 1;
@@ -183,6 +205,7 @@ export default {
     article() {
       global.document.title = `${this.article.title} - daza.io`;
     },
+    'comment.success': 'commentSuccessWatcher',
     upvote: 'upvoteWatcher',
   },
   beforeCreate() {
@@ -191,7 +214,7 @@ export default {
   mounted() {
     const id = this.$route.params.slug;
     this.$store.dispatch('articleDetailGetData', id);
-    this.loadMore(id, 1);
+    this.loadMore(1);
   },
 };
 </script>
