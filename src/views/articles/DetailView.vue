@@ -192,7 +192,6 @@ export default {
       this.$store.dispatch('articleDetailComment', { id, params: this.params });
     },
     commentSuccessWatcher(val) {
-      console.log(val);
       if (val) {
         this.params.content = '';
       }

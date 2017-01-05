@@ -98,7 +98,6 @@ export default {
     ARTICLE_DETAIL_COMMENT_SUCCESS: (state, { data }) => {
       const user = JSON.parse(localStorage.getItem('auth.user'));
       const d = data;
-      console.log(d);
       const comment = {
         id: d.id,
         user,
@@ -193,7 +192,6 @@ export default {
         commit(types.ARTICLE_DETAIL_COMMENT_SUCCESS, response.data);
       })
       .catch((response) => {
-        console.log(response);
         commit(types.ARTICLE_DETAIL_COMMENT_FAILURE, response.data);
       });
     },
