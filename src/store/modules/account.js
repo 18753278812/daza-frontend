@@ -17,20 +17,32 @@ export default {
         return this.id != null && this.id !== 0;
       },
       jwt_token: JSON.parse(localStorage.getItem(AUTH_JWT_TOKEN)),
-      id: localStorage.getItem(AUTH_USER_ID),
+      id: parseInt(localStorage.getItem(AUTH_USER_ID), 10),
       user: JSON.parse(localStorage.getItem(AUTH_USER)),
       configs: JSON.parse(localStorage.getItem(AUTH_USER_CONFIGS)),
     },
     register: {
-      success: true,
+      success: false,
       failure: null,
     },
     login: {
-      success: true,
+      success: false,
       failure: null,
     },
     logout: {
-      success: true,
+      success: false,
+      failure: null,
+    },
+    settingsProfile: {
+      success: false,
+      failure: null,
+    },
+    settingsPassword: {
+      success: false,
+      failure: null,
+    },
+    settingsNotification: {
+      success: false,
       failure: null,
     },
   },
@@ -93,6 +105,39 @@ export default {
       Vue.set(state.logout, 'success', false);
       Vue.set(state.logout, 'failure', data);
     },
+    // Settings
+    ACCOUNT_SETTINGS_PROFILE_SUBMIT_SUCCESS: (state, data) => {
+      Vue.set(state.settingsProfile, 'success', data.code === 0);
+      Vue.set(state.settingsProfile, 'failure', null);
+      if (data.code === 0) {
+        Vue.set(state.auth, 'user', data.data);
+        localStorage.setItem(AUTH_USER, JSON.stringify(data.data));
+      }
+    },
+    ACCOUNT_SETTINGS_PROFILE_SUBMIT_FAILURE: (state, data) => {
+      Vue.set(state.settingsProfile, 'success', false);
+      Vue.set(state.settingsProfile, 'failure', data);
+    },
+    ACCOUNT_SETTINGS_PASSWORD_SUBMIT_SUCCESS: (state, data) => {
+      Vue.set(state.settingsPassword, 'success', data.code === 0);
+      Vue.set(state.settingsPassword, 'failure', null);
+    },
+    ACCOUNT_SETTINGS_PASSWORD_SUBMIT_FAILURE: (state, data) => {
+      Vue.set(state.settingsPassword, 'success', false);
+      Vue.set(state.settingsPassword, 'failure', data);
+    },
+    ACCOUNT_SETTINGS_NOTIFICATION_SUBMIT_SUCCESS: (state, data) => {
+      Vue.set(state.settingsNotification, 'success', data.code === 0);
+      Vue.set(state.settingsNotification, 'failure', null);
+      if (data.code === 0) {
+        Vue.set(state.auth, 'configs', data.data);
+        localStorage.setItem(AUTH_USER_CONFIGS, JSON.stringify(data.data));
+      }
+    },
+    ACCOUNT_SETTINGS_NOTIFICATION_SUBMIT_FAILURE: (state, data) => {
+      Vue.set(state.settingsNotification, 'success', false);
+      Vue.set(state.settingsNotification, 'failure', data);
+    },
   },
   actions: {
     // Register
@@ -135,29 +180,37 @@ export default {
         commit(types.ACCOUNT_LOGOUT_SUBMIT_FAILURE, response.data);
       });
     },
-    accountGetProfile({ commit }) {
-      api.account_get_profile().then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
+    // Settings
+    accountSettingsInit({ commit }) {
+      commit(types.ACCOUNT_SETTINGS_PROFILE_SUBMIT_FAILURE, null);
+      commit(types.ACCOUNT_SETTINGS_PASSWORD_SUBMIT_FAILURE, null);
+      commit(types.ACCOUNT_SETTINGS_NOTIFICATION_SUBMIT_FAILURE, null);
     },
-    accountUpdateProfile({ commit }, params) {
+    accountSettingsProfileSubmit({ commit }, params) {
+      commit(types.ACCOUNT_SETTINGS_PROFILE_SUBMIT_FAILURE, null);
       api.account_update_profile(params).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
+        commit(types.ACCOUNT_SETTINGS_PROFILE_SUBMIT_SUCCESS, response.data);
+      })
+      .catch((response) => {
+        commit(types.ACCOUNT_SETTINGS_PROFILE_SUBMIT_FAILURE, response.data);
       });
     },
-    accountUpdateConfigs({ commit }, params) {
-      api.account_update_configs(params).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    accountPasswordReset({ commit }, params) {
-      api.account_password_reset(params).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
-      });
-    },
-    accountPasswordModify({ commit }, params) {
+    accountSettingsPasswordSubmit({ commit }, params) {
+      commit(types.ACCOUNT_SETTINGS_PASSWORD_SUBMIT_FAILURE, null);
       api.account_password_modify(params).then((response) => {
-        commit(types.REQUEST_SUCCESS, response.data);
+        commit(types.ACCOUNT_SETTINGS_PASSWORD_SUBMIT_SUCCESS, response.data);
+      })
+      .catch((response) => {
+        commit(types.ACCOUNT_SETTINGS_PASSWORD_SUBMIT_FAILURE, response.data);
+      });
+    },
+    accountSettingsNotificationSubmit({ commit }, params) {
+      commit(types.ACCOUNT_SETTINGS_NOTIFICATION_SUBMIT_FAILURE, null);
+      api.account_update_configs(params).then((response) => {
+        commit(types.ACCOUNT_SETTINGS_NOTIFICATION_SUBMIT_SUCCESS, response.data);
+      })
+      .catch((response) => {
+        commit(types.ACCOUNT_SETTINGS_NOTIFICATION_SUBMIT_FAILURE, response.data);
       });
     },
   },

@@ -6,33 +6,36 @@
       <a class="item" data-tab="notification">消息设置</a>
     </div>
     <div class="ui tab active" data-tab="profile">
-      <settingsProfile />
+      <settingsTabProfile />
     </div>
     <div class="ui tab" data-tab="password">
-      <settingsPassword />
+      <settingsTabPassword />
     </div>
     <div class="ui tab" data-tab="notification">
-      <settingsNotification />
+      <settingsTabNotification />
     </div>
   </div>
 </template>
 
 <script>
-import SettingsProfile from './SettingsProfileView';
-import SettingsPassword from './SettingsPasswordView';
-import SettingsNotification from './SettingsNotificationView';
+import SettingsTabProfile from './SettingsTabProfileView';
+import SettingsTabPassword from './SettingsTabPasswordView';
+import SettingsTabNotification from './SettingsTabNotificationView';
 
 const $ = global.jQuery;
 
 export default {
   components: {
-    SettingsProfile,
-    SettingsPassword,
-    SettingsNotification,
+    SettingsTabProfile,
+    SettingsTabPassword,
+    SettingsTabNotification,
   },
   data() {
     return {
     };
+  },
+  beforeCreate() {
+    this.$store.dispatch('accountSettingsInit');
   },
   mounted() {
     $('.menu .item').tab();
