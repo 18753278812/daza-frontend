@@ -23,7 +23,7 @@
         <loader :active="article === null" />
         <div class="extra" v-if="article">
           <div class="tags">
-            <router-link :to="{ name: 'tag_detail', params: { name: tag.name } }" class="ui tiny label" v-for="tag in article.tags">{{tag.name}}</router-link>
+            <label class="ui tiny label" v-for="tag in article.tags">{{tag.name}}</label>
           </div>
           <div class="ui grid" style="margin-top: 10px; margin-bottom: 10px;">
             <div class="center aligned sixteen wide column">
@@ -38,7 +38,6 @@
             </div>
             <div class="right aligned ten wide column">
               <a :href="article.link" v-if="article.link" target="_blank">阅读原文</a>
-              <router-link :to="{ name: 'article_edit', params: { slug: article.id } }" v-if="article.user_id == auth.id">编辑</router-link>
             </div>
           </div>
         </div>
@@ -56,31 +55,13 @@
               <div class="text">
                 {{comment.content}}
               </div>
-              <div class="actions">
-                <!-- <a class="reply">回复</a> -->
-              </div>
             </div>
           </div>
-          <loadMore :pagination="comments.pagination" :callback="loadMore" />
-          <form class="ui reply form error" novalidate @submit.prevent="submit()">
-            <div class="field">
-              <textarea
-                name="content"
-                v-model="params.content"
-                v-on:keyup="submit($event)">
-              </textarea>
+          <div class="ui grid" style="margin-top: 10px; margin-bottom: 10px;">
+            <div class="center aligned sixteen wide column">
+              <a :href="'daza://articles/' + article.id + '/comments'">查看全部评论</a>
             </div>
-            <div class="ui error message" v-if="comment.failure">
-              <div class="header">{{comment.failure.message}}</div>
-              <ul class="list">
-                <li v-for="error in comment.failure.errors">{{error.message}}</li>
-              </ul>
-            </div>
-            <button class="ui tiny blue submit button" type="submit">
-              回复
-            </button>
-             <label>Ctrl+Enter</label>
-          </form>
+          </div>
         </div>
       </div>
       <div class="five wide column">
@@ -96,7 +77,7 @@
               </div>
               <div class="meta">
                 <span class="founder">
-                  由 <router-link :to="{ name: 'user_detail', params: { id: article.topic.user.id } }">{{article.topic.user.name }}</router-link> 维护
+                  由 <a :href="'daza://users/' + article.topic.user_id">{{article.topic.user.name }}</a> 维护
                 </span>
               </div>
               <div class="description">
@@ -105,7 +86,7 @@
             </div>
             <div class="extra content">
               <div class="ui tiny two buttons">
-                <router-link :to="{ name: 'topic_detail', params: { slug: article.topic.id }}" tag="div" class="ui basic blue button">查看</router-link>
+                <a :href="'daza://topics/' + article.topic_id" class="ui basic blue button">查看</a>
                 <div class="ui basic green button" v-on:click="subscribeTopic">{{isSubscribed ? '已' : ''}}订阅({{subscriberCount}})</div>
               </div>
             </div>
@@ -119,21 +100,15 @@
 
 <script>
 import { mapState } from 'vuex';
-import ImageView from '../../components/ImageView';
-import Loader from '../../components/Loader';
-import LoadMore from '../../components/LoadMore';
-import MarkdownView from '../../components/MarkdownView';
-import ShareButtonGroup from '../../components/ShareButtonGroup';
-import SidebarAdsByGoogle from '../../components/SidebarAdsByGoogle';
+import ImageView from '../../../components/ImageView';
+import Loader from '../../../components/Loader';
+import MarkdownView from '../../../components/MarkdownView';
 
 export default {
   components: {
     ImageView,
     Loader,
-    LoadMore,
     MarkdownView,
-    ShareButtonGroup,
-    SidebarAdsByGoogle,
   },
   data() {
     return {
