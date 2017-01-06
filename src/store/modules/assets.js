@@ -7,22 +7,49 @@ import * as types from '../mutation-types';
 
 export default {
   state: {
-    lists: [],
+    picker: {
+      assets: {
+        lists: [],
+        pagination: null,
+      },
+      success: false,
+      failure: null,
+    },
   },
   mutations: {
-    ASSET_GET_LISTS_SUCCESS: (state, { data }) => {
-      Vue.set(state, 'lists', data);
+    ASSET_PICKER_GET_LISTS_SUCCESS: (state, { data, pagination }) => {
+      Vue.set(state.picker.assets, 'lists', data);
+      Vue.set(state.picker.assets, 'pagination', pagination);
+    },
+    ASSET_PICKER_SUBMIT_SUCCESS: (state, { data }) => {
+      // 将上传好的图片加入到列表里
+      const lists = state.picker.assets.lists.concat(data);
+      Vue.set(state.picker.assets, 'lists', lists);
+      Vue.set(state.picker, 'success', true);
+      Vue.set(state.picker, 'failure', null);
+    },
+    ASSET_PICKER_SUBMIT_FAILURE: (state, data) => {
+      Vue.set(state.picker, 'success', false);
+      Vue.set(state.picker, 'failure', data);
     },
   },
   actions: {
-    assetGetLists({ commit }, id) {
-      api.asset_get_lists(id).then((response) => {
-        commit(types.ASSET_GET_LISTS_SUCCESS, response.data);
+    assetPickerInit({ commit }) {
+      commit(types.ASSET_PICKER_GET_LISTS_SUCCESS, { data: [], pagination: null });
+      commit(types.ASSET_PICKER_SUBMIT_FAILURE, null);
+    },
+    assetPickerGetLists({ commit }, { target_type, target_id }) {
+      api.asset_get_lists(target_type, target_id).then((response) => {
+        commit(types.ASSET_PICKER_GET_LISTS_SUCCESS, response.data);
       });
     },
-    assetCreateEntity({ commit }, params) {
+    assetPickerSubmit({ commit }, params) {
+      commit(types.ASSET_PICKER_SUBMIT_FAILURE, null);
       api.asset_create_entity(params).then((response) => {
-        commit(types.ASSET_CREATE_ENTITY_SUCCESS, response.data);
+        commit(types.ASSET_PICKER_SUBMIT_SUCCESS, response.data);
+      })
+      .catch((response) => {
+        commit(types.ASSET_PICKER_SUBMIT_FAILURE, response.data);
       });
     },
   },

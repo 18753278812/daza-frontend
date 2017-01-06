@@ -1,7 +1,23 @@
 <template>
   <div class="ui main container">
+    <assetPickerView
+      :show="pickerShow"
+      :targetType="'article'"
+      :targetId="params.short_id"
+      :callback="pickerCallback" />
     <h1 class="ui header">发表文章</h1>
     <form class="ui form error" novalidate v-on:submit.prevent>
+      <div class="field">
+        <h2 class="ui center aligned icon header">
+          <a href="#" class="ui centered bordered rounded medium image" v-on:click="pickerToggle">
+            <imageView
+              :src="params.image_url"
+              :width="300"
+              :height="300"
+              >
+          </a>
+        </h2>
+      </div>
       <div class="field">
         <label>主题：</label>
         <select
@@ -30,7 +46,7 @@
           v-model="params.summary">
         </textarea>
       </div>
-      <div class="field">
+      <div class="field" v-if="params.type === 'original'">
         <markdownEditor
           name="content"
           placeholder="请写入 Markdown 格式的正文，并且不能小于2个字符。"
@@ -65,13 +81,17 @@
 import { mapState } from 'vuex';
 import shortid from 'shortid';
 import NProgress from 'nprogress';
+import ImageView from '../../components/ImageView';
 import MarkdownEditor from '../../components/MarkdownEditor';
+import AssetPickerView from '../../views/assets/PickerView';
 
 const $ = global.jQuery;
 
 export default {
   components: {
+    ImageView,
     MarkdownEditor,
+    AssetPickerView,
   },
   data() {
     return {
@@ -91,6 +111,7 @@ export default {
         longitude: '',
         latitude: '',
       },
+      pickerShow: false,
     };
   },
   computed: mapState({
@@ -121,6 +142,15 @@ export default {
     },
     tagsOnChange(value) {
       this.params.tags = value;
+    },
+    pickerToggle() {
+      this.pickerShow = !this.pickerShow;
+    },
+    pickerCallback(asset) {
+      if (!asset) {
+        return;
+      }
+      this.params.image_url = asset.url;
     },
   },
   watch: {

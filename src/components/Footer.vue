@@ -16,7 +16,7 @@
                   <router-link class="item" to="/articles/about">关于我们</router-link>
                   <router-link class="item" to="/topics/help">帮助中心</router-link>
                   <router-link class="item" to="/articles/sources">获取源码</router-link>
-                  <router-link class="item" to="/articles/contact">联系站长</router-link>
+                  <a class="item" href="https://api.daza.io/" target="_blank">API</a>
                   <router-link class="item" to="/articles/feedback">建议反馈</router-link>
                 </div>
               </div>

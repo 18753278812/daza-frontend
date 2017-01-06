@@ -1,5 +1,10 @@
 <template>
   <form class="ui form error" novalidate @submit.prevent="submit()">
+    <assetPickerView
+      :show="pickerShow"
+      :targetType="'user'"
+      :targetId="auth.id"
+      :callback="pickerCallback" />
     <div class="inline fields">
       <div class="three wide field">
         <label>头像</label>
@@ -11,7 +16,7 @@
           v-model="params.avatar_url" />
         <imageView class="ui set-avatar image" :src="params.avatar_url" />
         <div>
-          <button class="ui mini basic button">
+          <button class="ui mini basic button" type="button" v-on:click="pickerToggle">
             选择头像
           </button>
           <div class="ui checkbox" style="display: block; margin-top: 5px;">
@@ -105,12 +110,14 @@
 import { mapState } from 'vuex';
 import NProgress from 'nprogress';
 import ImageView from '../../components/ImageView';
+import AssetPickerView from '../../views/assets/PickerView';
 
 const toastr = global.toastr;
 
 export default {
   components: {
     ImageView,
+    AssetPickerView,
   },
   data() {
     return {
@@ -124,6 +131,7 @@ export default {
         website: '',
         bio: '',
       },
+      pickerShow: false,
     };
   },
   computed: mapState({
@@ -144,6 +152,16 @@ export default {
     },
     failureWatcher() {
       NProgress.done();
+    },
+    pickerToggle() {
+      this.pickerShow = !this.pickerShow;
+    },
+    pickerCallback(asset) {
+      if (!asset) {
+        return;
+      }
+      this.params.avatar_url = asset.url;
+      this.params.use_gravatar = false;
     },
   },
   watch: {

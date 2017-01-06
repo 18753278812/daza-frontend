@@ -4,4 +4,5 @@ var prodEnv = require('./prod.env')
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   API_URL: '"http://localhost:8000"',
+  QINIU_DOMAIN: '"http://obryns2kk.bkt.clouddn.com"',
 })

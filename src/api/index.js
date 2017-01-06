@@ -179,8 +179,12 @@ export default {
     return Vue.http.post('notifications/mark_as_read');
   },
   // ASSET
-  asset_get_lists() {
-    return Vue.http.get('assets');
+  asset_get_lists(targetType, targetId) {
+    const params = {
+      target_type: targetType,
+      target_id: targetId,
+    };
+    return Vue.http.get('assets', { params });
   },
   asset_create_entity(params) {
     return Vue.http.post('assets', params);

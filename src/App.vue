@@ -102,6 +102,7 @@ export default {
       width: 100px;
       height: 100px;
       background-color: #eceff1;
+      overflow: hidden;
     }
     > .image > img {
       border: none;

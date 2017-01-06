@@ -1,7 +1,23 @@
 <template>
   <div class="ui main container">
+    <assetPickerView
+      :show="pickerShow"
+      :targetType="'topic'"
+      :targetId="params.short_id"
+      :callback="pickerCallback" />
     <h1 class="ui header">新建主题</h1>
     <form class="ui form error" novalidate @submit.prevent="submit()">
+      <div class="field">
+        <h2 class="ui center aligned icon header">
+          <a href="#" class="ui centered bordered rounded medium image" v-on:click="pickerToggle">
+            <imageView
+              :src="params.image_url"
+              :width="300"
+              :height="300"
+              >
+          </a>
+        </h2>
+      </div>
       <div class="field">
         <label>分类：</label>
         <select
@@ -85,10 +101,16 @@
 import { mapState } from 'vuex';
 import shortid from 'shortid';
 import NProgress from 'nprogress';
+import ImageView from '../../components/ImageView';
+import AssetPickerView from '../../views/assets/PickerView';
 
 const $ = global.jQuery;
 
 export default {
+  components: {
+    ImageView,
+    AssetPickerView,
+  },
   data() {
     return {
       rules: {
@@ -97,12 +119,14 @@ export default {
         short_id: shortid.generate(),
         category_id: '',
         type: '',
+        website: '',
         source_format: '',
         source_link: '',
         name: '',
         image_url: '',
         description: '',
       },
+      pickerShow: false,
     };
   },
   computed: mapState({
@@ -123,6 +147,15 @@ export default {
     },
     failureWatcher() {
       NProgress.done();
+    },
+    pickerToggle() {
+      this.pickerShow = !this.pickerShow;
+    },
+    pickerCallback(asset) {
+      if (!asset) {
+        return;
+      }
+      this.params.image_url = asset.url;
     },
   },
   watch: {
