@@ -57,7 +57,7 @@
               </div>
             </div>
           </div>
-          <div class="ui grid" style="margin-top: 10px; margin-bottom: 10px;">
+          <div class="ui grid" style="margin-top: 10px; margin-bottom: 10px;" v-if="article">
             <div class="center aligned sixteen wide column">
               <a :href="'daza://articles/' + article.id + '/comments'">查看全部评论</a>
             </div>
