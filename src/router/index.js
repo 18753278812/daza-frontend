@@ -90,11 +90,6 @@ const router = new VueRouter({
           },
         },
         {
-          // 兼容 1.0 版本
-          path: 'home/latest',
-          redirect: '/',
-        },
-        {
           path: 'home/:slug',
           redirect: '/categories/:slug',
         },
