@@ -15,5 +15,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+#in-app-wrapper {
+  overflow: hidden;
+  .main.container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
 </style>

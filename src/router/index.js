@@ -4,6 +4,7 @@ import store from '../store';
 
 import _MainWrapperView from '../views/_MainWrapperView';
 import _CleanWrapperView from '../views/_CleanWrapperView';
+import _InAppWrapperView from '../views/_InAppWrapperView';
 
 import NotFoundView from '../views/errors/NotFoundView';
 
@@ -33,6 +34,9 @@ import ArticleDetailView from '../views/articles/DetailView';
 import TagDetailView from '../views/tags/DetailView';
 
 import NotificationIndexView from '../views/notifications/IndexView';
+
+// InApp
+import InAppArticleDetailView from '../views/in-app/articles/DetailView';
 
 const document = global.document;
 
@@ -214,6 +218,19 @@ const router = new VueRouter({
           component: AccountPasswordResetView,
           meta: {
             title: '重置密码',
+          },
+        },
+      ],
+    },
+    {
+      path: '/in-app',
+      component: _InAppWrapperView,
+      children: [
+        {
+          path: 'articles/:slug',
+          component: InAppArticleDetailView,
+          meta: {
+            title: '文章详情',
           },
         },
       ],
