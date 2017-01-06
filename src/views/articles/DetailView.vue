@@ -111,6 +111,7 @@
             </div>
           </div>
         </div>
+        <sidebarAdsByGoogle />
       </div>
     </div>
   </div>
@@ -123,6 +124,7 @@ import Loader from '../../components/Loader';
 import LoadMore from '../../components/LoadMore';
 import MarkdownView from '../../components/MarkdownView';
 import ShareButtonGroup from '../../components/ShareButtonGroup';
+import SidebarAdsByGoogle from '../../components/SidebarAdsByGoogle';
 
 export default {
   components: {
@@ -131,6 +133,7 @@ export default {
     LoadMore,
     MarkdownView,
     ShareButtonGroup,
+    SidebarAdsByGoogle,
   },
   data() {
     return {
