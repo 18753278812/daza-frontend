@@ -1,4 +1,4 @@
-# Daza.io Front-End
+# daza-frontend
 
 [「daza.io」](https://daza.io)是一款基于技能树的技术内容聚合应用，根据你的技能对内容进行筛选，让你在这个信息过载的时代里更高效地获取你所需的内容。
 
@@ -12,19 +12,18 @@
 - 接口：[https://api.daza.io](https://api.daza.io)
 
 ## 项目说明
-> 本项目使用 Vue.js 1.x 进行开发，基于 [vue-cli](https://github.com/vuejs/vue-cli) 构建的 SPA 前端项目。
+> 本项目使用 Vue.js 2.x 进行开发，基于 [vue-cli](https://github.com/vuejs/vue-cli) 构建的 SPA 前端项目。
 
 ### 项目依赖
 - [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
-- [vue.js](http://cn.vuejs.org/guide/)
-- [vue-router](http://vuejs.github.io/vue-router/zh-cn/index.html)
-- [vue-resource](https://github.com/vuejs/vue-resource)
-- [vue-validator](http://vuejs.github.io/vue-validator/zh-cn/index.html)
+- [vue.js](https://cn.vuejs.org/v2/guide/)
+- [vue-router](https://router.vuejs.org/zh-cn/index.html)
+- [vue-resource](https://github.com/pagekit/vue-resource)
 
 ## 入门指南
 
 ### 克隆项目源码到本地
-```
+``` bash
 $ cd ~/Documents/Projects
 $ git clone git@github.com:lijy91/daza-frontend.git
 $ cd daza-frontend
@@ -35,6 +34,12 @@ $ cd daza-frontend
 $ npm install
 $ bower install
 ```
+
+### 修改配置
+``` bash
+$ vim config/dev.env.js
+```
+将 `API_URL` 修改为服务端的地址
 
 ### 运行
 ``` bash
