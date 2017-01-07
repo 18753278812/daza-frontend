@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%; height: 300px;">
+  <div>
     <!-- daza-sidebar-ad2 -->
     <ins class="adsbygoogle"
      style="display:inline-block;width:336px;height:280px"
