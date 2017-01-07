@@ -22,6 +22,5 @@ RUN bower install --allow-root --force
 RUN npm run build
 
 RUN cp -R /app/dist/*  /usr/share/nginx/html
-RUN cp -R /app/bdunion.txt /usr/share/nginx/html/bdunion.txt
 
 CMD ["nginx", "-g", "daemon off;"]
