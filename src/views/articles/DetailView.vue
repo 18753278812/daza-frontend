@@ -82,7 +82,6 @@
              <label>Ctrl+Enter</label>
           </form>
         </div>
-        <sidebarAdsByGoogle />
       </div>
       <div class="five wide column">
         <div class="ui cards">
@@ -112,6 +111,7 @@
             </div>
           </div>
         </div>
+        <sidebarAdsByGoogle />
       </div>
     </div>
   </div>
