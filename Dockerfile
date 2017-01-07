@@ -1,7 +1,7 @@
 FROM nginx
 MAINTAINER JianyingLi <lijy91@foxmail.com>
 
-RUN apt-get update && apt-get install -y sudo curl bzip2 wget git
+RUN apt-get update && apt-get install -y sudo curl bzip2 wget git vim
 RUN curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 RUN apt-get install -y nodejs && apt-get clean
 
@@ -22,5 +22,6 @@ RUN bower install --allow-root --force
 RUN npm run build
 
 RUN cp -R /app/dist/*  /usr/share/nginx/html
+RUN cp -R /app/bdunion.txt /usr/share/nginx/html/bdunion.txt
 
 CMD ["nginx", "-g", "daemon off;"]
