@@ -101,10 +101,13 @@ export default {
 
 <style lang="scss" scoped>
 .categories.menu {
-  overflow: scroll;
+  overflow-x: scroll;
   .item {
     margin-left: 2px;
     margin-right: 2px;
   }
+}
+.categories.menu::-webkit-scrollbar {
+  display: none;
 }
 </style>
