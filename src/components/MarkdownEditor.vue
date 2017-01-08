@@ -22,15 +22,23 @@ export default {
   },
   data() {
     return {
+      simplemde: null,
     };
   },
+  watch: {
+    value(val, oldVal) {
+      if (val !== null && oldVal === '') {
+        this.simplemde.value(val);
+      }
+    },
+  },
   mounted() {
-    const simplemde = new SimpleMDE({
+    this.simplemde = new SimpleMDE({
       element: document.getElementById('markdown-editor'),
       initialValue: this.value,
     });
-    simplemde.codemirror.on('change', () => {
-      this.change(simplemde.value());
+    this.simplemde.codemirror.on('change', () => {
+      this.change(this.simplemde.value());
     });
   },
 };
