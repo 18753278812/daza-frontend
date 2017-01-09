@@ -3,11 +3,6 @@
 </template>
 
 <script>
-import 'nprogress/nprogress.css';
-import 'github-markdown-css/github-markdown.css';
-import 'highlight.js/styles/github.css';
-import 'simplemde/dist/simplemde.min.css';
-
 export default {
 };
 </script>
