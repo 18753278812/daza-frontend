@@ -142,6 +142,12 @@ export default {
           margin-top: 0.6em;
           max-width: auto;
           color: rgba(0,0,0,.6);
+          .summary {
+            img {
+              max-width: 480px;
+              max-height: auto;
+            }
+          }
         }
       }
       > .image {
@@ -185,6 +191,16 @@ export default {
   .articles {
     .item {
       .content {
+        > .intro {
+          > .description {
+            .summary {
+              img {
+                max-width: 100%;
+                max-height: auto;
+              }
+            }
+          }
+        }
         > .image {
           width: 100px;
           height: 56px;
