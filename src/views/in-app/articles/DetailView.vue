@@ -92,7 +92,6 @@
             </div>
           </div>
         </div>
-        <sidebarAdsByGoogle />
       </div>
     </div>
   </div>
