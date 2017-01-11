@@ -1,7 +1,7 @@
 FROM nginx
 MAINTAINER JianyingLi <lijy91@foxmail.com>
 
-RUN apt-get update && apt-get install -y sudo curl bzip2 wget git
+RUN apt-get update && apt-get install -y sudo curl bzip2 wget git vim
 RUN curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 RUN apt-get install -y nodejs && apt-get clean
 
