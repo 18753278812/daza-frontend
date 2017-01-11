@@ -100,11 +100,11 @@
 <script>
 import { mapState } from 'vuex';
 import shortid from 'shortid';
-import NProgress from 'nprogress';
 import ImageView from '../../components/ImageView';
 import AssetPickerView from '../../views/assets/PickerView';
 
 const $ = global.jQuery;
+const NProgress = global.NProgress;
 
 export default {
   components: {

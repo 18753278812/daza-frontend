@@ -4,8 +4,8 @@
 </template>
 
 <script>
-import marked from 'marked';
-import highlightJs from 'highlight.js';
+const marked = global.marked;
+const highlightJs = global.hljs;
 
 // Synchronous highlighting with highlight.js
 marked.setOptions({

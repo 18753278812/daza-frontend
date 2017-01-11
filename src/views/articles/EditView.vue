@@ -79,12 +79,12 @@
 
 <script>
 import { mapState } from 'vuex';
-import NProgress from 'nprogress';
 import ImageView from '../../components/ImageView';
 import MarkdownEditor from '../../components/MarkdownEditor';
 import AssetPickerView from '../../views/assets/PickerView';
 
 const $ = global.jQuery;
+const NProgress = global.NProgress;
 
 export default {
   components: {
