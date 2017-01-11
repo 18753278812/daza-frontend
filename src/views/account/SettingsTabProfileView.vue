@@ -108,11 +108,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import NProgress from 'nprogress';
 import ImageView from '../../components/ImageView';
 import AssetPickerView from '../../views/assets/PickerView';
 
 const toastr = global.toastr;
+const NProgress = global.NProgress;
 
 export default {
   components: {

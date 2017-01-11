@@ -57,7 +57,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import NProgress from 'nprogress';
+
+const NProgress = global.NProgress;
 
 export default {
   data() {

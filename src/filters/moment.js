@@ -1,4 +1,4 @@
-import moment from 'moment';
+const moment = global.moment;
 
 module.exports = (value) => {
   moment.locale('zh-cn');

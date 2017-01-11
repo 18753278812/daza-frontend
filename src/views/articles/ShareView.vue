@@ -65,10 +65,10 @@
 <script>
 import { mapState } from 'vuex';
 import shortid from 'shortid';
-import NProgress from 'nprogress';
 import MarkdownEditor from '../../components/MarkdownEditor';
 
 const $ = global.jQuery;
+const NProgress = global.NProgress;
 
 export default {
   components: {

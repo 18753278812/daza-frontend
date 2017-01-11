@@ -5,8 +5,7 @@
 </template>
 
 <script>
-import SimpleMDE from 'simplemde';
-
+const SimpleMDE = global.SimpleMDE;
 const document = global.document;
 
 export default {
