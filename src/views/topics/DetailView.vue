@@ -80,6 +80,11 @@ export default {
       this.$store.dispatch('topicDetailGetLists', { id, page });
     },
   },
+  watch: {
+    topic() {
+      global.document.title = `${this.topic.name} - daza.io`;
+    },
+  },
   beforeCreate() {
     this.$store.dispatch('topicDetailInit');
   },
