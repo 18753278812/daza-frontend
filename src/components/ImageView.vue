@@ -1,5 +1,5 @@
 <template>
-  <img :src="thumbnailUrl" v-on:error="onError"/>
+  <img v-lazy="thumbnailUrl">
 </template>
 
 <script>
