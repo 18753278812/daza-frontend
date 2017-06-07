@@ -1,7 +1,7 @@
 module.exports = {
   NODE_ENV: '"production"',
-  API_URL: '"https://api.daza.io"',
-  EMAIL_REPORT: '"report@daza.io"',
-  EMAIL_SUPPORT: '"support@daza.io"',
+  API_URL: '"http://daza-api.blankapp.org"',
+  EMAIL_REPORT: '"lijy91@foxmail.com"',
+  EMAIL_SUPPORT: '"lijy91@foxmail.com"',
   QINIU_DOMAIN: '"https://oeolgl6y5.qnssl.com"',
 }

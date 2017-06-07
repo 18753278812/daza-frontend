@@ -1,6 +1,6 @@
 # daza-frontend
 
-[「daza.io」](https://daza.io)是一款基于技能树的技术内容聚合应用，根据你的技能对内容进行筛选，让你在这个信息过载的时代里更高效地获取你所需的内容。
+[「daza.io」](http://daza.blankapp.org)是一款基于技能树的技术内容聚合应用，根据你的技能对内容进行筛选，让你在这个信息过载的时代里更高效地获取你所需的内容。
 
 [![Build Status](https://api.travis-ci.org/lijy91/daza-frontend.svg?branch=master)](https://travis-ci.org/lijy91/daza-frontend)
 
@@ -8,8 +8,8 @@
 ![](https://oeolgl6y5.qnssl.com/article/BkS76m6rl/ryJuOmyUg.io%20-%20https___www.daza.io_.png?i0mageView2/2/w/800/h/800)
 
 ## 线上地址
-- 主页：[https://daza.io](https://daza.io)
-- 接口：[https://api.daza.io](https://api.daza.io)
+- 主页：[http://daza.blankapp.org](http://daza.blankapp.org)
+- 接口：[http://daza-api.blankapp.org](http://daza-api.blankapp.org)
 
 ## 项目说明
 > 本项目使用 Vue.js 2.x 进行开发，基于 [vue-cli](https://github.com/vuejs/vue-cli) 构建的 SPA 前端项目。
